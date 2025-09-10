@@ -8,7 +8,7 @@ import './App.css'
 
 function App() {
   return (
-    <Router>
+    <Router basename="/Kairos_blog">
       <div className="flex flex-col min-h-screen">
         <Navbar />
         <main className="flex-grow">
