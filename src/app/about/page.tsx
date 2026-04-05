@@ -2,7 +2,7 @@ import { Navbar } from "@/components/navbar"
 import Link from "next/link"
 import { Mail, MapPin, BookOpen, Code, Heart, Zap, ArrowRight } from "lucide-react"
 
-const skills = ["Java", "Go", "Python", "React", "网络安全", "数据库", "Next.js", "Git"]
+const skills = ["Java", "Go", "Python", "React", "Next.js", "TypeScript", "Git", "Linux"]
 
 const timeline = [
   {
