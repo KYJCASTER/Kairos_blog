@@ -1,36 +1,9 @@
-import { prisma } from "@/lib/db"
 import Link from "next/link"
-import { format } from "date-fns"
-import { zhCN } from "date-fns/locale"
+import { getPublishedPosts } from "@/lib/posts"
 import { ArrowRight, Calendar, Clock } from "lucide-react"
 
-interface PostWithTags {
-  id: string
-  slug: string
-  title: string
-  excerpt: string | null
-  coverImage: string | null
-  publishedAt: Date | null
-  tags: {
-    id: string
-    name: string
-    color: string
-  }[]
-}
-
 export async function LatestPosts() {
-  let posts: PostWithTags[] = []
-  
-  try {
-    posts = await prisma.post.findMany({
-      where: { published: true },
-      orderBy: { publishedAt: "desc" },
-      take: 3,
-      include: { tags: true },
-    })
-  } catch (error) {
-    console.log('Database not available, showing empty state')
-  }
+  const posts = getPublishedPosts().slice(0, 3)
 
   return (
     <section className="py-24 px-4">
@@ -58,26 +31,16 @@ export async function LatestPosts() {
               <Clock className="w-10 h-10 text-orange-400" />
             </div>
             <p className="text-xl text-gray-500 font-medium">文章正在创作中...</p>
-            <p className="text-sm text-gray-400 mt-2">敬请期待精彩内容</p>
+            <p className="text-sm text-gray-400 mt-2">在 content/posts/ 目录添加 Markdown 文件</p>
           </div>
         ) : (
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {posts.map((post: PostWithTags) => (
+            {posts.map((post) => (
               <Link key={post.id} href={`/blog/${post.slug}`}>
                 <article className="card overflow-hidden h-full group cursor-pointer">
-                  {/* 封面图 */}
-                  <div className="aspect-video overflow-hidden">
-                    {post.coverImage ? (
-                      <img
-                        src={post.coverImage}
-                        alt={post.title}
-                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                      />
-                    ) : (
-                      <div className="w-full h-full bg-gradient-to-br from-orange-100 to-amber-100 flex items-center justify-center">
-                        <span className="text-4xl font-bold gradient-text">K</span>
-                      </div>
-                    )}
+                  {/* 封面图 - 使用渐变背景 */}
+                  <div className="aspect-video overflow-hidden bg-gradient-to-br from-orange-100 to-amber-100 flex items-center justify-center">
+                    <span className="text-5xl font-bold gradient-text">K</span>
                   </div>
                   
                   {/* 内容 */}
@@ -86,10 +49,10 @@ export async function LatestPosts() {
                     <div className="flex flex-wrap gap-2 mb-3">
                       {post.tags.slice(0, 3).map((tag) => (
                         <span
-                          key={tag.id}
+                          key={tag}
                           className="text-xs px-3 py-1 rounded-full bg-orange-50 text-orange-600 font-medium"
                         >
-                          {tag.name}
+                          {tag}
                         </span>
                       ))}
                     </div>
@@ -107,8 +70,7 @@ export async function LatestPosts() {
                     {/* 日期 */}
                     <div className="flex items-center gap-2 text-xs text-gray-400">
                       <Calendar className="w-3 h-3" />
-                      {post.publishedAt &&
-                        format(new Date(post.publishedAt), "yyyy年M月d日", { locale: zhCN })}
+                      {post.date}
                     </div>
                   </div>
                 </article>

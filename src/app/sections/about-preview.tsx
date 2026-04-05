@@ -14,7 +14,7 @@ export function AboutPreview() {
             <div className="relative shrink-0">
               <div className="w-40 h-40 rounded-3xl overflow-hidden shadow-2xl shadow-orange-500/10 rotate-3 hover:rotate-0 transition-transform duration-500">
                 <img
-                  src="/头像.jpg"
+                  src="/avatar.svg"
                   alt="Kairos"
                   className="w-full h-full object-cover"
                 />

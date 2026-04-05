@@ -1,8 +1,6 @@
-import { prisma } from "@/lib/db"
 import { Navbar } from "@/components/navbar"
 import Link from "next/link"
-import { format } from "date-fns"
-import { zhCN } from "date-fns/locale"
+import { getPublishedPosts, getAllTags } from "@/lib/posts"
 import { Search, Calendar, ArrowRight, Clock } from "lucide-react"
 
 interface BlogPageProps {
@@ -10,50 +8,26 @@ interface BlogPageProps {
 }
 
 export default async function BlogPage({ searchParams }: BlogPageProps) {
-  const page = Number(searchParams.page) || 1
-  const perPage = 9
-  const skip = (page - 1) * perPage
   const search = typeof searchParams.search === "string" ? searchParams.search : ""
   const tagFilter = typeof searchParams.tag === "string" ? searchParams.tag : ""
 
-  const where = {
-    published: true,
-    ...(search && {
-      OR: [
-        { title: { contains: search, mode: "insensitive" as const } },
-        { excerpt: { contains: search, mode: "insensitive" as const } },
-      ],
-    }),
-    ...(tagFilter && {
-      tags: {
-        some: { slug: tagFilter },
-      },
-    }),
+  let posts = getPublishedPosts()
+  
+  // 搜索过滤
+  if (search) {
+    posts = posts.filter(
+      (post) =>
+        post.title.toLowerCase().includes(search.toLowerCase()) ||
+        post.excerpt.toLowerCase().includes(search.toLowerCase())
+    )
+  }
+  
+  // 标签过滤
+  if (tagFilter) {
+    posts = posts.filter((post) => post.tags.includes(tagFilter))
   }
 
-  let posts: any[] = []
-  let totalPosts = 0
-  let tags: any[] = []
-
-  try {
-    [posts, totalPosts, tags] = await Promise.all([
-      prisma.post.findMany({
-        where,
-        orderBy: { publishedAt: "desc" },
-        skip,
-        take: perPage,
-        include: { tags: true },
-      }),
-      prisma.post.count({ where }),
-      prisma.tag.findMany({
-        include: { _count: { select: { posts: true } } },
-      }),
-    ])
-  } catch (error) {
-    console.log("Database not available")
-  }
-
-  const totalPages = Math.ceil(totalPosts / perPage)
+  const tags = getAllTags()
 
   return (
     <>
@@ -105,10 +79,10 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
                   </Link>
                   {tags.map((tag) => (
                     <Link
-                      key={tag.id}
-                      href={`/blog?tag=${tag.slug}${search ? `&search=${search}` : ""}`}
+                      key={tag.name}
+                      href={`/blog?tag=${encodeURIComponent(tag.name)}${search ? `&search=${search}` : ""}`}
                       className={`px-4 py-2 rounded-full text-sm font-semibold transition-all ${
-                        tagFilter === tag.slug
+                        tagFilter === tag.name
                           ? "bg-orange-500 text-white"
                           : "bg-gray-100 text-gray-600 hover:bg-gray-200"
                       }`}
@@ -135,75 +109,39 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
                 </p>
               </div>
             ) : (
-              <>
-                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {posts.map((post: any) => (
-                    <Link key={post.id} href={`/blog/${post.slug}`}>
-                      <article className="card overflow-hidden h-full group cursor-pointer">
-                        <div className="aspect-video overflow-hidden">
-                          {post.coverImage ? (
-                            <img
-                              src={post.coverImage}
-                              alt={post.title}
-                              className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                            />
-                          ) : (
-                            <div className="w-full h-full bg-gradient-to-br from-orange-100 to-amber-100 flex items-center justify-center">
-                              <span className="text-4xl font-bold gradient-text">K</span>
-                            </div>
-                          )}
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {posts.map((post) => (
+                  <Link key={post.id} href={`/blog/${post.slug}`}>
+                    <article className="card overflow-hidden h-full group cursor-pointer">
+                      <div className="aspect-video overflow-hidden bg-gradient-to-br from-orange-100 to-amber-100 flex items-center justify-center">
+                        <span className="text-5xl font-bold gradient-text">K</span>
+                      </div>
+                      <div className="p-6">
+                        <div className="flex flex-wrap gap-2 mb-3">
+                          {post.tags.slice(0, 3).map((tag) => (
+                            <span
+                              key={tag}
+                              className="text-xs px-3 py-1 rounded-full bg-orange-50 text-orange-600 font-medium"
+                            >
+                              {tag}
+                            </span>
+                          ))}
                         </div>
-                        <div className="p-6">
-                          <div className="flex flex-wrap gap-2 mb-3">
-                            {post.tags.slice(0, 3).map((tag: any) => (
-                              <span
-                                key={tag.id}
-                                className="text-xs px-3 py-1 rounded-full bg-orange-50 text-orange-600 font-medium"
-                              >
-                                {tag.name}
-                              </span>
-                            ))}
-                          </div>
-                          <h3 className="text-lg font-bold mb-2 line-clamp-2 text-gray-800 group-hover:text-orange-500 transition-colors">
-                            {post.title}
-                          </h3>
-                          <p className="text-sm text-gray-500 line-clamp-2 mb-4">
-                            {post.excerpt || "暂无摘要"}
-                          </p>
-                          <div className="flex items-center gap-2 text-xs text-gray-400">
-                            <Calendar className="w-3 h-3" />
-                            {post.publishedAt &&
-                              format(new Date(post.publishedAt), "yyyy-MM-dd", { locale: zhCN })}
-                          </div>
+                        <h3 className="text-lg font-bold mb-2 line-clamp-2 text-gray-800 group-hover:text-orange-500 transition-colors">
+                          {post.title}
+                        </h3>
+                        <p className="text-sm text-gray-500 line-clamp-2 mb-4">
+                          {post.excerpt || "暂无摘要"}
+                        </p>
+                        <div className="flex items-center gap-2 text-xs text-gray-400">
+                          <Calendar className="w-3 h-3" />
+                          {post.date}
                         </div>
-                      </article>
-                    </Link>
-                  ))}
-                </div>
-
-                {/* Pagination */}
-                {totalPages > 1 && (
-                  <div className="flex justify-center gap-2 mt-12">
-                    {page > 1 && (
-                      <Link
-                        href={`/blog?page=${page - 1}${search ? `&search=${search}` : ""}${tagFilter ? `&tag=${tagFilter}` : ""}`}
-                      >
-                        <button className="btn-secondary">← 上一页</button>
-                      </Link>
-                    )}
-                    <span className="px-4 py-2 rounded-full bg-gray-100 text-gray-600 font-semibold">
-                      {page} / {totalPages}
-                    </span>
-                    {page < totalPages && (
-                      <Link
-                        href={`/blog?page=${page + 1}${search ? `&search=${search}` : ""}${tagFilter ? `&tag=${tagFilter}` : ""}`}
-                      >
-                        <button className="btn-primary">下一页 →</button>
-                      </Link>
-                    )}
-                  </div>
-                )}
-              </>
+                      </div>
+                    </article>
+                  </Link>
+                ))}
+              </div>
             )}
           </div>
         </section>
