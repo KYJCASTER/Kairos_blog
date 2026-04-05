@@ -1,0 +1,337 @@
+1:"$Sreact.fragment"
+2:I[2874,["/Kairos_blog/_next/static/chunks/0rha7da~wfx9i.js","/Kairos_blog/_next/static/chunks/0d3shmwh5_nmn.js","/Kairos_blog/_next/static/chunks/0qn4.8eoespq4.js"],"Navbar"]
+3:I[22016,["/Kairos_blog/_next/static/chunks/0rha7da~wfx9i.js","/Kairos_blog/_next/static/chunks/0d3shmwh5_nmn.js","/Kairos_blog/_next/static/chunks/0qn4.8eoespq4.js"],""]
+4:I[58541,["/Kairos_blog/_next/static/chunks/0rha7da~wfx9i.js","/Kairos_blog/_next/static/chunks/0d3shmwh5_nmn.js","/Kairos_blog/_next/static/chunks/0qn4.8eoespq4.js"],"default"]
+a:I[97367,["/Kairos_blog/_next/static/chunks/0rha7da~wfx9i.js","/Kairos_blog/_next/static/chunks/0d3shmwh5_nmn.js"],"OutletBoundary"]
+b:"$Sreact.suspense"
+5:T24e3,<h1>国内 AI 编程助手 Coding Plan 最新动态（2026年3月）</h1>
+<blockquote>
+<p>搜集日期：2026-03-30<br>重点聚焦：**Coding Plan（编程订阅套餐）**最新发布与定价信息</p>
+</blockquote>
+<hr>
+<h2>📰 今日重大新闻（3月25日）</h2>
+<h3>🔴 腾讯云 Coding Plan 战略转型</h3>
+<p><strong>停售 Coding Plan，全面转向 Token Plan</strong></p>
+<p>腾讯云在3月25日宣布重大定价策略调整：</p>
+<ul>
+<li><strong>原有 Coding Plan 正式停售</strong></li>
+<li><strong>全新 Token Plan 上线</strong>：<ul>
+<li>Lite套餐：<strong>39元</strong> = 3500万Token</li>
+<li>Standard套餐：<strong>99元</strong> = 1亿Token</li>
+<li>最高可达：6.5亿Token</li>
+</ul>
+</li>
+</ul>
+<p><strong>官方说明：</strong> 通过更灵活的Token计费模式和激进的定价，争夺开发者和B端用户。</p>
+<hr>
+<h2>一、OpenClaw 引爆 Coding Plan 价格战（3月重点）</h2>
+<h3>1.1 开源智能体 OpenClaw 爆红</h3>
+<p><strong>背景：</strong></p>
+<ul>
+<li>2026年开春，OpenClaw（开源AI智能体）项目引爆全网</li>
+<li>深圳、杭州等地方政府出台&quot;龙虾十条&quot;政策，补贴部署支持</li>
+<li>腾讯在深圳举办免费安装活动，<strong>近千人排队等候</strong></li>
+</ul>
+<p><strong>影响：</strong></p>
+<ul>
+<li>国内云厂商争相推出支持 OpenClaw 的 Coding Plan 套餐</li>
+<li>价格战全面打响，开发者成本降至历史最低</li>
+</ul>
+<hr>
+<h2>二、主流厂商 Coding Plan 套餐详情（2026年3月）</h2>
+<h3>2.1 阿里云 Coding Plan（最新）</h3>
+<p><strong>发布时间：</strong> 2026年3月2日上线，3月4日调整首购优惠</p>
+<p><strong>套餐详情：</strong></p>
+<table>
+<thead>
+<tr>
+<th>套餐</th>
+<th>首月优惠</th>
+<th>次月起续费</th>
+<th>第三月起</th>
+<th>支持模型</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Lite</strong></td>
+<td>¥7.9</td>
+<td>¥40/月</td>
+<td>¥40/月</td>
+<td>Qwen3.5、GLM-5、MiniMax M2.5、Kimi K2.5</td>
+</tr>
+<tr>
+<td><strong>Pro</strong></td>
+<td>¥39.9</td>
+<td>¥200/月</td>
+<td>¥200/月</td>
+<td>同上 + 更多高级模型</td>
+</tr>
+</tbody></table>
+<p><strong>特别说明：</strong></p>
+<ul>
+<li>因订阅太火爆，3月4日起首购优惠限时抢购（每日9:30开始）</li>
+<li>支持 OpenAI、Claude、Cline、Qwen Code 等主流编程工具</li>
+</ul>
+<p><strong>适用工具：</strong></p>
+<ul>
+<li>Claude Code</li>
+<li>OpenClaw</li>
+<li>Cursor</li>
+<li>Cline</li>
+<li>Qwen Code</li>
+<li>Kilo Code</li>
+</ul>
+<p><strong>优势：</strong></p>
+<ul>
+<li>业内首个支持<strong>四大头部开源模型</strong>的 Coding Plan</li>
+<li>模型自由切换，无lock-in</li>
+<li>价格创行业新低（&quot;百亿补贴&quot;战火燃至AI Coding）</li>
+</ul>
+<hr>
+<h3>2.2 腾讯云 Coding Plan（已停售，转Token Plan）</h3>
+<p><strong>发布时间：</strong> 2026年3月10日上新，3月25日停售转型</p>
+<p><strong>历史套餐（已停售）：</strong></p>
+<ul>
+<li>Lite套餐：首月 ¥7.9</li>
+<li>支持 Tencent HY 2.0、GLM-5、Kimi-K2.5、MiniMax-M2.5</li>
+</ul>
+<p><strong>最新 Token Plan（3月25日）：</strong></p>
+<table>
+<thead>
+<tr>
+<th>套餐</th>
+<th>价格</th>
+<th>Token额度</th>
+<th>性价比</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Lite</strong></td>
+<td>¥39</td>
+<td>3500万Token</td>
+<td>¥0.0011/万Token</td>
+</tr>
+<tr>
+<td><strong>Standard</strong></td>
+<td>¥99</td>
+<td>1亿Token</td>
+<td>¥0.00099/万Token</td>
+</tr>
+<tr>
+<td><strong>高级套餐</strong></td>
+<td>定制</td>
+<td>6.5亿Token</td>
+<td>企业大户</td>
+</tr>
+</tbody></table>
+<p><strong>战略意义：</strong></p>
+<ul>
+<li>直接对标阿里云百炼</li>
+<li>与阿里云形成&quot;双雄争霸&quot;格局</li>
+<li>Token计费更灵活，开发者使用更自由</li>
+</ul>
+<hr>
+<h3>2.3 智谱AI GLM Coding Plan</h3>
+<p><strong>最新价格（2026年2月涨价30%）：</strong></p>
+<table>
+<thead>
+<tr>
+<th>套餐</th>
+<th>价格</th>
+<th>额度</th>
+<th>适用场景</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Lite</strong></td>
+<td>$3/月</td>
+<td>120 prompts</td>
+<td>入门体验、轻量使用</td>
+</tr>
+<tr>
+<td><strong>Pro</strong></td>
+<td>$9/月</td>
+<td>高额度 + 思考模式</td>
+<td>活跃开发者</td>
+</tr>
+<tr>
+<td><strong>企业版</strong></td>
+<td>定制</td>
+<td>无限/高并发</td>
+<td>企业团队</td>
+</tr>
+</tbody></table>
+<p><strong>免费模型：</strong></p>
+<ul>
+<li>GLM-4.7-Flash：永久免费</li>
+<li>GLM-4.5-Flash：免费（上一代）</li>
+</ul>
+<p><strong>Benchmark表现：</strong></p>
+<ul>
+<li>SWE-bench: 73.8%</li>
+<li>HumanEval: 85.2%</li>
+</ul>
+<hr>
+<h3>2.4 华为云 CodeArts（公测版）</h3>
+<p><strong>发布时间：</strong> 2026年2月26日</p>
+<p><strong>当前状态：</strong> 公测期<strong>完全免费</strong></p>
+<p><strong>核心特性：</strong></p>
+<ul>
+<li>支持GLM-5.0、DeepSeek-V3.2、华为自研模型</li>
+<li>鸿蒙ArkTS专属模型</li>
+<li>千亿代码库经验沉淀</li>
+<li>Codebase索引（节省30% Token）</li>
+</ul>
+<p><strong>预计商业化：</strong> 企业版待公布</p>
+<hr>
+<h2>三、三家厂商 Coding Plan 快速对比（3月版）</h2>
+<table>
+<thead>
+<tr>
+<th>厂商</th>
+<th>套餐</th>
+<th>月费</th>
+<th>Token/请求额度</th>
+<th>核心模型</th>
+<th>状态</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>阿里云</strong></td>
+<td>Lite</td>
+<td>¥40（次月）</td>
+<td>18000请求/月</td>
+<td>Qwen3.5、GLM-5、MiniMax、Kimi</td>
+<td>在售</td>
+</tr>
+<tr>
+<td><strong>阿里云</strong></td>
+<td>Pro</td>
+<td>¥200（次月）</td>
+<td>90000请求/月</td>
+<td>同上 + 高级模型</td>
+<td>在售</td>
+</tr>
+<tr>
+<td><strong>腾讯云</strong></td>
+<td>Token Lite</td>
+<td>¥39</td>
+<td>3500万Token</td>
+<td>Tencent HY、GLM、Kimi、MiniMax</td>
+<td>在售</td>
+</tr>
+<tr>
+<td><strong>腾讯云</strong></td>
+<td>Token Standard</td>
+<td>¥99</td>
+<td>1亿Token</td>
+<td>同上</td>
+<td>在售</td>
+</tr>
+<tr>
+<td><strong>智谱AI</strong></td>
+<td>Lite</td>
+<td>$3</td>
+<td>120 prompts</td>
+<td>GLM-4.7</td>
+<td>在售</td>
+</tr>
+<tr>
+<td><strong>华为云</strong></td>
+<td>公测版</td>
+<td>免费</td>
+<td>无限制</td>
+<td>GLM-5、DeepSeek、自研</td>
+<td>公测期</td>
+</tr>
+</tbody></table>
+<hr>
+<h2>四、最佳性价比 Coding Plan 推荐（2026年3月）</h2>
+<h3>4.1 按&quot;最划算&quot;排序</h3>
+<p><strong>第一名：腾讯云 Token Plan（39元/3500万Token）</strong></p>
+<ul>
+<li>💰 <strong>单价最低：</strong> ¥0.0011/万Token</li>
+<li>✅ 支持主流国产模型（GLM、Kimi、MiniMax）</li>
+<li>✅ Token计费更灵活，不限制具体请求数</li>
+<li>⚠️ 注意：原有Coding Plan已停售</li>
+</ul>
+<p><strong>第二名：阿里云 Lite（40元/月）</strong></p>
+<ul>
+<li>💰 约¥0.0022/请求</li>
+<li>✅ 四大模型自由切换</li>
+<li>✅ 首月优惠仅7.9元（限时）</li>
+<li>✅ 支持 Cursor、Claude Code 等主流工具</li>
+</ul>
+<p><strong>第三名：智谱AI Lite（$3 ≈ ¥21）</strong></p>
+<ul>
+<li>💰 国际市场最具性价比</li>
+<li>✅ GLM-4.7 性能强劲</li>
+<li>✅ 英文社区支持好</li>
+</ul>
+<p><strong>第四名：华为云公测版（免费）</strong></p>
+<ul>
+<li>💰 <strong>零成本</strong></li>
+<li>✅ 公测期间完全免费</li>
+<li>✅ 鸿蒙生态专属支持</li>
+<li>⚠️ 未来可能收费</li>
+</ul>
+<hr>
+<h3>4.2 按使用场景推荐</h3>
+<p><strong>场景A：OpenClaw重度用户</strong></p>
+<ul>
+<li>推荐：<strong>腾讯云 Token Plan（Standard）<strong>或</strong>阿里云 Lite</strong></li>
+<li>理由：高额度+灵活Token，适合频繁运行的智能体</li>
+</ul>
+<p><strong>场景B：多模型切换需求</strong></p>
+<ul>
+<li>推荐：<strong>阿里云 Coding Plan</strong></li>
+<li>理由：唯一集成四大模型的套餐，Qwen/Claude/Kimi/MiniMax 随心切换</li>
+</ul>
+<p><strong>场景C：中文开发+鸿蒙生态</strong></p>
+<ul>
+<li>推荐：<strong>华为云 CodeArts（公测期免费）</strong></li>
+<li>理由：鸿蒙ArkTS专属优化，完全免费</li>
+</ul>
+<p><strong>场景D：预算敏感/学生党</strong></p>
+<ul>
+<li>推荐：<strong>智谱AI Lite（$3）<strong>或</strong>华为云公测版</strong></li>
+<li>理由：价格最低，功能够用</li>
+</ul>
+<hr>
+<h2>五、关键趋势总结</h2>
+<h3>5.1 价格战白热化</h3>
+<ul>
+<li>阿里云率先降价，首月7.9元引爆市场</li>
+<li>腾讯云跟进Token Plan，单价创新低</li>
+<li>智谱AI国际定价$3，抢占海外市场</li>
+<li><strong>开发者受益：</strong> 成本降至历史最低</li>
+</ul>
+<h3>5.2 Token计费成主流</h3>
+<ul>
+<li>腾讯云全面转向Token Plan</li>
+<li>相比&quot;请求次数&quot;更灵活、更公平</li>
+<li>预计其他厂商将跟进</li>
+</ul>
+<h3>5.3 OpenClaw生态崛起</h3>
+<ul>
+<li>政府政策支持（龙虾十条）</li>
+<li>大厂免费安装活动</li>
+<li>成为Coding Plan的&quot;杀手级应用&quot;</li>
+</ul>
+<hr>
+<h2>参考链接</h2>
+<ul>
+<li><a href="https://bailian.aliyun.com">阿里云百炼</a></li>
+<li><a href="https://ti.cloud.tencent.com">腾讯云TI平台</a></li>
+<li><a href="https://open.bigmodel.cn">智谱AI</a></li>
+<li><a href="https://www.huaweicloud.com/product/codearts.html">华为云CodeArts</a></li>
+</ul>
+<hr>
+<p><em>报告整理日期：2026-03-30</em>
+<em>数据来源：各厂商官网及公开资料</em></p>
+0:{"rsc":["$","$1","c",{"children":[[["$","$L2",null,{}],["$","main",null,{"className":"min-h-screen pt-24 pb-20","children":["$","article",null,{"className":"max-w-3xl mx-auto px-4","children":[["$","$L3",null,{"href":"/blog","className":"inline-flex items-center gap-2 text-gray-500 hover:text-orange-500 transition-colors mb-8","children":[["$","$L4",null,{"iconNode":[["path",{"d":"m12 19-7-7 7-7","key":"1l729n"}],["path",{"d":"M19 12H5","key":"x3x0zl"}]],"className":"lucide-arrow-left w-4 h-4"}],"返回列表"]}],["$","header",null,{"className":"mb-10","children":[["$","div",null,{"className":"flex flex-wrap gap-2 mb-4","children":[["$","span","AI",{"className":"text-sm px-3 py-1 rounded-full bg-orange-50 text-orange-600 font-medium","children":"AI"}],["$","span","编程工具",{"className":"text-sm px-3 py-1 rounded-full bg-orange-50 text-orange-600 font-medium","children":"编程工具"}],["$","span","市场调研",{"className":"text-sm px-3 py-1 rounded-full bg-orange-50 text-orange-600 font-medium","children":"市场调研"}],["$","span","云计算",{"className":"text-sm px-3 py-1 rounded-full bg-orange-50 text-orange-600 font-medium","children":"云计算"}]]}],["$","h1",null,{"className":"text-3xl sm:text-4xl font-bold text-gray-800 mb-4","children":"国内 AI 编程助手厂商调研报告（2026年3月）"}],["$","div",null,{"className":"flex items-center gap-4 text-sm text-gray-500","children":["$","span",null,{"className":"flex items-center gap-1","children":[["$","$L4",null,{"iconNode":[["path",{"d":"M8 2v4","key":"1cmpym"}],["path",{"d":"M16 2v4","key":"4m81vk"}],["rect",{"width":"18","height":"18","x":"3","y":"4","rx":"2","key":"1hopcy"}],["path",{"d":"M3 10h18","key":"8toen8"}]],"className":"lucide-calendar w-4 h-4"}],"2026-03-30"]}]}]]}],["$","div",null,{"className":"prose prose-lg max-w-none prose-headings:text-gray-800 prose-p:text-gray-600 prose-a:text-orange-500 prose-strong:text-gray-800 prose-code:bg-gray-100 prose-code:px-2 prose-code:py-1 prose-code:rounded prose-pre:bg-gray-900 prose-pre:text-white","dangerouslySetInnerHTML":{"__html":"$5"}}],"$L6"]}]}],"$L7"],["$L8"],"$L9"]}],"isPartial":false,"staleTime":300,"varyParams":null,"buildId":"YMs7zpYOfjukPPgXtTU8R"}
+6:["$","footer",null,{"className":"mt-16 pt-8 border-t border-gray-100","children":["$","div",null,{"className":"flex flex-wrap gap-2","children":[["$","span",null,{"className":"text-gray-500 mr-2","children":"标签:"}],[["$","$L3","AI",{"href":"/blog?tag=AI","className":"text-sm px-3 py-1 rounded-full bg-gray-100 text-gray-600 hover:bg-orange-100 hover:text-orange-600 transition-colors","children":"AI"}],["$","$L3","编程工具",{"href":"/blog?tag=%E7%BC%96%E7%A8%8B%E5%B7%A5%E5%85%B7","className":"text-sm px-3 py-1 rounded-full bg-gray-100 text-gray-600 hover:bg-orange-100 hover:text-orange-600 transition-colors","children":"编程工具"}],["$","$L3","市场调研",{"href":"/blog?tag=%E5%B8%82%E5%9C%BA%E8%B0%83%E7%A0%94","className":"text-sm px-3 py-1 rounded-full bg-gray-100 text-gray-600 hover:bg-orange-100 hover:text-orange-600 transition-colors","children":"市场调研"}],["$","$L3","云计算",{"href":"/blog?tag=%E4%BA%91%E8%AE%A1%E7%AE%97","className":"text-sm px-3 py-1 rounded-full bg-gray-100 text-gray-600 hover:bg-orange-100 hover:text-orange-600 transition-colors","children":"云计算"}]]]}]}]
+7:["$","footer",null,{"className":"py-8 px-4 border-t border-gray-100","children":["$","div",null,{"className":"max-w-5xl mx-auto text-center","children":["$","p",null,{"className":"text-gray-500 text-sm","children":["© ",2026," Kairos Blog"]}]}]}]
+8:["$","script","script-0",{"src":"/Kairos_blog/_next/static/chunks/0qn4.8eoespq4.js","async":true}]
+9:["$","$La",null,{"children":["$","$b",null,{"name":"Next.MetadataOutlet","children":"$@c"}]}]
+c:null

@@ -1,0 +1,555 @@
+1:"$Sreact.fragment"
+2:I[27423,["/Kairos_blog/_next/static/chunks/0rha7da~wfx9i.js","/Kairos_blog/_next/static/chunks/0d3shmwh5_nmn.js"],"ThemeProvider"]
+3:I[39756,["/Kairos_blog/_next/static/chunks/0rha7da~wfx9i.js","/Kairos_blog/_next/static/chunks/0d3shmwh5_nmn.js"],"default"]
+4:I[37457,["/Kairos_blog/_next/static/chunks/0rha7da~wfx9i.js","/Kairos_blog/_next/static/chunks/0d3shmwh5_nmn.js"],"default"]
+6:I[97367,["/Kairos_blog/_next/static/chunks/0rha7da~wfx9i.js","/Kairos_blog/_next/static/chunks/0d3shmwh5_nmn.js"],"OutletBoundary"]
+7:"$Sreact.suspense"
+a:I[97367,["/Kairos_blog/_next/static/chunks/0rha7da~wfx9i.js","/Kairos_blog/_next/static/chunks/0d3shmwh5_nmn.js"],"ViewportBoundary"]
+c:I[97367,["/Kairos_blog/_next/static/chunks/0rha7da~wfx9i.js","/Kairos_blog/_next/static/chunks/0d3shmwh5_nmn.js"],"MetadataBoundary"]
+e:I[68027,["/Kairos_blog/_next/static/chunks/0rha7da~wfx9i.js","/Kairos_blog/_next/static/chunks/0d3shmwh5_nmn.js"],"default",1]
+:HL["/Kairos_blog/_next/static/chunks/132oykfw_wbdt.css","style"]
+0:{"P":null,"c":["","blog","java-learning-notes",""],"q":"","i":false,"f":[[["",{"children":["blog",{"children":[["slug","java-learning-notes","d",null],{"children":["__PAGE__",{}]}]}]},"$undefined","$undefined",16],[["$","$1","c",{"children":[[["$","link","0",{"rel":"stylesheet","href":"/Kairos_blog/_next/static/chunks/132oykfw_wbdt.css","precedence":"next","crossOrigin":"$undefined","nonce":"$undefined"}],["$","script","script-0",{"src":"/Kairos_blog/_next/static/chunks/0rha7da~wfx9i.js","async":true,"nonce":"$undefined"}],["$","script","script-1",{"src":"/Kairos_blog/_next/static/chunks/0d3shmwh5_nmn.js","async":true,"nonce":"$undefined"}]],["$","html",null,{"lang":"zh-CN","suppressHydrationWarning":true,"children":["$","body",null,{"className":"min-h-full flex flex-col","children":["$","$L2",null,{"attribute":"class","defaultTheme":"light","enableSystem":true,"disableTransitionOnChange":true,"children":["$","$L3",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L4",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":[[["$","title",null,{"children":"404: This page could not be found."}],["$","div",null,{"style":{"fontFamily":"system-ui,\"Segoe UI\",Roboto,Helvetica,Arial,sans-serif,\"Apple Color Emoji\",\"Segoe UI Emoji\"","height":"100vh","textAlign":"center","display":"flex","flexDirection":"column","alignItems":"center","justifyContent":"center"},"children":["$","div",null,{"children":[["$","style",null,{"dangerouslySetInnerHTML":{"__html":"body{color:#000;background:#fff;margin:0}.next-error-h1{border-right:1px solid rgba(0,0,0,.3)}@media (prefers-color-scheme:dark){body{color:#fff;background:#000}.next-error-h1{border-right:1px solid rgba(255,255,255,.3)}}"}}],["$","h1",null,{"className":"next-error-h1","style":{"display":"inline-block","margin":"0 20px 0 0","padding":"0 23px 0 0","fontSize":24,"fontWeight":500,"verticalAlign":"top","lineHeight":"49px"},"children":404}],["$","div",null,{"style":{"display":"inline-block"},"children":["$","h2",null,{"style":{"fontSize":14,"fontWeight":400,"lineHeight":"49px","margin":0},"children":"This page could not be found."}]}]]}]}]],[]],"forbidden":"$undefined","unauthorized":"$undefined"}]}]}]}]]}],{"children":[["$","$1","c",{"children":[null,["$","$L3",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L4",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","forbidden":"$undefined","unauthorized":"$undefined"}]]}],{"children":[["$","$1","c",{"children":[null,["$","$L3",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L4",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","forbidden":"$undefined","unauthorized":"$undefined"}]]}],{"children":[["$","$1","c",{"children":["$L5",[["$","script","script-0",{"src":"/Kairos_blog/_next/static/chunks/0qn4.8eoespq4.js","async":true,"nonce":"$undefined"}]],["$","$L6",null,{"children":["$","$7",null,{"name":"Next.MetadataOutlet","children":"$@8"}]}]]}],{},null,false,null]},null,false,"$@9"]},null,false,"$@9"]},null,false,null],["$","$1","h",{"children":[null,["$","$La",null,{"children":"$Lb"}],["$","div",null,{"hidden":true,"children":["$","$Lc",null,{"children":["$","$7",null,{"name":"Next.Metadata","children":"$Ld"}]}]}],null]}],false]],"m":"$undefined","G":["$e",[["$","link","0",{"rel":"stylesheet","href":"/Kairos_blog/_next/static/chunks/132oykfw_wbdt.css","precedence":"next","crossOrigin":"$undefined","nonce":"$undefined"}]]],"S":true,"h":null,"s":"$undefined","l":"$undefined","p":"$undefined","d":"$undefined","b":"YMs7zpYOfjukPPgXtTU8R"}
+f:[]
+9:"$Wf"
+10:I[2874,["/Kairos_blog/_next/static/chunks/0rha7da~wfx9i.js","/Kairos_blog/_next/static/chunks/0d3shmwh5_nmn.js","/Kairos_blog/_next/static/chunks/0qn4.8eoespq4.js"],"Navbar"]
+11:I[22016,["/Kairos_blog/_next/static/chunks/0rha7da~wfx9i.js","/Kairos_blog/_next/static/chunks/0d3shmwh5_nmn.js","/Kairos_blog/_next/static/chunks/0qn4.8eoespq4.js"],""]
+12:I[58541,["/Kairos_blog/_next/static/chunks/0rha7da~wfx9i.js","/Kairos_blog/_next/static/chunks/0d3shmwh5_nmn.js","/Kairos_blog/_next/static/chunks/0qn4.8eoespq4.js"],"default"]
+13:T3ebc,<h1>Java 学习笔记：引用类型、循环与 Switch 表达式</h1>
+<h2>目录</h2>
+<ul>
+<li><a href="#%E8%83%8C%E6%99%AF%E5%80%BC%E7%B1%BB%E5%9E%8B-vs-%E5%BC%95%E7%94%A8%E7%B1%BB%E5%9E%8B">背景：值类型 vs 引用类型</a></li>
+<li><a href="#%E5%8F%98%E9%87%8F%E4%BD%9C%E7%94%A8%E5%9F%9F%E5%8E%9F%E5%88%99">变量作用域原则</a></li>
+<li><a href="#%E8%BF%90%E7%AE%97%E7%AC%A6%E5%88%A4%E6%96%AD%E5%BC%95%E7%94%A8%E6%98%AF%E5%90%A6%E7%9B%B8%E7%AD%89">== 运算符：判断引用是否相等</a></li>
+<li><a href="#equals-%E6%96%B9%E6%B3%95%E5%88%A4%E6%96%AD%E5%86%85%E5%AE%B9%E6%98%AF%E5%90%A6%E7%9B%B8%E7%AD%89">equals() 方法：判断内容是否相等</a></li>
+<li><a href="#string-%E5%AF%B9%E8%B1%A1%E7%9A%84%E7%89%B9%E6%AE%8A%E6%80%A7%E8%B4%A8">String 对象的特殊性质</a></li>
+<li><a href="#%E6%80%BB%E7%BB%93%E4%B8%8E%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5">总结与最佳实践</a></li>
+<li><a href="#for-each-%E5%BE%AA%E7%8E%AF">for-each 循环</a></li>
+<li><a href="#%E6%B5%AE%E7%82%B9%E6%95%B0%E7%B2%BE%E5%BA%A6%E9%97%AE%E9%A2%98">浮点数精度问题</a></li>
+<li><a href="#switch-case-%E7%A9%BF%E9%80%8F%E6%80%A7">switch-case 穿透性</a></li>
+<li><a href="#switch-%E8%A1%A8%E8%BE%BE%E5%BC%8Fjava-12">switch 表达式（Java 12+）</a></li>
+<li><a href="#yield-%E5%85%B3%E9%94%AE%E5%AD%97java-13">yield 关键字（Java 13+）</a></li>
+</ul>
+<hr>
+<h2>背景：值类型 vs 引用类型</h2>
+<p>Java 中的数据类型分为两大类：</p>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>存储方式</th>
+<th>判断相等的方式</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>值类型</strong>（基本类型：int, double, boolean 等）</td>
+<td>直接存储值</td>
+<td>使用 <code>==</code></td>
+</tr>
+<tr>
+<td><strong>引用类型</strong>（对象：String, 自定义类等）</td>
+<td>存储对象的内存地址（引用）</td>
+<td>使用 <code>equals()</code></td>
+</tr>
+</tbody></table>
+<hr>
+<h2>变量作用域原则</h2>
+<p>变量应该尽量缩小其访问范围，遵循<strong>最小化作用域原则</strong>。</p>
+<h3>为什么作用域要最小化？</h3>
+<ol>
+<li><p><strong>提高可读性</strong></p>
+<ul>
+<li>变量只在需要的地方出现，代码更易理解</li>
+<li>避免循环结束后还能看到 <code>i</code>，造成困惑</li>
+</ul>
+</li>
+<li><p><strong>避免误用和 Bug</strong></p>
+<ul>
+<li>防止循环后误用已改变的变量值</li>
+<li><code>for (int i = ...)</code> 循环结束后 <code>i</code> 自动销毁，更安全</li>
+</ul>
+</li>
+<li><p><strong>提高可维护性</strong></p>
+<ul>
+<li>变量存活时间越短，越容易追踪和调试</li>
+<li>重构时更安全，不容易影响其他代码</li>
+</ul>
+</li>
+</ol>
+<h3>示例</h3>
+<pre><code class="language-java">// ✅ 推荐：i 的作用域只在循环内
+for (int i = 0; i &lt; n; i++) {
+    System.out.println(ns[i]);
+}
+// 循环结束后 i 不存在，避免误用
+
+// ❌ 不推荐：i 的作用域扩大到整个方法
+int i;
+for (i = 0; i &lt; n; i++) {
+    System.out.println(ns[i]);
+}
+// 循环结束后 i 仍是 5，可能被意外使用
+</code></pre>
+<h3>总结</h3>
+<table>
+<thead>
+<tr>
+<th>原则</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>循环变量</td>
+<td>在 for 内部声明，作用域最小</td>
+</tr>
+<tr>
+<td>方法参数</td>
+<td>只在方法内部有效</td>
+</tr>
+<tr>
+<td>局部变量</td>
+<td>在第一次使用前声明，用完后尽快置空</td>
+</tr>
+</tbody></table>
+<hr>
+<h2>== 运算符：判断引用是否相等</h2>
+<p>在 Java 中，<code>==</code> 用于引用类型时，判断的是<strong>两个变量是否指向同一个对象</strong>（即引用地址是否相同）。</p>
+<pre><code class="language-java">public class Main {
+    public static void main(String[] args) {
+        String s1 = &quot;hello&quot;;
+        String s2 = &quot;HELLO&quot;.toLowerCase();
+
+        System.out.println(s1);  // hello
+        System.out.println(s2);  // hello
+
+        if (s1 == s2) {
+            System.out.println(&quot;s1 == s2&quot;);  // 不会执行
+        } else {
+            System.out.println(&quot;s1 != s2&quot;);  // 输出：s1 != s2
+        }
+    }
+}
+</code></pre>
+<p><strong>输出：</strong></p>
+<pre><code>hello
+hello
+s1 != s2
+</code></pre>
+<p><strong>原因分析：</strong></p>
+<ul>
+<li><code>s1</code> 指向字符串常量池中的 <code>&quot;hello&quot;</code></li>
+<li><code>s2</code> 通过 <code>toLowerCase()</code> 方法创建了一个<strong>新的 String 对象</strong></li>
+<li>虽然内容相同，但它们是<strong>不同的对象</strong>，引用地址不同</li>
+</ul>
+<hr>
+<h2>equals() 方法：判断内容是否相等</h2>
+<p>要判断引用类型的<strong>内容</strong>是否相等，必须使用 <code>equals()</code> 方法：</p>
+<pre><code class="language-java">public class Main {
+    public static void main(String[] args) {
+        String s1 = &quot;hello&quot;;
+        String s2 = &quot;HELLO&quot;.toLowerCase();
+
+        System.out.println(s1);  // hello
+        System.out.println(s2);  // hello
+
+        if (s1.equals(s2)) {
+            System.out.println(&quot;s1 equals s2&quot;);  // 输出：s1 equals s2
+        } else {
+            System.out.println(&quot;s1 not equals s2&quot;);
+        }
+    }
+}
+</code></pre>
+<p><strong>输出：</strong></p>
+<pre><code>hello
+hello
+s1 equals s2
+</code></pre>
+<hr>
+<h2>String 对象的特殊性质</h2>
+<h3>字符串常量池</h3>
+<p>Java 为了节省内存，设置了<strong>字符串常量池</strong>：</p>
+<pre><code class="language-java">String s1 = &quot;hello&quot;;           // 放入常量池
+String s2 = &quot;hello&quot;;           // 直接从常量池获取，s1 和 s2 指向同一对象
+System.out.println(s1 == s2);  // true
+</code></pre>
+<h3>编译期 vs 运行期</h3>
+<table>
+<thead>
+<tr>
+<th>操作</th>
+<th>结果</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>String s = &quot;hello&quot;</code></td>
+<td>编译期确定，放入常量池</td>
+</tr>
+<tr>
+<td><code>String s = &quot;HELLO&quot;.toLowerCase()</code></td>
+<td>运行期创建是新对象</td>
+</tr>
+</tbody></table>
+<hr>
+<h2>总结与最佳实践</h2>
+<h3>判断引用类型相等</h3>
+<table>
+<thead>
+<tr>
+<th>场景</th>
+<th>推荐方式</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>判断 String 内容是否相等</td>
+<td>使用 <code>equals()</code></td>
+</tr>
+<tr>
+<td>判断是否指向同一对象</td>
+<td>使用 <code>==</code></td>
+</tr>
+<tr>
+<td>自定义类比较</td>
+<td>重写 <code>equals()</code> 方法</td>
+</tr>
+</tbody></table>
+<h3>注意事项</h3>
+<ol>
+<li><strong>String 比较必须用 <code>equals()</code></strong>，否则容易出现意外结果</li>
+<li><code>equals()</code> 方法默认继承自 <code>Object</code>，比较的是引用地址</li>
+<li>常用类（如 <code>String</code>、<code>Integer</code>）已经重写了 <code>equals()</code>，实现内容比较</li>
+<li>自定义类若需要比较内容，应重写 <code>equals()</code> 方法（通常配合 <code>hashCode()</code> 一起重写）</li>
+</ol>
+<hr>
+<h2>for-each 循环</h2>
+<p>Java 提供了<strong>增强 for 循环</strong>（for-each），用于更简洁地遍历数组和集合。</p>
+<h3>基本语法</h3>
+<pre><code class="language-java">int[] ns = { 1, 4, 9, 16, 25 };
+for (int n : ns) {
+    System.out.println(n);
+}
+</code></pre>
+<h3>对比：普通 for vs for-each</h3>
+<table>
+<thead>
+<tr>
+<th>特性</th>
+<th>普通 for 循环</th>
+<th>for-each 循环</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>索引</td>
+<td>可以获取索引 <code>i</code></td>
+<td>无法获取索引</td>
+</tr>
+<tr>
+<td>遍历顺序</td>
+<td>可以控制顺序</td>
+<td>按数组顺序遍历</td>
+</tr>
+<tr>
+<td>代码简洁度</td>
+<td>较繁琐</td>
+<td>更简洁</td>
+</tr>
+<tr>
+<td>适用场景</td>
+<td>需要索引或控制步长</td>
+<td>只遍历元素</td>
+</tr>
+</tbody></table>
+<h3>优点</h3>
+<ol>
+<li><strong>写法简洁</strong>：无需手动管理索引</li>
+<li><strong>更安全</strong>：避免了数组越界等索引错误</li>
+<li><strong>易读</strong>：直接操作元素，代码意图明确</li>
+</ol>
+<h3>缺点</h3>
+<ol>
+<li><strong>无法获取索引</strong></li>
+<li><strong>无法反向遍历</strong></li>
+<li><strong>无法在遍历时修改数组</strong></li>
+</ol>
+<h3>应用场景</h3>
+<p>for-each 适合<strong>只关心元素、不关心索引</strong>的场景：</p>
+<pre><code class="language-java">// 遍历打印
+for (String name : names) {
+    System.out.println(name);
+}
+
+// 遍历求和
+int sum = 0;
+for (int n : numbers) {
+    sum += n;
+}
+
+// 遍历集合（后续会学）
+for (ListItem item : items) {
+    // 处理每个元素
+}
+</code></pre>
+<h3>注意事项</h3>
+<ul>
+<li>for-each 不仅能遍历数组，还能遍历所有<strong>可迭代</strong>（Iterable）的数据类型，如 <code>List</code>、<code>Set</code>、<code>Map</code> 等</li>
+<li>遍历时不要修改集合结构（增删元素），否则可能抛出 <code>ConcurrentModificationException</code></li>
+</ul>
+<hr>
+<h2>浮点数精度问题</h2>
+<p>Java 中 <code>float</code> 和 <code>double</code> 是<strong>值类型</strong>（基本类型），但同样存在精度问题。</p>
+<h3>问题根源：二进制无法精确表示某些十进制小数</h3>
+<p>计算机使用<strong>二进制</strong>存储数字，但很多十进制小数无法用有限长度的二进制表示。</p>
+<p>例如，十进制的 <code>0.1</code> 在二进制中是无限循环的：</p>
+<pre><code>0.1(十进制) = 0.00011001100110011...(二进制) 无限循环
+</code></pre>
+<h3>IEEE 754 标准</h3>
+<p>大多数计算机使用 IEEE 754 标准存储浮点数：</p>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>总位数</th>
+<th>符号位</th>
+<th>指数位</th>
+<th>尾数位</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>float</td>
+<td>32 位</td>
+<td>1 位</td>
+<td>8 位</td>
+<td>23 位</td>
+</tr>
+<tr>
+<td>double</td>
+<td>64 位</td>
+<td>1 位</td>
+<td>11 位</td>
+<td>52 位</td>
+</tr>
+</tbody></table>
+<p>固定位数意味着只能表示有限数量的数值，导致精度截断。</p>
+<h3>常见后果</h3>
+<pre><code class="language-java">System.out.println(0.1 + 0.2);   // 输出：0.30000000000000004
+System.out.println(0.1 * 0.2);   // 输出：0.020000000000000004
+System.out.println(1.0 - 0.9);   // 输出：0.09999999999999998
+</code></pre>
+<h3>解决方案</h3>
+<ol>
+<li><p><strong>使用 BigDecimal 类</strong></p>
+<pre><code class="language-java">import java.math.BigDecimal;
+
+BigDecimal a = new BigDecimal(&quot;0.1&quot;);
+BigDecimal b = new BigDecimal(&quot;0.2&quot;);
+System.out.println(a.add(b));  // 输出：0.3
+</code></pre>
+</li>
+<li><p><strong>使用整数计算</strong>（金额计算推荐）</p>
+<pre><code class="language-java">// 以&quot;分&quot;为单位，避免小数
+int yuan = 10;
+int jiao = 5;
+int fen = 3;
+int totalFen = yuan * 100 + jiao * 10 + fen;  // 1053 分
+</code></pre>
+</li>
+<li><p><strong>设置容忍误差进行比较</strong></p>
+<pre><code class="language-java">double a = 0.1 + 0.2;
+double b = 0.3;
+if (Math.abs(a - b) &lt; 1e-10) {
+    System.out.println(&quot;近似相等&quot;);
+}
+</code></pre>
+</li>
+</ol>
+<h3>总结</h3>
+<table>
+<thead>
+<tr>
+<th>场景</th>
+<th>推荐方案</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>金融/金额计算</td>
+<td>BigDecimal 或整数</td>
+</tr>
+<tr>
+<td>科学计算</td>
+<td>double（通常足够）</td>
+</tr>
+<tr>
+<td>精确比较</td>
+<td>设置误差范围</td>
+</tr>
+</tbody></table>
+<hr>
+<h2>switch-case 穿透性</h2>
+<p><code>switch</code> 语句的 case 具有<strong>穿透性</strong>（Fall-through）：如果 case 块没有 <code>break</code>，则会继续执行下一个 case。</p>
+<h3>基本示例</h3>
+<pre><code class="language-java">int day = 2;
+switch (day) {
+    case 1:
+        System.out.println(&quot;星期一&quot;);
+    case 2:
+        System.out.println(&quot;星期二&quot;);
+    case 3:
+        System.out.println(&quot;星期三&quot;);
+    default:
+        System.out.println(&quot;其他&quot;);
+}
+</code></pre>
+<p><strong>输出：</strong></p>
+<pre><code>星期二
+星期三
+其他
+</code></pre>
+<h3>实际应用：多 case 共用逻辑</h3>
+<p>穿透性可以巧妙利用，让多个 case 共用同一段代码：</p>
+<pre><code class="language-java">int score = 85;
+switch (score / 10) {
+    case 9:
+    case 8:
+        System.out.println(&quot;优秀&quot;);
+        break;
+    case 7:
+    case 6:
+        System.out.println(&quot;良好&quot;);
+        break;
+    default:
+        System.out.println(&quot;需努力&quot;);
+}
+</code></pre>
+<h3>总结</h3>
+<table>
+<thead>
+<tr>
+<th>特性</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>有 <code>break</code></td>
+<td>执行完该 case 后跳出 switch</td>
+</tr>
+<tr>
+<td>无 <code>break</code></td>
+<td>继续执行下一个 case（穿透）</td>
+</tr>
+<tr>
+<td>常见错误</td>
+<td>忘记加 break 导致意外穿透</td>
+</tr>
+<tr>
+<td>巧妙用法</td>
+<td>多个 case 共用同一逻辑</td>
+</tr>
+</tbody></table>
+<hr>
+<h2>switch 表达式（Java 12+）</h2>
+<p>从 Java 12 开始，switch 语句升级为更简洁的<strong>表达式语法</strong>，使用 <code>-&gt;</code> 替代冒号，且<strong>没有穿透效应</strong>。</p>
+<h3>基本语法</h3>
+<pre><code class="language-java">String fruit = &quot;apple&quot;;
+switch (fruit) {
+    case &quot;apple&quot; -&gt; System.out.println(&quot;Selected apple&quot;);
+    case &quot;pear&quot; -&gt; System.out.println(&quot;Selected pear&quot;);
+    case &quot;mango&quot; -&gt; {
+        System.out.println(&quot;Selected mango&quot;);
+        System.out.println(&quot;Good choice!&quot;);
+    }
+    default -&gt; System.out.println(&quot;No fruit selected&quot;);
+}
+</code></pre>
+<p><strong>特点：</strong></p>
+<ul>
+<li>使用 <code>-&gt;</code> 箭头语法</li>
+<li>多条语句需要用 <code>{}</code> 括起来</li>
+<li><strong>不需要 break</strong>，没有穿透效应</li>
+</ul>
+<h3>switch 表达式返回值</h3>
+<p>switch 还可以作为表达式直接返回值：</p>
+<pre><code class="language-java">String fruit = &quot;apple&quot;;
+int opt = switch (fruit) {
+    case &quot;apple&quot; -&gt; 1;
+    case &quot;pear&quot;, &quot;mango&quot; -&gt; 2;
+    default -&gt; 0;
+};  // 注意赋值语句要以 ; 结束
+System.out.println(&quot;opt = &quot; + opt);  // opt = 1
+</code></pre>
+<h3>对比：旧语法 vs 新语法</h3>
+<table>
+<thead>
+<tr>
+<th>特性</th>
+<th>旧语法</th>
+<th>新语法</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>分隔符</td>
+<td><code>:</code></td>
+<td><code>-&gt;</code></td>
+</tr>
+<tr>
+<td>穿透性</td>
+<td>有（需 break）</td>
+<td>无</td>
+</tr>
+<tr>
+<td>返回值</td>
+<td>需要变量赋值</td>
+<td>直接返回</td>
+</tr>
+<tr>
+<td>多 case 共用</td>
+<td>连续写 case</td>
+<td>用逗号分隔</td>
+</tr>
+</tbody></table>
+<hr>
+<h2>yield 关键字（Java 13+）</h2>
+<p>在 switch 表达式中，如果 case 块使用 <code>{}</code> 代码块（包含多条语句），需要使用 <code>yield</code> 关键字返回值：</p>
+<pre><code class="language-java">int num = 2;
+String result = switch (num) {
+    case 1 -&gt; &quot;one&quot;;
+    case 2 -&gt; {
+        String msg = &quot;two&quot;;
+        yield msg;  // 使用 yield 返回值
+    }
+    default -&gt; &quot;other&quot;;
+};
+System.out.println(result);  // 输出：two
+</code></pre>
+<p><strong>两种返回值方式对比：</strong></p>
+<table>
+<thead>
+<tr>
+<th>方式</th>
+<th>语法</th>
+<th>适用场景</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>箭头直接返回</td>
+<td><code>case &quot;apple&quot; -&gt; 1;</code></td>
+<td>单行表达式</td>
+</tr>
+<tr>
+<td>yield 返回</td>
+<td><code>case &quot;apple&quot; -&gt; { yield 1; }</code></td>
+<td>多行代码块</td>
+</tr>
+</tbody></table>
+<p><strong>注意事项：</strong></p>
+<ul>
+<li><code>yield</code> 只能在 switch 表达式中使用，不能在普通 switch 语句中使用</li>
+<li>使用 <code>{}</code> 代码块时，必须使用 <code>yield</code> 返回值，不能直接写值</li>
+</ul>
+<hr>
+<p><em>笔记整理日期：2026-03-12</em></p>
+5:[["$","$L10",null,{}],["$","main",null,{"className":"min-h-screen pt-24 pb-20","children":["$","article",null,{"className":"max-w-3xl mx-auto px-4","children":[["$","$L11",null,{"href":"/blog","className":"inline-flex items-center gap-2 text-gray-500 hover:text-orange-500 transition-colors mb-8","children":[["$","$L12",null,{"ref":"$undefined","iconNode":[["path",{"d":"m12 19-7-7 7-7","key":"1l729n"}],["path",{"d":"M19 12H5","key":"x3x0zl"}]],"className":"lucide-arrow-left w-4 h-4"}],"返回列表"]}],["$","header",null,{"className":"mb-10","children":[["$","div",null,{"className":"flex flex-wrap gap-2 mb-4","children":[["$","span","Java",{"className":"text-sm px-3 py-1 rounded-full bg-orange-50 text-orange-600 font-medium","children":"Java"}],["$","span","编程",{"className":"text-sm px-3 py-1 rounded-full bg-orange-50 text-orange-600 font-medium","children":"编程"}],["$","span","学习笔记",{"className":"text-sm px-3 py-1 rounded-full bg-orange-50 text-orange-600 font-medium","children":"学习笔记"}],["$","span","后端",{"className":"text-sm px-3 py-1 rounded-full bg-orange-50 text-orange-600 font-medium","children":"后端"}]]}],["$","h1",null,{"className":"text-3xl sm:text-4xl font-bold text-gray-800 mb-4","children":"Java 学习笔记：引用类型、循环与 Switch 表达式"}],["$","div",null,{"className":"flex items-center gap-4 text-sm text-gray-500","children":["$","span",null,{"className":"flex items-center gap-1","children":[["$","$L12",null,{"ref":"$undefined","iconNode":[["path",{"d":"M8 2v4","key":"1cmpym"}],["path",{"d":"M16 2v4","key":"4m81vk"}],["rect",{"width":"18","height":"18","x":"3","y":"4","rx":"2","key":"1hopcy"}],["path",{"d":"M3 10h18","key":"8toen8"}]],"className":"lucide-calendar w-4 h-4"}],"2026-03-12"]}]}]]}],["$","div",null,{"className":"prose prose-lg max-w-none prose-headings:text-gray-800 prose-p:text-gray-600 prose-a:text-orange-500 prose-strong:text-gray-800 prose-code:bg-gray-100 prose-code:px-2 prose-code:py-1 prose-code:rounded prose-pre:bg-gray-900 prose-pre:text-white","dangerouslySetInnerHTML":{"__html":"$13"}}],"$L14"]}]}],"$L15"]
+14:["$","footer",null,{"className":"mt-16 pt-8 border-t border-gray-100","children":["$","div",null,{"className":"flex flex-wrap gap-2","children":[["$","span",null,{"className":"text-gray-500 mr-2","children":"标签:"}],[["$","$L11","Java",{"href":"/blog?tag=Java","className":"text-sm px-3 py-1 rounded-full bg-gray-100 text-gray-600 hover:bg-orange-100 hover:text-orange-600 transition-colors","children":"Java"}],["$","$L11","编程",{"href":"/blog?tag=%E7%BC%96%E7%A8%8B","className":"text-sm px-3 py-1 rounded-full bg-gray-100 text-gray-600 hover:bg-orange-100 hover:text-orange-600 transition-colors","children":"编程"}],["$","$L11","学习笔记",{"href":"/blog?tag=%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0","className":"text-sm px-3 py-1 rounded-full bg-gray-100 text-gray-600 hover:bg-orange-100 hover:text-orange-600 transition-colors","children":"学习笔记"}],["$","$L11","后端",{"href":"/blog?tag=%E5%90%8E%E7%AB%AF","className":"text-sm px-3 py-1 rounded-full bg-gray-100 text-gray-600 hover:bg-orange-100 hover:text-orange-600 transition-colors","children":"后端"}]]]}]}]
+15:["$","footer",null,{"className":"py-8 px-4 border-t border-gray-100","children":["$","div",null,{"className":"max-w-5xl mx-auto text-center","children":["$","p",null,{"className":"text-gray-500 text-sm","children":["© ",2026," Kairos Blog"]}]}]}]
+b:[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}]]
+16:I[27201,["/Kairos_blog/_next/static/chunks/0rha7da~wfx9i.js","/Kairos_blog/_next/static/chunks/0d3shmwh5_nmn.js"],"IconMark"]
+8:null
+d:[["$","title","0",{"children":"Kairos 博客 - 开发者日志"}],["$","meta","1",{"name":"description","content":"河南大学 2024 级网络工程专业学生的技术博客"}],["$","link","2",{"rel":"icon","href":"/Kairos_blog/favicon.ico?favicon.0x3dzn~oxb6tn.ico","sizes":"256x256","type":"image/x-icon"}],["$","$L16","3",{}]]

@@ -1,0 +1,176 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charSet="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="stylesheet" href="/Kairos_blog/_next/static/chunks/132oykfw_wbdt.css" data-precedence="next"/><link rel="preload" as="script" fetchPriority="low" href="/Kairos_blog/_next/static/chunks/0bzupvr5gt3k9.js"/><script src="/Kairos_blog/_next/static/chunks/0x-i.j79....k.js" async=""></script><script src="/Kairos_blog/_next/static/chunks/0bogtdbh.dcu1.js" async=""></script><script src="/Kairos_blog/_next/static/chunks/turbopack-0rzigd41e1wi4.js" async=""></script><script src="/Kairos_blog/_next/static/chunks/0rha7da~wfx9i.js" async=""></script><script src="/Kairos_blog/_next/static/chunks/0d3shmwh5_nmn.js" async=""></script><script src="/Kairos_blog/_next/static/chunks/0qn4.8eoespq4.js" async=""></script><title>Kairos 博客 - 开发者日志</title><meta name="description" content="河南大学 2024 级网络工程专业学生的技术博客"/><link rel="icon" href="/Kairos_blog/favicon.ico?favicon.0x3dzn~oxb6tn.ico" sizes="256x256" type="image/x-icon"/><script src="/Kairos_blog/_next/static/chunks/03~yq9q893hmn.js" noModule=""></script></head><body class="min-h-full flex flex-col"><div hidden=""><!--$--><!--/$--></div><script>((a,b,c,d,e,f,g,h)=>{let i=document.documentElement,j=["light","dark"];function k(b){var c;(Array.isArray(a)?a:[a]).forEach(a=>{let c="class"===a,d=c&&f?e.map(a=>f[a]||a):e;c?(i.classList.remove(...d),i.classList.add(f&&f[b]?f[b]:b)):i.setAttribute(a,b)}),c=b,h&&j.includes(c)&&(i.style.colorScheme=c)}if(d)k(d);else try{let a=localStorage.getItem(b)||c,d=g&&"system"===a?window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light":a;k(d)}catch(a){}})("class","theme","light",null,["light","dark"],null,true,true)</script><nav class="fixed top-4 left-4 right-4 z-50"><div class="max-w-5xl mx-auto"><div class="bg-white/90 backdrop-blur-md rounded-full px-6 py-3 shadow-lg shadow-orange-500/5 border border-orange-100"><div class="flex items-center justify-between"><a class="flex items-center gap-2 group" href="/Kairos_blog/"><div class="w-10 h-10 rounded-full bg-gradient-to-br from-orange-500 to-amber-400 flex items-center justify-center shadow-lg shadow-orange-500/20"><span class="text-white font-bold text-lg">K</span></div><span class="font-bold text-lg hidden sm:block text-gray-800">Kairos</span></a><div class="flex items-center gap-1 bg-gray-100/50 rounded-full p-1"><a class="relative px-4 py-2 rounded-full text-sm font-semibold transition-all duration-300 flex items-center gap-2 text-gray-600 hover:text-gray-900" href="/Kairos_blog/"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-house w-4 h-4" aria-hidden="true"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"></path><path d="M3 10a2 2 0 0 1 .709-1.528l7-6a2 2 0 0 1 2.582 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg><span class="hidden sm:inline">首页</span></a><a class="relative px-4 py-2 rounded-full text-sm font-semibold transition-all duration-300 flex items-center gap-2 bg-white text-orange-500 shadow-sm" href="/Kairos_blog/blog"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-book-open w-4 h-4" aria-hidden="true"><path d="M12 7v14"></path><path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"></path></svg><span class="hidden sm:inline">博客</span></a><a class="relative px-4 py-2 rounded-full text-sm font-semibold transition-all duration-300 flex items-center gap-2 text-gray-600 hover:text-gray-900" href="/Kairos_blog/about"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-user w-4 h-4" aria-hidden="true"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg><span class="hidden sm:inline">关于</span></a></div><a href="https://github.com/KYJCASTER" target="_blank" rel="noopener noreferrer" class="p-2 rounded-full text-gray-500 hover:text-orange-500 hover:bg-orange-50 transition-all"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"></path></svg></a></div></div></div></nav><main class="min-h-screen pt-24 pb-20"><article class="max-w-3xl mx-auto px-4"><a class="inline-flex items-center gap-2 text-gray-500 hover:text-orange-500 transition-colors mb-8" href="/Kairos_blog/blog"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-left w-4 h-4" aria-hidden="true"><path d="m12 19-7-7 7-7"></path><path d="M19 12H5"></path></svg>返回列表</a><header class="mb-10"><div class="flex flex-wrap gap-2 mb-4"><span class="text-sm px-3 py-1 rounded-full bg-orange-50 text-orange-600 font-medium">Java</span><span class="text-sm px-3 py-1 rounded-full bg-orange-50 text-orange-600 font-medium">面向对象</span><span class="text-sm px-3 py-1 rounded-full bg-orange-50 text-orange-600 font-medium">编程</span><span class="text-sm px-3 py-1 rounded-full bg-orange-50 text-orange-600 font-medium">后端</span></div><h1 class="text-3xl sm:text-4xl font-bold text-gray-800 mb-4">Java 面向对象核心概念：多态、抽象类与 default 方法</h1><div class="flex items-center gap-4 text-sm text-gray-500"><span class="flex items-center gap-1"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-calendar w-4 h-4" aria-hidden="true"><path d="M8 2v4"></path><path d="M16 2v4"></path><rect width="18" height="18" x="3" y="4" rx="2"></rect><path d="M3 10h18"></path></svg>2026-03-20</span></div></header><div class="prose prose-lg max-w-none prose-headings:text-gray-800 prose-p:text-gray-600 prose-a:text-orange-500 prose-strong:text-gray-800 prose-code:bg-gray-100 prose-code:px-2 prose-code:py-1 prose-code:rounded prose-pre:bg-gray-900 prose-pre:text-white"><h1>Java 面向对象核心概念：多态、抽象类与 default 方法</h1>
+<h2>多态与覆写</h2>
+<h3>概念</h3>
+<ul>
+<li><strong>多态</strong> = 同一个方法调用，不同对象有不同行为</li>
+<li><strong>覆写</strong> = 子类重新定义从父类继承的方法</li>
+</ul>
+<h3>示例</h3>
+<pre><code class="language-java">class Animal {
+    speak() { return &quot;...&quot; }
+}
+
+class Dog extends Animal {
+    speak() { return &quot;汪&quot; }  // 覆写
+}
+
+class Cat extends Animal {
+    speak() { return &quot;喵&quot; }  // 覆写
+}
+</code></pre>
+<h3>调用示例</h3>
+<pre><code class="language-java">Animal[] animals = {new Dog(), new Cat()};
+for (Animal a : animals) {
+    a.speak();  // 输出: 汪, 喵
+}
+</code></pre>
+<h3>因果关系（易混淆点）</h3>
+<p><strong>错误说法：</strong></p>
+<blockquote>
+<p>&quot;由于多态的存在，子类可以覆写父类方法&quot;</p>
+</blockquote>
+<p><strong>正确关系：</strong></p>
+<pre><code>覆写（机制/原因） → 多态（效果/结果）
+</code></pre>
+<p><strong>更准确的说法：</strong></p>
+<ul>
+<li>覆写父类方法，使多态成为可能</li>
+<li>多态依赖于覆写机制</li>
+</ul>
+<h3>关键点</h3>
+<table>
+<thead>
+<tr>
+<th>概念</th>
+<th>角色</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>覆写</td>
+<td>机制</td>
+<td>子类重定义父类方法</td>
+</tr>
+<tr>
+<td>多态</td>
+<td>效果</td>
+<td>同一接口，不同实现</td>
+</tr>
+</tbody></table>
+<hr>
+<h2>抽象类与权限修饰符</h2>
+<h3>抽象类可以使用权限修饰符</h3>
+<pre><code class="language-java">// 有修饰符（推荐）
+public abstract class Animal { }
+protected abstract class Base { }
+abstract class Internal { }  // 默认 package-private
+
+// 没有 abstract 就不是抽象类
+public class Animal { }  // 普通类
+</code></pre>
+<h3>权限修饰符可见性</h3>
+<table>
+<thead>
+<tr>
+<th>修饰符</th>
+<th>可见性</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>public</code></td>
+<td>所有类可见</td>
+</tr>
+<tr>
+<td><code>protected</code></td>
+<td>同包 + 子类可见</td>
+</tr>
+<tr>
+<td>无修饰符</td>
+<td>同包可见（package-private）</td>
+</tr>
+<tr>
+<td><code>private</code></td>
+<td>❌ 抽象类不能用（无法被继承）</td>
+</tr>
+</tbody></table>
+<h3>抽象方法也需要修饰符</h3>
+<pre><code class="language-java">public abstract class Animal {
+    public abstract void speak();      // public
+    protected abstract void eat();     // protected
+    abstract void sleep();             // package-private
+}
+</code></pre>
+<h3>关键点</h3>
+<ul>
+<li>权限修饰符是<strong>独立的</strong>，控制访问级别</li>
+<li><code>abstract</code> 只是表示&quot;不能实例化，必须被继承&quot;</li>
+<li>抽象类不能用 <code>private</code>（会导致无法继承，矛盾）</li>
+</ul>
+<hr>
+<h2>default 方法（Java 8+）</h2>
+<h3>概念</h3>
+<p><strong>default 方法 = 接口中的默认实现方法</strong>（Java 8 引入）</p>
+<h3>对比</h3>
+<pre><code class="language-java">interface Animal {
+    void speak();              // 抽象方法，子类必须实现
+
+    default void eat() {       // default 方法，有默认实现
+        System.out.println(&quot;吃东西&quot;);
+    }
+}
+</code></pre>
+<h3>子类使用</h3>
+<pre><code class="language-java">class Dog implements Animal {
+    @Override
+    public void speak() {      // 必须实现
+        System.out.println(&quot;汪&quot;);
+    }
+    // eat() 可以不写，直接继承默认实现
+
+    // 也可以覆写
+    @Override
+    public void eat() {
+        System.out.println(&quot;吃狗粮&quot;);
+    }
+}
+</code></pre>
+<h3>为什么需要 default？</h3>
+<ol>
+<li><strong>向后兼容</strong>：给旧接口添加新方法，不破坏已有实现</li>
+<li><strong>代码复用</strong>：接口提供通用实现</li>
+</ol>
+<h3>对比表</h3>
+<table>
+<thead>
+<tr>
+<th>特性</th>
+<th>抽象方法</th>
+<th>default 方法</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>关键字</td>
+<td>无/abstract</td>
+<td>default</td>
+</tr>
+<tr>
+<td>实现</td>
+<td>❌ 没有</td>
+<td>✅ 有</td>
+</tr>
+<tr>
+<td>子类</td>
+<td>必须覆写</td>
+<td>可选覆写</td>
+</tr>
+</tbody></table>
+<hr>
+<h2>总结</h2>
+<ol>
+<li><strong>多态</strong>是覆写带来的效果，因果顺序：覆写 → 多态</li>
+<li><strong>抽象类</strong>可以用任意权限修饰符（除 private）</li>
+<li><strong>default 方法</strong>让接口可以有默认实现，解决向后兼容问题</li>
+</ol>
+<hr>
+<p><em>笔记整理日期：2026-03-20</em></p>
+</div><footer class="mt-16 pt-8 border-t border-gray-100"><div class="flex flex-wrap gap-2"><span class="text-gray-500 mr-2">标签:</span><a class="text-sm px-3 py-1 rounded-full bg-gray-100 text-gray-600 hover:bg-orange-100 hover:text-orange-600 transition-colors" href="/Kairos_blog/blog?tag=Java">Java</a><a class="text-sm px-3 py-1 rounded-full bg-gray-100 text-gray-600 hover:bg-orange-100 hover:text-orange-600 transition-colors" href="/Kairos_blog/blog?tag=%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1">面向对象</a><a class="text-sm px-3 py-1 rounded-full bg-gray-100 text-gray-600 hover:bg-orange-100 hover:text-orange-600 transition-colors" href="/Kairos_blog/blog?tag=%E7%BC%96%E7%A8%8B">编程</a><a class="text-sm px-3 py-1 rounded-full bg-gray-100 text-gray-600 hover:bg-orange-100 hover:text-orange-600 transition-colors" href="/Kairos_blog/blog?tag=%E5%90%8E%E7%AB%AF">后端</a></div></footer></article></main><footer class="py-8 px-4 border-t border-gray-100"><div class="max-w-5xl mx-auto text-center"><p class="text-gray-500 text-sm">© <!-- -->2026<!-- --> Kairos Blog</p></div></footer><!--$--><!--/$--><script src="/Kairos_blog/_next/static/chunks/0bzupvr5gt3k9.js" id="_R_" async=""></script><script>(self.__next_f=self.__next_f||[]).push([0])</script><script>self.__next_f.push([1,"1:\"$Sreact.fragment\"\n2:I[27423,[\"/Kairos_blog/_next/static/chunks/0rha7da~wfx9i.js\",\"/Kairos_blog/_next/static/chunks/0d3shmwh5_nmn.js\"],\"ThemeProvider\"]\n3:I[39756,[\"/Kairos_blog/_next/static/chunks/0rha7da~wfx9i.js\",\"/Kairos_blog/_next/static/chunks/0d3shmwh5_nmn.js\"],\"default\"]\n4:I[37457,[\"/Kairos_blog/_next/static/chunks/0rha7da~wfx9i.js\",\"/Kairos_blog/_next/static/chunks/0d3shmwh5_nmn.js\"],\"default\"]\n6:I[97367,[\"/Kairos_blog/_next/static/chunks/0rha7da~wfx9i.js\",\"/Kairos_blog/_next/static/chunks/0d3shmwh5_nmn.js\"],\"OutletBoundary\"]\n7:\"$Sreact.suspense\"\na:I[97367,[\"/Kairos_blog/_next/static/chunks/0rha7da~wfx9i.js\",\"/Kairos_blog/_next/static/chunks/0d3shmwh5_nmn.js\"],\"ViewportBoundary\"]\nc:I[97367,[\"/Kairos_blog/_next/static/chunks/0rha7da~wfx9i.js\",\"/Kairos_blog/_next/static/chunks/0d3shmwh5_nmn.js\"],\"MetadataBoundary\"]\ne:I[68027,[\"/Kairos_blog/_next/static/chunks/0rha7da~wfx9i.js\",\"/Kairos_blog/_next/static/chunks/0d3shmwh5_nmn.js\"],\"default\",1]\n:HL[\"/Kairos_blog/_next/static/chunks/132oykfw_wbdt.css\",\"style\"]\n"])</script><script>self.__next_f.push([1,"0:{\"P\":null,\"c\":[\"\",\"blog\",\"java-oop-core-concepts\",\"\"],\"q\":\"\",\"i\":false,\"f\":[[[\"\",{\"children\":[\"blog\",{\"children\":[[\"slug\",\"java-oop-core-concepts\",\"d\",null],{\"children\":[\"__PAGE__\",{}]}]}]},\"$undefined\",\"$undefined\",16],[[\"$\",\"$1\",\"c\",{\"children\":[[[\"$\",\"link\",\"0\",{\"rel\":\"stylesheet\",\"href\":\"/Kairos_blog/_next/static/chunks/132oykfw_wbdt.css\",\"precedence\":\"next\",\"crossOrigin\":\"$undefined\",\"nonce\":\"$undefined\"}],[\"$\",\"script\",\"script-0\",{\"src\":\"/Kairos_blog/_next/static/chunks/0rha7da~wfx9i.js\",\"async\":true,\"nonce\":\"$undefined\"}],[\"$\",\"script\",\"script-1\",{\"src\":\"/Kairos_blog/_next/static/chunks/0d3shmwh5_nmn.js\",\"async\":true,\"nonce\":\"$undefined\"}]],[\"$\",\"html\",null,{\"lang\":\"zh-CN\",\"suppressHydrationWarning\":true,\"children\":[\"$\",\"body\",null,{\"className\":\"min-h-full flex flex-col\",\"children\":[\"$\",\"$L2\",null,{\"attribute\":\"class\",\"defaultTheme\":\"light\",\"enableSystem\":true,\"disableTransitionOnChange\":true,\"children\":[\"$\",\"$L3\",null,{\"parallelRouterKey\":\"children\",\"error\":\"$undefined\",\"errorStyles\":\"$undefined\",\"errorScripts\":\"$undefined\",\"template\":[\"$\",\"$L4\",null,{}],\"templateStyles\":\"$undefined\",\"templateScripts\":\"$undefined\",\"notFound\":[[[\"$\",\"title\",null,{\"children\":\"404: This page could not be found.\"}],[\"$\",\"div\",null,{\"style\":{\"fontFamily\":\"system-ui,\\\"Segoe UI\\\",Roboto,Helvetica,Arial,sans-serif,\\\"Apple Color Emoji\\\",\\\"Segoe UI Emoji\\\"\",\"height\":\"100vh\",\"textAlign\":\"center\",\"display\":\"flex\",\"flexDirection\":\"column\",\"alignItems\":\"center\",\"justifyContent\":\"center\"},\"children\":[\"$\",\"div\",null,{\"children\":[[\"$\",\"style\",null,{\"dangerouslySetInnerHTML\":{\"__html\":\"body{color:#000;background:#fff;margin:0}.next-error-h1{border-right:1px solid rgba(0,0,0,.3)}@media (prefers-color-scheme:dark){body{color:#fff;background:#000}.next-error-h1{border-right:1px solid rgba(255,255,255,.3)}}\"}}],[\"$\",\"h1\",null,{\"className\":\"next-error-h1\",\"style\":{\"display\":\"inline-block\",\"margin\":\"0 20px 0 0\",\"padding\":\"0 23px 0 0\",\"fontSize\":24,\"fontWeight\":500,\"verticalAlign\":\"top\",\"lineHeight\":\"49px\"},\"children\":404}],[\"$\",\"div\",null,{\"style\":{\"display\":\"inline-block\"},\"children\":[\"$\",\"h2\",null,{\"style\":{\"fontSize\":14,\"fontWeight\":400,\"lineHeight\":\"49px\",\"margin\":0},\"children\":\"This page could not be found.\"}]}]]}]}]],[]],\"forbidden\":\"$undefined\",\"unauthorized\":\"$undefined\"}]}]}]}]]}],{\"children\":[[\"$\",\"$1\",\"c\",{\"children\":[null,[\"$\",\"$L3\",null,{\"parallelRouterKey\":\"children\",\"error\":\"$undefined\",\"errorStyles\":\"$undefined\",\"errorScripts\":\"$undefined\",\"template\":[\"$\",\"$L4\",null,{}],\"templateStyles\":\"$undefined\",\"templateScripts\":\"$undefined\",\"notFound\":\"$undefined\",\"forbidden\":\"$undefined\",\"unauthorized\":\"$undefined\"}]]}],{\"children\":[[\"$\",\"$1\",\"c\",{\"children\":[null,[\"$\",\"$L3\",null,{\"parallelRouterKey\":\"children\",\"error\":\"$undefined\",\"errorStyles\":\"$undefined\",\"errorScripts\":\"$undefined\",\"template\":[\"$\",\"$L4\",null,{}],\"templateStyles\":\"$undefined\",\"templateScripts\":\"$undefined\",\"notFound\":\"$undefined\",\"forbidden\":\"$undefined\",\"unauthorized\":\"$undefined\"}]]}],{\"children\":[[\"$\",\"$1\",\"c\",{\"children\":[\"$L5\",[[\"$\",\"script\",\"script-0\",{\"src\":\"/Kairos_blog/_next/static/chunks/0qn4.8eoespq4.js\",\"async\":true,\"nonce\":\"$undefined\"}]],[\"$\",\"$L6\",null,{\"children\":[\"$\",\"$7\",null,{\"name\":\"Next.MetadataOutlet\",\"children\":\"$@8\"}]}]]}],{},null,false,null]},null,false,\"$@9\"]},null,false,\"$@9\"]},null,false,null],[\"$\",\"$1\",\"h\",{\"children\":[null,[\"$\",\"$La\",null,{\"children\":\"$Lb\"}],[\"$\",\"div\",null,{\"hidden\":true,\"children\":[\"$\",\"$Lc\",null,{\"children\":[\"$\",\"$7\",null,{\"name\":\"Next.Metadata\",\"children\":\"$Ld\"}]}]}],null]}],false]],\"m\":\"$undefined\",\"G\":[\"$e\",[[\"$\",\"link\",\"0\",{\"rel\":\"stylesheet\",\"href\":\"/Kairos_blog/_next/static/chunks/132oykfw_wbdt.css\",\"precedence\":\"next\",\"crossOrigin\":\"$undefined\",\"nonce\":\"$undefined\"}]]],\"S\":true,\"h\":null,\"s\":\"$undefined\",\"l\":\"$undefined\",\"p\":\"$undefined\",\"d\":\"$undefined\",\"b\":\"YMs7zpYOfjukPPgXtTU8R\"}\n"])</script><script>self.__next_f.push([1,"f:[]\n9:\"$Wf\"\n"])</script><script>self.__next_f.push([1,"10:I[2874,[\"/Kairos_blog/_next/static/chunks/0rha7da~wfx9i.js\",\"/Kairos_blog/_next/static/chunks/0d3shmwh5_nmn.js\",\"/Kairos_blog/_next/static/chunks/0qn4.8eoespq4.js\"],\"Navbar\"]\n11:I[22016,[\"/Kairos_blog/_next/static/chunks/0rha7da~wfx9i.js\",\"/Kairos_blog/_next/static/chunks/0d3shmwh5_nmn.js\",\"/Kairos_blog/_next/static/chunks/0qn4.8eoespq4.js\"],\"\"]\n12:I[58541,[\"/Kairos_blog/_next/static/chunks/0rha7da~wfx9i.js\",\"/Kairos_blog/_next/static/chunks/0d3shmwh5_nmn.js\",\"/Kairos_blog/_next/static/chunks/0qn4.8eoespq4.js\"],\"default\"]\n13:T11d7,"])</script><script>self.__next_f.push([1,"\u003ch1\u003eJava 面向对象核心概念：多态、抽象类与 default 方法\u003c/h1\u003e\n\u003ch2\u003e多态与覆写\u003c/h2\u003e\n\u003ch3\u003e概念\u003c/h3\u003e\n\u003cul\u003e\n\u003cli\u003e\u003cstrong\u003e多态\u003c/strong\u003e = 同一个方法调用，不同对象有不同行为\u003c/li\u003e\n\u003cli\u003e\u003cstrong\u003e覆写\u003c/strong\u003e = 子类重新定义从父类继承的方法\u003c/li\u003e\n\u003c/ul\u003e\n\u003ch3\u003e示例\u003c/h3\u003e\n\u003cpre\u003e\u003ccode class=\"language-java\"\u003eclass Animal {\n    speak() { return \u0026quot;...\u0026quot; }\n}\n\nclass Dog extends Animal {\n    speak() { return \u0026quot;汪\u0026quot; }  // 覆写\n}\n\nclass Cat extends Animal {\n    speak() { return \u0026quot;喵\u0026quot; }  // 覆写\n}\n\u003c/code\u003e\u003c/pre\u003e\n\u003ch3\u003e调用示例\u003c/h3\u003e\n\u003cpre\u003e\u003ccode class=\"language-java\"\u003eAnimal[] animals = {new Dog(), new Cat()};\nfor (Animal a : animals) {\n    a.speak();  // 输出: 汪, 喵\n}\n\u003c/code\u003e\u003c/pre\u003e\n\u003ch3\u003e因果关系（易混淆点）\u003c/h3\u003e\n\u003cp\u003e\u003cstrong\u003e错误说法：\u003c/strong\u003e\u003c/p\u003e\n\u003cblockquote\u003e\n\u003cp\u003e\u0026quot;由于多态的存在，子类可以覆写父类方法\u0026quot;\u003c/p\u003e\n\u003c/blockquote\u003e\n\u003cp\u003e\u003cstrong\u003e正确关系：\u003c/strong\u003e\u003c/p\u003e\n\u003cpre\u003e\u003ccode\u003e覆写（机制/原因） → 多态（效果/结果）\n\u003c/code\u003e\u003c/pre\u003e\n\u003cp\u003e\u003cstrong\u003e更准确的说法：\u003c/strong\u003e\u003c/p\u003e\n\u003cul\u003e\n\u003cli\u003e覆写父类方法，使多态成为可能\u003c/li\u003e\n\u003cli\u003e多态依赖于覆写机制\u003c/li\u003e\n\u003c/ul\u003e\n\u003ch3\u003e关键点\u003c/h3\u003e\n\u003ctable\u003e\n\u003cthead\u003e\n\u003ctr\u003e\n\u003cth\u003e概念\u003c/th\u003e\n\u003cth\u003e角色\u003c/th\u003e\n\u003cth\u003e说明\u003c/th\u003e\n\u003c/tr\u003e\n\u003c/thead\u003e\n\u003ctbody\u003e\u003ctr\u003e\n\u003ctd\u003e覆写\u003c/td\u003e\n\u003ctd\u003e机制\u003c/td\u003e\n\u003ctd\u003e子类重定义父类方法\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e多态\u003c/td\u003e\n\u003ctd\u003e效果\u003c/td\u003e\n\u003ctd\u003e同一接口，不同实现\u003c/td\u003e\n\u003c/tr\u003e\n\u003c/tbody\u003e\u003c/table\u003e\n\u003chr\u003e\n\u003ch2\u003e抽象类与权限修饰符\u003c/h2\u003e\n\u003ch3\u003e抽象类可以使用权限修饰符\u003c/h3\u003e\n\u003cpre\u003e\u003ccode class=\"language-java\"\u003e// 有修饰符（推荐）\npublic abstract class Animal { }\nprotected abstract class Base { }\nabstract class Internal { }  // 默认 package-private\n\n// 没有 abstract 就不是抽象类\npublic class Animal { }  // 普通类\n\u003c/code\u003e\u003c/pre\u003e\n\u003ch3\u003e权限修饰符可见性\u003c/h3\u003e\n\u003ctable\u003e\n\u003cthead\u003e\n\u003ctr\u003e\n\u003cth\u003e修饰符\u003c/th\u003e\n\u003cth\u003e可见性\u003c/th\u003e\n\u003c/tr\u003e\n\u003c/thead\u003e\n\u003ctbody\u003e\u003ctr\u003e\n\u003ctd\u003e\u003ccode\u003epublic\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003e所有类可见\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e\u003ccode\u003eprotected\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003e同包 + 子类可见\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e无修饰符\u003c/td\u003e\n\u003ctd\u003e同包可见（package-private）\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e\u003ccode\u003eprivate\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003e❌ 抽象类不能用（无法被继承）\u003c/td\u003e\n\u003c/tr\u003e\n\u003c/tbody\u003e\u003c/table\u003e\n\u003ch3\u003e抽象方法也需要修饰符\u003c/h3\u003e\n\u003cpre\u003e\u003ccode class=\"language-java\"\u003epublic abstract class Animal {\n    public abstract void speak();      // public\n    protected abstract void eat();     // protected\n    abstract void sleep();             // package-private\n}\n\u003c/code\u003e\u003c/pre\u003e\n\u003ch3\u003e关键点\u003c/h3\u003e\n\u003cul\u003e\n\u003cli\u003e权限修饰符是\u003cstrong\u003e独立的\u003c/strong\u003e，控制访问级别\u003c/li\u003e\n\u003cli\u003e\u003ccode\u003eabstract\u003c/code\u003e 只是表示\u0026quot;不能实例化，必须被继承\u0026quot;\u003c/li\u003e\n\u003cli\u003e抽象类不能用 \u003ccode\u003eprivate\u003c/code\u003e（会导致无法继承，矛盾）\u003c/li\u003e\n\u003c/ul\u003e\n\u003chr\u003e\n\u003ch2\u003edefault 方法（Java 8+）\u003c/h2\u003e\n\u003ch3\u003e概念\u003c/h3\u003e\n\u003cp\u003e\u003cstrong\u003edefault 方法 = 接口中的默认实现方法\u003c/strong\u003e（Java 8 引入）\u003c/p\u003e\n\u003ch3\u003e对比\u003c/h3\u003e\n\u003cpre\u003e\u003ccode class=\"language-java\"\u003einterface Animal {\n    void speak();              // 抽象方法，子类必须实现\n\n    default void eat() {       // default 方法，有默认实现\n        System.out.println(\u0026quot;吃东西\u0026quot;);\n    }\n}\n\u003c/code\u003e\u003c/pre\u003e\n\u003ch3\u003e子类使用\u003c/h3\u003e\n\u003cpre\u003e\u003ccode class=\"language-java\"\u003eclass Dog implements Animal {\n    @Override\n    public void speak() {      // 必须实现\n        System.out.println(\u0026quot;汪\u0026quot;);\n    }\n    // eat() 可以不写，直接继承默认实现\n\n    // 也可以覆写\n    @Override\n    public void eat() {\n        System.out.println(\u0026quot;吃狗粮\u0026quot;);\n    }\n}\n\u003c/code\u003e\u003c/pre\u003e\n\u003ch3\u003e为什么需要 default？\u003c/h3\u003e\n\u003col\u003e\n\u003cli\u003e\u003cstrong\u003e向后兼容\u003c/strong\u003e：给旧接口添加新方法，不破坏已有实现\u003c/li\u003e\n\u003cli\u003e\u003cstrong\u003e代码复用\u003c/strong\u003e：接口提供通用实现\u003c/li\u003e\n\u003c/ol\u003e\n\u003ch3\u003e对比表\u003c/h3\u003e\n\u003ctable\u003e\n\u003cthead\u003e\n\u003ctr\u003e\n\u003cth\u003e特性\u003c/th\u003e\n\u003cth\u003e抽象方法\u003c/th\u003e\n\u003cth\u003edefault 方法\u003c/th\u003e\n\u003c/tr\u003e\n\u003c/thead\u003e\n\u003ctbody\u003e\u003ctr\u003e\n\u003ctd\u003e关键字\u003c/td\u003e\n\u003ctd\u003e无/abstract\u003c/td\u003e\n\u003ctd\u003edefault\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e实现\u003c/td\u003e\n\u003ctd\u003e❌ 没有\u003c/td\u003e\n\u003ctd\u003e✅ 有\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e子类\u003c/td\u003e\n\u003ctd\u003e必须覆写\u003c/td\u003e\n\u003ctd\u003e可选覆写\u003c/td\u003e\n\u003c/tr\u003e\n\u003c/tbody\u003e\u003c/table\u003e\n\u003chr\u003e\n\u003ch2\u003e总结\u003c/h2\u003e\n\u003col\u003e\n\u003cli\u003e\u003cstrong\u003e多态\u003c/strong\u003e是覆写带来的效果，因果顺序：覆写 → 多态\u003c/li\u003e\n\u003cli\u003e\u003cstrong\u003e抽象类\u003c/strong\u003e可以用任意权限修饰符（除 private）\u003c/li\u003e\n\u003cli\u003e\u003cstrong\u003edefault 方法\u003c/strong\u003e让接口可以有默认实现，解决向后兼容问题\u003c/li\u003e\n\u003c/ol\u003e\n\u003chr\u003e\n\u003cp\u003e\u003cem\u003e笔记整理日期：2026-03-20\u003c/em\u003e\u003c/p\u003e\n"])</script><script>self.__next_f.push([1,"5:[[\"$\",\"$L10\",null,{}],[\"$\",\"main\",null,{\"className\":\"min-h-screen pt-24 pb-20\",\"children\":[\"$\",\"article\",null,{\"className\":\"max-w-3xl mx-auto px-4\",\"children\":[[\"$\",\"$L11\",null,{\"href\":\"/blog\",\"className\":\"inline-flex items-center gap-2 text-gray-500 hover:text-orange-500 transition-colors mb-8\",\"children\":[[\"$\",\"$L12\",null,{\"ref\":\"$undefined\",\"iconNode\":[[\"path\",{\"d\":\"m12 19-7-7 7-7\",\"key\":\"1l729n\"}],[\"path\",{\"d\":\"M19 12H5\",\"key\":\"x3x0zl\"}]],\"className\":\"lucide-arrow-left w-4 h-4\"}],\"返回列表\"]}],[\"$\",\"header\",null,{\"className\":\"mb-10\",\"children\":[[\"$\",\"div\",null,{\"className\":\"flex flex-wrap gap-2 mb-4\",\"children\":[[\"$\",\"span\",\"Java\",{\"className\":\"text-sm px-3 py-1 rounded-full bg-orange-50 text-orange-600 font-medium\",\"children\":\"Java\"}],[\"$\",\"span\",\"面向对象\",{\"className\":\"text-sm px-3 py-1 rounded-full bg-orange-50 text-orange-600 font-medium\",\"children\":\"面向对象\"}],[\"$\",\"span\",\"编程\",{\"className\":\"text-sm px-3 py-1 rounded-full bg-orange-50 text-orange-600 font-medium\",\"children\":\"编程\"}],[\"$\",\"span\",\"后端\",{\"className\":\"text-sm px-3 py-1 rounded-full bg-orange-50 text-orange-600 font-medium\",\"children\":\"后端\"}]]}],[\"$\",\"h1\",null,{\"className\":\"text-3xl sm:text-4xl font-bold text-gray-800 mb-4\",\"children\":\"Java 面向对象核心概念：多态、抽象类与 default 方法\"}],[\"$\",\"div\",null,{\"className\":\"flex items-center gap-4 text-sm text-gray-500\",\"children\":[\"$\",\"span\",null,{\"className\":\"flex items-center gap-1\",\"children\":[[\"$\",\"$L12\",null,{\"ref\":\"$undefined\",\"iconNode\":[[\"path\",{\"d\":\"M8 2v4\",\"key\":\"1cmpym\"}],[\"path\",{\"d\":\"M16 2v4\",\"key\":\"4m81vk\"}],[\"rect\",{\"width\":\"18\",\"height\":\"18\",\"x\":\"3\",\"y\":\"4\",\"rx\":\"2\",\"key\":\"1hopcy\"}],[\"path\",{\"d\":\"M3 10h18\",\"key\":\"8toen8\"}]],\"className\":\"lucide-calendar w-4 h-4\"}],\"2026-03-20\"]}]}]]}],[\"$\",\"div\",null,{\"className\":\"prose prose-lg max-w-none prose-headings:text-gray-800 prose-p:text-gray-600 prose-a:text-orange-500 prose-strong:text-gray-800 prose-code:bg-gray-100 prose-code:px-2 prose-code:py-1 prose-code:rounded prose-pre:bg-gray-900 prose-pre:text-white\",\"dangerouslySetInnerHTML\":{\"__html\":\"$13\"}}],\"$L14\"]}]}],\"$L15\"]\n"])</script><script>self.__next_f.push([1,"14:[\"$\",\"footer\",null,{\"className\":\"mt-16 pt-8 border-t border-gray-100\",\"children\":[\"$\",\"div\",null,{\"className\":\"flex flex-wrap gap-2\",\"children\":[[\"$\",\"span\",null,{\"className\":\"text-gray-500 mr-2\",\"children\":\"标签:\"}],[[\"$\",\"$L11\",\"Java\",{\"href\":\"/blog?tag=Java\",\"className\":\"text-sm px-3 py-1 rounded-full bg-gray-100 text-gray-600 hover:bg-orange-100 hover:text-orange-600 transition-colors\",\"children\":\"Java\"}],[\"$\",\"$L11\",\"面向对象\",{\"href\":\"/blog?tag=%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1\",\"className\":\"text-sm px-3 py-1 rounded-full bg-gray-100 text-gray-600 hover:bg-orange-100 hover:text-orange-600 transition-colors\",\"children\":\"面向对象\"}],[\"$\",\"$L11\",\"编程\",{\"href\":\"/blog?tag=%E7%BC%96%E7%A8%8B\",\"className\":\"text-sm px-3 py-1 rounded-full bg-gray-100 text-gray-600 hover:bg-orange-100 hover:text-orange-600 transition-colors\",\"children\":\"编程\"}],[\"$\",\"$L11\",\"后端\",{\"href\":\"/blog?tag=%E5%90%8E%E7%AB%AF\",\"className\":\"text-sm px-3 py-1 rounded-full bg-gray-100 text-gray-600 hover:bg-orange-100 hover:text-orange-600 transition-colors\",\"children\":\"后端\"}]]]}]}]\n15:[\"$\",\"footer\",null,{\"className\":\"py-8 px-4 border-t border-gray-100\",\"children\":[\"$\",\"div\",null,{\"className\":\"max-w-5xl mx-auto text-center\",\"children\":[\"$\",\"p\",null,{\"className\":\"text-gray-500 text-sm\",\"children\":[\"© \",2026,\" Kairos Blog\"]}]}]}]\n"])</script><script>self.__next_f.push([1,"b:[[\"$\",\"meta\",\"0\",{\"charSet\":\"utf-8\"}],[\"$\",\"meta\",\"1\",{\"name\":\"viewport\",\"content\":\"width=device-width, initial-scale=1\"}]]\n"])</script><script>self.__next_f.push([1,"16:I[27201,[\"/Kairos_blog/_next/static/chunks/0rha7da~wfx9i.js\",\"/Kairos_blog/_next/static/chunks/0d3shmwh5_nmn.js\"],\"IconMark\"]\n8:null\nd:[[\"$\",\"title\",\"0\",{\"children\":\"Kairos 博客 - 开发者日志\"}],[\"$\",\"meta\",\"1\",{\"name\":\"description\",\"content\":\"河南大学 2024 级网络工程专业学生的技术博客\"}],[\"$\",\"link\",\"2\",{\"rel\":\"icon\",\"href\":\"/Kairos_blog/favicon.ico?favicon.0x3dzn~oxb6tn.ico\",\"sizes\":\"256x256\",\"type\":\"image/x-icon\"}],[\"$\",\"$L16\",\"3\",{}]]\n"])</script></body></html>
