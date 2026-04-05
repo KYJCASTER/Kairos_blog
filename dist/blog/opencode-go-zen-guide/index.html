@@ -1,0 +1,777 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charSet="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="stylesheet" href="/Kairos_blog/_next/static/chunks/132oykfw_wbdt.css" data-precedence="next"/><link rel="preload" as="script" fetchPriority="low" href="/Kairos_blog/_next/static/chunks/0bzupvr5gt3k9.js"/><script src="/Kairos_blog/_next/static/chunks/0x-i.j79....k.js" async=""></script><script src="/Kairos_blog/_next/static/chunks/0bogtdbh.dcu1.js" async=""></script><script src="/Kairos_blog/_next/static/chunks/turbopack-0rzigd41e1wi4.js" async=""></script><script src="/Kairos_blog/_next/static/chunks/0rha7da~wfx9i.js" async=""></script><script src="/Kairos_blog/_next/static/chunks/0d3shmwh5_nmn.js" async=""></script><script src="/Kairos_blog/_next/static/chunks/0qn4.8eoespq4.js" async=""></script><title>Kairos 博客 - 开发者日志</title><meta name="description" content="河南大学 2024 级网络工程专业学生的技术博客"/><link rel="icon" href="/Kairos_blog/favicon.ico?favicon.0x3dzn~oxb6tn.ico" sizes="256x256" type="image/x-icon"/><script src="/Kairos_blog/_next/static/chunks/03~yq9q893hmn.js" noModule=""></script></head><body class="min-h-full flex flex-col"><div hidden=""><!--$--><!--/$--></div><script>((a,b,c,d,e,f,g,h)=>{let i=document.documentElement,j=["light","dark"];function k(b){var c;(Array.isArray(a)?a:[a]).forEach(a=>{let c="class"===a,d=c&&f?e.map(a=>f[a]||a):e;c?(i.classList.remove(...d),i.classList.add(f&&f[b]?f[b]:b)):i.setAttribute(a,b)}),c=b,h&&j.includes(c)&&(i.style.colorScheme=c)}if(d)k(d);else try{let a=localStorage.getItem(b)||c,d=g&&"system"===a?window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light":a;k(d)}catch(a){}})("class","theme","light",null,["light","dark"],null,true,true)</script><nav class="fixed top-4 left-4 right-4 z-50"><div class="max-w-5xl mx-auto"><div class="bg-white/90 backdrop-blur-md rounded-full px-6 py-3 shadow-lg shadow-orange-500/5 border border-orange-100"><div class="flex items-center justify-between"><a class="flex items-center gap-2 group" href="/Kairos_blog/"><div class="w-10 h-10 rounded-full bg-gradient-to-br from-orange-500 to-amber-400 flex items-center justify-center shadow-lg shadow-orange-500/20"><span class="text-white font-bold text-lg">K</span></div><span class="font-bold text-lg hidden sm:block text-gray-800">Kairos</span></a><div class="flex items-center gap-1 bg-gray-100/50 rounded-full p-1"><a class="relative px-4 py-2 rounded-full text-sm font-semibold transition-all duration-300 flex items-center gap-2 text-gray-600 hover:text-gray-900" href="/Kairos_blog/"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-house w-4 h-4" aria-hidden="true"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"></path><path d="M3 10a2 2 0 0 1 .709-1.528l7-6a2 2 0 0 1 2.582 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg><span class="hidden sm:inline">首页</span></a><a class="relative px-4 py-2 rounded-full text-sm font-semibold transition-all duration-300 flex items-center gap-2 bg-white text-orange-500 shadow-sm" href="/Kairos_blog/blog"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-book-open w-4 h-4" aria-hidden="true"><path d="M12 7v14"></path><path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"></path></svg><span class="hidden sm:inline">博客</span></a><a class="relative px-4 py-2 rounded-full text-sm font-semibold transition-all duration-300 flex items-center gap-2 text-gray-600 hover:text-gray-900" href="/Kairos_blog/about"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-user w-4 h-4" aria-hidden="true"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg><span class="hidden sm:inline">关于</span></a></div><a href="https://github.com/KYJCASTER" target="_blank" rel="noopener noreferrer" class="p-2 rounded-full text-gray-500 hover:text-orange-500 hover:bg-orange-50 transition-all"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"></path></svg></a></div></div></div></nav><main class="min-h-screen pt-24 pb-20"><article class="max-w-3xl mx-auto px-4"><a class="inline-flex items-center gap-2 text-gray-500 hover:text-orange-500 transition-colors mb-8" href="/Kairos_blog/blog"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-left w-4 h-4" aria-hidden="true"><path d="m12 19-7-7 7-7"></path><path d="M19 12H5"></path></svg>返回列表</a><header class="mb-10"><div class="flex flex-wrap gap-2 mb-4"><span class="text-sm px-3 py-1 rounded-full bg-orange-50 text-orange-600 font-medium">OpenCode</span><span class="text-sm px-3 py-1 rounded-full bg-orange-50 text-orange-600 font-medium">AI</span><span class="text-sm px-3 py-1 rounded-full bg-orange-50 text-orange-600 font-medium">教程</span><span class="text-sm px-3 py-1 rounded-full bg-orange-50 text-orange-600 font-medium">工具</span></div><h1 class="text-3xl sm:text-4xl font-bold text-gray-800 mb-4">OpenCode Go 和 Zen 订阅详细说明</h1><div class="flex items-center gap-4 text-sm text-gray-500"><span class="flex items-center gap-1"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-calendar w-4 h-4" aria-hidden="true"><path d="M8 2v4"></path><path d="M16 2v4"></path><rect width="18" height="18" x="3" y="4" rx="2"></rect><path d="M3 10h18"></path></svg>2026-03-15</span></div></header><div class="prose prose-lg max-w-none prose-headings:text-gray-800 prose-p:text-gray-600 prose-a:text-orange-500 prose-strong:text-gray-800 prose-code:bg-gray-100 prose-code:px-2 prose-code:py-1 prose-code:rounded prose-pre:bg-gray-900 prose-pre:text-white"><h1>OpenCode Go 和 Zen 订阅详细说明</h1>
+<h2>简介</h2>
+<p>OpenCode 提供两种主要的订阅服务：</p>
+<ul>
+<li><strong>OpenCode Go</strong> - 低成本的开放源码模型订阅</li>
+<li><strong>OpenCode Zen</strong> - 精选验证过的商业模型订阅</li>
+</ul>
+<p>两者都是可选的，使用 OpenCode 本身完全免费。</p>
+<hr>
+<h2>OpenCode Go - 低成本开放模型</h2>
+<h3>定价</h3>
+<ul>
+<li><strong>首月</strong>：$5</li>
+<li><strong>之后</strong>：$10/月</li>
+</ul>
+<h3>使用方法</h3>
+<ol>
+<li>登录 <a href="https://opencode.ai/auth">OpenCode Zen</a> 订阅 Go</li>
+<li>在 TUI 中运行 <code>/connect</code>，选择 <code>OpenCode Go</code>，粘贴 API key</li>
+<li>运行 <code>/models</code> 查看可用模型列表</li>
+</ol>
+<h3>包含模型</h3>
+<table>
+<thead>
+<tr>
+<th>模型</th>
+<th>每5小时请求数</th>
+<th>每周请求数</th>
+<th>每月请求数</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>GLM-5</td>
+<td>1,150</td>
+<td>2,880</td>
+<td>5,750</td>
+</tr>
+<tr>
+<td>Kimi K2.5</td>
+<td>1,850</td>
+<td>4,630</td>
+<td>9,250</td>
+</tr>
+<tr>
+<td>MiniMax M2.5</td>
+<td>20,000</td>
+<td>50,000</td>
+<td>100,000</td>
+</tr>
+</tbody></table>
+<h3>使用限制（按美元计算）</h3>
+<ul>
+<li><strong>5小时限制</strong>：$12 使用量</li>
+<li><strong>每周限制</strong>：$30 使用量</li>
+<li><strong>每月限制</strong>：$60 使用量</li>
+</ul>
+<h3>API 端点</h3>
+<p>所有 Go 模型使用统一端点：</p>
+<pre><code>https://opencode.ai/zen/go/v1/chat/completions
+</code></pre>
+<h3>配置格式</h3>
+<pre><code class="language-yaml"># config 中使用格式：opencode-go/&lt;model-id&gt;
+model: opencode-go/kimi-k2.5
+</code></pre>
+<h3>超额使用</h3>
+<p>如有 Zen 余额，可开启 <strong>Use balance</strong> 选项，在达到限制后使用余额继续请求。</p>
+<hr>
+<h2>OpenCode Zen - 精选商业模型</h2>
+<h3>定价</h3>
+<ul>
+<li><strong>按需付费</strong>：预存 $20（含 $1.23 信用卡处理费）</li>
+<li><strong>零加价</strong>：按成本价收费，仅覆盖处理费</li>
+<li><strong>自动充值</strong>：余额低于 $5 时自动充值 $20（可设置/禁用）</li>
+</ul>
+<h3>使用方法</h3>
+<ol>
+<li>登录 <a href="https://opencode.ai/auth">OpenCode Zen</a>，添加付款信息，复制 API key</li>
+<li>在 TUI 中运行 <code>/connect</code>，选择 <code>OpenCode Zen</code>，粘贴 API key</li>
+<li>运行 <code>/models</code> 查看可用模型列表</li>
+</ol>
+<h3>模型列表</h3>
+<h4>OpenAI 模型（GPT 系列）</h4>
+<table>
+<thead>
+<tr>
+<th>模型</th>
+<th>端点</th>
+<th>AI SDK 包</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>GPT 5.4 Pro</td>
+<td><code>https://opencode.ai/zen/v1/responses</code></td>
+<td><code>@ai-sdk/openai</code></td>
+</tr>
+<tr>
+<td>GPT 5.4</td>
+<td><code>https://opencode.ai/zen/v1/responses</code></td>
+<td><code>@ai-sdk/openai</code></td>
+</tr>
+<tr>
+<td>GPT 5.3 Codex</td>
+<td><code>https://opencode.ai/zen/v1/responses</code></td>
+<td><code>@ai-sdk/openai</code></td>
+</tr>
+<tr>
+<td>GPT 5.3 Codex Spark</td>
+<td><code>https://opencode.ai/zen/v1/responses</code></td>
+<td><code>@ai-sdk/openai</code></td>
+</tr>
+<tr>
+<td>GPT 5.2</td>
+<td><code>https://opencode.ai/zen/v1/responses</code></td>
+<td><code>@ai-sdk/openai</code></td>
+</tr>
+<tr>
+<td>GPT 5.2 Codex</td>
+<td><code>https://opencode.ai/zen/v1/responses</code></td>
+<td><code>@ai-sdk/openai</code></td>
+</tr>
+<tr>
+<td>GPT 5.1</td>
+<td><code>https://opencode.ai/zen/v1/responses</code></td>
+<td><code>@ai-sdk/openai</code></td>
+</tr>
+<tr>
+<td>GPT 5.1 Codex</td>
+<td><code>https://opencode.ai/zen/v1/responses</code></td>
+<td><code>@ai-sdk/openai</code></td>
+</tr>
+<tr>
+<td>GPT 5.1 Codex Max</td>
+<td><code>https://opencode.ai/zen/v1/responses</code></td>
+<td><code>@ai-sdk/openai</code></td>
+</tr>
+<tr>
+<td>GPT 5.1 Codex Mini</td>
+<td><code>https://opencode.ai/zen/v1/responses</code></td>
+<td><code>@ai-sdk/openai</code></td>
+</tr>
+<tr>
+<td>GPT 5</td>
+<td><code>https://opencode.ai/zen/v1/responses</code></td>
+<td><code>@ai-sdk/openai</code></td>
+</tr>
+<tr>
+<td>GPT 5 Codex</td>
+<td><code>https://opencode.ai/zen/v1/responses</code></td>
+<td><code>@ai-sdk/openai</code></td>
+</tr>
+<tr>
+<td>GPT 5 Nano</td>
+<td><code>https://opencode.ai/zen/v1/responses</code></td>
+<td><code>@ai-sdk/openai</code></td>
+</tr>
+</tbody></table>
+<h4>Anthropic 模型（Claude 系列）</h4>
+<table>
+<thead>
+<tr>
+<th>模型</th>
+<th>端点</th>
+<th>AI SDK 包</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Claude Opus 4.6</td>
+<td><code>https://opencode.ai/zen/v1/messages</code></td>
+<td><code>@ai-sdk/anthropic</code></td>
+</tr>
+<tr>
+<td>Claude Opus 4.5</td>
+<td><code>https://opencode.ai/zen/v1/messages</code></td>
+<td><code>@ai-sdk/anthropic</code></td>
+</tr>
+<tr>
+<td>Claude Opus 4.1</td>
+<td><code>https://opencode.ai/zen/v1/messages</code></td>
+<td><code>@ai-sdk/anthropic</code></td>
+</tr>
+<tr>
+<td>Claude Sonnet 4.6</td>
+<td><code>https://opencode.ai/zen/v1/messages</code></td>
+<td><code>@ai-sdk/anthropic</code></td>
+</tr>
+<tr>
+<td>Claude Sonnet 4.5</td>
+<td><code>https://opencode.ai/zen/v1/messages</code></td>
+<td><code>@ai-sdk/anthropic</code></td>
+</tr>
+<tr>
+<td>Claude Sonnet 4</td>
+<td><code>https://opencode.ai/zen/v1/messages</code></td>
+<td><code>@ai-sdk/anthropic</code></td>
+</tr>
+<tr>
+<td>Claude Haiku 4.5</td>
+<td><code>https://opencode.ai/zen/v1/messages</code></td>
+<td><code>@ai-sdk/anthropic</code></td>
+</tr>
+<tr>
+<td>Claude Haiku 3.5</td>
+<td><code>https://opencode.ai/zen/v1/messages</code></td>
+<td><code>@ai-sdk/anthropic</code></td>
+</tr>
+</tbody></table>
+<h4>Google 模型（Gemini 系列）</h4>
+<table>
+<thead>
+<tr>
+<th>模型</th>
+<th>端点</th>
+<th>AI SDK 包</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Gemini 3.1 Pro</td>
+<td><code>https://opencode.ai/zen/v1/models/gemini-3.1-pro</code></td>
+<td><code>@ai-sdk/google</code></td>
+</tr>
+<tr>
+<td>Gemini 3 Pro</td>
+<td><code>https://opencode.ai/zen/v1/models/gemini-3-pro</code></td>
+<td><code>@ai-sdk/google</code></td>
+</tr>
+<tr>
+<td>Gemini 3 Flash</td>
+<td><code>https://opencode.ai/zen/v1/models/gemini-3-flash</code></td>
+<td><code>@ai-sdk/google</code></td>
+</tr>
+</tbody></table>
+<h4>开源模型</h4>
+<table>
+<thead>
+<tr>
+<th>模型</th>
+<th>端点</th>
+<th>AI SDK 包</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>MiniMax M2.5</td>
+<td><code>https://opencode.ai/zen/v1/chat/completions</code></td>
+<td><code>@ai-sdk/openai-compatible</code></td>
+</tr>
+<tr>
+<td>MiniMax M2.5 Free</td>
+<td><code>https://opencode.ai/zen/v1/chat/completions</code></td>
+<td><code>@ai-sdk/openai-compatible</code></td>
+</tr>
+<tr>
+<td>MiniMax M2.1</td>
+<td><code>https://opencode.ai/zen/v1/chat/completions</code></td>
+<td><code>@ai-sdk/openai-compatible</code></td>
+</tr>
+<tr>
+<td>GLM 5</td>
+<td><code>https://opencode.ai/zen/v1/chat/completions</code></td>
+<td><code>@ai-sdk/openai-compatible</code></td>
+</tr>
+<tr>
+<td>GLM 4.7</td>
+<td><code>https://opencode.ai/zen/v1/chat/completions</code></td>
+<td><code>@ai-sdk/openai-compatible</code></td>
+</tr>
+<tr>
+<td>GLM 4.6</td>
+<td><code>https://opencode.ai/zen/v1/chat/completions</code></td>
+<td><code>@ai-sdk/openai-compatible</code></td>
+</tr>
+<tr>
+<td>Kimi K2.5</td>
+<td><code>https://opencode.ai/zen/v1/chat/completions</code></td>
+<td><code>@ai-sdk/openai-compatible</code></td>
+</tr>
+<tr>
+<td>Kimi K2 Thinking</td>
+<td><code>https://opencode.ai/zen/v1/chat/completions</code></td>
+<td><code>@ai-sdk/openai-compatible</code></td>
+</tr>
+<tr>
+<td>Kimi K2</td>
+<td><code>https://opencode.ai/zen/v1/chat/completions</code></td>
+<td><code>@ai-sdk/openai-compatible</code></td>
+</tr>
+<tr>
+<td>Qwen3 Coder 480B</td>
+<td><code>https://opencode.ai/zen/v1/chat/completions</code></td>
+<td><code>@ai-sdk/openai-compatible</code></td>
+</tr>
+<tr>
+<td>Big Pickle</td>
+<td><code>https://opencode.ai/zen/v1/chat/completions</code></td>
+<td><code>@ai-sdk/openai-compatible</code></td>
+</tr>
+<tr>
+<td>MiMo V2 Flash Free</td>
+<td><code>https://opencode.ai/zen/v1/chat/completions</code></td>
+<td><code>@ai-sdk/openai-compatible</code></td>
+</tr>
+<tr>
+<td>Nemotron 3 Super Free</td>
+<td><code>https://opencode.ai/zen/v1/chat/completions</code></td>
+<td><code>@ai-sdk/openai-compatible</code></td>
+</tr>
+</tbody></table>
+<h3>完整模型列表 API</h3>
+<pre><code>https://opencode.ai/zen/v1/models
+</code></pre>
+<h3>配置格式</h3>
+<pre><code class="language-yaml"># config 中使用格式：opencode/&lt;model-id&gt;
+model: opencode/gpt-5.3-codex
+</code></pre>
+<hr>
+<h2>Zen 模型价格（每百万 token）</h2>
+<h3>免费模型</h3>
+<table>
+<thead>
+<tr>
+<th>模型</th>
+<th>输入</th>
+<th>输出</th>
+<th>缓存读取</th>
+<th>缓存写入</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Big Pickle</td>
+<td>免费</td>
+<td>免费</td>
+<td>免费</td>
+<td>-</td>
+</tr>
+<tr>
+<td>MiMo V2 Flash Free</td>
+<td>免费</td>
+<td>免费</td>
+<td>免费</td>
+<td>-</td>
+</tr>
+<tr>
+<td>Nemotron 3 Super Free</td>
+<td>免费</td>
+<td>免费</td>
+<td>免费</td>
+<td>-</td>
+</tr>
+<tr>
+<td>MiniMax M2.5 Free</td>
+<td>免费</td>
+<td>免费</td>
+<td>免费</td>
+<td>-</td>
+</tr>
+<tr>
+<td>GPT 5 Nano</td>
+<td>免费</td>
+<td>免费</td>
+<td>免费</td>
+<td>-</td>
+</tr>
+</tbody></table>
+<h3>开源模型价格</h3>
+<table>
+<thead>
+<tr>
+<th>模型</th>
+<th>输入</th>
+<th>输出</th>
+<th>缓存读取</th>
+<th>缓存写入</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>MiniMax M2.5</td>
+<td>$0.30</td>
+<td>$1.20</td>
+<td>$0.06</td>
+<td>$0.375</td>
+</tr>
+<tr>
+<td>MiniMax M2.1</td>
+<td>$0.30</td>
+<td>$1.20</td>
+<td>$0.10</td>
+<td>-</td>
+</tr>
+<tr>
+<td>GLM 5</td>
+<td>$1.00</td>
+<td>$3.20</td>
+<td>$0.20</td>
+<td>-</td>
+</tr>
+<tr>
+<td>GLM 4.7</td>
+<td>$0.60</td>
+<td>$2.20</td>
+<td>$0.10</td>
+<td>-</td>
+</tr>
+<tr>
+<td>GLM 4.6</td>
+<td>$0.60</td>
+<td>$2.20</td>
+<td>$0.10</td>
+<td>-</td>
+</tr>
+<tr>
+<td>Kimi K2.5</td>
+<td>$0.60</td>
+<td>$3.00</td>
+<td>$0.10</td>
+<td>-</td>
+</tr>
+<tr>
+<td>Kimi K2 Thinking</td>
+<td>$0.40</td>
+<td>$2.50</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<td>Kimi K2</td>
+<td>$0.40</td>
+<td>$2.50</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<td>Qwen3 Coder 480B</td>
+<td>$0.45</td>
+<td>$1.50</td>
+<td>-</td>
+<td>-</td>
+</tr>
+</tbody></table>
+<h3>Claude 模型价格</h3>
+<table>
+<thead>
+<tr>
+<th>模型</th>
+<th>输入</th>
+<th>输出</th>
+<th>缓存读取</th>
+<th>缓存写入</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Claude Opus 4.6 (≤200K)</td>
+<td>$5.00</td>
+<td>$25.00</td>
+<td>$0.50</td>
+<td>$6.25</td>
+</tr>
+<tr>
+<td>Claude Opus 4.6 (&gt;200K)</td>
+<td>$10.00</td>
+<td>$37.50</td>
+<td>$1.00</td>
+<td>$12.50</td>
+</tr>
+<tr>
+<td>Claude Opus 4.5</td>
+<td>$5.00</td>
+<td>$25.00</td>
+<td>$0.50</td>
+<td>$6.25</td>
+</tr>
+<tr>
+<td>Claude Opus 4.1</td>
+<td>$15.00</td>
+<td>$75.00</td>
+<td>$1.50</td>
+<td>$18.75</td>
+</tr>
+<tr>
+<td>Claude Sonnet 4.6 (≤200K)</td>
+<td>$3.00</td>
+<td>$15.00</td>
+<td>$0.30</td>
+<td>$3.75</td>
+</tr>
+<tr>
+<td>Claude Sonnet 4.6 (&gt;200K)</td>
+<td>$6.00</td>
+<td>$22.50</td>
+<td>$0.60</td>
+<td>$7.50</td>
+</tr>
+<tr>
+<td>Claude Sonnet 4.5 (≤200K)</td>
+<td>$3.00</td>
+<td>$15.00</td>
+<td>$0.30</td>
+<td>$3.75</td>
+</tr>
+<tr>
+<td>Claude Sonnet 4.5 (&gt;200K)</td>
+<td>$6.00</td>
+<td>$22.50</td>
+<td>$0.60</td>
+<td>$7.50</td>
+</tr>
+<tr>
+<td>Claude Sonnet 4 (≤200K)</td>
+<td>$3.00</td>
+<td>$15.00</td>
+<td>$0.30</td>
+<td>$3.75</td>
+</tr>
+<tr>
+<td>Claude Sonnet 4 (&gt;200K)</td>
+<td>$6.00</td>
+<td>$22.50</td>
+<td>$0.60</td>
+<td>$7.50</td>
+</tr>
+<tr>
+<td>Claude Haiku 4.5</td>
+<td>$1.00</td>
+<td>$5.00</td>
+<td>$0.10</td>
+<td>$1.25</td>
+</tr>
+<tr>
+<td>Claude Haiku 3.5</td>
+<td>$0.80</td>
+<td>$4.00</td>
+<td>$0.08</td>
+<td>$1.00</td>
+</tr>
+</tbody></table>
+<h3>Gemini 模型价格</h3>
+<table>
+<thead>
+<tr>
+<th>模型</th>
+<th>输入</th>
+<th>输出</th>
+<th>缓存读取</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Gemini 3.1 Pro (≤200K)</td>
+<td>$2.00</td>
+<td>$12.00</td>
+<td>$0.20</td>
+</tr>
+<tr>
+<td>Gemini 3.1 Pro (&gt;200K)</td>
+<td>$4.00</td>
+<td>$18.00</td>
+<td>$0.40</td>
+</tr>
+<tr>
+<td>Gemini 3 Pro (≤200K)</td>
+<td>$2.00</td>
+<td>$12.00</td>
+<td>$0.20</td>
+</tr>
+<tr>
+<td>Gemini 3 Pro (&gt;200K)</td>
+<td>$4.00</td>
+<td>$18.00</td>
+<td>$0.40</td>
+</tr>
+<tr>
+<td>Gemini 3 Flash</td>
+<td>$0.50</td>
+<td>$3.00</td>
+<td>$0.05</td>
+</tr>
+</tbody></table>
+<h3>OpenAI 模型价格</h3>
+<table>
+<thead>
+<tr>
+<th>模型</th>
+<th>输入</th>
+<th>输出</th>
+<th>缓存读取</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>GPT 5.4 Pro</td>
+<td>$30.00</td>
+<td>$180.00</td>
+<td>$30.00</td>
+</tr>
+<tr>
+<td>GPT 5.4</td>
+<td>$2.50</td>
+<td>$15.00</td>
+<td>$0.25</td>
+</tr>
+<tr>
+<td>GPT 5.3 Codex</td>
+<td>$1.75</td>
+<td>$14.00</td>
+<td>$0.175</td>
+</tr>
+<tr>
+<td>GPT 5.3 Codex Spark</td>
+<td>$1.75</td>
+<td>$14.00</td>
+<td>$0.175</td>
+</tr>
+<tr>
+<td>GPT 5.2</td>
+<td>$1.75</td>
+<td>$14.00</td>
+<td>$0.175</td>
+</tr>
+<tr>
+<td>GPT 5.2 Codex</td>
+<td>$1.75</td>
+<td>$14.00</td>
+<td>$0.175</td>
+</tr>
+<tr>
+<td>GPT 5.1</td>
+<td>$1.07</td>
+<td>$8.50</td>
+<td>$0.107</td>
+</tr>
+<tr>
+<td>GPT 5.1 Codex</td>
+<td>$1.07</td>
+<td>$8.50</td>
+<td>$0.107</td>
+</tr>
+<tr>
+<td>GPT 5.1 Codex Max</td>
+<td>$1.25</td>
+<td>$10.00</td>
+<td>$0.125</td>
+</tr>
+<tr>
+<td>GPT 5.1 Codex Mini</td>
+<td>$0.25</td>
+<td>$2.00</td>
+<td>$0.025</td>
+</tr>
+<tr>
+<td>GPT 5</td>
+<td>$1.07</td>
+<td>$8.50</td>
+<td>$0.107</td>
+</tr>
+<tr>
+<td>GPT 5 Codex</td>
+<td>$1.07</td>
+<td>$8.50</td>
+<td>$0.107</td>
+</tr>
+</tbody></table>
+<hr>
+<h2>团队功能</h2>
+<h3>角色管理</h3>
+<ul>
+<li><strong>Admin</strong>：管理模型、成员、API key、账单</li>
+<li><strong>Member</strong>：仅管理自己的 API key</li>
+</ul>
+<h3>功能</h3>
+<ul>
+<li>为每个成员设置月度支出限额</li>
+<li>管理员可启用/禁用特定模型</li>
+<li>可使用自己的 OpenAI/Anthropic API key</li>
+</ul>
+<h3>定价</h3>
+<ul>
+<li>团队工作区目前免费（beta 阶段）</li>
+</ul>
+<hr>
+<h2>隐私政策</h2>
+<h3>数据保留</h3>
+<ul>
+<li>所有模型托管在美国</li>
+<li>提供商遵循零保留政策，不使用数据进行模型训练</li>
+</ul>
+<h3>例外情况</h3>
+<ul>
+<li><strong>Big Pickle</strong>：免费期间收集的数据可能用于改进模型</li>
+<li><strong>MiniMax M2.5 Free</strong>：免费期间收集的数据可能用于改进模型</li>
+<li><strong>Nemotron 3 Super Free</strong>：免费期间收集的数据可能用于改进模型</li>
+<li><strong>OpenAI APIs</strong>：根据 OpenAI 数据政策保留 30 天</li>
+<li><strong>Anthropic APIs</strong>：根据 Anthropic 数据政策保留 30 天</li>
+</ul>
+<hr>
+<h2>即将弃用模型</h2>
+<table>
+<thead>
+<tr>
+<th>模型</th>
+<th>弃用日期</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Qwen3 Coder 480B</td>
+<td>2026年2月6日</td>
+</tr>
+<tr>
+<td>Kimi K2 Thinking</td>
+<td>2026年3月6日</td>
+</tr>
+<tr>
+<td>Kimi K2</td>
+<td>2026年3月6日</td>
+</tr>
+<tr>
+<td>MiniMax M2.1</td>
+<td>2026年3月15日</td>
+</tr>
+<tr>
+<td>GLM 4.7</td>
+<td>2026年3月15日</td>
+</tr>
+<tr>
+<td>GLM 4.6</td>
+<td>2026年3月15日</td>
+</tr>
+</tbody></table>
+<hr>
+<h2>对比总结</h2>
+<table>
+<thead>
+<tr>
+<th>特性</th>
+<th>OpenCode Go</th>
+<th>OpenCode Zen</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>定价</td>
+<td>$5首月，$10/月</td>
+<td>按需付费（$20起）</td>
+</tr>
+<tr>
+<td>模型类型</td>
+<td>开源模型</td>
+<td>商业+开源模型</td>
+</tr>
+<tr>
+<td>包含模型</td>
+<td>GLM-5, Kimi K2.5, MiniMax M2.5</td>
+<td>GPT, Claude, Gemini, 开源模型</td>
+</tr>
+<tr>
+<td>使用限制</td>
+<td>固定限制（$12/5小时, $30/周, $60/月）</td>
+<td>按余额计费</td>
+</tr>
+<tr>
+<td>免费模型</td>
+<td>无</td>
+<td>有（Big Pickle, MiniMax M2.5 Free等）</td>
+</tr>
+<tr>
+<td>团队功能</td>
+<td>否</td>
+<td>是</td>
+</tr>
+</tbody></table>
+<hr>
+<h2>官方链接</h2>
+<ul>
+<li>官网：<a href="https://opencode.ai">https://opencode.ai</a></li>
+<li>文档：<a href="https://opencode.ai/docs">https://opencode.ai/docs</a></li>
+<li>Go 订阅：<a href="https://opencode.ai/go">https://opencode.ai/go</a></li>
+<li>Zen 订阅：<a href="https://opencode.ai/zen">https://opencode.ai/zen</a></li>
+<li>GitHub：<a href="https://github.com/anomalyco/opencode">https://github.com/anomalyco/opencode</a></li>
+<li>Discord：<a href="https://opencode.ai/discord">https://opencode.ai/discord</a></li>
+</ul>
+<hr>
+<p><em>文档更新时间：2026年3月</em></p>
+</div><footer class="mt-16 pt-8 border-t border-gray-100"><div class="flex flex-wrap gap-2"><span class="text-gray-500 mr-2">标签:</span><a class="text-sm px-3 py-1 rounded-full bg-gray-100 text-gray-600 hover:bg-orange-100 hover:text-orange-600 transition-colors" href="/Kairos_blog/blog?tag=OpenCode">OpenCode</a><a class="text-sm px-3 py-1 rounded-full bg-gray-100 text-gray-600 hover:bg-orange-100 hover:text-orange-600 transition-colors" href="/Kairos_blog/blog?tag=AI">AI</a><a class="text-sm px-3 py-1 rounded-full bg-gray-100 text-gray-600 hover:bg-orange-100 hover:text-orange-600 transition-colors" href="/Kairos_blog/blog?tag=%E6%95%99%E7%A8%8B">教程</a><a class="text-sm px-3 py-1 rounded-full bg-gray-100 text-gray-600 hover:bg-orange-100 hover:text-orange-600 transition-colors" href="/Kairos_blog/blog?tag=%E5%B7%A5%E5%85%B7">工具</a></div></footer></article></main><footer class="py-8 px-4 border-t border-gray-100"><div class="max-w-5xl mx-auto text-center"><p class="text-gray-500 text-sm">© <!-- -->2026<!-- --> Kairos Blog</p></div></footer><!--$--><!--/$--><script src="/Kairos_blog/_next/static/chunks/0bzupvr5gt3k9.js" id="_R_" async=""></script><script>(self.__next_f=self.__next_f||[]).push([0])</script><script>self.__next_f.push([1,"1:\"$Sreact.fragment\"\n2:I[27423,[\"/Kairos_blog/_next/static/chunks/0rha7da~wfx9i.js\",\"/Kairos_blog/_next/static/chunks/0d3shmwh5_nmn.js\"],\"ThemeProvider\"]\n3:I[39756,[\"/Kairos_blog/_next/static/chunks/0rha7da~wfx9i.js\",\"/Kairos_blog/_next/static/chunks/0d3shmwh5_nmn.js\"],\"default\"]\n4:I[37457,[\"/Kairos_blog/_next/static/chunks/0rha7da~wfx9i.js\",\"/Kairos_blog/_next/static/chunks/0d3shmwh5_nmn.js\"],\"default\"]\n6:I[97367,[\"/Kairos_blog/_next/static/chunks/0rha7da~wfx9i.js\",\"/Kairos_blog/_next/static/chunks/0d3shmwh5_nmn.js\"],\"OutletBoundary\"]\n7:\"$Sreact.suspense\"\na:I[97367,[\"/Kairos_blog/_next/static/chunks/0rha7da~wfx9i.js\",\"/Kairos_blog/_next/static/chunks/0d3shmwh5_nmn.js\"],\"ViewportBoundary\"]\nc:I[97367,[\"/Kairos_blog/_next/static/chunks/0rha7da~wfx9i.js\",\"/Kairos_blog/_next/static/chunks/0d3shmwh5_nmn.js\"],\"MetadataBoundary\"]\ne:I[68027,[\"/Kairos_blog/_next/static/chunks/0rha7da~wfx9i.js\",\"/Kairos_blog/_next/static/chunks/0d3shmwh5_nmn.js\"],\"default\",1]\n:HL[\"/Kairos_blog/_next/static/chunks/132oykfw_wbdt.css\",\"style\"]\n"])</script><script>self.__next_f.push([1,"0:{\"P\":null,\"c\":[\"\",\"blog\",\"opencode-go-zen-guide\",\"\"],\"q\":\"\",\"i\":false,\"f\":[[[\"\",{\"children\":[\"blog\",{\"children\":[[\"slug\",\"opencode-go-zen-guide\",\"d\",null],{\"children\":[\"__PAGE__\",{}]}]}]},\"$undefined\",\"$undefined\",16],[[\"$\",\"$1\",\"c\",{\"children\":[[[\"$\",\"link\",\"0\",{\"rel\":\"stylesheet\",\"href\":\"/Kairos_blog/_next/static/chunks/132oykfw_wbdt.css\",\"precedence\":\"next\",\"crossOrigin\":\"$undefined\",\"nonce\":\"$undefined\"}],[\"$\",\"script\",\"script-0\",{\"src\":\"/Kairos_blog/_next/static/chunks/0rha7da~wfx9i.js\",\"async\":true,\"nonce\":\"$undefined\"}],[\"$\",\"script\",\"script-1\",{\"src\":\"/Kairos_blog/_next/static/chunks/0d3shmwh5_nmn.js\",\"async\":true,\"nonce\":\"$undefined\"}]],[\"$\",\"html\",null,{\"lang\":\"zh-CN\",\"suppressHydrationWarning\":true,\"children\":[\"$\",\"body\",null,{\"className\":\"min-h-full flex flex-col\",\"children\":[\"$\",\"$L2\",null,{\"attribute\":\"class\",\"defaultTheme\":\"light\",\"enableSystem\":true,\"disableTransitionOnChange\":true,\"children\":[\"$\",\"$L3\",null,{\"parallelRouterKey\":\"children\",\"error\":\"$undefined\",\"errorStyles\":\"$undefined\",\"errorScripts\":\"$undefined\",\"template\":[\"$\",\"$L4\",null,{}],\"templateStyles\":\"$undefined\",\"templateScripts\":\"$undefined\",\"notFound\":[[[\"$\",\"title\",null,{\"children\":\"404: This page could not be found.\"}],[\"$\",\"div\",null,{\"style\":{\"fontFamily\":\"system-ui,\\\"Segoe UI\\\",Roboto,Helvetica,Arial,sans-serif,\\\"Apple Color Emoji\\\",\\\"Segoe UI Emoji\\\"\",\"height\":\"100vh\",\"textAlign\":\"center\",\"display\":\"flex\",\"flexDirection\":\"column\",\"alignItems\":\"center\",\"justifyContent\":\"center\"},\"children\":[\"$\",\"div\",null,{\"children\":[[\"$\",\"style\",null,{\"dangerouslySetInnerHTML\":{\"__html\":\"body{color:#000;background:#fff;margin:0}.next-error-h1{border-right:1px solid rgba(0,0,0,.3)}@media (prefers-color-scheme:dark){body{color:#fff;background:#000}.next-error-h1{border-right:1px solid rgba(255,255,255,.3)}}\"}}],[\"$\",\"h1\",null,{\"className\":\"next-error-h1\",\"style\":{\"display\":\"inline-block\",\"margin\":\"0 20px 0 0\",\"padding\":\"0 23px 0 0\",\"fontSize\":24,\"fontWeight\":500,\"verticalAlign\":\"top\",\"lineHeight\":\"49px\"},\"children\":404}],[\"$\",\"div\",null,{\"style\":{\"display\":\"inline-block\"},\"children\":[\"$\",\"h2\",null,{\"style\":{\"fontSize\":14,\"fontWeight\":400,\"lineHeight\":\"49px\",\"margin\":0},\"children\":\"This page could not be found.\"}]}]]}]}]],[]],\"forbidden\":\"$undefined\",\"unauthorized\":\"$undefined\"}]}]}]}]]}],{\"children\":[[\"$\",\"$1\",\"c\",{\"children\":[null,[\"$\",\"$L3\",null,{\"parallelRouterKey\":\"children\",\"error\":\"$undefined\",\"errorStyles\":\"$undefined\",\"errorScripts\":\"$undefined\",\"template\":[\"$\",\"$L4\",null,{}],\"templateStyles\":\"$undefined\",\"templateScripts\":\"$undefined\",\"notFound\":\"$undefined\",\"forbidden\":\"$undefined\",\"unauthorized\":\"$undefined\"}]]}],{\"children\":[[\"$\",\"$1\",\"c\",{\"children\":[null,[\"$\",\"$L3\",null,{\"parallelRouterKey\":\"children\",\"error\":\"$undefined\",\"errorStyles\":\"$undefined\",\"errorScripts\":\"$undefined\",\"template\":[\"$\",\"$L4\",null,{}],\"templateStyles\":\"$undefined\",\"templateScripts\":\"$undefined\",\"notFound\":\"$undefined\",\"forbidden\":\"$undefined\",\"unauthorized\":\"$undefined\"}]]}],{\"children\":[[\"$\",\"$1\",\"c\",{\"children\":[\"$L5\",[[\"$\",\"script\",\"script-0\",{\"src\":\"/Kairos_blog/_next/static/chunks/0qn4.8eoespq4.js\",\"async\":true,\"nonce\":\"$undefined\"}]],[\"$\",\"$L6\",null,{\"children\":[\"$\",\"$7\",null,{\"name\":\"Next.MetadataOutlet\",\"children\":\"$@8\"}]}]]}],{},null,false,null]},null,false,\"$@9\"]},null,false,\"$@9\"]},null,false,null],[\"$\",\"$1\",\"h\",{\"children\":[null,[\"$\",\"$La\",null,{\"children\":\"$Lb\"}],[\"$\",\"div\",null,{\"hidden\":true,\"children\":[\"$\",\"$Lc\",null,{\"children\":[\"$\",\"$7\",null,{\"name\":\"Next.Metadata\",\"children\":\"$Ld\"}]}]}],null]}],false]],\"m\":\"$undefined\",\"G\":[\"$e\",[[\"$\",\"link\",\"0\",{\"rel\":\"stylesheet\",\"href\":\"/Kairos_blog/_next/static/chunks/132oykfw_wbdt.css\",\"precedence\":\"next\",\"crossOrigin\":\"$undefined\",\"nonce\":\"$undefined\"}]]],\"S\":true,\"h\":null,\"s\":\"$undefined\",\"l\":\"$undefined\",\"p\":\"$undefined\",\"d\":\"$undefined\",\"b\":\"j01HmVbmc7T8z7sHZG7sB\"}\n"])</script><script>self.__next_f.push([1,"f:[]\n9:\"$Wf\"\n"])</script><script>self.__next_f.push([1,"10:I[2874,[\"/Kairos_blog/_next/static/chunks/0rha7da~wfx9i.js\",\"/Kairos_blog/_next/static/chunks/0d3shmwh5_nmn.js\",\"/Kairos_blog/_next/static/chunks/0qn4.8eoespq4.js\"],\"Navbar\"]\n11:I[22016,[\"/Kairos_blog/_next/static/chunks/0rha7da~wfx9i.js\",\"/Kairos_blog/_next/static/chunks/0d3shmwh5_nmn.js\",\"/Kairos_blog/_next/static/chunks/0qn4.8eoespq4.js\"],\"\"]\n12:I[58541,[\"/Kairos_blog/_next/static/chunks/0rha7da~wfx9i.js\",\"/Kairos_blog/_next/static/chunks/0d3shmwh5_nmn.js\",\"/Kairos_blog/_next/static/chunks/0qn4.8eoespq4.js\"],\"default\"]\n13:T3f15,"])</script><script>self.__next_f.push([1,"\u003ch1\u003eOpenCode Go 和 Zen 订阅详细说明\u003c/h1\u003e\n\u003ch2\u003e简介\u003c/h2\u003e\n\u003cp\u003eOpenCode 提供两种主要的订阅服务：\u003c/p\u003e\n\u003cul\u003e\n\u003cli\u003e\u003cstrong\u003eOpenCode Go\u003c/strong\u003e - 低成本的开放源码模型订阅\u003c/li\u003e\n\u003cli\u003e\u003cstrong\u003eOpenCode Zen\u003c/strong\u003e - 精选验证过的商业模型订阅\u003c/li\u003e\n\u003c/ul\u003e\n\u003cp\u003e两者都是可选的，使用 OpenCode 本身完全免费。\u003c/p\u003e\n\u003chr\u003e\n\u003ch2\u003eOpenCode Go - 低成本开放模型\u003c/h2\u003e\n\u003ch3\u003e定价\u003c/h3\u003e\n\u003cul\u003e\n\u003cli\u003e\u003cstrong\u003e首月\u003c/strong\u003e：$5\u003c/li\u003e\n\u003cli\u003e\u003cstrong\u003e之后\u003c/strong\u003e：$10/月\u003c/li\u003e\n\u003c/ul\u003e\n\u003ch3\u003e使用方法\u003c/h3\u003e\n\u003col\u003e\n\u003cli\u003e登录 \u003ca href=\"https://opencode.ai/auth\"\u003eOpenCode Zen\u003c/a\u003e 订阅 Go\u003c/li\u003e\n\u003cli\u003e在 TUI 中运行 \u003ccode\u003e/connect\u003c/code\u003e，选择 \u003ccode\u003eOpenCode Go\u003c/code\u003e，粘贴 API key\u003c/li\u003e\n\u003cli\u003e运行 \u003ccode\u003e/models\u003c/code\u003e 查看可用模型列表\u003c/li\u003e\n\u003c/ol\u003e\n\u003ch3\u003e包含模型\u003c/h3\u003e\n\u003ctable\u003e\n\u003cthead\u003e\n\u003ctr\u003e\n\u003cth\u003e模型\u003c/th\u003e\n\u003cth\u003e每5小时请求数\u003c/th\u003e\n\u003cth\u003e每周请求数\u003c/th\u003e\n\u003cth\u003e每月请求数\u003c/th\u003e\n\u003c/tr\u003e\n\u003c/thead\u003e\n\u003ctbody\u003e\u003ctr\u003e\n\u003ctd\u003eGLM-5\u003c/td\u003e\n\u003ctd\u003e1,150\u003c/td\u003e\n\u003ctd\u003e2,880\u003c/td\u003e\n\u003ctd\u003e5,750\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003eKimi K2.5\u003c/td\u003e\n\u003ctd\u003e1,850\u003c/td\u003e\n\u003ctd\u003e4,630\u003c/td\u003e\n\u003ctd\u003e9,250\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003eMiniMax M2.5\u003c/td\u003e\n\u003ctd\u003e20,000\u003c/td\u003e\n\u003ctd\u003e50,000\u003c/td\u003e\n\u003ctd\u003e100,000\u003c/td\u003e\n\u003c/tr\u003e\n\u003c/tbody\u003e\u003c/table\u003e\n\u003ch3\u003e使用限制（按美元计算）\u003c/h3\u003e\n\u003cul\u003e\n\u003cli\u003e\u003cstrong\u003e5小时限制\u003c/strong\u003e：$12 使用量\u003c/li\u003e\n\u003cli\u003e\u003cstrong\u003e每周限制\u003c/strong\u003e：$30 使用量\u003c/li\u003e\n\u003cli\u003e\u003cstrong\u003e每月限制\u003c/strong\u003e：$60 使用量\u003c/li\u003e\n\u003c/ul\u003e\n\u003ch3\u003eAPI 端点\u003c/h3\u003e\n\u003cp\u003e所有 Go 模型使用统一端点：\u003c/p\u003e\n\u003cpre\u003e\u003ccode\u003ehttps://opencode.ai/zen/go/v1/chat/completions\n\u003c/code\u003e\u003c/pre\u003e\n\u003ch3\u003e配置格式\u003c/h3\u003e\n\u003cpre\u003e\u003ccode class=\"language-yaml\"\u003e# config 中使用格式：opencode-go/\u0026lt;model-id\u0026gt;\nmodel: opencode-go/kimi-k2.5\n\u003c/code\u003e\u003c/pre\u003e\n\u003ch3\u003e超额使用\u003c/h3\u003e\n\u003cp\u003e如有 Zen 余额，可开启 \u003cstrong\u003eUse balance\u003c/strong\u003e 选项，在达到限制后使用余额继续请求。\u003c/p\u003e\n\u003chr\u003e\n\u003ch2\u003eOpenCode Zen - 精选商业模型\u003c/h2\u003e\n\u003ch3\u003e定价\u003c/h3\u003e\n\u003cul\u003e\n\u003cli\u003e\u003cstrong\u003e按需付费\u003c/strong\u003e：预存 $20（含 $1.23 信用卡处理费）\u003c/li\u003e\n\u003cli\u003e\u003cstrong\u003e零加价\u003c/strong\u003e：按成本价收费，仅覆盖处理费\u003c/li\u003e\n\u003cli\u003e\u003cstrong\u003e自动充值\u003c/strong\u003e：余额低于 $5 时自动充值 $20（可设置/禁用）\u003c/li\u003e\n\u003c/ul\u003e\n\u003ch3\u003e使用方法\u003c/h3\u003e\n\u003col\u003e\n\u003cli\u003e登录 \u003ca href=\"https://opencode.ai/auth\"\u003eOpenCode Zen\u003c/a\u003e，添加付款信息，复制 API key\u003c/li\u003e\n\u003cli\u003e在 TUI 中运行 \u003ccode\u003e/connect\u003c/code\u003e，选择 \u003ccode\u003eOpenCode Zen\u003c/code\u003e，粘贴 API key\u003c/li\u003e\n\u003cli\u003e运行 \u003ccode\u003e/models\u003c/code\u003e 查看可用模型列表\u003c/li\u003e\n\u003c/ol\u003e\n\u003ch3\u003e模型列表\u003c/h3\u003e\n\u003ch4\u003eOpenAI 模型（GPT 系列）\u003c/h4\u003e\n\u003ctable\u003e\n\u003cthead\u003e\n\u003ctr\u003e\n\u003cth\u003e模型\u003c/th\u003e\n\u003cth\u003e端点\u003c/th\u003e\n\u003cth\u003eAI SDK 包\u003c/th\u003e\n\u003c/tr\u003e\n\u003c/thead\u003e\n\u003ctbody\u003e\u003ctr\u003e\n\u003ctd\u003eGPT 5.4 Pro\u003c/td\u003e\n\u003ctd\u003e\u003ccode\u003ehttps://opencode.ai/zen/v1/responses\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003e\u003ccode\u003e@ai-sdk/openai\u003c/code\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003eGPT 5.4\u003c/td\u003e\n\u003ctd\u003e\u003ccode\u003ehttps://opencode.ai/zen/v1/responses\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003e\u003ccode\u003e@ai-sdk/openai\u003c/code\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003eGPT 5.3 Codex\u003c/td\u003e\n\u003ctd\u003e\u003ccode\u003ehttps://opencode.ai/zen/v1/responses\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003e\u003ccode\u003e@ai-sdk/openai\u003c/code\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003eGPT 5.3 Codex Spark\u003c/td\u003e\n\u003ctd\u003e\u003ccode\u003ehttps://opencode.ai/zen/v1/responses\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003e\u003ccode\u003e@ai-sdk/openai\u003c/code\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003eGPT 5.2\u003c/td\u003e\n\u003ctd\u003e\u003ccode\u003ehttps://opencode.ai/zen/v1/responses\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003e\u003ccode\u003e@ai-sdk/openai\u003c/code\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003eGPT 5.2 Codex\u003c/td\u003e\n\u003ctd\u003e\u003ccode\u003ehttps://opencode.ai/zen/v1/responses\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003e\u003ccode\u003e@ai-sdk/openai\u003c/code\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003eGPT 5.1\u003c/td\u003e\n\u003ctd\u003e\u003ccode\u003ehttps://opencode.ai/zen/v1/responses\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003e\u003ccode\u003e@ai-sdk/openai\u003c/code\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003eGPT 5.1 Codex\u003c/td\u003e\n\u003ctd\u003e\u003ccode\u003ehttps://opencode.ai/zen/v1/responses\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003e\u003ccode\u003e@ai-sdk/openai\u003c/code\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003eGPT 5.1 Codex Max\u003c/td\u003e\n\u003ctd\u003e\u003ccode\u003ehttps://opencode.ai/zen/v1/responses\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003e\u003ccode\u003e@ai-sdk/openai\u003c/code\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003eGPT 5.1 Codex Mini\u003c/td\u003e\n\u003ctd\u003e\u003ccode\u003ehttps://opencode.ai/zen/v1/responses\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003e\u003ccode\u003e@ai-sdk/openai\u003c/code\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003eGPT 5\u003c/td\u003e\n\u003ctd\u003e\u003ccode\u003ehttps://opencode.ai/zen/v1/responses\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003e\u003ccode\u003e@ai-sdk/openai\u003c/code\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003eGPT 5 Codex\u003c/td\u003e\n\u003ctd\u003e\u003ccode\u003ehttps://opencode.ai/zen/v1/responses\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003e\u003ccode\u003e@ai-sdk/openai\u003c/code\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003eGPT 5 Nano\u003c/td\u003e\n\u003ctd\u003e\u003ccode\u003ehttps://opencode.ai/zen/v1/responses\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003e\u003ccode\u003e@ai-sdk/openai\u003c/code\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003c/tbody\u003e\u003c/table\u003e\n\u003ch4\u003eAnthropic 模型（Claude 系列）\u003c/h4\u003e\n\u003ctable\u003e\n\u003cthead\u003e\n\u003ctr\u003e\n\u003cth\u003e模型\u003c/th\u003e\n\u003cth\u003e端点\u003c/th\u003e\n\u003cth\u003eAI SDK 包\u003c/th\u003e\n\u003c/tr\u003e\n\u003c/thead\u003e\n\u003ctbody\u003e\u003ctr\u003e\n\u003ctd\u003eClaude Opus 4.6\u003c/td\u003e\n\u003ctd\u003e\u003ccode\u003ehttps://opencode.ai/zen/v1/messages\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003e\u003ccode\u003e@ai-sdk/anthropic\u003c/code\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003eClaude Opus 4.5\u003c/td\u003e\n\u003ctd\u003e\u003ccode\u003ehttps://opencode.ai/zen/v1/messages\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003e\u003ccode\u003e@ai-sdk/anthropic\u003c/code\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003eClaude Opus 4.1\u003c/td\u003e\n\u003ctd\u003e\u003ccode\u003ehttps://opencode.ai/zen/v1/messages\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003e\u003ccode\u003e@ai-sdk/anthropic\u003c/code\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003eClaude Sonnet 4.6\u003c/td\u003e\n\u003ctd\u003e\u003ccode\u003ehttps://opencode.ai/zen/v1/messages\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003e\u003ccode\u003e@ai-sdk/anthropic\u003c/code\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003eClaude Sonnet 4.5\u003c/td\u003e\n\u003ctd\u003e\u003ccode\u003ehttps://opencode.ai/zen/v1/messages\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003e\u003ccode\u003e@ai-sdk/anthropic\u003c/code\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003eClaude Sonnet 4\u003c/td\u003e\n\u003ctd\u003e\u003ccode\u003ehttps://opencode.ai/zen/v1/messages\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003e\u003ccode\u003e@ai-sdk/anthropic\u003c/code\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003eClaude Haiku 4.5\u003c/td\u003e\n\u003ctd\u003e\u003ccode\u003ehttps://opencode.ai/zen/v1/messages\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003e\u003ccode\u003e@ai-sdk/anthropic\u003c/code\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003eClaude Haiku 3.5\u003c/td\u003e\n\u003ctd\u003e\u003ccode\u003ehttps://opencode.ai/zen/v1/messages\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003e\u003ccode\u003e@ai-sdk/anthropic\u003c/code\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003c/tbody\u003e\u003c/table\u003e\n\u003ch4\u003eGoogle 模型（Gemini 系列）\u003c/h4\u003e\n\u003ctable\u003e\n\u003cthead\u003e\n\u003ctr\u003e\n\u003cth\u003e模型\u003c/th\u003e\n\u003cth\u003e端点\u003c/th\u003e\n\u003cth\u003eAI SDK 包\u003c/th\u003e\n\u003c/tr\u003e\n\u003c/thead\u003e\n\u003ctbody\u003e\u003ctr\u003e\n\u003ctd\u003eGemini 3.1 Pro\u003c/td\u003e\n\u003ctd\u003e\u003ccode\u003ehttps://opencode.ai/zen/v1/models/gemini-3.1-pro\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003e\u003ccode\u003e@ai-sdk/google\u003c/code\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003eGemini 3 Pro\u003c/td\u003e\n\u003ctd\u003e\u003ccode\u003ehttps://opencode.ai/zen/v1/models/gemini-3-pro\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003e\u003ccode\u003e@ai-sdk/google\u003c/code\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003eGemini 3 Flash\u003c/td\u003e\n\u003ctd\u003e\u003ccode\u003ehttps://opencode.ai/zen/v1/models/gemini-3-flash\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003e\u003ccode\u003e@ai-sdk/google\u003c/code\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003c/tbody\u003e\u003c/table\u003e\n\u003ch4\u003e开源模型\u003c/h4\u003e\n\u003ctable\u003e\n\u003cthead\u003e\n\u003ctr\u003e\n\u003cth\u003e模型\u003c/th\u003e\n\u003cth\u003e端点\u003c/th\u003e\n\u003cth\u003eAI SDK 包\u003c/th\u003e\n\u003c/tr\u003e\n\u003c/thead\u003e\n\u003ctbody\u003e\u003ctr\u003e\n\u003ctd\u003eMiniMax M2.5\u003c/td\u003e\n\u003ctd\u003e\u003ccode\u003ehttps://opencode.ai/zen/v1/chat/completions\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003e\u003ccode\u003e@ai-sdk/openai-compatible\u003c/code\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003eMiniMax M2.5 Free\u003c/td\u003e\n\u003ctd\u003e\u003ccode\u003ehttps://opencode.ai/zen/v1/chat/completions\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003e\u003ccode\u003e@ai-sdk/openai-compatible\u003c/code\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003eMiniMax M2.1\u003c/td\u003e\n\u003ctd\u003e\u003ccode\u003ehttps://opencode.ai/zen/v1/chat/completions\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003e\u003ccode\u003e@ai-sdk/openai-compatible\u003c/code\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003eGLM 5\u003c/td\u003e\n\u003ctd\u003e\u003ccode\u003ehttps://opencode.ai/zen/v1/chat/completions\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003e\u003ccode\u003e@ai-sdk/openai-compatible\u003c/code\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003eGLM 4.7\u003c/td\u003e\n\u003ctd\u003e\u003ccode\u003ehttps://opencode.ai/zen/v1/chat/completions\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003e\u003ccode\u003e@ai-sdk/openai-compatible\u003c/code\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003eGLM 4.6\u003c/td\u003e\n\u003ctd\u003e\u003ccode\u003ehttps://opencode.ai/zen/v1/chat/completions\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003e\u003ccode\u003e@ai-sdk/openai-compatible\u003c/code\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003eKimi K2.5\u003c/td\u003e\n\u003ctd\u003e\u003ccode\u003ehttps://opencode.ai/zen/v1/chat/completions\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003e\u003ccode\u003e@ai-sdk/openai-compatible\u003c/code\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003eKimi K2 Thinking\u003c/td\u003e\n\u003ctd\u003e\u003ccode\u003ehttps://opencode.ai/zen/v1/chat/completions\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003e\u003ccode\u003e@ai-sdk/openai-compatible\u003c/code\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003eKimi K2\u003c/td\u003e\n\u003ctd\u003e\u003ccode\u003ehttps://opencode.ai/zen/v1/chat/completions\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003e\u003ccode\u003e@ai-sdk/openai-compatible\u003c/code\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003eQwen3 Coder 480B\u003c/td\u003e\n\u003ctd\u003e\u003ccode\u003ehttps://opencode.ai/zen/v1/chat/completions\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003e\u003ccode\u003e@ai-sdk/openai-compatible\u003c/code\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003eBig Pickle\u003c/td\u003e\n\u003ctd\u003e\u003ccode\u003ehttps://opencode.ai/zen/v1/chat/completions\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003e\u003ccode\u003e@ai-sdk/openai-compatible\u003c/code\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003eMiMo V2 Flash Free\u003c/td\u003e\n\u003ctd\u003e\u003ccode\u003ehttps://opencode.ai/zen/v1/chat/completions\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003e\u003ccode\u003e@ai-sdk/openai-compatible\u003c/code\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003eNemotron 3 Super Free\u003c/td\u003e\n\u003ctd\u003e\u003ccode\u003ehttps://opencode.ai/zen/v1/chat/completions\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003e\u003ccode\u003e@ai-sdk/openai-compatible\u003c/code\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003c/tbody\u003e\u003c/table\u003e\n\u003ch3\u003e完整模型列表 API\u003c/h3\u003e\n\u003cpre\u003e\u003ccode\u003ehttps://opencode.ai/zen/v1/models\n\u003c/code\u003e\u003c/pre\u003e\n\u003ch3\u003e配置格式\u003c/h3\u003e\n\u003cpre\u003e\u003ccode class=\"language-yaml\"\u003e# config 中使用格式：opencode/\u0026lt;model-id\u0026gt;\nmodel: opencode/gpt-5.3-codex\n\u003c/code\u003e\u003c/pre\u003e\n\u003chr\u003e\n\u003ch2\u003eZen 模型价格（每百万 token）\u003c/h2\u003e\n\u003ch3\u003e免费模型\u003c/h3\u003e\n\u003ctable\u003e\n\u003cthead\u003e\n\u003ctr\u003e\n\u003cth\u003e模型\u003c/th\u003e\n\u003cth\u003e输入\u003c/th\u003e\n\u003cth\u003e输出\u003c/th\u003e\n\u003cth\u003e缓存读取\u003c/th\u003e\n\u003cth\u003e缓存写入\u003c/th\u003e\n\u003c/tr\u003e\n\u003c/thead\u003e\n\u003ctbody\u003e\u003ctr\u003e\n\u003ctd\u003eBig Pickle\u003c/td\u003e\n\u003ctd\u003e免费\u003c/td\u003e\n\u003ctd\u003e免费\u003c/td\u003e\n\u003ctd\u003e免费\u003c/td\u003e\n\u003ctd\u003e-\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003eMiMo V2 Flash Free\u003c/td\u003e\n\u003ctd\u003e免费\u003c/td\u003e\n\u003ctd\u003e免费\u003c/td\u003e\n\u003ctd\u003e免费\u003c/td\u003e\n\u003ctd\u003e-\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003eNemotron 3 Super Free\u003c/td\u003e\n\u003ctd\u003e免费\u003c/td\u003e\n\u003ctd\u003e免费\u003c/td\u003e\n\u003ctd\u003e免费\u003c/td\u003e\n\u003ctd\u003e-\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003eMiniMax M2.5 Free\u003c/td\u003e\n\u003ctd\u003e免费\u003c/td\u003e\n\u003ctd\u003e免费\u003c/td\u003e\n\u003ctd\u003e免费\u003c/td\u003e\n\u003ctd\u003e-\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003eGPT 5 Nano\u003c/td\u003e\n\u003ctd\u003e免费\u003c/td\u003e\n\u003ctd\u003e免费\u003c/td\u003e\n\u003ctd\u003e免费\u003c/td\u003e\n\u003ctd\u003e-\u003c/td\u003e\n\u003c/tr\u003e\n\u003c/tbody\u003e\u003c/table\u003e\n\u003ch3\u003e开源模型价格\u003c/h3\u003e\n\u003ctable\u003e\n\u003cthead\u003e\n\u003ctr\u003e\n\u003cth\u003e模型\u003c/th\u003e\n\u003cth\u003e输入\u003c/th\u003e\n\u003cth\u003e输出\u003c/th\u003e\n\u003cth\u003e缓存读取\u003c/th\u003e\n\u003cth\u003e缓存写入\u003c/th\u003e\n\u003c/tr\u003e\n\u003c/thead\u003e\n\u003ctbody\u003e\u003ctr\u003e\n\u003ctd\u003eMiniMax M2.5\u003c/td\u003e\n\u003ctd\u003e$0.30\u003c/td\u003e\n\u003ctd\u003e$1.20\u003c/td\u003e\n\u003ctd\u003e$0.06\u003c/td\u003e\n\u003ctd\u003e$0.375\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003eMiniMax M2.1\u003c/td\u003e\n\u003ctd\u003e$0.30\u003c/td\u003e\n\u003ctd\u003e$1.20\u003c/td\u003e\n\u003ctd\u003e$0.10\u003c/td\u003e\n\u003ctd\u003e-\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003eGLM 5\u003c/td\u003e\n\u003ctd\u003e$1.00\u003c/td\u003e\n\u003ctd\u003e$3.20\u003c/td\u003e\n\u003ctd\u003e$0.20\u003c/td\u003e\n\u003ctd\u003e-\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003eGLM 4.7\u003c/td\u003e\n\u003ctd\u003e$0.60\u003c/td\u003e\n\u003ctd\u003e$2.20\u003c/td\u003e\n\u003ctd\u003e$0.10\u003c/td\u003e\n\u003ctd\u003e-\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003eGLM 4.6\u003c/td\u003e\n\u003ctd\u003e$0.60\u003c/td\u003e\n\u003ctd\u003e$2.20\u003c/td\u003e\n\u003ctd\u003e$0.10\u003c/td\u003e\n\u003ctd\u003e-\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003eKimi K2.5\u003c/td\u003e\n\u003ctd\u003e$0.60\u003c/td\u003e\n\u003ctd\u003e$3.00\u003c/td\u003e\n\u003ctd\u003e$0.10\u003c/td\u003e\n\u003ctd\u003e-\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003eKimi K2 Thinking\u003c/td\u003e\n\u003ctd\u003e$0.40\u003c/td\u003e\n\u003ctd\u003e$2.50\u003c/td\u003e\n\u003ctd\u003e-\u003c/td\u003e\n\u003ctd\u003e-\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003eKimi K2\u003c/td\u003e\n\u003ctd\u003e$0.40\u003c/td\u003e\n\u003ctd\u003e$2.50\u003c/td\u003e\n\u003ctd\u003e-\u003c/td\u003e\n\u003ctd\u003e-\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003eQwen3 Coder 480B\u003c/td\u003e\n\u003ctd\u003e$0.45\u003c/td\u003e\n\u003ctd\u003e$1.50\u003c/td\u003e\n\u003ctd\u003e-\u003c/td\u003e\n\u003ctd\u003e-\u003c/td\u003e\n\u003c/tr\u003e\n\u003c/tbody\u003e\u003c/table\u003e\n\u003ch3\u003eClaude 模型价格\u003c/h3\u003e\n\u003ctable\u003e\n\u003cthead\u003e\n\u003ctr\u003e\n\u003cth\u003e模型\u003c/th\u003e\n\u003cth\u003e输入\u003c/th\u003e\n\u003cth\u003e输出\u003c/th\u003e\n\u003cth\u003e缓存读取\u003c/th\u003e\n\u003cth\u003e缓存写入\u003c/th\u003e\n\u003c/tr\u003e\n\u003c/thead\u003e\n\u003ctbody\u003e\u003ctr\u003e\n\u003ctd\u003eClaude Opus 4.6 (≤200K)\u003c/td\u003e\n\u003ctd\u003e$5.00\u003c/td\u003e\n\u003ctd\u003e$25.00\u003c/td\u003e\n\u003ctd\u003e$0.50\u003c/td\u003e\n\u003ctd\u003e$6.25\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003eClaude Opus 4.6 (\u0026gt;200K)\u003c/td\u003e\n\u003ctd\u003e$10.00\u003c/td\u003e\n\u003ctd\u003e$37.50\u003c/td\u003e\n\u003ctd\u003e$1.00\u003c/td\u003e\n\u003ctd\u003e$12.50\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003eClaude Opus 4.5\u003c/td\u003e\n\u003ctd\u003e$5.00\u003c/td\u003e\n\u003ctd\u003e$25.00\u003c/td\u003e\n\u003ctd\u003e$0.50\u003c/td\u003e\n\u003ctd\u003e$6.25\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003eClaude Opus 4.1\u003c/td\u003e\n\u003ctd\u003e$15.00\u003c/td\u003e\n\u003ctd\u003e$75.00\u003c/td\u003e\n\u003ctd\u003e$1.50\u003c/td\u003e\n\u003ctd\u003e$18.75\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003eClaude Sonnet 4.6 (≤200K)\u003c/td\u003e\n\u003ctd\u003e$3.00\u003c/td\u003e\n\u003ctd\u003e$15.00\u003c/td\u003e\n\u003ctd\u003e$0.30\u003c/td\u003e\n\u003ctd\u003e$3.75\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003eClaude Sonnet 4.6 (\u0026gt;200K)\u003c/td\u003e\n\u003ctd\u003e$6.00\u003c/td\u003e\n\u003ctd\u003e$22.50\u003c/td\u003e\n\u003ctd\u003e$0.60\u003c/td\u003e\n\u003ctd\u003e$7.50\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003eClaude Sonnet 4.5 (≤200K)\u003c/td\u003e\n\u003ctd\u003e$3.00\u003c/td\u003e\n\u003ctd\u003e$15.00\u003c/td\u003e\n\u003ctd\u003e$0.30\u003c/td\u003e\n\u003ctd\u003e$3.75\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003eClaude Sonnet 4.5 (\u0026gt;200K)\u003c/td\u003e\n\u003ctd\u003e$6.00\u003c/td\u003e\n\u003ctd\u003e$22.50\u003c/td\u003e\n\u003ctd\u003e$0.60\u003c/td\u003e\n\u003ctd\u003e$7.50\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003eClaude Sonnet 4 (≤200K)\u003c/td\u003e\n\u003ctd\u003e$3.00\u003c/td\u003e\n\u003ctd\u003e$15.00\u003c/td\u003e\n\u003ctd\u003e$0.30\u003c/td\u003e\n\u003ctd\u003e$3.75\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003eClaude Sonnet 4 (\u0026gt;200K)\u003c/td\u003e\n\u003ctd\u003e$6.00\u003c/td\u003e\n\u003ctd\u003e$22.50\u003c/td\u003e\n\u003ctd\u003e$0.60\u003c/td\u003e\n\u003ctd\u003e$7.50\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003eClaude Haiku 4.5\u003c/td\u003e\n\u003ctd\u003e$1.00\u003c/td\u003e\n\u003ctd\u003e$5.00\u003c/td\u003e\n\u003ctd\u003e$0.10\u003c/td\u003e\n\u003ctd\u003e$1.25\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003eClaude Haiku 3.5\u003c/td\u003e\n\u003ctd\u003e$0.80\u003c/td\u003e\n\u003ctd\u003e$4.00\u003c/td\u003e\n\u003ctd\u003e$0.08\u003c/td\u003e\n\u003ctd\u003e$1.00\u003c/td\u003e\n\u003c/tr\u003e\n\u003c/tbody\u003e\u003c/table\u003e\n\u003ch3\u003eGemini 模型价格\u003c/h3\u003e\n\u003ctable\u003e\n\u003cthead\u003e\n\u003ctr\u003e\n\u003cth\u003e模型\u003c/th\u003e\n\u003cth\u003e输入\u003c/th\u003e\n\u003cth\u003e输出\u003c/th\u003e\n\u003cth\u003e缓存读取\u003c/th\u003e\n\u003c/tr\u003e\n\u003c/thead\u003e\n\u003ctbody\u003e\u003ctr\u003e\n\u003ctd\u003eGemini 3.1 Pro (≤200K)\u003c/td\u003e\n\u003ctd\u003e$2.00\u003c/td\u003e\n\u003ctd\u003e$12.00\u003c/td\u003e\n\u003ctd\u003e$0.20\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003eGemini 3.1 Pro (\u0026gt;200K)\u003c/td\u003e\n\u003ctd\u003e$4.00\u003c/td\u003e\n\u003ctd\u003e$18.00\u003c/td\u003e\n\u003ctd\u003e$0.40\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003eGemini 3 Pro (≤200K)\u003c/td\u003e\n\u003ctd\u003e$2.00\u003c/td\u003e\n\u003ctd\u003e$12.00\u003c/td\u003e\n\u003ctd\u003e$0.20\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003eGemini 3 Pro (\u0026gt;200K)\u003c/td\u003e\n\u003ctd\u003e$4.00\u003c/td\u003e\n\u003ctd\u003e$18.00\u003c/td\u003e\n\u003ctd\u003e$0.40\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003eGemini 3 Flash\u003c/td\u003e\n\u003ctd\u003e$0.50\u003c/td\u003e\n\u003ctd\u003e$3.00\u003c/td\u003e\n\u003ctd\u003e$0.05\u003c/td\u003e\n\u003c/tr\u003e\n\u003c/tbody\u003e\u003c/table\u003e\n\u003ch3\u003eOpenAI 模型价格\u003c/h3\u003e\n\u003ctable\u003e\n\u003cthead\u003e\n\u003ctr\u003e\n\u003cth\u003e模型\u003c/th\u003e\n\u003cth\u003e输入\u003c/th\u003e\n\u003cth\u003e输出\u003c/th\u003e\n\u003cth\u003e缓存读取\u003c/th\u003e\n\u003c/tr\u003e\n\u003c/thead\u003e\n\u003ctbody\u003e\u003ctr\u003e\n\u003ctd\u003eGPT 5.4 Pro\u003c/td\u003e\n\u003ctd\u003e$30.00\u003c/td\u003e\n\u003ctd\u003e$180.00\u003c/td\u003e\n\u003ctd\u003e$30.00\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003eGPT 5.4\u003c/td\u003e\n\u003ctd\u003e$2.50\u003c/td\u003e\n\u003ctd\u003e$15.00\u003c/td\u003e\n\u003ctd\u003e$0.25\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003eGPT 5.3 Codex\u003c/td\u003e\n\u003ctd\u003e$1.75\u003c/td\u003e\n\u003ctd\u003e$14.00\u003c/td\u003e\n\u003ctd\u003e$0.175\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003eGPT 5.3 Codex Spark\u003c/td\u003e\n\u003ctd\u003e$1.75\u003c/td\u003e\n\u003ctd\u003e$14.00\u003c/td\u003e\n\u003ctd\u003e$0.175\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003eGPT 5.2\u003c/td\u003e\n\u003ctd\u003e$1.75\u003c/td\u003e\n\u003ctd\u003e$14.00\u003c/td\u003e\n\u003ctd\u003e$0.175\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003eGPT 5.2 Codex\u003c/td\u003e\n\u003ctd\u003e$1.75\u003c/td\u003e\n\u003ctd\u003e$14.00\u003c/td\u003e\n\u003ctd\u003e$0.175\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003eGPT 5.1\u003c/td\u003e\n\u003ctd\u003e$1.07\u003c/td\u003e\n\u003ctd\u003e$8.50\u003c/td\u003e\n\u003ctd\u003e$0.107\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003eGPT 5.1 Codex\u003c/td\u003e\n\u003ctd\u003e$1.07\u003c/td\u003e\n\u003ctd\u003e$8.50\u003c/td\u003e\n\u003ctd\u003e$0.107\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003eGPT 5.1 Codex Max\u003c/td\u003e\n\u003ctd\u003e$1.25\u003c/td\u003e\n\u003ctd\u003e$10.00\u003c/td\u003e\n\u003ctd\u003e$0.125\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003eGPT 5.1 Codex Mini\u003c/td\u003e\n\u003ctd\u003e$0.25\u003c/td\u003e\n\u003ctd\u003e$2.00\u003c/td\u003e\n\u003ctd\u003e$0.025\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003eGPT 5\u003c/td\u003e\n\u003ctd\u003e$1.07\u003c/td\u003e\n\u003ctd\u003e$8.50\u003c/td\u003e\n\u003ctd\u003e$0.107\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003eGPT 5 Codex\u003c/td\u003e\n\u003ctd\u003e$1.07\u003c/td\u003e\n\u003ctd\u003e$8.50\u003c/td\u003e\n\u003ctd\u003e$0.107\u003c/td\u003e\n\u003c/tr\u003e\n\u003c/tbody\u003e\u003c/table\u003e\n\u003chr\u003e\n\u003ch2\u003e团队功能\u003c/h2\u003e\n\u003ch3\u003e角色管理\u003c/h3\u003e\n\u003cul\u003e\n\u003cli\u003e\u003cstrong\u003eAdmin\u003c/strong\u003e：管理模型、成员、API key、账单\u003c/li\u003e\n\u003cli\u003e\u003cstrong\u003eMember\u003c/strong\u003e：仅管理自己的 API key\u003c/li\u003e\n\u003c/ul\u003e\n\u003ch3\u003e功能\u003c/h3\u003e\n\u003cul\u003e\n\u003cli\u003e为每个成员设置月度支出限额\u003c/li\u003e\n\u003cli\u003e管理员可启用/禁用特定模型\u003c/li\u003e\n\u003cli\u003e可使用自己的 OpenAI/Anthropic API key\u003c/li\u003e\n\u003c/ul\u003e\n\u003ch3\u003e定价\u003c/h3\u003e\n\u003cul\u003e\n\u003cli\u003e团队工作区目前免费（beta 阶段）\u003c/li\u003e\n\u003c/ul\u003e\n\u003chr\u003e\n\u003ch2\u003e隐私政策\u003c/h2\u003e\n\u003ch3\u003e数据保留\u003c/h3\u003e\n\u003cul\u003e\n\u003cli\u003e所有模型托管在美国\u003c/li\u003e\n\u003cli\u003e提供商遵循零保留政策，不使用数据进行模型训练\u003c/li\u003e\n\u003c/ul\u003e\n\u003ch3\u003e例外情况\u003c/h3\u003e\n\u003cul\u003e\n\u003cli\u003e\u003cstrong\u003eBig Pickle\u003c/strong\u003e：免费期间收集的数据可能用于改进模型\u003c/li\u003e\n\u003cli\u003e\u003cstrong\u003eMiniMax M2.5 Free\u003c/strong\u003e：免费期间收集的数据可能用于改进模型\u003c/li\u003e\n\u003cli\u003e\u003cstrong\u003eNemotron 3 Super Free\u003c/strong\u003e：免费期间收集的数据可能用于改进模型\u003c/li\u003e\n\u003cli\u003e\u003cstrong\u003eOpenAI APIs\u003c/strong\u003e：根据 OpenAI 数据政策保留 30 天\u003c/li\u003e\n\u003cli\u003e\u003cstrong\u003eAnthropic APIs\u003c/strong\u003e：根据 Anthropic 数据政策保留 30 天\u003c/li\u003e\n\u003c/ul\u003e\n\u003chr\u003e\n\u003ch2\u003e即将弃用模型\u003c/h2\u003e\n\u003ctable\u003e\n\u003cthead\u003e\n\u003ctr\u003e\n\u003cth\u003e模型\u003c/th\u003e\n\u003cth\u003e弃用日期\u003c/th\u003e\n\u003c/tr\u003e\n\u003c/thead\u003e\n\u003ctbody\u003e\u003ctr\u003e\n\u003ctd\u003eQwen3 Coder 480B\u003c/td\u003e\n\u003ctd\u003e2026年2月6日\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003eKimi K2 Thinking\u003c/td\u003e\n\u003ctd\u003e2026年3月6日\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003eKimi K2\u003c/td\u003e\n\u003ctd\u003e2026年3月6日\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003eMiniMax M2.1\u003c/td\u003e\n\u003ctd\u003e2026年3月15日\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003eGLM 4.7\u003c/td\u003e\n\u003ctd\u003e2026年3月15日\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003eGLM 4.6\u003c/td\u003e\n\u003ctd\u003e2026年3月15日\u003c/td\u003e\n\u003c/tr\u003e\n\u003c/tbody\u003e\u003c/table\u003e\n\u003chr\u003e\n\u003ch2\u003e对比总结\u003c/h2\u003e\n\u003ctable\u003e\n\u003cthead\u003e\n\u003ctr\u003e\n\u003cth\u003e特性\u003c/th\u003e\n\u003cth\u003eOpenCode Go\u003c/th\u003e\n\u003cth\u003eOpenCode Zen\u003c/th\u003e\n\u003c/tr\u003e\n\u003c/thead\u003e\n\u003ctbody\u003e\u003ctr\u003e\n\u003ctd\u003e定价\u003c/td\u003e\n\u003ctd\u003e$5首月，$10/月\u003c/td\u003e\n\u003ctd\u003e按需付费（$20起）\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e模型类型\u003c/td\u003e\n\u003ctd\u003e开源模型\u003c/td\u003e\n\u003ctd\u003e商业+开源模型\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e包含模型\u003c/td\u003e\n\u003ctd\u003eGLM-5, Kimi K2.5, MiniMax M2.5\u003c/td\u003e\n\u003ctd\u003eGPT, Claude, Gemini, 开源模型\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e使用限制\u003c/td\u003e\n\u003ctd\u003e固定限制（$12/5小时, $30/周, $60/月）\u003c/td\u003e\n\u003ctd\u003e按余额计费\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e免费模型\u003c/td\u003e\n\u003ctd\u003e无\u003c/td\u003e\n\u003ctd\u003e有（Big Pickle, MiniMax M2.5 Free等）\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e团队功能\u003c/td\u003e\n\u003ctd\u003e否\u003c/td\u003e\n\u003ctd\u003e是\u003c/td\u003e\n\u003c/tr\u003e\n\u003c/tbody\u003e\u003c/table\u003e\n\u003chr\u003e\n\u003ch2\u003e官方链接\u003c/h2\u003e\n\u003cul\u003e\n\u003cli\u003e官网：\u003ca href=\"https://opencode.ai\"\u003ehttps://opencode.ai\u003c/a\u003e\u003c/li\u003e\n\u003cli\u003e文档：\u003ca href=\"https://opencode.ai/docs\"\u003ehttps://opencode.ai/docs\u003c/a\u003e\u003c/li\u003e\n\u003cli\u003eGo 订阅：\u003ca href=\"https://opencode.ai/go\"\u003ehttps://opencode.ai/go\u003c/a\u003e\u003c/li\u003e\n\u003cli\u003eZen 订阅：\u003ca href=\"https://opencode.ai/zen\"\u003ehttps://opencode.ai/zen\u003c/a\u003e\u003c/li\u003e\n\u003cli\u003eGitHub：\u003ca href=\"https://github.com/anomalyco/opencode\"\u003ehttps://github.com/anomalyco/opencode\u003c/a\u003e\u003c/li\u003e\n\u003cli\u003eDiscord：\u003ca href=\"https://opencode.ai/discord\"\u003ehttps://opencode.ai/discord\u003c/a\u003e\u003c/li\u003e\n\u003c/ul\u003e\n\u003chr\u003e\n\u003cp\u003e\u003cem\u003e文档更新时间：2026年3月\u003c/em\u003e\u003c/p\u003e\n"])</script><script>self.__next_f.push([1,"5:[[\"$\",\"$L10\",null,{}],[\"$\",\"main\",null,{\"className\":\"min-h-screen pt-24 pb-20\",\"children\":[\"$\",\"article\",null,{\"className\":\"max-w-3xl mx-auto px-4\",\"children\":[[\"$\",\"$L11\",null,{\"href\":\"/blog\",\"className\":\"inline-flex items-center gap-2 text-gray-500 hover:text-orange-500 transition-colors mb-8\",\"children\":[[\"$\",\"$L12\",null,{\"ref\":\"$undefined\",\"iconNode\":[[\"path\",{\"d\":\"m12 19-7-7 7-7\",\"key\":\"1l729n\"}],[\"path\",{\"d\":\"M19 12H5\",\"key\":\"x3x0zl\"}]],\"className\":\"lucide-arrow-left w-4 h-4\"}],\"返回列表\"]}],[\"$\",\"header\",null,{\"className\":\"mb-10\",\"children\":[[\"$\",\"div\",null,{\"className\":\"flex flex-wrap gap-2 mb-4\",\"children\":[[\"$\",\"span\",\"OpenCode\",{\"className\":\"text-sm px-3 py-1 rounded-full bg-orange-50 text-orange-600 font-medium\",\"children\":\"OpenCode\"}],[\"$\",\"span\",\"AI\",{\"className\":\"text-sm px-3 py-1 rounded-full bg-orange-50 text-orange-600 font-medium\",\"children\":\"AI\"}],[\"$\",\"span\",\"教程\",{\"className\":\"text-sm px-3 py-1 rounded-full bg-orange-50 text-orange-600 font-medium\",\"children\":\"教程\"}],[\"$\",\"span\",\"工具\",{\"className\":\"text-sm px-3 py-1 rounded-full bg-orange-50 text-orange-600 font-medium\",\"children\":\"工具\"}]]}],[\"$\",\"h1\",null,{\"className\":\"text-3xl sm:text-4xl font-bold text-gray-800 mb-4\",\"children\":\"OpenCode Go 和 Zen 订阅详细说明\"}],[\"$\",\"div\",null,{\"className\":\"flex items-center gap-4 text-sm text-gray-500\",\"children\":[\"$\",\"span\",null,{\"className\":\"flex items-center gap-1\",\"children\":[[\"$\",\"$L12\",null,{\"ref\":\"$undefined\",\"iconNode\":[[\"path\",{\"d\":\"M8 2v4\",\"key\":\"1cmpym\"}],[\"path\",{\"d\":\"M16 2v4\",\"key\":\"4m81vk\"}],[\"rect\",{\"width\":\"18\",\"height\":\"18\",\"x\":\"3\",\"y\":\"4\",\"rx\":\"2\",\"key\":\"1hopcy\"}],[\"path\",{\"d\":\"M3 10h18\",\"key\":\"8toen8\"}]],\"className\":\"lucide-calendar w-4 h-4\"}],\"2026-03-15\"]}]}]]}],[\"$\",\"div\",null,{\"className\":\"prose prose-lg max-w-none prose-headings:text-gray-800 prose-p:text-gray-600 prose-a:text-orange-500 prose-strong:text-gray-800 prose-code:bg-gray-100 prose-code:px-2 prose-code:py-1 prose-code:rounded prose-pre:bg-gray-900 prose-pre:text-white\",\"dangerouslySetInnerHTML\":{\"__html\":\"$13\"}}],\"$L14\"]}]}],\"$L15\"]\n"])</script><script>self.__next_f.push([1,"14:[\"$\",\"footer\",null,{\"className\":\"mt-16 pt-8 border-t border-gray-100\",\"children\":[\"$\",\"div\",null,{\"className\":\"flex flex-wrap gap-2\",\"children\":[[\"$\",\"span\",null,{\"className\":\"text-gray-500 mr-2\",\"children\":\"标签:\"}],[[\"$\",\"$L11\",\"OpenCode\",{\"href\":\"/blog?tag=OpenCode\",\"className\":\"text-sm px-3 py-1 rounded-full bg-gray-100 text-gray-600 hover:bg-orange-100 hover:text-orange-600 transition-colors\",\"children\":\"OpenCode\"}],[\"$\",\"$L11\",\"AI\",{\"href\":\"/blog?tag=AI\",\"className\":\"text-sm px-3 py-1 rounded-full bg-gray-100 text-gray-600 hover:bg-orange-100 hover:text-orange-600 transition-colors\",\"children\":\"AI\"}],[\"$\",\"$L11\",\"教程\",{\"href\":\"/blog?tag=%E6%95%99%E7%A8%8B\",\"className\":\"text-sm px-3 py-1 rounded-full bg-gray-100 text-gray-600 hover:bg-orange-100 hover:text-orange-600 transition-colors\",\"children\":\"教程\"}],[\"$\",\"$L11\",\"工具\",{\"href\":\"/blog?tag=%E5%B7%A5%E5%85%B7\",\"className\":\"text-sm px-3 py-1 rounded-full bg-gray-100 text-gray-600 hover:bg-orange-100 hover:text-orange-600 transition-colors\",\"children\":\"工具\"}]]]}]}]\n15:[\"$\",\"footer\",null,{\"className\":\"py-8 px-4 border-t border-gray-100\",\"children\":[\"$\",\"div\",null,{\"className\":\"max-w-5xl mx-auto text-center\",\"children\":[\"$\",\"p\",null,{\"className\":\"text-gray-500 text-sm\",\"children\":[\"© \",2026,\" Kairos Blog\"]}]}]}]\n"])</script><script>self.__next_f.push([1,"b:[[\"$\",\"meta\",\"0\",{\"charSet\":\"utf-8\"}],[\"$\",\"meta\",\"1\",{\"name\":\"viewport\",\"content\":\"width=device-width, initial-scale=1\"}]]\n"])</script><script>self.__next_f.push([1,"16:I[27201,[\"/Kairos_blog/_next/static/chunks/0rha7da~wfx9i.js\",\"/Kairos_blog/_next/static/chunks/0d3shmwh5_nmn.js\"],\"IconMark\"]\n8:null\nd:[[\"$\",\"title\",\"0\",{\"children\":\"Kairos 博客 - 开发者日志\"}],[\"$\",\"meta\",\"1\",{\"name\":\"description\",\"content\":\"河南大学 2024 级网络工程专业学生的技术博客\"}],[\"$\",\"link\",\"2\",{\"rel\":\"icon\",\"href\":\"/Kairos_blog/favicon.ico?favicon.0x3dzn~oxb6tn.ico\",\"sizes\":\"256x256\",\"type\":\"image/x-icon\"}],[\"$\",\"$L16\",\"3\",{}]]\n"])</script></body></html>
