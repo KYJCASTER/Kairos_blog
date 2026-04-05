@@ -1,3 +1,3 @@
 :HL["/Kairos_blog/_next/static/chunks/132oykfw_wbdt.css","style"]
-:HL["./avatar.svg","image"]
-0:{"tree":{"name":"","param":null,"prefetchHints":16,"slots":{"children":{"name":"about","param":null,"prefetchHints":0,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":0,"slots":null}}}}},"staleTime":300,"buildId":"bDRy7zW-RgzSY0ozJFNCt"}
+:HL["../avatar.svg","image"]
+0:{"tree":{"name":"","param":null,"prefetchHints":16,"slots":{"children":{"name":"about","param":null,"prefetchHints":0,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":0,"slots":null}}}}},"staleTime":300,"buildId":"Z7FaY-NpIrqVx43lUAOby"}

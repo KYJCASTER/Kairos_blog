@@ -42,7 +42,7 @@ export default function AboutPage() {
             <div className="relative inline-block mb-8">
               <div className="w-32 h-32 rounded-3xl overflow-hidden shadow-2xl shadow-orange-500/10 rotate-3 mx-auto">
                 <img
-                  src="./avatar.svg"
+                  src="../avatar.svg"
                   alt="Kairos"
                   className="w-full h-full object-cover"
                 />
