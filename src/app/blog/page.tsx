@@ -3,7 +3,7 @@ import { Navbar } from "@/components/navbar"
 import Link from "next/link"
 import { format } from "date-fns"
 import { zhCN } from "date-fns/locale"
-import { Search, Calendar, ArrowRight } from "lucide-react"
+import { Search, Calendar, ArrowRight, Clock } from "lucide-react"
 
 interface BlogPageProps {
   searchParams: { [key: string]: string | string[] | undefined }
@@ -61,11 +61,11 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
       <main className="min-h-screen pt-24">
         {/* Header */}
         <section className="py-16 px-4">
-          <div className="max-w-6xl mx-auto text-center">
-            <h1 className="text-4xl sm:text-5xl font-bold mb-4">
-              <span className="gradient-text">博客文章</span>
+          <div className="max-w-5xl mx-auto text-center">
+            <h1 className="text-4xl sm:text-5xl font-bold mb-4 text-gray-800">
+              博客<span className="gradient-text">文章</span>
             </h1>
-            <p className="text-slate-400 text-lg">
+            <p className="text-gray-500 text-lg">
               分享技术心得与学习笔记
             </p>
           </div>
@@ -73,18 +73,18 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
 
         {/* Search & Filter */}
         <section className="py-8 px-4">
-          <div className="max-w-6xl mx-auto">
-            <div className="glass rounded-2xl p-6">
+          <div className="max-w-5xl mx-auto">
+            <div className="card p-6">
               <div className="flex flex-col md:flex-row gap-4 items-center justify-between">
                 <form className="flex gap-2 w-full md:w-auto">
                   <div className="relative flex-1 md:w-80">
-                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-500" />
+                    <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
                     <input
                       type="text"
                       name="search"
                       placeholder="搜索文章..."
                       defaultValue={search}
-                      className="w-full pl-10 pr-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder:text-slate-500 focus:outline-none focus:border-violet-500/50"
+                      className="w-full pl-12 pr-4 py-3 rounded-full bg-gray-100 border-0 text-gray-800 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-orange-500/20"
                     />
                   </div>
                   <button type="submit" className="btn-primary">
@@ -95,10 +95,10 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
                 <div className="flex flex-wrap gap-2 justify-center">
                   <Link
                     href="/blog"
-                    className={`px-3 py-1.5 rounded-full text-sm transition-all ${
+                    className={`px-4 py-2 rounded-full text-sm font-semibold transition-all ${
                       !tagFilter 
-                        ? "bg-violet-500 text-white" 
-                        : "bg-white/5 text-slate-400 hover:bg-white/10"
+                        ? "bg-orange-500 text-white" 
+                        : "bg-gray-100 text-gray-600 hover:bg-gray-200"
                     }`}
                   >
                     全部
@@ -107,10 +107,10 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
                     <Link
                       key={tag.id}
                       href={`/blog?tag=${tag.slug}${search ? `&search=${search}` : ""}`}
-                      className={`px-3 py-1.5 rounded-full text-sm transition-all ${
+                      className={`px-4 py-2 rounded-full text-sm font-semibold transition-all ${
                         tagFilter === tag.slug
-                          ? "bg-violet-500 text-white"
-                          : "bg-white/5 text-slate-400 hover:bg-white/10"
+                          ? "bg-orange-500 text-white"
+                          : "bg-gray-100 text-gray-600 hover:bg-gray-200"
                       }`}
                     >
                       {tag.name}
@@ -124,10 +124,13 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
 
         {/* Posts Grid */}
         <section className="py-12 px-4">
-          <div className="max-w-6xl mx-auto">
+          <div className="max-w-5xl mx-auto">
             {posts.length === 0 ? (
-              <div className="text-center py-20 glass-card rounded-2xl">
-                <p className="text-xl text-slate-500">
+              <div className="text-center py-20 card">
+                <div className="w-20 h-20 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <Clock className="w-10 h-10 text-orange-400" />
+                </div>
+                <p className="text-xl text-gray-500 font-medium">
                   {search || tagFilter ? "没有找到相关文章" : "文章正在创作中..."}
                 </p>
               </div>
@@ -136,7 +139,7 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                   {posts.map((post: any) => (
                     <Link key={post.id} href={`/blog/${post.slug}`}>
-                      <article className="glass-card rounded-2xl overflow-hidden h-full group cursor-pointer">
+                      <article className="card overflow-hidden h-full group cursor-pointer">
                         <div className="aspect-video overflow-hidden">
                           {post.coverImage ? (
                             <img
@@ -145,7 +148,7 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
                               className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                             />
                           ) : (
-                            <div className="w-full h-full bg-gradient-to-br from-violet-500/20 to-cyan-500/20 flex items-center justify-center">
+                            <div className="w-full h-full bg-gradient-to-br from-orange-100 to-amber-100 flex items-center justify-center">
                               <span className="text-4xl font-bold gradient-text">K</span>
                             </div>
                           )}
@@ -155,19 +158,19 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
                             {post.tags.slice(0, 3).map((tag: any) => (
                               <span
                                 key={tag.id}
-                                className="text-xs px-2 py-1 rounded-full bg-violet-500/10 text-violet-300 border border-violet-500/20"
+                                className="text-xs px-3 py-1 rounded-full bg-orange-50 text-orange-600 font-medium"
                               >
                                 {tag.name}
                               </span>
                             ))}
                           </div>
-                          <h3 className="text-lg font-semibold mb-2 line-clamp-2 group-hover:text-violet-300 transition-colors">
+                          <h3 className="text-lg font-bold mb-2 line-clamp-2 text-gray-800 group-hover:text-orange-500 transition-colors">
                             {post.title}
                           </h3>
-                          <p className="text-sm text-slate-400 line-clamp-2 mb-4">
+                          <p className="text-sm text-gray-500 line-clamp-2 mb-4">
                             {post.excerpt || "暂无摘要"}
                           </p>
-                          <div className="flex items-center gap-2 text-xs text-slate-500">
+                          <div className="flex items-center gap-2 text-xs text-gray-400">
                             <Calendar className="w-3 h-3" />
                             {post.publishedAt &&
                               format(new Date(post.publishedAt), "yyyy-MM-dd", { locale: zhCN })}
@@ -188,7 +191,7 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
                         <button className="btn-secondary">← 上一页</button>
                       </Link>
                     )}
-                    <span className="px-4 py-2 rounded-xl bg-white/5 text-slate-400">
+                    <span className="px-4 py-2 rounded-full bg-gray-100 text-gray-600 font-semibold">
                       {page} / {totalPages}
                     </span>
                     {page < totalPages && (
@@ -206,9 +209,9 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
         </section>
       </main>
 
-      <footer className="py-8 px-4 border-t border-white/5">
-        <div className="max-w-6xl mx-auto text-center">
-          <p className="text-slate-500 text-sm">
+      <footer className="py-8 px-4 border-t border-gray-100">
+        <div className="max-w-5xl mx-auto text-center">
+          <p className="text-gray-500 text-sm">
             © {new Date().getFullYear()} Kairos Blog
           </p>
         </div>

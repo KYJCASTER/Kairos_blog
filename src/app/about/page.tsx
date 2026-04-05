@@ -47,21 +47,21 @@ export default function AboutPage() {
         <section className="py-20 px-4">
           <div className="max-w-4xl mx-auto text-center">
             <div className="relative inline-block mb-8">
-              <div className="w-32 h-32 rounded-2xl overflow-hidden glow mx-auto">
+              <div className="w-32 h-32 rounded-3xl overflow-hidden shadow-2xl shadow-orange-500/10 rotate-3 mx-auto">
                 <img
                   src="/头像.jpg"
                   alt="Kairos"
                   className="w-full h-full object-cover"
                 />
               </div>
-              <div className="absolute -bottom-2 -right-2 w-8 h-8 bg-gradient-to-br from-violet-500 to-cyan-500 rounded-full flex items-center justify-center text-white font-bold border-4 border-[#0a0a0f]">
+              <div className="absolute -bottom-2 -right-2 w-8 h-8 bg-gradient-to-br from-orange-500 to-amber-400 rounded-full flex items-center justify-center text-white font-bold border-4 border-white">
                 K
               </div>
             </div>
-            <h1 className="text-4xl sm:text-5xl font-bold mb-4">
+            <h1 className="text-4xl sm:text-5xl font-bold mb-4 text-gray-800">
               关于 <span className="gradient-text">Kairos</span>
             </h1>
-            <p className="text-slate-400 text-xl mb-8">
+            <p className="text-gray-500 text-xl mb-8">
               河南大学 2024 级网络工程专业学生
             </p>
             <div className="flex flex-wrap justify-center gap-4">
@@ -90,8 +90,8 @@ export default function AboutPage() {
         {/* Introduction */}
         <section className="py-16 px-4">
           <div className="max-w-4xl mx-auto">
-            <div className="glass rounded-2xl p-8 text-center">
-              <p className="text-lg text-slate-300 leading-relaxed">
+            <div className="card p-8 text-center">
+              <p className="text-lg text-gray-600 leading-relaxed">
                 你好！我是 Kairos，一名热爱技术的网络工程专业学生。
                 我喜欢探索新技术，分享学习心得，记录成长历程。
                 这个博客是我技术探索的见证，希望能对你有所帮助。
@@ -103,20 +103,20 @@ export default function AboutPage() {
         {/* Skills */}
         <section className="py-16 px-4">
           <div className="max-w-4xl mx-auto">
-            <h2 className="text-3xl font-bold text-center mb-12">
-              <span className="gradient-text">技能栈</span>
+            <h2 className="text-3xl font-bold text-center mb-12 text-gray-800">
+              我的<span className="gradient-text">技能栈</span>
             </h2>
 
             <div className="grid sm:grid-cols-2 gap-6">
               {skills.map((skill) => (
-                <div key={skill.name} className="glass-card rounded-xl p-6">
+                <div key={skill.name} className="card p-6">
                   <div className="flex items-center justify-between mb-3">
-                    <span className="font-medium">{skill.name}</span>
-                    <span className="text-sm text-slate-400">{skill.level}%</span>
+                    <span className="font-bold text-gray-800">{skill.name}</span>
+                    <span className="text-sm text-orange-500 font-semibold">{skill.level}%</span>
                   </div>
-                  <div className="h-2 bg-white/10 rounded-full overflow-hidden">
+                  <div className="h-3 bg-gray-100 rounded-full overflow-hidden">
                     <div
-                      className="h-full bg-gradient-to-r from-violet-500 to-cyan-500 rounded-full transition-all duration-1000"
+                      className="h-full bg-gradient-to-r from-orange-500 to-amber-400 rounded-full transition-all duration-1000"
                       style={{ width: `${skill.level}%` }}
                     />
                   </div>
@@ -129,12 +129,12 @@ export default function AboutPage() {
         {/* Timeline */}
         <section className="py-16 px-4">
           <div className="max-w-4xl mx-auto">
-            <h2 className="text-3xl font-bold text-center mb-12">
-              <span className="gradient-text">成长历程</span>
+            <h2 className="text-3xl font-bold text-center mb-12 text-gray-800">
+              成长<span className="gradient-text">历程</span>
             </h2>
 
             <div className="relative">
-              <div className="absolute left-8 top-0 bottom-0 w-px bg-gradient-to-b from-violet-500/50 to-cyan-500/50 hidden sm:block" />
+              <div className="absolute left-8 top-0 bottom-0 w-1 bg-gradient-to-b from-orange-400 to-amber-400 hidden sm:block rounded-full" />
 
               <div className="space-y-8">
                 {timeline.map((item, index) => {
@@ -142,20 +142,20 @@ export default function AboutPage() {
                   return (
                     <div key={index} className="relative flex flex-col sm:flex-row gap-4 sm:gap-8">
                       <div className="flex items-center gap-4 sm:block">
-                        <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-violet-500 to-cyan-500 flex items-center justify-center shrink-0">
+                        <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-orange-500 to-amber-400 flex items-center justify-center shrink-0 shadow-lg shadow-orange-500/20">
                           <Icon className="w-8 h-8 text-white" />
                         </div>
-                        <span className="sm:hidden text-xl font-bold gradient-text">
+                        <span className="sm:hidden text-xl font-bold text-orange-500">
                           {item.year}
                         </span>
                       </div>
 
-                      <div className="glass-card rounded-xl p-6 flex-1 sm:ml-0">
-                        <span className="hidden sm:block text-sm text-violet-400 mb-1">
+                      <div className="card p-6 flex-1 sm:ml-0">
+                        <span className="hidden sm:block text-sm text-orange-500 font-semibold mb-1">
                           {item.year}
                         </span>
-                        <h3 className="text-lg font-semibold mb-2">{item.title}</h3>
-                        <p className="text-slate-400 text-sm">{item.description}</p>
+                        <h3 className="text-lg font-bold text-gray-800 mb-2">{item.title}</h3>
+                        <p className="text-gray-500">{item.description}</p>
                       </div>
                     </div>
                   )
@@ -168,38 +168,38 @@ export default function AboutPage() {
         {/* Contact */}
         <section className="py-16 px-4">
           <div className="max-w-4xl mx-auto">
-            <div className="glass rounded-2xl p-8 md:p-12 text-center">
-              <h2 className="text-3xl font-bold mb-8">
-                <span className="gradient-text">联系我</span>
+            <div className="card p-8 md:p-12 text-center">
+              <h2 className="text-3xl font-bold mb-8 text-gray-800">
+                联系<span className="gradient-text">我</span>
               </h2>
 
               <div className="grid sm:grid-cols-3 gap-6 mb-12">
                 <div className="flex flex-col items-center gap-3">
-                  <div className="w-14 h-14 rounded-xl bg-violet-500/20 flex items-center justify-center">
-                    <MapPin className="w-6 h-6 text-violet-400" />
+                  <div className="w-14 h-14 rounded-2xl bg-orange-100 flex items-center justify-center">
+                    <MapPin className="w-6 h-6 text-orange-500" />
                   </div>
-                  <h3 className="font-medium">位置</h3>
-                  <p className="text-sm text-slate-500">河南 · 开封</p>
+                  <h3 className="font-bold text-gray-800">位置</h3>
+                  <p className="text-sm text-gray-500">河南 · 开封</p>
                 </div>
                 <div className="flex flex-col items-center gap-3">
-                  <div className="w-14 h-14 rounded-xl bg-cyan-500/20 flex items-center justify-center">
-                    <Mail className="w-6 h-6 text-cyan-400" />
+                  <div className="w-14 h-14 rounded-2xl bg-amber-100 flex items-center justify-center">
+                    <Mail className="w-6 h-6 text-amber-600" />
                   </div>
-                  <h3 className="font-medium">邮箱</h3>
-                  <p className="text-sm text-slate-500">kairos@example.com</p>
+                  <h3 className="font-bold text-gray-800">邮箱</h3>
+                  <p className="text-sm text-gray-500">kairos@example.com</p>
                 </div>
                 <div className="flex flex-col items-center gap-3">
-                  <div className="w-14 h-14 rounded-xl bg-emerald-500/20 flex items-center justify-center">
-                    <svg className="w-6 h-6 text-emerald-400" viewBox="0 0 24 24" fill="currentColor">
+                  <div className="w-14 h-14 rounded-2xl bg-orange-100 flex items-center justify-center">
+                    <svg className="w-6 h-6 text-orange-500" viewBox="0 0 24 24" fill="currentColor">
                       <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
                     </svg>
                   </div>
-                  <h3 className="font-medium">GitHub</h3>
-                  <p className="text-sm text-slate-500">@KYJCASTER</p>
+                  <h3 className="font-bold text-gray-800">GitHub</h3>
+                  <p className="text-sm text-gray-500">@KYJCASTER</p>
                 </div>
               </div>
 
-              <p className="text-lg text-slate-400 mb-6">
+              <p className="text-lg text-gray-500 mb-6">
                 有任何问题或建议？欢迎交流！
               </p>
               <Link href="/blog">
@@ -213,9 +213,9 @@ export default function AboutPage() {
         </section>
       </main>
 
-      <footer className="py-8 px-4 border-t border-white/5">
-        <div className="max-w-6xl mx-auto text-center">
-          <p className="text-slate-500 text-sm">
+      <footer className="py-8 px-4 border-t border-gray-100">
+        <div className="max-w-5xl mx-auto text-center">
+          <p className="text-gray-500 text-sm">
             © {new Date().getFullYear()} Kairos Blog
           </p>
         </div>
