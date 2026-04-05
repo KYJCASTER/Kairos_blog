@@ -1,26 +1,22 @@
-import NextAuth from "next-auth"
-import { PrismaAdapter } from "@auth/prisma-adapter"
-import Github from "next-auth/providers/github"
-import { prisma } from "./db"
+// Mock auth for static export
+// In production, consider using a serverless function or client-side auth
 
-export const { handlers, auth, signIn, signOut } = NextAuth({
-  adapter: PrismaAdapter(prisma),
-  providers: [
-    Github({
-      clientId: process.env.GITHUB_ID!,
-      clientSecret: process.env.GITHUB_SECRET!,
-    }),
-  ],
-  callbacks: {
-    session: async ({ session, user }: { session: any, user: any }) => {
-      if (session?.user) {
-        session.user.id = user.id
-        session.user.role = user.role
-      }
-      return session
-    },
-  },
-  pages: {
-    signIn: '/login',
-  },
-})
+export const authOptions = {
+  providers: [],
+}
+
+// Mock session for static export
+export function useSession() {
+  return {
+    data: null,
+    status: "unauthenticated",
+  }
+}
+
+export function signIn() {
+  console.log("Sign in not available in static export mode")
+}
+
+export function signOut() {
+  console.log("Sign out not available in static export mode")
+}

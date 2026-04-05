@@ -4,6 +4,7 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { cn } from "@/lib/utils"
 import { ThemeToggle } from "./theme-toggle"
+import { SearchBox } from "./search-box"
 import { Zap, User, BookOpen } from "lucide-react"
 
 const navItems = [
@@ -29,8 +30,13 @@ export function Navbar() {
             </span>
           </Link>
 
-          {/* Nav Links */}
+          {/* Nav Links + Search */}
           <div className="flex items-center gap-1">
+            {/* Search - Desktop */}
+            <div className="hidden lg:block mr-4">
+              <SearchBox variant="compact" />
+            </div>
+
             {navItems.map((item) => {
               const Icon = item.icon
               const isActive = pathname === item.href || pathname?.startsWith(`${item.href}/`)
