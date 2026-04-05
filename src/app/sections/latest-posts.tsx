@@ -1,8 +1,8 @@
 import { prisma } from "@/lib/db"
-import { ComicCard } from "@/components/ui/comic-card"
 import Link from "next/link"
 import { format } from "date-fns"
 import { zhCN } from "date-fns/locale"
+import { ArrowRight, Calendar } from "lucide-react"
 
 interface PostWithTags {
   id: string
@@ -29,73 +29,98 @@ export async function LatestPosts() {
       include: { tags: true },
     })
   } catch (error) {
-    // Database not available during build, return empty state
     console.log('Database not available, showing empty state')
   }
 
   return (
-    <section className="py-20 px-4">
-      <div className="max-w-7xl mx-auto">
-        <h2 className="font-comic text-4xl sm:text-5xl text-center mb-12 tracking-wider">
-          <span className="bg-[#FFD60A] px-4 py-2 border-4 border-black comic-shadow inline-block transform -rotate-2">
-            最新文章
-          </span>
-        </h2>
+    <section className="py-24 px-4">
+      <div className="max-w-6xl mx-auto">
+        {/* 标题 */}
+        <div className="flex items-center justify-between mb-12">
+          <div>
+            <h2 className="text-3xl sm:text-4xl font-bold mb-2">
+              <span className="gradient-text">最新文章</span>
+            </h2>
+            <p className="text-slate-500">探索技术世界的精彩文章</p>
+          </div>
+          <Link 
+            href="/blog" 
+            className="hidden sm:inline-flex items-center gap-2 text-violet-400 hover:text-violet-300 transition-colors"
+          >
+            查看全部
+            <ArrowRight className="w-4 h-4" />
+          </Link>
+        </div>
 
         {posts.length === 0 ? (
-          <div className="text-center py-20">
-            <p className="font-comic text-2xl text-gray-500">文章正在创作中...</p>
+          <div className="text-center py-20 glass-card rounded-2xl">
+            <p className="text-xl text-slate-500">文章正在创作中...</p>
+            <p className="text-sm text-slate-600 mt-2">敬请期待精彩内容</p>
           </div>
         ) : (
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {posts.map((post: PostWithTags, index: number) => (
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {posts.map((post: PostWithTags) => (
               <Link key={post.id} href={`/blog/${post.slug}`}>
-                <ComicCard
-                  variant={index % 2 === 0 ? "explosion" : "default"}
-                  color={["white", "cream", "yellow"][index % 3] as any}
-                  className="h-full transform hover:-translate-y-2 transition-transform cursor-pointer"
-                >
-                  {post.coverImage && (
-                    <div className="aspect-video mb-4 border-4 border-black overflow-hidden">
+                <article className="glass-card rounded-2xl overflow-hidden h-full group cursor-pointer">
+                  {/* 封面图 */}
+                  <div className="aspect-video overflow-hidden">
+                    {post.coverImage ? (
                       <img
                         src={post.coverImage}
                         alt={post.title}
-                        className="w-full h-full object-cover"
+                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                       />
-                    </div>
-                  )}
-                  <h3 className="font-comic text-xl mb-2 tracking-wider line-clamp-2">
-                    {post.title}
-                  </h3>
-                  <p className="text-sm opacity-70 line-clamp-2 mb-4">
-                    {post.excerpt}
-                  </p>
-                  <div className="flex flex-wrap gap-2">
-                    {post.tags.map((tag) => (
-                      <span
-                        key={tag.id}
-                        className="px-2 py-1 text-xs border-2 border-black text-black"
-                        style={{ backgroundColor: tag.color }}
-                      >
-                        {tag.name}
-                      </span>
-                    ))}
+                    ) : (
+                      <div className="w-full h-full bg-gradient-to-br from-violet-500/20 to-cyan-500/20 flex items-center justify-center">
+                        <span className="text-4xl font-bold gradient-text">K</span>
+                      </div>
+                    )}
                   </div>
-                  <p className="text-xs mt-4 opacity-50">
-                    {post.publishedAt &&
-                      format(new Date(post.publishedAt), "yyyy年M月d日", { locale: zhCN })}
-                  </p>
-                </ComicCard>
+                  
+                  {/* 内容 */}
+                  <div className="p-6">
+                    {/* 标签 */}
+                    <div className="flex flex-wrap gap-2 mb-3">
+                      {post.tags.slice(0, 3).map((tag) => (
+                        <span
+                          key={tag.id}
+                          className="text-xs px-2 py-1 rounded-full bg-violet-500/10 text-violet-300 border border-violet-500/20"
+                        >
+                          {tag.name}
+                        </span>
+                      ))}
+                    </div>
+                    
+                    {/* 标题 */}
+                    <h3 className="text-lg font-semibold mb-2 line-clamp-2 group-hover:text-violet-300 transition-colors">
+                      {post.title}
+                    </h3>
+                    
+                    {/* 摘要 */}
+                    <p className="text-sm text-slate-400 line-clamp-2 mb-4">
+                      {post.excerpt || "暂无摘要"}
+                    </p>
+                    
+                    {/* 日期 */}
+                    <div className="flex items-center gap-2 text-xs text-slate-500">
+                      <Calendar className="w-3 h-3" />
+                      {post.publishedAt &&
+                        format(new Date(post.publishedAt), "yyyy年M月d日", { locale: zhCN })}
+                    </div>
+                  </div>
+                </article>
               </Link>
             ))}
           </div>
         )}
 
-        <div className="text-center mt-12">
+        {/* 移动端查看全部按钮 */}
+        <div className="text-center mt-10 sm:hidden">
           <Link href="/blog">
-            <span className="inline-block font-comic text-xl px-6 py-3 bg-[#4361EE] text-white border-4 border-black comic-shadow hover:comic-shadow-sm hover:translate-x-1 hover:translate-y-1 transition-all cursor-pointer">
-              查看全部文章 →
-            </span>
+            <button className="btn-secondary inline-flex items-center gap-2">
+              查看全部文章
+              <ArrowRight className="w-4 h-4" />
+            </button>
           </Link>
         </div>
       </div>

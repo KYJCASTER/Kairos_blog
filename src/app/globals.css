@@ -1,112 +1,214 @@
 @import "tailwindcss";
-@import url('https://fonts.googleapis.com/css2?family=Bangers&family=Comic+Neue:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
 
 :root {
-  --background: #FEFAE0;
-  --foreground: #1A1A2E;
-  --comic-red: #E63946;
-  --comic-blue: #4361EE;
-  --comic-yellow: #FFD60A;
-  --comic-purple: #7209B7;
-  --comic-green: #2ECC71;
-  --comic-orange: #F39C12;
-  --comic-cream: #FEFAE0;
-  --comic-dark: #1A1A2E;
+  /* 深色优雅主题配色 */
+  --background: #0a0a0f;
+  --foreground: #f8fafc;
+  --muted: #64748b;
+  --border: rgba(255, 255, 255, 0.08);
+  
+  /* 强调色 - 极光蓝紫渐变 */
+  --primary: #8b5cf6;
+  --primary-light: #a78bfa;
+  --accent: #06b6d4;
+  --accent-light: #67e8f9;
+  
+  /* 卡片背景 */
+  --card: rgba(255, 255, 255, 0.03);
+  --card-hover: rgba(255, 255, 255, 0.06);
+  --glass: rgba(15, 23, 42, 0.7);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --color-comic-red: var(--comic-red);
-  --color-comic-blue: var(--comic-blue);
-  --color-comic-yellow: var(--comic-yellow);
-  --color-comic-purple: var(--comic-purple);
-  --color-comic-green: var(--comic-green);
-  --color-comic-orange: var(--comic-orange);
-  --color-comic-cream: var(--comic-cream);
-  --color-comic-dark: var(--comic-dark);
-  --font-sans: 'Comic Neue', Arial, Helvetica, sans-serif;
-  --font-comic: 'Bangers', cursive;
-  --font-body: 'Comic Neue', cursive;
+  --color-muted: var(--muted);
+  --color-border: var(--border);
+  --color-primary: var(--primary);
+  --color-primary-light: var(--primary-light);
+  --color-accent: var(--accent);
+  --color-accent-light: var(--accent-light);
+  --color-card: var(--card);
+  --color-card-hover: var(--card-hover);
+  --color-glass: var(--glass);
   
-  --animate-wiggle: wiggle 0.3s ease-in-out infinite;
-  --animate-bounce-slight: bounce-slight 0.5s ease-in-out;
-  --animate-pow: pow 0.3s ease-out;
+  --font-sans: 'Inter', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
 }
 
-.dark {
-  --background: #1A1A2E;
-  --foreground: #FEFAE0;
+/* 深色模式默认 */
+.dark,
+:root {
+  color-scheme: dark;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: 'Comic Neue', sans-serif;
+  font-family: 'Inter', system-ui, sans-serif;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-/* Comic font utilities */
-.font-comic {
-  font-family: 'Bangers', cursive;
-  letter-spacing: 0.05em;
-}
-
-.font-body {
-  font-family: 'Comic Neue', cursive;
-}
-
-/* Comic border utilities */
-.comic-border {
-  border-width: 4px;
-  border-color: black;
-}
-
-/* Comic shadow utilities */
-.comic-shadow {
-  box-shadow: 6px 6px 0px 0px rgba(0, 0, 0, 1);
-}
-
-.comic-shadow-sm {
-  box-shadow: 4px 4px 0px 0px rgba(0, 0, 0, 1);
-}
-
-/* Halftone texture background */
-.halftone {
-  background-image: radial-gradient(circle, #000 1px, transparent 1px);
-  background-size: 8px 8px;
-}
-
-/* Selection styles */
+/* 选择文本样式 */
 ::selection {
-  background: #FFD60A;
-  color: #1A1A2E;
+  background: rgba(139, 92, 246, 0.4);
+  color: #fff;
 }
 
-/* Keyframes */
-@keyframes wiggle {
-  0%, 100% { transform: rotate(-3deg); }
-  50% { transform: rotate(3deg); }
+/* 玻璃态效果 */
+.glass {
+  background: var(--glass);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--border);
 }
 
-@keyframes bounce-slight {
+.glass-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  transition: all 0.3s ease;
+}
+
+.glass-card:hover {
+  background: var(--card-hover);
+  border-color: rgba(139, 92, 246, 0.3);
+  transform: translateY(-4px);
+}
+
+/* 渐变文字 */
+.gradient-text {
+  background: linear-gradient(135deg, var(--primary-light) 0%, var(--accent-light) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* 渐变边框 */
+.gradient-border {
+  position: relative;
+}
+
+.gradient-border::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(135deg, var(--primary), var(--accent));
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+}
+
+/* 发光效果 */
+.glow {
+  box-shadow: 0 0 40px rgba(139, 92, 246, 0.15);
+}
+
+.glow-accent {
+  box-shadow: 0 0 40px rgba(6, 182, 212, 0.15);
+}
+
+/* 按钮样式 */
+.btn-primary {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.75rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 40px rgba(139, 92, 246, 0.4);
+}
+
+.btn-secondary {
+  background: var(--card);
+  color: var(--foreground);
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.75rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  border: 1px solid var(--border);
+  cursor: pointer;
+}
+
+.btn-secondary:hover {
+  background: var(--card-hover);
+  border-color: rgba(139, 92, 246, 0.3);
+}
+
+/* 标签样式 */
+.tag {
+  background: rgba(139, 92, 246, 0.1);
+  color: var(--primary-light);
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  border: 1px solid rgba(139, 92, 246, 0.2);
+}
+
+/* 网格背景 */
+.grid-bg {
+  background-image: 
+    linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
+
+/* 代码字体 */
+.font-mono {
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* 平滑滚动 */
+html {
+  scroll-behavior: smooth;
+}
+
+/* 滚动条样式 */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--background);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* 动画 */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes float {
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(-10px); }
 }
 
-@keyframes pow {
-  0% { transform: scale(0.5); opacity: 0; }
-  50% { transform: scale(1.2); }
-  100% { transform: scale(1); opacity: 1; }
+.animate-fade-in {
+  animation: fadeIn 0.6s ease-out forwards;
 }
 
-.animate-wiggle {
-  animation: wiggle 0.3s ease-in-out infinite;
-}
-
-.animate-bounce-slight {
-  animation: bounce-slight 0.5s ease-in-out;
-}
-
-.animate-pow {
-  animation: pow 0.3s ease-out;
+.animate-float {
+  animation: float 3s ease-in-out infinite;
 }

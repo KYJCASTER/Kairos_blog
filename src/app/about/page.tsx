@@ -1,31 +1,14 @@
 import { Navbar } from "@/components/navbar"
-import { ComicCard } from "@/components/ui/comic-card"
-import { SpeechBubble } from "@/components/ui/speech-bubble"
-import { ComicButton } from "@/components/ui/comic-button"
 import Link from "next/link"
-import { Mail, MapPin, BookOpen, Code, Heart, Zap } from "lucide-react"
-
-// GitHub SVG Icon Component
-function GithubIcon({ className }: { className?: string }) {
-  return (
-    <svg
-      viewBox="0 0 24 24"
-      className={className}
-      fill="currentColor"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
-    </svg>
-  )
-}
+import { Mail, MapPin, BookOpen, Code, Heart, Zap, ArrowRight } from "lucide-react"
 
 const skills = [
-  { name: "Java", level: 75, color: "#E63946" },
-  { name: "Go", level: 60, color: "#4361EE" },
-  { name: "Python", level: 70, color: "#FFD60A" },
-  { name: "React", level: 65, color: "#7209B7" },
-  { name: "网络安全", level: 55, color: "#2ECC71" },
-  { name: "数据库", level: 60, color: "#F39C12" },
+  { name: "Java", level: 75 },
+  { name: "Go", level: 60 },
+  { name: "Python", level: 70 },
+  { name: "React", level: 65 },
+  { name: "网络安全", level: 55 },
+  { name: "数据库", level: 60 },
 ]
 
 const timeline = [
@@ -59,26 +42,26 @@ export default function AboutPage() {
   return (
     <>
       <Navbar />
-      <main className="min-h-screen">
+      <main className="min-h-screen pt-24">
         {/* Hero Section */}
-        <section className="py-20 px-4 bg-gradient-to-br from-[#4361EE] to-[#7209B7]">
+        <section className="py-20 px-4">
           <div className="max-w-4xl mx-auto text-center">
             <div className="relative inline-block mb-8">
-              <div className="w-32 h-32 bg-white border-4 border-black rounded-full overflow-hidden comic-shadow mx-auto">
+              <div className="w-32 h-32 rounded-2xl overflow-hidden glow mx-auto">
                 <img
                   src="/头像.jpg"
                   alt="Kairos"
                   className="w-full h-full object-cover"
                 />
               </div>
-              <div className="absolute -bottom-2 -right-2 w-10 h-10 bg-[#FFD60A] border-4 border-black rounded-full flex items-center justify-center font-comic text-xl">
+              <div className="absolute -bottom-2 -right-2 w-8 h-8 bg-gradient-to-br from-violet-500 to-cyan-500 rounded-full flex items-center justify-center text-white font-bold border-4 border-[#0a0a0f]">
                 K
               </div>
             </div>
-            <h1 className="font-comic text-5xl sm:text-6xl text-white mb-4 tracking-wider">
-              关于我
+            <h1 className="text-4xl sm:text-5xl font-bold mb-4">
+              关于 <span className="gradient-text">Kairos</span>
             </h1>
-            <p className="text-white/90 text-xl mb-8">
+            <p className="text-slate-400 text-xl mb-8">
               河南大学 2024 级网络工程专业学生
             </p>
             <div className="flex flex-wrap justify-center gap-4">
@@ -87,16 +70,18 @@ export default function AboutPage() {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <ComicButton variant="primary" skew={false}>
-                  <GithubIcon className="w-5 h-5 inline mr-2" />
+                <button className="btn-primary inline-flex items-center gap-2">
+                  <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                  </svg>
                   GitHub
-                </ComicButton>
+                </button>
               </a>
               <a href="mailto:kairos@example.com">
-                <ComicButton variant="secondary" skew={false}>
-                  <Mail className="w-5 h-5 inline mr-2" />
+                <button className="btn-secondary inline-flex items-center gap-2">
+                  <Mail className="w-5 h-5" />
                   邮箱
-                </ComicButton>
+                </button>
               </a>
             </div>
           </div>
@@ -105,45 +90,37 @@ export default function AboutPage() {
         {/* Introduction */}
         <section className="py-16 px-4">
           <div className="max-w-4xl mx-auto">
-            <div className="flex justify-center mb-8">
-              <SpeechBubble direction="bottom" color="yellow" className="max-w-2xl">
-                <p className="font-comic text-xl leading-relaxed">
-                  你好！我是 Kairos，一名热爱技术的网络工程专业学生。
-                  我喜欢探索新技术，分享学习心得，记录成长历程。
-                </p>
-              </SpeechBubble>
+            <div className="glass rounded-2xl p-8 text-center">
+              <p className="text-lg text-slate-300 leading-relaxed">
+                你好！我是 Kairos，一名热爱技术的网络工程专业学生。
+                我喜欢探索新技术，分享学习心得，记录成长历程。
+                这个博客是我技术探索的见证，希望能对你有所帮助。
+              </p>
             </div>
           </div>
         </section>
 
         {/* Skills */}
-        <section className="py-16 px-4 bg-[#FEFAE0]">
+        <section className="py-16 px-4">
           <div className="max-w-4xl mx-auto">
-            <h2 className="font-comic text-4xl text-center mb-12 tracking-wider">
-              <span className="bg-[#E63946] text-white px-4 py-2 border-4 border-black comic-shadow inline-block transform rotate-1">
-                技能栈
-              </span>
+            <h2 className="text-3xl font-bold text-center mb-12">
+              <span className="gradient-text">技能栈</span>
             </h2>
 
             <div className="grid sm:grid-cols-2 gap-6">
               {skills.map((skill) => (
-                <ComicCard key={skill.name} variant="default" color="white">
+                <div key={skill.name} className="glass-card rounded-xl p-6">
                   <div className="flex items-center justify-between mb-3">
-                    <span className="font-comic text-lg">{skill.name}</span>
-                    <span className="font-comic text-sm opacity-60">
-                      {skill.level}%
-                    </span>
+                    <span className="font-medium">{skill.name}</span>
+                    <span className="text-sm text-slate-400">{skill.level}%</span>
                   </div>
-                  <div className="h-6 bg-gray-200 border-2 border-black overflow-hidden">
+                  <div className="h-2 bg-white/10 rounded-full overflow-hidden">
                     <div
-                      className="h-full transition-all duration-1000 ease-out"
-                      style={{
-                        width: `${skill.level}%`,
-                        backgroundColor: skill.color,
-                      }}
+                      className="h-full bg-gradient-to-r from-violet-500 to-cyan-500 rounded-full transition-all duration-1000"
+                      style={{ width: `${skill.level}%` }}
                     />
                   </div>
-                </ComicCard>
+                </div>
               ))}
             </div>
           </div>
@@ -152,46 +129,34 @@ export default function AboutPage() {
         {/* Timeline */}
         <section className="py-16 px-4">
           <div className="max-w-4xl mx-auto">
-            <h2 className="font-comic text-4xl text-center mb-12 tracking-wider">
-              <span className="bg-[#4361EE] text-white px-4 py-2 border-4 border-black comic-shadow inline-block transform -rotate-1">
-                成长历程
-              </span>
+            <h2 className="text-3xl font-bold text-center mb-12">
+              <span className="gradient-text">成长历程</span>
             </h2>
 
             <div className="relative">
-              {/* Timeline line */}
-              <div className="absolute left-8 top-0 bottom-0 w-1 bg-black hidden sm:block" />
+              <div className="absolute left-8 top-0 bottom-0 w-px bg-gradient-to-b from-violet-500/50 to-cyan-500/50 hidden sm:block" />
 
               <div className="space-y-8">
                 {timeline.map((item, index) => {
                   const Icon = item.icon
                   return (
-                    <div
-                      key={index}
-                      className="relative flex flex-col sm:flex-row gap-4 sm:gap-8"
-                    >
-                      {/* Icon */}
+                    <div key={index} className="relative flex flex-col sm:flex-row gap-4 sm:gap-8">
                       <div className="flex items-center gap-4 sm:block">
-                        <div className="w-16 h-16 bg-[#FFD60A] border-4 border-black rounded-full flex items-center justify-center comic-shadow z-10 relative">
-                          <Icon className="w-8 h-8" />
+                        <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-violet-500 to-cyan-500 flex items-center justify-center shrink-0">
+                          <Icon className="w-8 h-8 text-white" />
                         </div>
-                        <span className="sm:hidden font-comic text-2xl text-[#4361EE]">
+                        <span className="sm:hidden text-xl font-bold gradient-text">
                           {item.year}
                         </span>
                       </div>
 
-                      {/* Content */}
-                      <ComicCard
-                        variant={index % 2 === 0 ? "explosion" : "default"}
-                        color="white"
-                        className="flex-1"
-                      >
-                        <span className="hidden sm:block font-comic text-xl text-[#4361EE] mb-2">
+                      <div className="glass-card rounded-xl p-6 flex-1 sm:ml-0">
+                        <span className="hidden sm:block text-sm text-violet-400 mb-1">
                           {item.year}
                         </span>
-                        <h3 className="font-comic text-xl mb-2">{item.title}</h3>
-                        <p className="opacity-70">{item.description}</p>
-                      </ComicCard>
+                        <h3 className="text-lg font-semibold mb-2">{item.title}</h3>
+                        <p className="text-slate-400 text-sm">{item.description}</p>
+                      </div>
                     </div>
                   )
                 })}
@@ -201,55 +166,59 @@ export default function AboutPage() {
         </section>
 
         {/* Contact */}
-        <section className="py-16 px-4 bg-[#1A1A2E] text-white">
-          <div className="max-w-4xl mx-auto text-center">
-            <h2 className="font-comic text-4xl mb-8 tracking-wider">
-              <span className="bg-[#FFD60A] text-black px-4 py-2 border-4 border-white comic-shadow inline-block transform rotate-1">
-                联系我
-              </span>
-            </h2>
+        <section className="py-16 px-4">
+          <div className="max-w-4xl mx-auto">
+            <div className="glass rounded-2xl p-8 md:p-12 text-center">
+              <h2 className="text-3xl font-bold mb-8">
+                <span className="gradient-text">联系我</span>
+              </h2>
 
-            <div className="grid sm:grid-cols-3 gap-6 mb-12">
-              <div className="flex flex-col items-center gap-3">
-                <div className="w-16 h-16 bg-[#E63946] border-4 border-white rounded-full flex items-center justify-center">
-                  <MapPin className="w-8 h-8" />
+              <div className="grid sm:grid-cols-3 gap-6 mb-12">
+                <div className="flex flex-col items-center gap-3">
+                  <div className="w-14 h-14 rounded-xl bg-violet-500/20 flex items-center justify-center">
+                    <MapPin className="w-6 h-6 text-violet-400" />
+                  </div>
+                  <h3 className="font-medium">位置</h3>
+                  <p className="text-sm text-slate-500">河南 · 开封</p>
                 </div>
-                <h3 className="font-comic text-xl">位置</h3>
-                <p className="opacity-70">河南 · 开封</p>
-              </div>
-              <div className="flex flex-col items-center gap-3">
-                <div className="w-16 h-16 bg-[#4361EE] border-4 border-white rounded-full flex items-center justify-center">
-                  <Mail className="w-8 h-8" />
+                <div className="flex flex-col items-center gap-3">
+                  <div className="w-14 h-14 rounded-xl bg-cyan-500/20 flex items-center justify-center">
+                    <Mail className="w-6 h-6 text-cyan-400" />
+                  </div>
+                  <h3 className="font-medium">邮箱</h3>
+                  <p className="text-sm text-slate-500">kairos@example.com</p>
                 </div>
-                <h3 className="font-comic text-xl">邮箱</h3>
-                <p className="opacity-70">kairos@example.com</p>
-              </div>
-              <div className="flex flex-col items-center gap-3">
-                <div className="w-16 h-16 bg-[#2ECC71] border-4 border-white rounded-full flex items-center justify-center">
-                  <GithubIcon className="w-8 h-8" />
+                <div className="flex flex-col items-center gap-3">
+                  <div className="w-14 h-14 rounded-xl bg-emerald-500/20 flex items-center justify-center">
+                    <svg className="w-6 h-6 text-emerald-400" viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                    </svg>
+                  </div>
+                  <h3 className="font-medium">GitHub</h3>
+                  <p className="text-sm text-slate-500">@KYJCASTER</p>
                 </div>
-                <h3 className="font-comic text-xl">GitHub</h3>
-                <p className="opacity-70">@KYJCASTER</p>
               </div>
+
+              <p className="text-lg text-slate-400 mb-6">
+                有任何问题或建议？欢迎交流！
+              </p>
+              <Link href="/blog">
+                <button className="btn-primary inline-flex items-center gap-2">
+                  阅读我的文章
+                  <ArrowRight className="w-4 h-4" />
+                </button>
+              </Link>
             </div>
-
-            <p className="font-comic text-2xl mb-4">
-              有任何问题或建议？欢迎交流！
-            </p>
-            <Link href="/blog">
-              <ComicButton variant="primary" size="lg">
-                阅读我的文章 →
-              </ComicButton>
-            </Link>
           </div>
         </section>
       </main>
 
-      <footer className="bg-black text-white py-8 text-center">
-        <p className="font-comic text-lg">
-          © {new Date().getFullYear()} Kairos 博客
-        </p>
-        <p className="text-sm opacity-60 mt-2">Made with 💥 and ☕</p>
+      <footer className="py-8 px-4 border-t border-white/5">
+        <div className="max-w-6xl mx-auto text-center">
+          <p className="text-slate-500 text-sm">
+            © {new Date().getFullYear()} Kairos Blog
+          </p>
+        </div>
       </footer>
     </>
   )

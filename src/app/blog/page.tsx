@@ -1,11 +1,9 @@
 import { prisma } from "@/lib/db"
 import { Navbar } from "@/components/navbar"
-import { ComicCard } from "@/components/ui/comic-card"
-import { ComicButton } from "@/components/ui/comic-button"
 import Link from "next/link"
 import { format } from "date-fns"
 import { zhCN } from "date-fns/locale"
-import { Search, Tag, Calendar } from "lucide-react"
+import { Search, Calendar, ArrowRight } from "lucide-react"
 
 interface BlogPageProps {
   searchParams: { [key: string]: string | string[] | undefined }
@@ -60,67 +58,65 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
   return (
     <>
       <Navbar />
-      <main className="min-h-screen">
+      <main className="min-h-screen pt-24">
         {/* Header */}
-        <section className="py-16 px-4 bg-[#4361EE]">
-          <div className="max-w-7xl mx-auto text-center">
-            <h1 className="font-comic text-5xl sm:text-6xl text-white mb-4 tracking-wider">
-              博客文章
+        <section className="py-16 px-4">
+          <div className="max-w-6xl mx-auto text-center">
+            <h1 className="text-4xl sm:text-5xl font-bold mb-4">
+              <span className="gradient-text">博客文章</span>
             </h1>
-            <p className="text-white/80 text-lg">
+            <p className="text-slate-400 text-lg">
               分享技术心得与学习笔记
             </p>
           </div>
         </section>
 
         {/* Search & Filter */}
-        <section className="py-8 px-4 bg-[#FEFAE0] border-b-4 border-black">
-          <div className="max-w-7xl mx-auto">
-            <div className="flex flex-col md:flex-row gap-4 items-center justify-between">
-              {/* Search */}
-              <form className="flex gap-2 w-full md:w-auto">
-                <div className="relative flex-1 md:w-80">
-                  <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500" />
-                  <input
-                    type="text"
-                    name="search"
-                    placeholder="搜索文章..."
-                    defaultValue={search}
-                    className="w-full pl-10 pr-4 py-3 border-4 border-black font-comic focus:outline-none focus:ring-2 focus:ring-[#4361EE]"
-                  />
-                </div>
-                <ComicButton type="submit" variant="primary" skew={false}>
-                  搜索
-                </ComicButton>
-              </form>
+        <section className="py-8 px-4">
+          <div className="max-w-6xl mx-auto">
+            <div className="glass rounded-2xl p-6">
+              <div className="flex flex-col md:flex-row gap-4 items-center justify-between">
+                <form className="flex gap-2 w-full md:w-auto">
+                  <div className="relative flex-1 md:w-80">
+                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-500" />
+                    <input
+                      type="text"
+                      name="search"
+                      placeholder="搜索文章..."
+                      defaultValue={search}
+                      className="w-full pl-10 pr-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder:text-slate-500 focus:outline-none focus:border-violet-500/50"
+                    />
+                  </div>
+                  <button type="submit" className="btn-primary">
+                    搜索
+                  </button>
+                </form>
 
-              {/* Tags */}
-              <div className="flex flex-wrap gap-2 justify-center">
-                <Link
-                  href="/blog"
-                  className={`px-3 py-1 border-2 border-black font-comic text-sm transition-all ${
-                    !tagFilter ? "bg-[#4361EE] text-white" : "bg-white hover:bg-gray-100"
-                  }`}
-                >
-                  全部
-                </Link>
-                {tags.map((tag) => (
+                <div className="flex flex-wrap gap-2 justify-center">
                   <Link
-                    key={tag.id}
-                    href={`/blog?tag=${tag.slug}${search ? `&search=${search}` : ""}`}
-                    className={`px-3 py-1 border-2 border-black font-comic text-sm transition-all ${
-                      tagFilter === tag.slug
-                        ? "text-white"
-                        : "hover:opacity-80"
+                    href="/blog"
+                    className={`px-3 py-1.5 rounded-full text-sm transition-all ${
+                      !tagFilter 
+                        ? "bg-violet-500 text-white" 
+                        : "bg-white/5 text-slate-400 hover:bg-white/10"
                     }`}
-                    style={{
-                      backgroundColor: tagFilter === tag.slug ? tag.color : "white",
-                      color: tagFilter === tag.slug ? "white" : "black",
-                    }}
                   >
-                    {tag.name} ({tag._count.posts})
+                    全部
                   </Link>
-                ))}
+                  {tags.map((tag) => (
+                    <Link
+                      key={tag.id}
+                      href={`/blog?tag=${tag.slug}${search ? `&search=${search}` : ""}`}
+                      className={`px-3 py-1.5 rounded-full text-sm transition-all ${
+                        tagFilter === tag.slug
+                          ? "bg-violet-500 text-white"
+                          : "bg-white/5 text-slate-400 hover:bg-white/10"
+                      }`}
+                    >
+                      {tag.name}
+                    </Link>
+                  ))}
+                </div>
               </div>
             </div>
           </div>
@@ -128,59 +124,56 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
 
         {/* Posts Grid */}
         <section className="py-12 px-4">
-          <div className="max-w-7xl mx-auto">
+          <div className="max-w-6xl mx-auto">
             {posts.length === 0 ? (
-              <div className="text-center py-20">
-                <p className="font-comic text-2xl text-gray-500">
+              <div className="text-center py-20 glass-card rounded-2xl">
+                <p className="text-xl text-slate-500">
                   {search || tagFilter ? "没有找到相关文章" : "文章正在创作中..."}
                 </p>
               </div>
             ) : (
               <>
-                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                  {posts.map((post: any, index: number) => (
+                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {posts.map((post: any) => (
                     <Link key={post.id} href={`/blog/${post.slug}`}>
-                      <ComicCard
-                        variant={["explosion", "default", "jagged"][index % 3] as any}
-                        color={["white", "cream", "yellow"][index % 3] as any}
-                        className="h-full transform hover:-translate-y-2 transition-transform cursor-pointer"
-                      >
-                        {post.coverImage && (
-                          <div className="aspect-video mb-4 border-4 border-black overflow-hidden">
+                      <article className="glass-card rounded-2xl overflow-hidden h-full group cursor-pointer">
+                        <div className="aspect-video overflow-hidden">
+                          {post.coverImage ? (
                             <img
                               src={post.coverImage}
                               alt={post.title}
-                              className="w-full h-full object-cover"
+                              className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                             />
+                          ) : (
+                            <div className="w-full h-full bg-gradient-to-br from-violet-500/20 to-cyan-500/20 flex items-center justify-center">
+                              <span className="text-4xl font-bold gradient-text">K</span>
+                            </div>
+                          )}
+                        </div>
+                        <div className="p-6">
+                          <div className="flex flex-wrap gap-2 mb-3">
+                            {post.tags.slice(0, 3).map((tag: any) => (
+                              <span
+                                key={tag.id}
+                                className="text-xs px-2 py-1 rounded-full bg-violet-500/10 text-violet-300 border border-violet-500/20"
+                              >
+                                {tag.name}
+                              </span>
+                            ))}
                           </div>
-                        )}
-                        <h3 className="font-comic text-xl mb-2 tracking-wider line-clamp-2">
-                          {post.title}
-                        </h3>
-                        <p className="text-sm opacity-70 line-clamp-2 mb-4">
-                          {post.excerpt}
-                        </p>
-                        <div className="flex items-center gap-4 text-xs opacity-60 mb-4">
-                          <span className="flex items-center gap-1">
-                            <Calendar className="w-4 h-4" />
+                          <h3 className="text-lg font-semibold mb-2 line-clamp-2 group-hover:text-violet-300 transition-colors">
+                            {post.title}
+                          </h3>
+                          <p className="text-sm text-slate-400 line-clamp-2 mb-4">
+                            {post.excerpt || "暂无摘要"}
+                          </p>
+                          <div className="flex items-center gap-2 text-xs text-slate-500">
+                            <Calendar className="w-3 h-3" />
                             {post.publishedAt &&
-                              format(new Date(post.publishedAt), "yyyy-MM-dd", {
-                                locale: zhCN,
-                              })}
-                          </span>
+                              format(new Date(post.publishedAt), "yyyy-MM-dd", { locale: zhCN })}
+                          </div>
                         </div>
-                        <div className="flex flex-wrap gap-2">
-                          {post.tags.map((tag: any) => (
-                            <span
-                              key={tag.id}
-                              className="px-2 py-1 text-xs border-2 border-black text-black"
-                              style={{ backgroundColor: tag.color }}
-                            >
-                              {tag.name}
-                            </span>
-                          ))}
-                        </div>
-                      </ComicCard>
+                      </article>
                     </Link>
                   ))}
                 </div>
@@ -190,27 +183,19 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
                   <div className="flex justify-center gap-2 mt-12">
                     {page > 1 && (
                       <Link
-                        href={`/blog?page=${page - 1}${
-                          search ? `&search=${search}` : ""
-                        }${tagFilter ? `&tag=${tagFilter}` : ""}`}
+                        href={`/blog?page=${page - 1}${search ? `&search=${search}` : ""}${tagFilter ? `&tag=${tagFilter}` : ""}`}
                       >
-                        <ComicButton variant="secondary" size="sm" skew={false}>
-                          ← 上一页
-                        </ComicButton>
+                        <button className="btn-secondary">← 上一页</button>
                       </Link>
                     )}
-                    <span className="px-4 py-2 font-comic border-4 border-black bg-white">
+                    <span className="px-4 py-2 rounded-xl bg-white/5 text-slate-400">
                       {page} / {totalPages}
                     </span>
                     {page < totalPages && (
                       <Link
-                        href={`/blog?page=${page + 1}${
-                          search ? `&search=${search}` : ""
-                        }${tagFilter ? `&tag=${tagFilter}` : ""}`}
+                        href={`/blog?page=${page + 1}${search ? `&search=${search}` : ""}${tagFilter ? `&tag=${tagFilter}` : ""}`}
                       >
-                        <ComicButton variant="primary" size="sm" skew={false}>
-                          下一页 →
-                        </ComicButton>
+                        <button className="btn-primary">下一页 →</button>
                       </Link>
                     )}
                   </div>
@@ -221,11 +206,12 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
         </section>
       </main>
 
-      <footer className="bg-black text-white py-8 text-center">
-        <p className="font-comic text-lg">
-          © {new Date().getFullYear()} Kairos 博客
-        </p>
-        <p className="text-sm opacity-60 mt-2">Made with 💥 and ☕</p>
+      <footer className="py-8 px-4 border-t border-white/5">
+        <div className="max-w-6xl mx-auto text-center">
+          <p className="text-slate-500 text-sm">
+            © {new Date().getFullYear()} Kairos Blog
+          </p>
+        </div>
       </footer>
     </>
   )
