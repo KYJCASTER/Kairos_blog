@@ -3,11 +3,12 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   output: 'export',
   distDir: 'dist',
+  basePath: '/Kairos_blog',
+  assetPrefix: '/Kairos_blog',
   images: {
     unoptimized: true,
   },
   trailingSlash: true,
-  // Exclude API routes from static export
   skipTrailingSlashRedirect: true,
 };
 
