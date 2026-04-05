@@ -4,13 +4,34 @@ import Link from "next/link"
 import { format } from "date-fns"
 import { zhCN } from "date-fns/locale"
 
+interface PostWithTags {
+  id: string
+  slug: string
+  title: string
+  excerpt: string | null
+  coverImage: string | null
+  publishedAt: Date | null
+  tags: {
+    id: string
+    name: string
+    color: string
+  }[]
+}
+
 export async function LatestPosts() {
-  const posts = await prisma.post.findMany({
-    where: { published: true },
-    orderBy: { publishedAt: "desc" },
-    take: 3,
-    include: { tags: true },
-  })
+  let posts: PostWithTags[] = []
+  
+  try {
+    posts = await prisma.post.findMany({
+      where: { published: true },
+      orderBy: { publishedAt: "desc" },
+      take: 3,
+      include: { tags: true },
+    })
+  } catch (error) {
+    // Database not available during build, return empty state
+    console.log('Database not available, showing empty state')
+  }
 
   return (
     <section className="py-20 px-4">
@@ -27,7 +48,7 @@ export async function LatestPosts() {
           </div>
         ) : (
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {posts.map((post, index) => (
+            {posts.map((post: PostWithTags, index: number) => (
               <Link key={post.id} href={`/blog/${post.slug}`}>
                 <ComicCard
                   variant={index % 2 === 0 ? "explosion" : "default"}
