@@ -1,26 +1,112 @@
 @import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Bangers&family=Comic+Neue:wght@400;700&display=swap');
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #FEFAE0;
+  --foreground: #1A1A2E;
+  --comic-red: #E63946;
+  --comic-blue: #4361EE;
+  --comic-yellow: #FFD60A;
+  --comic-purple: #7209B7;
+  --comic-green: #2ECC71;
+  --comic-orange: #F39C12;
+  --comic-cream: #FEFAE0;
+  --comic-dark: #1A1A2E;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-comic-red: var(--comic-red);
+  --color-comic-blue: var(--comic-blue);
+  --color-comic-yellow: var(--comic-yellow);
+  --color-comic-purple: var(--comic-purple);
+  --color-comic-green: var(--comic-green);
+  --color-comic-orange: var(--comic-orange);
+  --color-comic-cream: var(--comic-cream);
+  --color-comic-dark: var(--comic-dark);
+  --font-sans: 'Comic Neue', Arial, Helvetica, sans-serif;
+  --font-comic: 'Bangers', cursive;
+  --font-body: 'Comic Neue', cursive;
+  
+  --animate-wiggle: wiggle 0.3s ease-in-out infinite;
+  --animate-bounce-slight: bounce-slight 0.5s ease-in-out;
+  --animate-pow: pow 0.3s ease-out;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+.dark {
+  --background: #1A1A2E;
+  --foreground: #FEFAE0;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Comic Neue', sans-serif;
+}
+
+/* Comic font utilities */
+.font-comic {
+  font-family: 'Bangers', cursive;
+  letter-spacing: 0.05em;
+}
+
+.font-body {
+  font-family: 'Comic Neue', cursive;
+}
+
+/* Comic border utilities */
+.comic-border {
+  border-width: 4px;
+  border-color: black;
+}
+
+/* Comic shadow utilities */
+.comic-shadow {
+  box-shadow: 6px 6px 0px 0px rgba(0, 0, 0, 1);
+}
+
+.comic-shadow-sm {
+  box-shadow: 4px 4px 0px 0px rgba(0, 0, 0, 1);
+}
+
+/* Halftone texture background */
+.halftone {
+  background-image: radial-gradient(circle, #000 1px, transparent 1px);
+  background-size: 8px 8px;
+}
+
+/* Selection styles */
+::selection {
+  background: #FFD60A;
+  color: #1A1A2E;
+}
+
+/* Keyframes */
+@keyframes wiggle {
+  0%, 100% { transform: rotate(-3deg); }
+  50% { transform: rotate(3deg); }
+}
+
+@keyframes bounce-slight {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes pow {
+  0% { transform: scale(0.5); opacity: 0; }
+  50% { transform: scale(1.2); }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+.animate-wiggle {
+  animation: wiggle 0.3s ease-in-out infinite;
+}
+
+.animate-bounce-slight {
+  animation: bounce-slight 0.5s ease-in-out;
+}
+
+.animate-pow {
+  animation: pow 0.3s ease-out;
 }
