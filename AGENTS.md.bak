@@ -1,0 +1,275 @@
+# Kairos Blog - Agent Guide
+
+## Project Overview
+
+Kairos Blog (中文名: Kairos博客) is a personal blog website built with modern frontend technologies. It is a static single-page application (SPA) designed for GitHub Pages deployment.
+
+**Project Purpose**: A personal technical blog for sharing programming insights, learning experiences, and life reflections. The author is a Network Engineering undergraduate student at Henan University (河南大学).
+
+**Language**: The UI is primarily in Chinese (Simplified), with some English technical terms.
+
+---
+
+## Technology Stack
+
+| Category | Technology | Version |
+|----------|------------|---------|
+| Framework | React | ^19.1.1 |
+| Language | TypeScript | ~5.8.3 |
+| Build Tool | Vite | ^7.1.2 |
+| Routing | React Router DOM | ^7.8.2 |
+| Styling | Tailwind CSS | ^3.4.17 |
+| CSS Processor | PostCSS + Autoprefixer | ^10.4.21 |
+| Linting | ESLint + typescript-eslint | ^9.33.0 |
+
+---
+
+## Project Structure
+
+```
+kairos_blog/
+├── .github/
+│   └── workflows/
+│       └── deploy.yml          # GitHub Actions deployment config
+├── public/
+│   ├── 404.html                # SPA redirect handler for GitHub Pages
+│   ├── vite.svg                # Vite logo
+│   └── 头像.jpg                 # Author avatar image
+├── src/
+│   ├── assets/
+│   │   └── react.svg           # React logo asset
+│   ├── components/
+│   │   └── Navbar.tsx          # Navigation component with mobile menu
+│   ├── pages/
+│   │   ├── Home.tsx            # Landing page with featured posts
+│   │   ├── About.tsx           # Author profile and skills
+│   │   ├── Blog.tsx            # Blog listing with pagination/filter
+│   │   └── BlogPost.tsx        # Individual blog post view
+│   ├── App.css                 # App component styles
+│   ├── App.tsx                 # Root component with routing
+│   ├── index.css               # Global styles + Tailwind + animations
+│   ├── main.tsx                # Application entry point
+│   └── vite-env.d.ts           # Vite client types
+├── dist/                       # Build output (gitignored)
+├── index.html                  # HTML entry with SPA redirect script
+├── package.json                # Dependencies and scripts
+├── vite.config.ts              # Vite configuration
+├── tailwind.config.js          # Tailwind CSS configuration
+├── postcss.config.js           # PostCSS configuration
+├── eslint.config.js            # ESLint configuration
+├── tsconfig.json               # TypeScript root config (references)
+├── tsconfig.app.json           # TypeScript app config
+├── tsconfig.node.json          # TypeScript node config
+└── .gitignore                  # Git ignore patterns
+```
+
+---
+
+## Build and Development Commands
+
+```bash
+# Install dependencies
+npm install
+
+# Start development server (Vite dev server)
+npm run dev
+
+# Build for production (TypeScript compile + Vite build)
+npm run build
+
+# Preview production build locally
+npm run preview
+
+# Run ESLint linting
+npm run lint
+```
+
+### Build Output
+- Production build is output to `dist/` directory
+- The `dist/` folder is deployed to GitHub Pages
+
+---
+
+## Architecture Details
+
+### Routing
+- Uses `react-router-dom` with `BrowserRouter`
+- Base URL: `/Kairos_blog/` (configured in `vite.config.ts` and `App.tsx`)
+- Routes:
+  - `/` - Home page (landing)
+  - `/about` - About page (author profile)
+  - `/blog` - Blog listing page
+  - `/blog/:id` - Individual blog post page
+
+### State Management
+- No external state management library (Redux, Zustand, etc.)
+- Uses React's built-in `useState` for local component state
+- Blog data is hardcoded in components (not fetched from API)
+
+### Styling Approach
+1. **Tailwind CSS**: Primary styling method with utility classes
+2. **Custom CSS**: Custom animations and effects in `index.css`
+3. **Component Styles**: Minimal component-specific CSS in `App.css`
+
+### Design System
+- **Color Palette**: Pink-Blue gradient theme
+  - Primary gradient: `from-pink-500 to-blue-500`
+  - Background: `from-pink-50 via-white to-blue-50`
+  - Accent colors: pink, blue, purple
+- **Visual Effects**:
+  - Glass morphism (`backdrop-blur`, translucent backgrounds)
+  - Gradient text effects
+  - Custom CSS animations (fade-in, float, blob, pulse-glow)
+- **Responsive Design**: Mobile-first with Tailwind breakpoints
+
+### Data Structure
+Blog posts are stored as static arrays in components with this interface:
+```typescript
+interface BlogPost {
+  id: number;
+  title: string;
+  excerpt: string;
+  content: string;      // Markdown-like content (converted to HTML)
+  date: string;
+  category: string;
+  tags: string[];
+  readTime: string;
+  author: string;
+}
+```
+
+---
+
+## Deployment Process
+
+### GitHub Pages Deployment
+- **Trigger**: Automatic deployment on push to `master` branch
+- **Workflow**: `.github/workflows/deploy.yml`
+- **Node Version**: 18
+- **Steps**:
+  1. Checkout repository
+  2. Setup Node.js with npm caching
+  3. Install dependencies (`npm ci`)
+  4. Build project (`npm run build`)
+  5. Deploy `dist/` folder to GitHub Pages
+
+### SPA Configuration for GitHub Pages
+- **Problem**: GitHub Pages doesn't natively support client-side routing
+- **Solution**: 
+  - `public/404.html` - Redirects all 404s to index with query params
+  - `index.html` - Contains script to parse redirect and restore original URL
+  - This is the "SPA for GitHub Pages" pattern by rafgraph
+
+---
+
+## Code Style Guidelines
+
+### TypeScript Configuration
+- **Target**: ES2022
+- **Module**: ESNext
+- **Strict Mode**: Enabled
+- **JSX**: `react-jsx` (automatic runtime)
+- **Module Resolution**: Bundler
+
+### Linting Rules
+- ESLint recommended config
+- TypeScript ESLint recommended rules
+- React Hooks rules (exhaustive-deps)
+- React Refresh rules
+- Browser globals enabled
+
+### Naming Conventions
+- Components: PascalCase (e.g., `Navbar.tsx`, `BlogPost.tsx`)
+- Files: PascalCase for components, camelCase for others
+- CSS classes: Tailwind utility classes + kebab-case custom classes
+
+### Code Patterns
+- Functional components with TypeScript interfaces
+- React.FC type annotation for components
+- Hooks used: `useState`, `useParams`, `useLocation`
+- Inline event handlers for simple interactions
+
+---
+
+## Testing
+
+**Note**: This project does not currently have automated tests configured. 
+
+If adding tests, consider:
+- **Vitest** (works well with Vite)
+- **React Testing Library** for component testing
+- **Playwright** or **Cypress** for E2E testing
+
+---
+
+## Security Considerations
+
+1. **XSS Prevention**: 
+   - Blog post content uses `dangerouslySetInnerHTML` with manual HTML conversion
+   - Content is static/hardcoded, not user-input, reducing XSS risk
+   
+2. **External Links**:
+   - External links use `rel="noopener noreferrer"` for security
+   - GitHub, Twitter, LinkedIn links in Blog.tsx and About.tsx
+
+3. **No Authentication**: 
+   - This is a static blog with no user authentication
+   - No sensitive data handling
+
+---
+
+## Common Development Tasks
+
+### Adding a New Blog Post
+1. Open `src/pages/Blog.tsx`
+2. Add post object to `blogPosts` array
+3. Open `src/pages/BlogPost.tsx`
+4. Add full post content with markdown formatting to `blogPosts` array
+
+### Adding a New Page
+1. Create component in `src/pages/NewPage.tsx`
+2. Add route in `src/App.tsx`
+3. Add navigation link in `src/components/Navbar.tsx`
+
+### Modifying Styles
+1. **Global styles**: Edit `src/index.css`
+2. **Tailwind config**: Edit `tailwind.config.js`
+3. **Component styles**: Use Tailwind utility classes in JSX
+
+### Updating Deployment Settings
+- Change base URL in `vite.config.ts` if repository name changes
+- Update `basename` prop in `App.tsx` Router component
+- Adjust `pathSegmentsToKeep` in `public/404.html` if needed
+
+---
+
+## Dependencies Notes
+
+### Production Dependencies
+- `react` + `react-dom`: Core React library (v19)
+- `react-router-dom`: Client-side routing
+
+### Development Dependencies
+- `@vitejs/plugin-react`: Official React plugin for Vite
+- `typescript` + `typescript-eslint`: TypeScript support and linting
+- `tailwindcss` + `autoprefixer` + `postcss`: Styling pipeline
+- `eslint` + plugins: Code linting
+- `globals`: Browser global definitions for ESLint
+
+---
+
+## Known Limitations
+
+1. **Static Content**: Blog posts are hardcoded in source files, requiring code changes to add content
+2. **No Search**: No search functionality for blog posts
+3. **No Comments**: No commenting system
+4. **No CMS**: Content management requires editing source code
+5. **Chinese UI**: Interface text is in Chinese only
+
+---
+
+## Resources
+
+- **GitHub Repository**: https://github.com/KYJCASTER/Kairos_blog
+- **Live Site**: https://kyjcaster.github.io/Kairos_blog/
+- **SPA for GitHub Pages**: https://github.com/rafgraph/spa-github-pages
