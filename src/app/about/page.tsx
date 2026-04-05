@@ -2,14 +2,7 @@ import { Navbar } from "@/components/navbar"
 import Link from "next/link"
 import { Mail, MapPin, BookOpen, Code, Heart, Zap, ArrowRight } from "lucide-react"
 
-const skills = [
-  { name: "Java", level: 75 },
-  { name: "Go", level: 60 },
-  { name: "Python", level: 70 },
-  { name: "React", level: 65 },
-  { name: "网络安全", level: 55 },
-  { name: "数据库", level: 60 },
-]
+const skills = ["Java", "Go", "Python", "React", "网络安全", "数据库", "Next.js", "Git"]
 
 const timeline = [
   {
@@ -107,19 +100,10 @@ export default function AboutPage() {
               我的<span className="gradient-text">技能栈</span>
             </h2>
 
-            <div className="grid sm:grid-cols-2 gap-6">
+            <div className="flex flex-wrap justify-center gap-4">
               {skills.map((skill) => (
-                <div key={skill.name} className="card p-6">
-                  <div className="flex items-center justify-between mb-3">
-                    <span className="font-bold text-gray-800">{skill.name}</span>
-                    <span className="text-sm text-orange-500 font-semibold">{skill.level}%</span>
-                  </div>
-                  <div className="h-3 bg-gray-100 rounded-full overflow-hidden">
-                    <div
-                      className="h-full bg-gradient-to-r from-orange-500 to-amber-400 rounded-full transition-all duration-1000"
-                      style={{ width: `${skill.level}%` }}
-                    />
-                  </div>
+                <div key={skill} className="card px-6 py-3">
+                  <span className="font-bold text-gray-800">{skill}</span>
                 </div>
               ))}
             </div>
@@ -186,7 +170,7 @@ export default function AboutPage() {
                     <Mail className="w-6 h-6 text-amber-600" />
                   </div>
                   <h3 className="font-bold text-gray-800">邮箱</h3>
-                  <p className="text-sm text-gray-500">kairos@example.com</p>
+                  <p className="text-sm text-gray-500">2016559265w@gmail.com</p>
                 </div>
                 <div className="flex flex-col items-center gap-3">
                   <div className="w-14 h-14 rounded-2xl bg-orange-100 flex items-center justify-center">
