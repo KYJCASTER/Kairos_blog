@@ -9,6 +9,8 @@ import { computeReadingStats } from "@/lib/reading-time"
 import { formatDate } from "@/lib/utils"
 import { TableOfContents } from "@/components/table-of-contents"
 import { ReadingProgress } from "@/components/reading-progress"
+import { CodeCopyButtons } from "@/components/code-copy-buttons"
+import { ArticleJsonLd } from "@/components/json-ld"
 import { site } from "@/lib/site"
 
 interface PageProps {
@@ -52,8 +54,8 @@ export default async function PostPage({ params }: PageProps) {
   if (!post) notFound()
 
   const [html, headings, { prev, next }, stats] = [
-    await renderMarkdown(post.content),
-    extractHeadings(post.content),
+    await renderMarkdown(post.content, post.title),
+    extractHeadings(post.content, post.title),
     getAdjacentPosts(post.slug),
     computeReadingStats(post.content),
   ]
@@ -61,6 +63,8 @@ export default async function PostPage({ params }: PageProps) {
   return (
     <>
       <ReadingProgress targetSelector="#article-body" />
+      <CodeCopyButtons />
+      <ArticleJsonLd post={post} />
 
       <article className="pt-28 pb-20 px-5 sm:px-6">
         {/* Back link */}

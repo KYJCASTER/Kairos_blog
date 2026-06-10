@@ -1,10 +1,10 @@
 "use client"
 
-import { useEffect, useMemo, useState, useRef } from "react"
+import { useEffect, useMemo, useState, useRef, useDeferredValue } from "react"
+import { useSearchParams, useRouter } from "next/navigation"
 import Link from "next/link"
 import Fuse from "fuse.js"
 import { Search, X, ArrowUpRight, Calendar } from "lucide-react"
-import { formatDate } from "@/lib/utils"
 
 export interface SearchablePost {
   slug: string
@@ -21,11 +21,34 @@ interface BlogIndexProps {
 }
 
 export function BlogIndex({ posts, allTags }: BlogIndexProps) {
-  const [query, setQuery] = useState("")
-  const [activeTag, setActiveTag] = useState<string | null>(null)
+  const searchParams = useSearchParams()
+  const router = useRouter()
+
+  // Initialize from URL so /blog?tag=Java or /blog?search=hooks is shareable.
+  const initialTag = searchParams.get("tag") || null
+  const initialQuery = searchParams.get("search") || ""
+
+  const [query, setQuery] = useState(initialQuery)
+  const deferredQuery = useDeferredValue(query)
+  const [activeTag, setActiveTag] = useState<string | null>(initialTag)
   const inputRef = useRef<HTMLInputElement>(null)
 
-  // ⌘K / Ctrl-K — quick focus on search.
+  // Reflect filter state back into the URL (no router push — just replace).
+  // Skip the very first run so we don't dirty browser history on mount.
+  const firstSync = useRef(true)
+  useEffect(() => {
+    if (firstSync.current) {
+      firstSync.current = false
+      return
+    }
+    const params = new URLSearchParams()
+    if (query) params.set("search", query)
+    if (activeTag) params.set("tag", activeTag)
+    const qs = params.toString()
+    router.replace(qs ? `/blog?${qs}` : "/blog", { scroll: false })
+  }, [query, activeTag, router])
+
+  // ⌘K / Ctrl-K to focus, Esc to clear.
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") {
@@ -41,8 +64,6 @@ export function BlogIndex({ posts, allTags }: BlogIndexProps) {
     return () => window.removeEventListener("keydown", onKey)
   }, [])
 
-  // Build the Fuse index once. Posts shipped from the server already contain
-  // a truncated body so we can full-text search without round-trips.
   const fuse = useMemo(
     () =>
       new Fuse(posts, {
@@ -50,11 +71,10 @@ export function BlogIndex({ posts, allTags }: BlogIndexProps) {
           { name: "title", weight: 0.5 },
           { name: "tags", weight: 0.25 },
           { name: "excerpt", weight: 0.15 },
-          { name: "body", weight: 0.10 },
+          { name: "body", weight: 0.1 },
         ],
         threshold: 0.34,
         ignoreLocation: true,
-        includeMatches: false,
         minMatchCharLength: 2,
       }),
     [posts]
@@ -62,10 +82,24 @@ export function BlogIndex({ posts, allTags }: BlogIndexProps) {
 
   const filtered = useMemo(() => {
     let base: SearchablePost[] = posts
-    if (query.trim()) base = fuse.search(query.trim()).map((r) => r.item)
+    if (deferredQuery.trim()) base = fuse.search(deferredQuery.trim()).map((r) => r.item)
     if (activeTag) base = base.filter((p) => p.tags.includes(activeTag))
     return base
-  }, [query, activeTag, posts, fuse])
+  }, [deferredQuery, activeTag, posts, fuse])
+
+  // Group by year (already date-sorted desc upstream).
+  const groupedByYear = useMemo(() => {
+    const groups = new Map<string, SearchablePost[]>()
+    for (const p of filtered) {
+      const year = p.date.slice(0, 4)
+      const arr = groups.get(year) ?? []
+      arr.push(p)
+      groups.set(year, arr)
+    }
+    return Array.from(groups.entries()) // preserves insertion order = desc
+  }, [filtered])
+
+  const hasFilter = Boolean(query || activeTag)
 
   return (
     <main className="min-h-screen pt-28 pb-20">
@@ -82,7 +116,7 @@ export function BlogIndex({ posts, allTags }: BlogIndexProps) {
       </section>
 
       {/* Search + tag filters */}
-      <section className="px-5 sm:px-6 mb-10">
+      <section className="px-5 sm:px-6 mb-12">
         <div className="max-w-5xl mx-auto">
           <div className="relative mb-6">
             <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-light" />
@@ -124,7 +158,7 @@ export function BlogIndex({ posts, allTags }: BlogIndexProps) {
                   <button
                     key={tag.name}
                     onClick={() => setActiveTag(active ? null : tag.name)}
-                    className={`tag-chip ${active ? "border-primary text-primary" : ""}`}
+                    className="tag-chip"
                     style={active ? { borderColor: tag.color, color: tag.color } : undefined}
                   >
                     {tag.name} <span className="opacity-60">{tag.count}</span>
@@ -136,14 +170,12 @@ export function BlogIndex({ posts, allTags }: BlogIndexProps) {
         </div>
       </section>
 
-      {/* Results list — magazine-style, not card grid */}
+      {/* Results */}
       <section className="px-5 sm:px-6">
         <div className="max-w-5xl mx-auto">
           {filtered.length === 0 ? (
             <div className="card p-12 text-center">
-              <p className="serif text-xl text-muted mb-2">
-                没有匹配的文章
-              </p>
+              <p className="serif text-xl text-muted mb-2">没有匹配的文章</p>
               <p className="text-sm text-muted-light">
                 试试换个关键词，或者{" "}
                 <button
@@ -158,40 +190,64 @@ export function BlogIndex({ posts, allTags }: BlogIndexProps) {
               </p>
             </div>
           ) : (
-            <ul className="divide-y hairline">
-              {filtered.map((post) => (
-                <li key={post.slug}>
-                  <Link
-                    href={`/blog/${post.slug}`}
-                    className="group grid sm:grid-cols-[140px_1fr_auto] gap-2 sm:gap-8 py-7 items-baseline"
-                  >
-                    <time className="font-mono text-xs text-muted-light tabular-nums flex items-center gap-1.5">
-                      <Calendar className="w-3.5 h-3.5" />
-                      {formatDate(post.date)}
-                    </time>
-                    <div className="min-w-0">
-                      <h2 className="serif text-xl sm:text-2xl font-semibold text-foreground group-hover:text-primary transition-colors leading-snug">
-                        {post.title}
+            // When the user has typed/filtered, year grouping just feels noisy.
+            <div className="space-y-12">
+              {hasFilter ? (
+                <YearList posts={filtered} />
+              ) : (
+                groupedByYear.map(([year, items]) => (
+                  <div key={year}>
+                    <div className="flex items-baseline gap-4 mb-2">
+                      <h2 className="serif text-3xl font-semibold text-muted-light tabular-nums">
+                        {year}
                       </h2>
-                      <p className="text-sm text-muted mt-2 line-clamp-2">
-                        {post.excerpt}
-                      </p>
-                      {post.tags.length > 0 && (
-                        <div className="flex flex-wrap gap-1.5 mt-3">
-                          {post.tags.map((t) => (
-                            <span key={t} className="tag-chip">{t}</span>
-                          ))}
-                        </div>
-                      )}
+                      <span className="text-xs text-muted-light font-mono">
+                        {items.length} 篇
+                      </span>
+                      <span className="flex-1 h-px bg-border" />
                     </div>
-                    <ArrowUpRight className="hidden sm:block w-5 h-5 text-muted-light group-hover:text-primary group-hover:-translate-y-1 group-hover:translate-x-1 transition-all" />
-                  </Link>
-                </li>
-              ))}
-            </ul>
+                    <YearList posts={items} />
+                  </div>
+                ))
+              )}
+            </div>
           )}
         </div>
       </section>
     </main>
+  )
+}
+
+function YearList({ posts }: { posts: SearchablePost[] }) {
+  return (
+    <ul className="divide-y hairline">
+      {posts.map((post) => (
+        <li key={post.slug}>
+          <Link
+            href={`/blog/${post.slug}`}
+            className="group grid sm:grid-cols-[120px_1fr_auto] gap-2 sm:gap-8 py-7 items-baseline"
+          >
+            <time className="font-mono text-xs text-muted-light tabular-nums flex items-center gap-1.5">
+              <Calendar className="w-3.5 h-3.5" />
+              {post.date.slice(5).replace("-", " / ")}
+            </time>
+            <div className="min-w-0">
+              <h3 className="serif text-xl sm:text-2xl font-semibold text-foreground group-hover:text-primary transition-colors leading-snug">
+                {post.title}
+              </h3>
+              <p className="text-sm text-muted mt-2 line-clamp-2">{post.excerpt}</p>
+              {post.tags.length > 0 && (
+                <div className="flex flex-wrap gap-1.5 mt-3">
+                  {post.tags.map((t) => (
+                    <span key={t} className="tag-chip">{t}</span>
+                  ))}
+                </div>
+              )}
+            </div>
+            <ArrowUpRight className="hidden sm:block w-5 h-5 text-muted-light group-hover:text-primary group-hover:-translate-y-1 group-hover:translate-x-1 transition-all" />
+          </Link>
+        </li>
+      ))}
+    </ul>
   )
 }

@@ -4,6 +4,7 @@ import "./globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
 import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
+import { WebsiteJsonLd } from "@/components/json-ld"
 import { site } from "@/lib/site"
 
 const inter = Inter({
@@ -83,6 +84,7 @@ export default function RootLayout({
           </main>
           <Footer />
         </ThemeProvider>
+        <WebsiteJsonLd />
       </body>
     </html>
   )

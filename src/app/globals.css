@@ -295,6 +295,9 @@ body {
   border-radius: 999px;
   pointer-events: none;
 }
+/* Plain (no language) code blocks: skip the noisy "TEXT" badge */
+.code-block[data-lang="text"]::before,
+.code-block[data-lang=""]::before { display: none; }
 .code-block pre {
   margin: 0;
   padding: 2.25rem 1.25rem 1.25rem;
@@ -306,6 +309,30 @@ body {
   tab-size: 2;
 }
 .code-block pre code { background: transparent !important; padding: 0; }
+
+/* Copy button (injected at runtime by <CodeCopyButtons />) */
+.code-block .copy-mount {
+  position: absolute;
+  top: 0.5rem;
+  right: 4.25rem; /* sit to the LEFT of the language pill */
+}
+.copy-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.25rem 0.45rem;
+  border-radius: 6px;
+  color: var(--muted-light);
+  background: var(--code-toolbar-bg);
+  border: 1px solid transparent;
+  transition: color var(--t-fast), border-color var(--t-fast), background var(--t-fast);
+  cursor: pointer;
+}
+.copy-btn:hover {
+  color: var(--foreground);
+  border-color: var(--border);
+  background: var(--card);
+}
 
 /* Shiki dual-theme switch */
 html .shiki, html .shiki span { color: var(--shiki-light); background-color: transparent !important; }
@@ -394,18 +421,22 @@ html .shiki, html .shiki span { color: var(--shiki-light); background-color: tra
 .prose li { margin: 0.4em 0; }
 .prose li::marker { color: var(--primary); }
 
-/* Heading anchor (appears on hover) */
+/* Heading anchor (appears on hover, hidden on narrow viewports) */
 .prose h2, .prose h3, .prose h4 { position: relative; }
-.prose h2::before, .prose h3::before, .prose h4::before {
-  content: "#";
-  position: absolute;
-  left: -1.1em;
-  color: var(--muted-light);
-  font-weight: 400;
-  opacity: 0;
-  transition: opacity var(--t-fast);
+@media (min-width: 1024px) {
+  .prose h2::before, .prose h3::before, .prose h4::before {
+    content: "#";
+    position: absolute;
+    left: -1.1em;
+    color: var(--muted-light);
+    font-weight: 400;
+    opacity: 0;
+    transition: opacity var(--t-fast);
+  }
+  .prose h2:hover::before,
+  .prose h3:hover::before,
+  .prose h4:hover::before { opacity: 1; }
 }
-.prose h2:hover::before, .prose h3:hover::before, .prose h4:hover::before { opacity: 1; }
 
 /* ============================================
    Scroll progress bar (used by article pages)
