@@ -3,7 +3,7 @@ title: "国内 AI 编程助手厂商调研报告（2026年3月）"
 slug: "ai-coding-assistant-market-report"
 excerpt: "详细对比阿里云、腾讯云、智谱AI、华为云等厂商的 Coding Plan 定价策略、功能特性及性价比分析。"
 date: "2026-03-30"
-tags: ["AI", "编程工具", "市场调研", "云计算"]
+tags: ["AI", "编程工具"]
 published: true
 ---
 

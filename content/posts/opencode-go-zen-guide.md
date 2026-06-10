@@ -3,7 +3,7 @@ title: "OpenCode Go 和 Zen 订阅详细说明"
 slug: "opencode-go-zen-guide"
 excerpt: "详细介绍 OpenCode Go 和 Zen 两种订阅服务的定价、使用方法、模型列表和价格对比。"
 date: "2026-03-15"
-tags: ["OpenCode", "AI", "教程", "工具"]
+tags: ["AI", "编程工具"]
 published: true
 ---
 

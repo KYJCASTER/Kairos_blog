@@ -3,7 +3,7 @@ title: "DNS 污染（DNS Poisoning）详解与应对方法"
 slug: "dns-poisoning-guide"
 excerpt: "什么是 DNS 污染？它是如何工作的？本文详解 DNS 污染的原理、常见场景以及有效的应对方法。"
 date: "2026-03-17"
-tags: ["网络安全", "DNS", "科普", "技术"]
+tags: ["网络安全", "DNS"]
 published: true
 ---
 

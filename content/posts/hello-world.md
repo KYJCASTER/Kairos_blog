@@ -3,7 +3,7 @@ title: "Hello World - 我的第一篇博客"
 slug: "hello-world"
 excerpt: "这是我的第一篇博客文章，记录我开始写博客的初衷和目标。"
 date: "2025-04-05"
-tags: ["随笔", "开始"]
+tags: ["随笔"]
 published: true
 ---
 
