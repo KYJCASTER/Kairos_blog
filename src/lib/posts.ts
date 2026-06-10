@@ -54,9 +54,9 @@ export function getAllPosts(): Post[] {
 
   const fileNames = fs.readdirSync(postsDirectory)
   const all = fileNames
-    .filter((f) => f.endsWith(".md"))
+    .filter((f) => f.endsWith(".md") || f.endsWith(".mdx"))
     .map((fileName): Post => {
-      const id = fileName.replace(/\.md$/, "")
+      const id = fileName.replace(/\.mdx?$/, "")
       const fullPath = path.join(postsDirectory, fileName)
       const fileContents = fs.readFileSync(fullPath, "utf8")
       const { data, content } = matter(fileContents)

@@ -51,10 +51,10 @@ export function TableOfContents({ headings }: TableOfContentsProps) {
         本页目录
       </p>
       <ul className="space-y-1.5 text-sm border-l hairline">
-        {headings.map((h) => {
+        {headings.map((h, i) => {
           const active = activeId === h.id
           return (
-            <li key={h.id}>
+            <li key={`${h.id}-${i}`}>
               <a
                 href={`#${h.id}`}
                 className={cn(

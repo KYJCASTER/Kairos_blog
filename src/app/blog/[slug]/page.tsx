@@ -4,7 +4,7 @@ import { notFound } from "next/navigation"
 import { ArrowLeft, ArrowRight, Calendar, Clock, FileText } from "lucide-react"
 
 import { getPublishedPosts, getPostBySlug, getAdjacentPosts } from "@/lib/posts"
-import { renderMarkdown, extractHeadings } from "@/lib/markdown"
+import { renderMDX, extractHeadings } from "@/lib/markdown"
 import { computeReadingStats } from "@/lib/reading-time"
 import { formatDate } from "@/lib/utils"
 import { TableOfContents } from "@/components/table-of-contents"
@@ -53,8 +53,8 @@ export default async function PostPage({ params }: PageProps) {
   const post = getPostBySlug(slug)
   if (!post) notFound()
 
-  const [html, headings, { prev, next }, stats] = [
-    await renderMarkdown(post.content, post.title),
+  const [content, headings, { prev, next }, stats] = [
+    await renderMDX(post.content, post.title),
     extractHeadings(post.content, post.title),
     getAdjacentPosts(post.slug),
     computeReadingStats(post.content),
@@ -122,11 +122,9 @@ export default async function PostPage({ params }: PageProps) {
 
         {/* Body + sticky TOC */}
         <div className="grid lg:grid-cols-[1fr_220px] gap-12 max-w-5xl mx-auto">
-          <div
-            id="article-body"
-            className="prose max-w-none min-w-0"
-            dangerouslySetInnerHTML={{ __html: html }}
-          />
+          <div id="article-body" className="prose max-w-none min-w-0">
+            {content}
+          </div>
           <aside>
             <TableOfContents headings={headings} />
           </aside>

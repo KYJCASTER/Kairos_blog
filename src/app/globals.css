@@ -439,6 +439,130 @@ html .shiki, html .shiki span { color: var(--shiki-light); background-color: tra
 }
 
 /* ============================================
+   MDX components — editorial primitives
+   Callout / Figure / Aside live in src/components/mdx.
+   Tokens stay in :root / .dark so dark mode flips for free.
+   ============================================ */
+
+.callout {
+  --callout-tint: var(--primary);
+  --callout-bg: var(--primary-50);
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.85rem;
+  margin: 1.75em 0;
+  padding: 1rem 1.15rem;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--callout-tint);
+  background: var(--callout-bg);
+  color: var(--foreground);
+}
+.callout[data-callout="info"]    { --callout-tint: var(--info);    --callout-bg: color-mix(in srgb, var(--info)    8%, var(--card)); }
+.callout[data-callout="tip"]     { --callout-tint: var(--primary); --callout-bg: var(--primary-50); }
+.callout[data-callout="warning"] { --callout-tint: var(--warning); --callout-bg: color-mix(in srgb, var(--warning) 10%, var(--card)); }
+.callout[data-callout="danger"]  { --callout-tint: var(--error);   --callout-bg: color-mix(in srgb, var(--error)   8%, var(--card)); }
+
+.dark .callout {
+  background: color-mix(in srgb, var(--callout-tint) 14%, var(--surface));
+}
+
+.callout-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--callout-tint) 18%, transparent);
+  color: var(--callout-tint);
+  margin-top: 0.15em;
+  flex-shrink: 0;
+}
+
+.callout-label {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--callout-tint);
+  margin: 0 0 0.35em;
+}
+
+.callout-content > :first-child { margin-top: 0; }
+.callout-content > :last-child  { margin-bottom: 0; }
+.callout-content p              { margin: 0.5em 0; line-height: 1.7; }
+.callout-content a              { color: var(--callout-tint); text-decoration-color: color-mix(in srgb, var(--callout-tint) 50%, transparent); }
+.callout-content code:not(pre code) { background: color-mix(in srgb, var(--callout-tint) 12%, var(--card)); border-color: color-mix(in srgb, var(--callout-tint) 24%, transparent); color: var(--callout-tint); }
+
+/* --- Figure --- */
+.figure {
+  margin: 2em 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.figure img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  margin: 0;
+}
+.figure[data-width="wide"] { margin-left: -2rem; margin-right: -2rem; }
+.figure[data-width="bleed"] img { border-radius: 0; }
+.figure figcaption {
+  margin-top: 0.85em;
+  font-size: 0.875rem;
+  color: var(--muted);
+  font-style: italic;
+  text-align: center;
+  max-width: 38em;
+  line-height: 1.5;
+}
+
+/* --- Aside (marginal note) ---
+   Floats into the right margin at wide viewports; stacks inline below lg. */
+.aside-note {
+  margin: 1.5em 0;
+  padding: 0.9em 1.1em;
+  border-top: 1px solid var(--border-strong);
+  border-bottom: 1px solid var(--border);
+  background: linear-gradient(180deg, color-mix(in srgb, var(--accent) 4%, transparent), transparent);
+  color: var(--muted);
+  font-size: 0.9375rem;
+  line-height: 1.65;
+}
+.aside-label {
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin: 0 0 0.4em;
+}
+.aside-content > :first-child { margin-top: 0; }
+.aside-content > :last-child  { margin-bottom: 0; }
+.aside-content p              { margin: 0.4em 0; }
+
+@media (min-width: 1280px) {
+  .aside-note {
+    float: right;
+    clear: right;
+    width: 16rem;
+    margin: 0.5em -10rem 1em 1.5em;
+    border: none;
+    border-left: 2px solid var(--accent);
+    background: transparent;
+    padding: 0.25em 0 0.25em 1.1em;
+    font-size: 0.875rem;
+  }
+}
+
+/* ============================================
    Scroll progress bar (used by article pages)
    ============================================ */
 

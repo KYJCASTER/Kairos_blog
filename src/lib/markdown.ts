@@ -1,9 +1,15 @@
-// Markdown rendering with build-time Shiki syntax highlighting.
-// Single Marked instance + single Highlighter, both memoized.
-// All renders happen at build time (server components), so the cost is paid once.
+// MDX rendering with build-time Shiki syntax highlighting.
+// Single Highlighter, memoized. Renders run inside server components, so the
+// shiki tokenizer cost is paid once at build time.
 
-import { Marked } from "marked"
+import { compileMDX } from "next-mdx-remote/rsc"
 import { createHighlighter, type Highlighter } from "shiki"
+import { visit } from "unist-util-visit"
+import remarkGfm from "remark-gfm"
+import type { Root, Element, Text, ElementContent } from "hast"
+import type { ReactElement } from "react"
+
+import { mdxComponents } from "@/components/mdx"
 
 const SHIKI_LANGS = [
   "javascript", "typescript", "tsx", "jsx",
@@ -19,35 +25,15 @@ const SHIKI_LANG_SET: ReadonlySet<string> = new Set(SHIKI_LANGS)
 const resolveLang = (lang: string | undefined): Lang =>
   lang && SHIKI_LANG_SET.has(lang) ? (lang as Lang) : "text"
 
-let markedPromise: Promise<Marked> | null = null
-let highlighter: Highlighter | null = null
-
-async function getMarked(): Promise<Marked> {
-  if (!markedPromise) {
-    markedPromise = (async () => {
-      highlighter = await createHighlighter({
-        themes: ["github-light", "github-dark"],
-        langs: SHIKI_LANGS as unknown as string[],
-      })
-      const m = new Marked({ gfm: true, breaks: false })
-      m.use({
-        renderer: {
-          code({ text, lang }: { text: string; lang?: string }) {
-            const resolved = resolveLang(lang)
-            const html = highlighter!.codeToHtml(text, {
-              lang: resolved,
-              themes: { light: "github-light", dark: "github-dark" },
-              defaultColor: false,
-            })
-            const label = lang || "text"
-            return `<div class="code-block" data-lang="${label}">${html}</div>`
-          },
-        },
-      })
-      return m
-    })()
+let highlighterPromise: Promise<Highlighter> | null = null
+async function getHighlighter(): Promise<Highlighter> {
+  if (!highlighterPromise) {
+    highlighterPromise = createHighlighter({
+      themes: ["github-light", "github-dark"],
+      langs: SHIKI_LANGS as unknown as string[],
+    })
   }
-  return markedPromise
+  return highlighterPromise
 }
 
 const slugify = (s: string) =>
@@ -58,31 +44,124 @@ const slugify = (s: string) =>
     .replace(/\s+/g, "-")
     .replace(/[^\w一-龥-]/g, "")
 
-/** Render markdown to HTML with shiki-highlighted code blocks and heading IDs. */
-export async function renderMarkdown(md: string, postTitle?: string): Promise<string> {
-  const m = await getMarked()
-  // If the article starts with an H1 that just repeats the page title, strip it —
-  // the page already renders <h1>{post.title}</h1> in the header.
-  let body = md
+/** Read the plain-text content of a hast node (used for heading slugs). */
+function getText(node: Element): string {
+  let out = ""
+  for (const child of node.children) {
+    if (child.type === "text") out += (child as Text).value
+    else if (child.type === "element") out += getText(child as Element)
+  }
+  return out
+}
+
+/**
+ * Rehype plugin: turn `<pre><code class="language-xx">` into a Shiki-highlighted
+ * `<div class="code-block" data-lang="xx">…</div>`, matching the existing CSS
+ * (.code-block + .code-block::after language pill).
+ */
+function rehypeShiki(highlighter: Highlighter) {
+  return async (tree: Root) => {
+    const jobs: Array<() => void> = []
+
+    visit(tree, "element", (node: Element, index, parent) => {
+      if (node.tagName !== "pre") return
+      const code = node.children.find(
+        (c): c is Element => c.type === "element" && (c as Element).tagName === "code"
+      )
+      if (!code) return
+
+      // Extract language from `class="language-xx"` (MDX/remark-rehype convention).
+      const classes = (code.properties?.className as string[] | undefined) ?? []
+      const langClass = classes.find((c) => c.startsWith("language-"))
+      const rawLang = langClass?.replace("language-", "")
+      const resolved = resolveLang(rawLang)
+      const label = rawLang || "text"
+
+      // Concatenate text children to get the source.
+      let source = ""
+      for (const c of code.children) {
+        if (c.type === "text") source += (c as Text).value
+      }
+      // remark-rehype always appends a trailing newline; shiki handles it fine.
+      source = source.replace(/\n$/, "")
+
+      jobs.push(() => {
+        const hast = highlighter.codeToHast(source, {
+          lang: resolved,
+          themes: { light: "github-light", dark: "github-dark" },
+          defaultColor: false,
+        }) as Root
+
+        // codeToHast returns a single <pre> root child — wrap it in our .code-block div.
+        const wrapper: Element = {
+          type: "element",
+          tagName: "div",
+          properties: {
+            className: ["code-block"],
+            "data-lang": label,
+          },
+          children: hast.children as ElementContent[],
+        }
+
+        if (parent && typeof index === "number") {
+          parent.children[index] = wrapper
+        }
+      })
+    })
+
+    jobs.forEach((j) => j())
+  }
+}
+
+/**
+ * Rehype plugin: inject id="…" on h2/h3/h4 using the same slug algorithm as
+ * extractHeadings() so TOC anchors line up. Also demote any body-level h1 to
+ * h2 — the page header already renders the title.
+ */
+function rehypeHeadings() {
+  return (tree: Root) => {
+    visit(tree, "element", (node: Element) => {
+      if (node.tagName === "h1") node.tagName = "h2"
+      if (!/^h[2-4]$/.test(node.tagName)) return
+      const text = getText(node)
+      if (!text) return
+      node.properties = { ...(node.properties ?? {}), id: slugify(text) }
+    })
+  }
+}
+
+/**
+ * Compile an MDX source string into a React element ready to render.
+ * Accepts both `.md` and `.mdx` content — plain markdown is a valid subset
+ * of MDX, and 99% of existing `.md` posts will compile unchanged.
+ */
+export async function renderMDX(source: string, postTitle?: string): Promise<ReactElement> {
+  const highlighter = await getHighlighter()
+
+  // If the article starts with an H1 that just repeats the page title, strip it.
+  let body = source
   if (postTitle) {
-    const stripped = body.replace(/^#\s+(.+?)\s*$/m, (full, t: string) => {
+    body = body.replace(/^#\s+(.+?)\s*$/m, (full, t: string) => {
       const norm = (s: string) => s.replace(/\s+/g, "").trim()
       return norm(t) === norm(postTitle) ? "" : full
     })
-    body = stripped
   }
-  let html = (await m.parse(body)) as string
 
-  // Any remaining h1 in the body becomes an h2 — there should only ever be one
-  // page-level h1 (the title in <header>), and shipping multiple h1's hurts a11y.
-  html = html.replace(/<h1>([\s\S]+?)<\/h1>/g, "<h2>$1</h2>")
+  const { content } = await compileMDX({
+    source: body,
+    components: mdxComponents,
+    options: {
+      mdxOptions: {
+        remarkPlugins: [remarkGfm],
+        rehypePlugins: [rehypeHeadings, [rehypeShiki, highlighter]],
+      },
+      // We do our own frontmatter parsing in lib/posts.ts — but the post body
+      // never includes the YAML block at this point, so this is moot.
+      parseFrontmatter: false,
+    },
+  })
 
-  // Inject id="..." on h2/h3/h4 for the TOC + in-page anchor links.
-  html = html.replace(
-    /<h([2-4])>([\s\S]+?)<\/h\1>/g,
-    (_, level, inner) => `<h${level} id="${slugify(inner)}">${inner}</h${level}>`
-  )
-  return html
+  return content
 }
 
 export interface Heading {
@@ -91,7 +170,7 @@ export interface Heading {
   id: string
 }
 
-/** Extract h2/h3/h4 from raw markdown (used by the in-page TOC). */
+/** Extract h2/h3/h4 from raw markdown/MDX source (used by the in-page TOC). */
 export function extractHeadings(md: string, postTitle?: string): Heading[] {
   const out: Heading[] = []
   let inFence = false
@@ -105,7 +184,7 @@ export function extractHeadings(md: string, postTitle?: string): Heading[] {
       continue
     }
     if (inFence) continue
-    // Promote a single body-level h1 to h2 (matches renderMarkdown's behaviour).
+    // Promote a single body-level h1 to h2 (matches renderMDX's behaviour).
     const m = /^(#{1,4})\s+(.+?)\s*#*\s*$/.exec(line)
     if (!m) continue
     let level = m[1].length
