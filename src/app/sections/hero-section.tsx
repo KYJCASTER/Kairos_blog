@@ -1,74 +1,64 @@
-"use client"
-
 import Link from "next/link"
-import { ArrowRight, Sparkles, Code2, Coffee } from "lucide-react"
+import { ArrowRight } from "lucide-react"
+import { site } from "@/lib/site"
 
 export function HeroSection() {
   return (
-    <section className="relative min-h-screen flex items-center justify-center pt-32 pb-20 px-4 overflow-hidden">
-      {/* 背景装饰 */}
-      <div className="absolute top-20 right-10 w-72 h-72 bg-orange-300/20 rounded-full blur-3xl" />
-      <div className="absolute bottom-20 left-10 w-96 h-96 bg-amber-300/20 rounded-full blur-3xl" />
-      
-      {/* 装饰图案 */}
-      <div className="absolute top-40 left-20 dot-pattern w-32 h-32 opacity-30" />
-      <div className="absolute bottom-40 right-20 dot-pattern w-24 h-24 opacity-30" />
-      
-      <div className="relative z-10 max-w-4xl mx-auto text-center">
-        {/* 徽章 */}
-        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-orange-100 text-orange-600 mb-8 animate-fade-in-up">
-          <Sparkles className="w-4 h-4" />
-          <span className="text-sm font-semibold">河南大学 · 2024级 · 网络工程</span>
-        </div>
+    <section className="relative pt-36 sm:pt-44 pb-24 px-5 sm:px-6 overflow-hidden">
+      {/* Subtle background flourish */}
+      <div className="absolute -top-40 -right-32 w-[28rem] h-[28rem] rounded-full bg-primary/8 blur-3xl pointer-events-none" />
+      <div className="absolute -bottom-40 -left-32 w-[24rem] h-[24rem] rounded-full bg-accent/8 blur-3xl pointer-events-none" />
+      <div className="noise" />
 
-        {/* 主标题 */}
-        <h1 className="text-5xl sm:text-6xl md:text-7xl font-extrabold mb-6 animate-fade-in-up" style={{ animationDelay: '0.1s' }}>
-          <span className="gradient-text">Kairos</span>
-          <span className="text-gray-800"> 博客</span>
+      <div className="relative max-w-3xl mx-auto">
+        <p className="font-mono text-xs uppercase tracking-[0.2em] text-muted mb-6 animate-fade-in-up">
+          <span className="inline-block w-6 h-px bg-primary align-middle mr-3" />
+          河南大学 · 网络工程 · 2024 级
+        </p>
+
+        <h1
+          className="serif text-5xl sm:text-6xl md:text-7xl font-semibold leading-[1.05] tracking-tight text-foreground mb-8 animate-fade-in-up"
+          style={{ animationDelay: "0.06s" }}
+        >
+          代码之外，
+          <br />
+          仍是<span className="italic text-primary">语言</span>。
         </h1>
 
-        {/* 副标题 */}
-        <p className="text-xl sm:text-2xl text-gray-600 mb-4 animate-fade-in-up font-medium" style={{ animationDelay: '0.2s' }}>
-          开发者成长日记
-        </p>
-        <p className="text-gray-500 max-w-2xl mx-auto mb-10 text-lg animate-fade-in-up" style={{ animationDelay: '0.3s' }}>
-          记录学习历程，分享技术见解。在这里探索 Java、Go、Python 与前端开发的无限可能。
+        <p
+          className="text-lg sm:text-xl text-muted leading-relaxed mb-10 max-w-2xl animate-fade-in-up"
+          style={{ animationDelay: "0.12s" }}
+        >
+          {site.description}
+          这里收录我在 Java、Go、Python 与 Web 上的思考片段，希望它们对路过的你也有用。
         </p>
 
-        {/* 特性标签 */}
-        <div className="flex flex-wrap justify-center gap-4 mb-12 animate-fade-in-up" style={{ animationDelay: '0.4s' }}>
-          <div className="flex items-center gap-2 px-4 py-2 bg-white rounded-full shadow-sm border border-gray-100">
-            <Code2 className="w-4 h-4 text-orange-500" />
-            <span className="text-sm font-medium text-gray-700">全栈开发</span>
-          </div>
-          <div className="flex items-center gap-2 px-4 py-2 bg-white rounded-full shadow-sm border border-gray-100">
-            <Coffee className="w-4 h-4 text-amber-500" />
-            <span className="text-sm font-medium text-gray-700">持续学习</span>
-          </div>
-        </div>
-
-        {/* CTA 按钮 */}
-        <div className="flex flex-wrap justify-center gap-4 animate-fade-in-up" style={{ animationDelay: '0.5s' }}>
-          <Link href="/blog">
-            <button className="btn-primary inline-flex items-center gap-2 text-base">
-              开始阅读
-              <ArrowRight className="w-4 h-4" />
-            </button>
+        <div
+          className="flex flex-wrap items-center gap-3 animate-fade-in-up"
+          style={{ animationDelay: "0.18s" }}
+        >
+          <Link href="/blog" className="btn-primary">
+            浏览文章
+            <ArrowRight className="w-4 h-4" />
           </Link>
-          <Link href="/about">
-            <button className="btn-secondary">
-              了解更多
-            </button>
+          <Link href="/about" className="btn-secondary">
+            关于我
           </Link>
         </div>
 
-        {/* 技能标签 */}
-        <div className="mt-16 flex flex-wrap justify-center gap-3 animate-fade-in-up" style={{ animationDelay: '0.6s' }}>
-          {["Java", "Go", "Python", "React", "Next.js", "网络安全"].map((skill) => (
-            <span key={skill} className="tag">
-              {skill}
-            </span>
-          ))}
+        <div
+          className="mt-16 flex items-center gap-6 text-xs text-muted-light animate-fade-in-up"
+          style={{ animationDelay: "0.24s" }}
+        >
+          <span className="font-mono uppercase tracking-wider">现在专注</span>
+          <span className="flex-1 h-px bg-border" />
+          <span className="flex flex-wrap gap-3 font-medium text-muted">
+            <span>Java 并发</span>
+            <span>·</span>
+            <span>Go 服务端</span>
+            <span>·</span>
+            <span>网络安全</span>
+          </span>
         </div>
       </div>
     </section>

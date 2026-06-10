@@ -1,65 +1,40 @@
 import Link from "next/link"
-import { ArrowRight, Code2, Shield, Globe, Heart } from "lucide-react"
+import { ArrowRight } from "lucide-react"
+import { site } from "@/lib/site"
 
 export function AboutPreview() {
   return (
-    <section className="py-24 px-4 relative overflow-hidden">
-      {/* 背景装饰 */}
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-orange-50/30 to-transparent" />
-      
-      <div className="max-w-5xl mx-auto relative">
-        <div className="card p-8 md:p-12">
-          <div className="flex flex-col lg:flex-row items-center gap-12">
-            {/* 头像区域 */}
-            <div className="relative shrink-0">
-              <div className="w-40 h-40 rounded-3xl overflow-hidden shadow-2xl shadow-orange-500/10 rotate-3 hover:rotate-0 transition-transform duration-500">
-                <img
-                  src="./avatar.svg"
-                  alt="Kairos"
-                  className="w-full h-full object-cover"
-                />
-              </div>
-              {/* 装饰元素 */}
-              <div className="absolute -bottom-4 -right-4 w-20 h-20 bg-amber-400 rounded-2xl -z-10" />
-              <div className="absolute -top-4 -left-4 w-16 h-16 bg-orange-400 rounded-full -z-10 opacity-80" />
+    <section className="py-20 px-5 sm:px-6">
+      <div className="max-w-3xl mx-auto">
+        <div className="card p-8 sm:p-12">
+          <div className="grid sm:grid-cols-[auto_1fr] gap-8 items-start">
+            <div className="relative w-24 h-24 sm:w-28 sm:h-28 shrink-0">
+              <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-primary to-accent-light opacity-20 blur-xl" />
+              {/* eslint-disable-next-line @next/next/no-img-element -- next/image disabled by output:export */}
+              <img
+                src={`${site.basePath}/avatar.svg`}
+                alt={site.author}
+                className="relative w-full h-full rounded-2xl object-cover border hairline-strong"
+              />
             </div>
 
-            {/* 介绍区域 */}
-            <div className="flex-1 text-center lg:text-left">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-orange-100 text-orange-600 text-sm font-semibold mb-4">
-                <Heart className="w-4 h-4" />
-                关于我
-              </div>
-              
-              <h2 className="text-3xl font-bold mb-4 text-gray-800">
-                你好，我是 <span className="gradient-text">Kairos</span>
-              </h2>
-              <p className="text-gray-600 text-lg mb-6 leading-relaxed">
-                河南大学 2024 级网络工程专业学生，热爱编程和技术探索。
-                专注于后端开发、网络安全和前端技术，持续学习，不断进步。
+            <div>
+              <p className="font-mono text-xs uppercase tracking-[0.2em] text-muted mb-3">
+                关于作者
               </p>
-              
-              {/* 技能图标 */}
-              <div className="flex flex-wrap justify-center lg:justify-start gap-3 mb-8">
-                <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-gray-100">
-                  <Code2 className="w-4 h-4 text-orange-500" />
-                  <span className="text-sm font-medium text-gray-700">全栈开发</span>
-                </div>
-                <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-gray-100">
-                  <Shield className="w-4 h-4 text-amber-500" />
-                  <span className="text-sm font-medium text-gray-700">网络安全</span>
-                </div>
-                <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-gray-100">
-                  <Globe className="w-4 h-4 text-cyan-500" />
-                  <span className="text-sm font-medium text-gray-700">开源贡献</span>
-                </div>
-              </div>
-
-              <Link href="/about">
-                <button className="btn-primary inline-flex items-center gap-2">
-                  了解更多
-                  <ArrowRight className="w-4 h-4" />
-                </button>
+              <h2 className="serif text-2xl sm:text-3xl font-semibold leading-tight text-foreground mb-4">
+                你好，我是 <span className="italic text-primary">{site.name}</span>。
+              </h2>
+              <p className="text-muted leading-relaxed mb-6">
+                我是河南大学 2024 级网络工程专业的学生，正在把对编程的喜欢
+                和对计算机网络的好奇心，慢慢沉淀成可以分享给别人的文字。
+              </p>
+              <Link
+                href="/about"
+                className="inline-flex items-center gap-1.5 text-sm font-medium text-primary hover:text-primary-dark transition-colors group"
+              >
+                更多关于我
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </Link>
             </div>
           </div>

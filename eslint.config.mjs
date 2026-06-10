@@ -5,13 +5,18 @@ import nextTs from "eslint-config-next/typescript";
 const eslintConfig = defineConfig([
   ...nextVitals,
   ...nextTs,
-  // Override default ignores of eslint-config-next.
   globalIgnores([
     // Default ignores of eslint-config-next:
     ".next/**",
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Static export output — Next emits to ./dist (see next.config.ts).
+    "dist/**",
+    // Legacy Vite codebase kept for reference; excluded from tsconfig too.
+    "backup-vite/**",
+    // Git worktrees created during development — not part of the project.
+    ".worktrees/**",
   ]),
 ]);
 
