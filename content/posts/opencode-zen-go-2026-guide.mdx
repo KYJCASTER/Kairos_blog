@@ -1,0 +1,263 @@
+---
+title: "OpenCode Zen / Go 选哪个：2026 年 6 月实战指南"
+slug: "opencode-zen-go-2026-guide"
+excerpt: "结合 2026 年 6 月官方最新模型列表与价格，从'你打算花多少钱、用什么场景'倒推选 Zen 还是 Go，附上模型梯度、踩坑与配置示例。"
+date: "2026-06-10"
+tags: ["AI", "编程工具"]
+published: true
+---
+
+OpenCode 是个有意思的工具：CLI 本体免费，但官方做了两套付费通道——**Zen** 和 **Go**——用来把你和真正能干活的模型连起来。问题是它的[官方文档](https://opencode.ai/docs/zen/)更像是参数表，第一次看完容易陷进价格表里出不来。
+
+这篇是我对着 2026 年 6 月的官方文档重新梳理的一遍——不是逐项翻译，而是按"如果我现在要订，会怎么选、怎么配、避哪些坑"组织的。
+
+<Callout type="info" title="这篇写于 2026-06-10">
+OpenCode 的模型表更新非常激进——本文写作时官方刚刚把 Claude Fable 5、GPT 5.5、Qwen3.7 Max 加进来；Gemini 3 Pro / Kimi K2 / GLM 4.6/4.7 已经或即将下线。看到时间戳超过两三个月，请直接查官方页面。
+</Callout>
+
+## 一句话区别
+
+| | **Go** | **Zen** |
+|---|---|---|
+| 计费模式 | 订阅制：首月 $5、之后 $10/月 | 充值制：按 token 计费，零加价 |
+| 模型范围 | 只给开源模型（GLM / Kimi / MiniMax / Qwen / DeepSeek / MiMo） | 全部——Claude、GPT、Gemini、Grok，加上 Go 的全部开源模型 |
+| 用量上限 | 美元额度封顶：$12 / 5h、$30 / 周、$60 / 月 | 你充多少就能用多少，可设自动充值与月度上限 |
+| 谁适合 | 想低门槛、有量、用开源模型完成日常代码任务 | 要 Claude / GPT 这种闭源旗舰；或者团队、按需用量 |
+
+**经验法则**：
+
+- 你每周写代码超过 10 小时，主力跑开源模型 → **Go**，$10/月 几乎一定划算。
+- 你偶尔但要用 Sonnet 4.6 / GPT 5.5 干硬骨头活儿 → **Zen**，按需付费。
+- 你两种都想要 → **同时开**。Zen 的 "Use balance" 选项打开后，Go 用满月度限额会自动落到 Zen 余额上。
+
+<Aside label="为什么不直接用 OpenRouter">
+OpenCode 官方的说法是：开源模型不同 provider 的实现差异极大，OpenRouter 这类聚合层不能保证你拿到"最佳实现版本"。Zen/Go 的核心价值是他们替你选了 provider 并 benchmark 过。这话信几分见仁见智，但至少对 **Kimi K2.5 / GLM-5** 这种 provider 差异显著的模型，是有道理的。
+</Aside>
+
+---
+
+## Go：开源模型订阅，性价比怪兽
+
+### 它给你什么
+
+$10/月（首月 $5），换来一个 API key，可以调以下这些当前还活着的模型——按官方估算的"每月可用请求数"从高到低排：
+
+| 模型 | 每月可用 ~ | 适合 |
+|---|--:|---|
+| **DeepSeek V4 Flash** | 158,150 | 批量、简单改动、commit message |
+| **MiMo-V2.5** | 150,400 | 同上，长上下文极便宜 |
+| **MiniMax M2.5** | 31,800 | 通用对话、轻量重构 |
+| **Qwen3.7 Plus** | 21,600 | 工程上下文、文档生成 |
+| **MiniMax M2.7** | 17,000 | M2.5 的升级版 |
+| **DeepSeek V4 Pro** | 17,150 | 复杂推理、cached 友好 |
+| **MiMo-V2.5-Pro** | 16,300 | 长文档+推理 |
+| **MiniMax M3** | 16,000 | 新一代 MiniMax |
+| **Qwen3.6 Plus** | 16,300 | 老牌稳定 |
+| **Kimi K2.5** | 9,250 | 长上下文 + 工具使用 |
+| **GLM-5** | 5,750 | 中文体感最佳 |
+| **Kimi K2.6** | 5,750 | K2.5 的小步升级 |
+| **GLM-5.1** | 4,300 | 旗舰，但配额最少 |
+| **Qwen3.7 Max** | 4,770 | Qwen 顶配，贵 |
+
+<Callout type="tip" title="选模型的简单策略">
+1. **写正则、改 typo、生成 SQL** → DeepSeek V4 Flash（便宜到几乎免费）
+2. **日常 Agent 任务（读多个文件、跑命令）** → Kimi K2.5 或 MiniMax M2.7
+3. **中文文档、产品需求转代码** → GLM-5.1
+4. **预算耗尽前的最后一根稻草** → Qwen3.7 Max
+</Callout>
+
+### 用量上限怎么算
+
+Go 的限制是**按美元等价**算的，不是按请求数：
+
+- 5 小时滚动窗口：$12
+- 一周：$30
+- 一个月：$60
+
+也就是说**你跑越贵的模型，能跑的次数越少**。官方给的请求数估算是基于典型使用模式（每请求 700~870 input + 5~6 万 cached + 150~300 output token），实际差异可能很大——特别是 Agent 模式下 cached read 占大头时，便宜模型的实际容量比表上数字还高。
+
+<Aside label="cached read 的意义">
+对 OpenCode 这类 Agent 工具，每轮对话都会重复发送整个会话上下文。provider 的 cached read 折扣（一般是原价 1/10～1/20）是省钱关键。表里 MiMo-V2.5 的 cached 价是 $0.0028/M token——便宜到可以忽略。
+</Aside>
+
+### 超额了怎么办
+
+官方留了个口子：**Use balance**。在 console 里打开后，5 小时/周/月限额用满时会自动落到你的 Zen 余额上，不会硬阻塞。
+
+前提是你得也开了 Zen 并充了钱。两个都开的成本相当低——Zen 只在用了的时候才扣钱。
+
+### 配置示例
+
+```bash
+# 1. TUI 里执行
+/connect
+# 选 OpenCode Go，粘贴 API key
+
+# 2. 选模型
+/models
+```
+
+或者直接写进配置文件：
+
+```yaml
+# ~/.config/opencode/opencode.yml
+model: opencode-go/kimi-k2.6
+```
+
+注意前缀是 `opencode-go/`，Zen 的是 `opencode/`——不要搞混了，搞混了报错信息其实挺隐晦的。
+
+---
+
+## Zen：旗舰模型按需付费
+
+### 它给你什么
+
+**充值制**——你预存 $20（含 $1.23 的信用卡处理费），然后按 token 用多少扣多少。零加价，等于让 OpenCode 替你买便宜批发价，你只多付那一点处理费。
+
+如果余额低于 $5，默认会自动充 $20——这一点可改阈值、可禁用。
+
+可调用的模型按家族分四块：
+
+#### 闭源四大家
+
+| 家族 | 当前可选 | 推荐入门 |
+|---|---|---|
+| **Anthropic** | Claude Fable 5 / Opus 4.8 / 4.7 / 4.6 / 4.5 / 4.1，Sonnet 4.6 / 4.5 / 4，Haiku 4.5 | **Sonnet 4.6**（性价比之王）；硬骨头上 **Opus 4.8** |
+| **OpenAI** | GPT 5.5 / 5.5 Pro，5.4 / 5.4 Pro / 5.4 Mini / 5.4 Nano，5.3 Codex (+Spark)，5.2 / 5.2 Codex，5.1 系列，5 / 5 Codex / 5 Nano | **GPT 5.4**（通用）；**5.3 Codex Spark**（写代码）|
+| **Google** | Gemini 3.5 Flash，3.1 Pro，3 Flash | **3.1 Pro**（长上下文）|
+| **xAI** | Grok Build 0.1 | 试水可选 |
+
+<Callout type="warning" title="Qwen 走的是 Anthropic 端点">
+Zen 把 Qwen3.5 / 3.6 / 3.7 Plus / Max 都接到了 `/v1/messages` 端点，AI SDK 包写的是 `@ai-sdk/anthropic`。这是 OpenCode 做的代理协议转换，让 Qwen 能直接套用 Anthropic 客户端。不影响使用，但如果你自己写脚本对接，要按 Anthropic 协议发请求。
+</Callout>
+
+#### 还有一组"开源旗舰"（和 Go 重叠）
+
+DeepSeek V4 Pro/Flash、MiniMax M2.5/M2.7、GLM 5/5.1、Kimi K2.5/K2.6、Qwen3.5–3.7、Grok Build 0.1，再加上几个**完全免费**的：
+
+- **Big Pickle**（隐身模型）
+- **DeepSeek V4 Flash Free**
+- **MiMo-V2.5 Free**
+- **North Mini Code Free**
+- **Nemotron 3 Ultra Free**（NVIDIA）
+- **GPT 5 Nano**（OpenAI 给的免费额度，估计有限）
+
+<Callout type="danger" title="免费模型的代价">
+所有标 Free 的模型，OpenCode 明确说"免费期间收集的数据可能用于改进模型"。**不要拿它们处理任何 NDA、客户、生产环境密钥相关的代码**。NVIDIA 的 Nemotron 条款更严，明确写了"仅供试用，不要提交个人或机密数据"。
+</Callout>
+
+### 价格梯度（最常用的几档）
+
+只列 6 月当前还活着、且日常会用到的，按 input 价排序：
+
+| 模型 | Input | Output | Cached Read |
+|---|--:|--:|--:|
+| Big Pickle / DeepSeek V4 Flash Free / MiMo Free … | **免费** | **免费** | **免费** |
+| GPT 5 Nano | $0.05 | $0.40 | $0.005 |
+| DeepSeek V4 Flash | $0.14 | $0.28 | $0.028 |
+| GPT 5.4 Nano | $0.20 | $1.25 | $0.02 |
+| Qwen3.5 Plus | $0.20 | $1.20 | $0.02 |
+| MiniMax M2.5 / M2.7 | $0.30 | $1.20 | $0.06 |
+| Qwen3.7 Plus | $0.40 | $1.60 | $0.04 |
+| Gemini 3 Flash | $0.50 | $3.00 | $0.05 |
+| Qwen3.6 Plus | $0.50 | $3.00 | $0.05 |
+| Kimi K2.5 | $0.60 | $3.00 | $0.10 |
+| GPT 5.4 Mini | $0.75 | $4.50 | $0.075 |
+| Kimi K2.6 | $0.95 | $4.00 | $0.16 |
+| GLM-5 | $1.00 | $3.20 | $0.20 |
+| Grok Build 0.1 | $1.00 | $2.00 | $0.20 |
+| Claude Haiku 4.5 | $1.00 | $5.00 | $0.10 |
+| GPT 5.1 / 5 / 5 Codex | $1.07 | $8.50 | $0.107 |
+| GPT 5.1 Codex Max | $1.25 | $10.00 | $0.125 |
+| GLM-5.1 | $1.40 | $4.40 | $0.26 |
+| Gemini 3.5 Flash | $1.50 | $9.00 | $0.15 |
+| DeepSeek V4 Pro | $1.74 | $3.48 | $0.145 |
+| GPT 5.3 Codex / 5.3 Codex Spark / 5.2 / 5.2 Codex | $1.75 | $14.00 | $0.175 |
+| Gemini 3.1 Pro ≤200K | $2.00 | $12.00 | $0.20 |
+| GPT 5.4 ≤272K | $2.50 | $15.00 | $0.25 |
+| Qwen3.7 Max | $2.50 | $7.50 | $0.50 |
+| Claude Sonnet 4.6 | $3.00 | $15.00 | $0.30 |
+| Claude Sonnet 4 / 4.5 ≤200K | $3.00 | $15.00 | $0.30 |
+| Claude Opus 4.5 / 4.6 / 4.7 / 4.8 | $5.00 | $25.00 | $0.50 |
+| GPT 5.5 ≤272K | $5.00 | $30.00 | $0.50 |
+| Claude Fable 5 | $10.00 | $50.00 | $1.00 |
+| Claude Opus 4.1 | $15.00 | $75.00 | $1.50 |
+| GPT 5.4 Pro / GPT 5.5 Pro | $30.00 | $180.00 | $30.00 |
+
+<Aside label="阶梯定价的玄机">
+Sonnet 4.5、GPT 5.4 / 5.5、Gemini 3.1 Pro 都有一个上下文阶梯——超过某个 token 数（一般是 200K 或 272K）后单价翻倍以上。**长上下文 Agent 任务很容易踩进高档**，扣费翻一倍而你毫无察觉。Sonnet 4.6 取消了这个阶梯——这也是它当前性价比最高的隐藏理由。
+</Aside>
+
+### 团队功能
+
+工作区在 beta 期免费。三件事值得知道：
+
+1. **角色**：Admin（管账单 + key + 模型 + 成员）、Member（只管自己 key）。
+2. **支出限额**：Admin 可以给每个成员设单独月度上限，公司预算友好。
+3. **BYOK**：可以用自己的 OpenAI / Anthropic key 接到 Zen，调用其他模型走 Zen，自己 key 那部分直接由 provider 计费——绕开 Zen 的处理费。
+
+---
+
+## 实际配置：我会怎么用
+
+我自己当前的配置大概是这样（仅供参考，按你的预算和习惯调）：
+
+```yaml
+# ~/.config/opencode/opencode.yml
+
+# 默认用 Go 提供的中等档位，日常 Agent 任务跑这个
+model: opencode-go/kimi-k2.6
+
+# 几个常用的备选，TUI 里 /model 可以快速切
+profiles:
+  fast: opencode-go/deepseek-v4-flash    # 批量改 + commit message
+  smart: opencode/claude-sonnet-4-6      # 跨文件重构、读复杂代码
+  hard: opencode/claude-opus-4-8         # 一周两次的硬骨头
+  cn: opencode-go/glm-5.1                # 中文文档处理
+```
+
+整体心法：
+
+- **能用 Go 就用 Go**，定额订阅心理负担小。
+- **Sonnet 4.6 当 Zen 主力**，没有上下文阶梯陷阱，单 token 已经是性价比之王。
+- **Opus 只在真正卡住的时候开**，输出 $25/M token，一段对话烧掉一杯咖啡很容易。
+- **Pro 系列（5.4 Pro / 5.5 Pro）当心**——$180/M output，正常使用必然超预算。
+
+---
+
+## 隐私与弃用
+
+### 隐私
+
+- 所有模型托管在美国（Go 多了 EU 和 Singapore 节点）
+- Provider 默认零保留、不用你的数据训练
+- **例外**：所有 Free 模型在免费期间会收集数据用于改进；OpenAI / Anthropic 直连 API 按 30 天数据保留政策走
+
+### 已弃用 / 即将弃用（截至 2026-06）
+
+| 模型 | 下线日期 |
+|---|---|
+| Qwen3 Coder 480B | 2026-02-06（已下） |
+| Claude Haiku 3.5 | 2026-02-16（已下，仅用作内部 session title 生成） |
+| Kimi K2 / Kimi K2 Thinking | 2026-03-06（已下） |
+| Gemini 3 Pro | 2026-03-09（已下） |
+| MiniMax M2.1 / GLM 4.6 / GLM 4.7 | 2026-03-15（已下） |
+| **GLM-5** | **2026-05-14（已下线！）** |
+| **Claude Sonnet 4** | **2026-06-15（一周后）** |
+| GPT 5 Codex / 5.1 Codex 全家、GPT 5.2 Codex | 2026-07-23 |
+
+<Callout type="warning" title="如果你 config 里还写着这些">
+特别注意 GLM-5——之前是 Go 套餐的招牌之一，2026 年 5 月已经被 GLM-5.1 替换。Claude Sonnet 4 也只剩一周；之前用 Sonnet 4 的配置应该迁到 Sonnet 4.6（直接平替、还更便宜）。
+</Callout>
+
+---
+
+## 参考
+
+- [OpenCode Zen 官方文档](https://opencode.ai/docs/zen/)
+- [OpenCode Go 官方文档](https://opencode.ai/docs/go/)
+- [模型 API 列表](https://opencode.ai/zen/v1/models)
+- [Go 模型列表](https://opencode.ai/zen/go/v1/models)
+- [Discord 社区](https://opencode.ai/discord)
+
+价格表更新很勤，每次开新会话前不妨 `/models` 跑一遍看看有没有新人加入或老人离场。
