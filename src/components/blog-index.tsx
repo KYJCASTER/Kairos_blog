@@ -4,7 +4,7 @@ import { useEffect, useMemo, useState, useRef, useDeferredValue } from "react"
 import { useSearchParams, useRouter } from "next/navigation"
 import Link from "next/link"
 import Fuse from "fuse.js"
-import { Search, X, ArrowUpRight, Calendar } from "lucide-react"
+import { Search, X, ArrowUpRight } from "lucide-react"
 import { Reveal } from "@/components/reveal"
 
 export interface SearchablePost {
@@ -229,8 +229,7 @@ function YearList({ posts }: { posts: SearchablePost[] }) {
               href={`/blog/${post.slug}`}
               className="group grid sm:grid-cols-[120px_1fr_auto] gap-2 sm:gap-8 py-7 items-baseline"
             >
-              <time className="font-mono text-xs text-muted-light tabular-nums flex items-center gap-1.5">
-                <Calendar className="w-3.5 h-3.5" />
+              <time className="font-mono text-[11px] text-muted-light tabular-nums tracking-wider uppercase">
                 {post.date.slice(5).replace("-", " / ")}
               </time>
               <div className="min-w-0">

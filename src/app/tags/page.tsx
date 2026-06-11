@@ -1,7 +1,6 @@
 import type { Metadata } from "next"
 import Link from "next/link"
 import { getAllTags } from "@/lib/posts"
-import { Hash } from "lucide-react"
 
 export const metadata: Metadata = {
   title: "标签",
@@ -14,7 +13,7 @@ export default function TagsPage() {
   return (
     <main className="min-h-screen pt-28 pb-20 px-5 sm:px-6">
       <div className="max-w-5xl mx-auto">
-        <header className="mb-12">
+        <header className="mb-14">
           <p className="font-mono text-xs uppercase tracking-[0.2em] text-muted mb-3">
             主题 · {tags.length} 个
           </p>
@@ -28,30 +27,34 @@ export default function TagsPage() {
             <p className="serif text-xl text-muted">暂无标签</p>
           </div>
         ) : (
-          <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+          <ul className="grid sm:grid-cols-2 lg:grid-cols-3 gap-x-10 gap-y-2">
             {tags.map((tag) => (
-              <Link
-                key={tag.name}
-                href={`/blog?tag=${encodeURIComponent(tag.name)}`}
-                className="card p-5 group"
-              >
-                <div className="flex items-center justify-between mb-3">
-                  <div
-                    className="w-9 h-9 rounded-lg flex items-center justify-center text-white"
-                    style={{ backgroundColor: tag.color }}
+              <li key={tag.name}>
+                <Link
+                  href={`/blog?tag=${encodeURIComponent(tag.name)}`}
+                  className="group flex items-baseline gap-4 py-4 border-b hairline"
+                  style={{ ["--ink" as never]: tag.color } as React.CSSProperties}
+                >
+                  {/* italic-serif "#" reads like a margin mark on a page */}
+                  <span
+                    aria-hidden
+                    className="serif italic text-3xl leading-none font-light shrink-0 transition-colors duration-300"
+                    style={{ color: "var(--ink)", opacity: 0.7 }}
                   >
-                    <Hash className="w-4 h-4" />
-                  </div>
-                  <span className="font-mono text-xs text-muted-light tabular-nums">
-                    {tag.count}
+                    #
                   </span>
-                </div>
-                <p className="serif text-lg font-semibold text-foreground group-hover:text-primary transition-colors">
-                  {tag.name}
-                </p>
-              </Link>
+                  <div className="flex-1 min-w-0 flex items-baseline justify-between gap-3">
+                    <span className="serif text-lg font-medium text-foreground group-hover:text-primary transition-colors duration-300 truncate">
+                      {tag.name}
+                    </span>
+                    <span className="font-mono text-xs text-muted-light tabular-nums shrink-0">
+                      {tag.count.toString().padStart(2, "0")}
+                    </span>
+                  </div>
+                </Link>
+              </li>
             ))}
-          </div>
+          </ul>
         )}
       </div>
     </main>

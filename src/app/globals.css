@@ -159,7 +159,65 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
+  position: relative;
 }
+
+/* Parchment texture — three overlaid layers:
+   1. Long horizontal "fiber" streaks (very faint, simulate laid paper)
+   2. Diagonal grain (catches the eye obliquely, like aged vellum)
+   3. Soft radial vignette darkening the edges
+   Kept under 4% opacity so it never competes with content. */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background-image:
+    repeating-linear-gradient(
+      0deg,
+      rgba(120, 90, 50, 0.018) 0px,
+      rgba(120, 90, 50, 0.018) 1px,
+      transparent 1px,
+      transparent 3px
+    ),
+    repeating-linear-gradient(
+      92deg,
+      rgba(120, 90, 50, 0.022) 0px,
+      rgba(120, 90, 50, 0.022) 1px,
+      transparent 1px,
+      transparent 4px
+    ),
+    radial-gradient(
+      ellipse at center,
+      transparent 55%,
+      rgba(80, 50, 20, 0.04) 100%
+    );
+}
+.dark body::before {
+  background-image:
+    repeating-linear-gradient(
+      0deg,
+      rgba(200, 170, 130, 0.018) 0px,
+      rgba(200, 170, 130, 0.018) 1px,
+      transparent 1px,
+      transparent 3px
+    ),
+    repeating-linear-gradient(
+      92deg,
+      rgba(200, 170, 130, 0.020) 0px,
+      rgba(200, 170, 130, 0.020) 1px,
+      transparent 1px,
+      transparent 4px
+    ),
+    radial-gradient(
+      ellipse at center,
+      transparent 55%,
+      rgba(0, 0, 0, 0.35) 100%
+    );
+}
+/* Make sure all real content sits above the texture layer. */
+body > * { position: relative; z-index: 1; }
 
 ::selection { background: var(--primary-100); color: var(--primary-dark); }
 .dark ::selection { color: var(--primary-light); }
@@ -599,6 +657,7 @@ html .shiki, html .shiki span { color: var(--shiki-light); background-color: tra
    Decoration utilities
    ============================================ */
 
+/* Subtle paper grain — denser than body::before, scoped to specific cells. */
 .noise {
   position: absolute; inset: 0;
   background-image:
@@ -606,6 +665,71 @@ html .shiki, html .shiki span { color: var(--shiki-light); background-color: tra
   background-size: 22px 22px;
   opacity: 0.025;
   pointer-events: none;
+}
+
+/* Parchment surface — warm beige with subtle fiber texture.
+   Use as a filler for "cover image" cells where we want a stained
+   paper feel rather than a flat colour swatch. */
+.parchment {
+  background-color: #EBE0CB;
+  background-image:
+    repeating-linear-gradient(
+      0deg,
+      rgba(120, 70, 30, 0.05) 0px,
+      rgba(120, 70, 30, 0.05) 1px,
+      transparent 1px,
+      transparent 3px
+    ),
+    repeating-linear-gradient(
+      92deg,
+      rgba(120, 70, 30, 0.05) 0px,
+      rgba(120, 70, 30, 0.05) 1px,
+      transparent 1px,
+      transparent 4px
+    ),
+    radial-gradient(ellipse at 30% 20%, rgba(255, 245, 220, 0.7), transparent 60%),
+    radial-gradient(ellipse at 70% 80%, rgba(160, 110, 60, 0.18), transparent 65%);
+}
+.dark .parchment {
+  background-color: #2A2418;
+  background-image:
+    repeating-linear-gradient(
+      0deg,
+      rgba(220, 190, 150, 0.05) 0px,
+      rgba(220, 190, 150, 0.05) 1px,
+      transparent 1px,
+      transparent 3px
+    ),
+    repeating-linear-gradient(
+      92deg,
+      rgba(220, 190, 150, 0.05) 0px,
+      rgba(220, 190, 150, 0.05) 1px,
+      transparent 1px,
+      transparent 4px
+    ),
+    radial-gradient(ellipse at 30% 20%, rgba(80, 60, 30, 0.6), transparent 60%),
+    radial-gradient(ellipse at 70% 80%, rgba(20, 10, 0, 0.4), transparent 65%);
+}
+
+/* Ink-wash overlay — soft, off-centre stain in the tag's colour. */
+.ink-wash {
+  background: radial-gradient(ellipse 70% 60% at 30% 35%,
+    var(--ink, currentColor) 0%,
+    transparent 60%);
+  opacity: 0.22;
+  mix-blend-mode: multiply;
+  pointer-events: none;
+}
+.dark .ink-wash { opacity: 0.32; mix-blend-mode: screen; }
+
+/* Deckled (torn) edge — for paper-feel dividers. */
+.deckled-top {
+  -webkit-mask-image: radial-gradient(2px 1px at 50% 0, black 99%, transparent 100%);
+  mask-image: radial-gradient(2px 1px at 50% 0, black 99%, transparent 100%);
+  -webkit-mask-size: 6px 100%;
+  mask-size: 6px 100%;
+  -webkit-mask-repeat: repeat-x;
+  mask-repeat: repeat-x;
 }
 
 .scrollbars-thin::-webkit-scrollbar { width: 6px; height: 6px; }

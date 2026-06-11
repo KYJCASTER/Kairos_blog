@@ -46,7 +46,7 @@ export function Navbar() {
             className="flex items-center gap-2.5 group shrink-0"
             aria-label={`${site.name} 首页`}
           >
-            <span className="w-8 h-8 rounded-md bg-foreground text-background flex items-center justify-center font-serif font-bold text-base transition-all duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:bg-primary group-hover:rotate-[-6deg] group-hover:scale-105">
+            <span className="w-8 h-8 rounded-md bg-foreground text-background flex items-center justify-center font-serif italic font-bold text-base transition-all duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:bg-primary group-hover:scale-[1.06]">
               K
             </span>
             <span className="hidden sm:inline serif text-lg font-semibold text-foreground transition-colors duration-300 group-hover:text-primary">

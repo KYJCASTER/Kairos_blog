@@ -93,17 +93,32 @@ export interface TagInfo {
   color: string
 }
 
-/** Stable hash → HSL hue. Same tag always gets the same colour. */
-function hashHue(input: string): number {
+/** Stable hash → index. Same tag always lands on the same slot. */
+function hashIndex(input: string, mod: number): number {
   let h = 0
   for (let i = 0; i < input.length; i++) h = (h * 31 + input.charCodeAt(i)) | 0
-  return Math.abs(h) % 360
+  return Math.abs(h) % mod
 }
 
+/**
+ * Tag colour. Kept tightly inside the warm-parchment palette
+ * (terracotta / amber / sepia / olive-tan) so cards never look like
+ * a "language chip" rainbow. Hand-picked HSL stops keep contrast
+ * against both the cream light surface and the dark ink background.
+ */
+const TAG_PALETTE = [
+  "hsl(18 58% 42%)",  // terracotta
+  "hsl(28 52% 40%)",  // burnt sienna
+  "hsl(34 48% 38%)",  // raw umber
+  "hsl(40 44% 38%)",  // dark amber
+  "hsl(12 44% 42%)",  // brick
+  "hsl(46 36% 36%)",  // olive tan
+  "hsl(22 38% 34%)",  // walnut
+  "hsl(8 40% 40%)",   // rust
+] as const
+
 export function tagColor(name: string): string {
-  // Sit in the warm-leaning palette to harmonize with the orange brand,
-  // but allow enough hue rotation to keep tags distinguishable.
-  return `hsl(${hashHue(name)} 65% 52%)`
+  return TAG_PALETTE[hashIndex(name, TAG_PALETTE.length)]
 }
 
 export const tagSlug = (name: string) =>

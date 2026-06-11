@@ -1,6 +1,6 @@
 import type { Metadata } from "next"
 import Link from "next/link"
-import { Mail, MapPin, BookOpen, Code, Zap, Heart, ArrowRight } from "lucide-react"
+import { Mail, MapPin, ArrowRight } from "lucide-react"
 import { GitHubIcon } from "@/components/icons"
 import { site } from "@/lib/site"
 
@@ -9,27 +9,32 @@ export const metadata: Metadata = {
   description: `关于 ${site.author} —— 河南大学网络工程专业学生、本站作者。`,
 }
 
-const skills = [
-  { name: "Java",       color: "#E76F00" },
-  { name: "Go",         color: "#00ADD8" },
-  { name: "Python",     color: "#3776AB" },
-  { name: "TypeScript", color: "#3178C6" },
-  { name: "React",      color: "#61DAFB" },
-  { name: "Next.js",    color: "#171717" },
-  { name: "Linux",      color: "#FCC624" },
-  { name: "Git",        color: "#F05032" },
-]
+/** Technologies grouped by familiarity, so the page reads as a CV note
+ *  rather than a row of brand chips. */
+const stack = [
+  {
+    label: "日常",
+    items: ["Go", "TypeScript", "React", "Next.js"],
+  },
+  {
+    label: "在学",
+    items: ["Java 并发", "Gin", "GORM", "Redis"],
+  },
+  {
+    label: "工具",
+    items: ["Linux", "Git", "Wireshark", "Docker"],
+  },
+] as const
 
+/** Timeline reads like ledger entries. No coloured icons — just dates,
+ *  a thin rule, and serif copy. */
 const timeline = [
-  { year: "2024", title: "大学入学", icon: BookOpen,
-    description: "进入河南大学网络工程专业，正式开始计算机学习之旅。" },
-  { year: "2024", title: "扎根 Java", icon: Code,
-    description: "系统学习 Java 与面向对象，了解程序背后的运作方式。" },
-  { year: "2025", title: "走向全栈", icon: Zap,
-    description: "把视线扩展到前端与系统服务，搭起这个博客作为练习场。" },
-  { year: "未来", title: "持续生长", icon: Heart,
-    description: "继续在网络安全、系统设计、开源协作上慢慢深入。" },
-]
+  { year: "2024 · 秋", title: "入学", body: "进入河南大学网络工程专业，正式开始计算机学习之旅。" },
+  { year: "2024 · 冬", title: "扎根 Java", body: "系统学习 Java 与面向对象，了解程序背后的运作方式。" },
+  { year: "2025 · 春", title: "走向全栈", body: "把视线扩展到前端与系统服务，搭起这个博客作为练习场。" },
+  { year: "2026 · 夏", title: "转向 Go", body: "读完《Go 语言圣经》和 Gin 教程，开始写第一个像样的后端项目。" },
+  { year: "未来",      title: "持续生长", body: "在网络安全、系统设计、开源协作上慢慢深入。" },
+] as const
 
 export default function AboutPage() {
   return (
@@ -38,7 +43,7 @@ export default function AboutPage() {
       <section className="max-w-3xl mx-auto mb-20">
         <div className="flex flex-col sm:flex-row items-start gap-8">
           <div className="relative w-28 h-28 sm:w-32 sm:h-32 shrink-0">
-            <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-primary to-accent-light opacity-25 blur-xl" />
+            <div className="absolute -inset-2 rounded-2xl bg-gradient-to-br from-primary/15 to-accent/10 blur-2xl" />
             {/* eslint-disable-next-line @next/next/no-img-element -- next/image disabled by output:export */}
             <img
               src={`${site.basePath}/avatar.svg`}
@@ -76,28 +81,36 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Skills */}
+      {/* Stack */}
       <section className="max-w-3xl mx-auto mb-20">
         <p className="font-mono text-xs uppercase tracking-[0.2em] text-muted mb-3">
           技术栈
         </p>
-        <h2 className="serif text-2xl sm:text-3xl font-semibold text-foreground mb-6">
+        <h2 className="serif text-2xl sm:text-3xl font-semibold text-foreground mb-8">
           熟悉与正在学习的工具
         </h2>
-        <div className="flex flex-wrap gap-2">
-          {skills.map((s) => (
-            <span
-              key={s.name}
-              className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border hairline-strong bg-card text-sm font-medium text-foreground"
+        <dl className="space-y-5">
+          {stack.map((group) => (
+            <div
+              key={group.label}
+              className="grid grid-cols-[5rem_1fr] gap-x-6 items-baseline border-b hairline pb-4"
             >
-              <span
-                className="w-2 h-2 rounded-full"
-                style={{ backgroundColor: s.color }}
-              />
-              {s.name}
-            </span>
+              <dt className="font-mono text-[11px] uppercase tracking-[0.22em] text-muted-light">
+                {group.label}
+              </dt>
+              <dd className="flex flex-wrap gap-x-5 gap-y-1.5">
+                {group.items.map((item, i) => (
+                  <span key={item} className="serif text-foreground">
+                    {item}
+                    {i < group.items.length - 1 && (
+                      <span aria-hidden className="ml-5 text-muted-light">·</span>
+                    )}
+                  </span>
+                ))}
+              </dd>
+            </div>
           ))}
-        </div>
+        </dl>
       </section>
 
       {/* Timeline */}
@@ -108,26 +121,23 @@ export default function AboutPage() {
         <h2 className="serif text-2xl sm:text-3xl font-semibold text-foreground mb-8">
           一些节点
         </h2>
-        <ol className="relative border-l hairline-strong ml-3 space-y-8">
-          {timeline.map((item) => {
-            const Icon = item.icon
-            return (
-              <li key={item.title} className="pl-8 relative">
-                <span className="absolute -left-[17px] top-0 w-8 h-8 rounded-full bg-card border hairline-strong flex items-center justify-center">
-                  <Icon className="w-4 h-4 text-primary" />
-                </span>
-                <p className="font-mono text-xs text-muted-light mb-1 tracking-wider">
-                  {item.year}
-                </p>
-                <h3 className="serif text-lg font-semibold text-foreground mb-1">
-                  {item.title}
-                </h3>
-                <p className="text-sm text-muted leading-relaxed">
-                  {item.description}
-                </p>
-              </li>
-            )
-          })}
+        <ol className="relative ml-2 border-l border-border-strong/60 space-y-7 pl-7">
+          {timeline.map((item) => (
+            <li key={item.title} className="relative">
+              {/* small ink-stamp marker */}
+              <span
+                aria-hidden
+                className="absolute -left-[33px] top-1.5 w-2.5 h-2.5 rounded-full bg-primary/80 ring-4 ring-background"
+              />
+              <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-muted-light mb-1">
+                {item.year}
+              </p>
+              <h3 className="serif text-lg font-semibold text-foreground mb-1">
+                {item.title}
+              </h3>
+              <p className="text-sm text-muted leading-relaxed">{item.body}</p>
+            </li>
+          ))}
         </ol>
       </section>
 

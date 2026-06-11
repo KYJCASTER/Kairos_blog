@@ -1,7 +1,7 @@
 import type { Metadata } from "next"
 import Link from "next/link"
 import { notFound } from "next/navigation"
-import { ArrowLeft, ArrowRight, Calendar, Clock, FileText } from "lucide-react"
+import { ArrowLeft, ArrowRight } from "lucide-react"
 
 import { getPublishedPosts, getPostBySlug, getAdjacentPosts } from "@/lib/posts"
 import { renderMDX, extractHeadings } from "@/lib/markdown"
@@ -80,44 +80,42 @@ export default async function PostPage({ params }: PageProps) {
 
         {/* Header */}
         <header className="max-w-3xl mx-auto mb-12 text-center">
-          <div className="flex flex-wrap items-center justify-center gap-2 text-xs text-muted-light mb-5">
-            <time className="font-mono tabular-nums inline-flex items-center gap-1.5">
-              <Calendar className="w-3.5 h-3.5" />
+          <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-muted-light mb-5">
+            <time dateTime={post.date} className="tabular-nums">
               {formatDate(post.date)}
             </time>
-            <span>·</span>
-            <span className="inline-flex items-center gap-1.5">
-              <Clock className="w-3.5 h-3.5" />
-              {stats.minutes} 分钟阅读
-            </span>
-            <span>·</span>
-            <span className="inline-flex items-center gap-1.5">
-              <FileText className="w-3.5 h-3.5" />
-              {stats.totalWords.toLocaleString()} 字
-            </span>
-          </div>
+            <span className="mx-3 text-border-strong">/</span>
+            <span>{stats.minutes} 分钟</span>
+            <span className="mx-3 text-border-strong">/</span>
+            <span>{stats.totalWords.toLocaleString()} 字</span>
+          </p>
 
           <h1 className="serif text-4xl sm:text-5xl font-semibold tracking-tight leading-[1.12] text-foreground mb-6">
             {post.title}
           </h1>
 
           {post.excerpt && (
-            <p className="text-lg text-muted leading-relaxed max-w-2xl mx-auto">
+            <p className="serif italic text-lg text-muted leading-relaxed max-w-2xl mx-auto">
               {post.excerpt}
             </p>
           )}
 
-          <div className="flex flex-wrap justify-center gap-2 mt-6">
-            {post.tags.map((tag) => (
-              <Link
-                key={tag}
-                href={`/blog?tag=${encodeURIComponent(tag)}`}
-                className="tag-chip"
-              >
-                {tag}
-              </Link>
-            ))}
-          </div>
+          {post.tags.length > 0 && (
+            <>
+              <span aria-hidden className="block w-10 h-px bg-border-strong/50 mx-auto mt-8 mb-5" />
+              <div className="flex flex-wrap justify-center gap-2">
+                {post.tags.map((tag) => (
+                  <Link
+                    key={tag}
+                    href={`/blog?tag=${encodeURIComponent(tag)}`}
+                    className="tag-chip"
+                  >
+                    {tag}
+                  </Link>
+                ))}
+              </div>
+            </>
+          )}
         </header>
 
         {/* Body + sticky TOC */}

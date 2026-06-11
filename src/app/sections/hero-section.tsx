@@ -5,16 +5,27 @@ import { site } from "@/lib/site"
 export function HeroSection() {
   return (
     <section className="relative pt-36 sm:pt-44 pb-24 px-5 sm:px-6 overflow-hidden">
-      {/* Subtle background flourish */}
-      <div className="absolute -top-40 -right-32 w-[28rem] h-[28rem] rounded-full bg-primary/8 blur-3xl pointer-events-none" />
-      <div className="absolute -bottom-40 -left-32 w-[24rem] h-[24rem] rounded-full bg-accent/8 blur-3xl pointer-events-none" />
+      {/* Soft parchment vignettes — warm corner washes, no hard color blobs */}
+      <div
+        aria-hidden
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          backgroundImage:
+            "radial-gradient(ellipse 60% 50% at 100% 0%, rgba(194, 65, 12, 0.06), transparent 60%), " +
+            "radial-gradient(ellipse 55% 45% at 0% 100%, rgba(180, 83, 9, 0.05), transparent 65%)",
+        }}
+      />
       <div className="noise" />
 
       <div className="relative max-w-3xl mx-auto">
-        <p className="font-mono text-xs uppercase tracking-[0.2em] text-muted mb-6 animate-fade-in-up">
-          <span className="inline-block w-6 h-px bg-primary align-middle mr-3" />
-          河南大学 · 网络工程 · 2024 级
-        </p>
+        {/* Wax-seal style hairline mark above the kicker */}
+        <div className="flex items-center gap-3 mb-6 animate-fade-in-up">
+          <span aria-hidden className="block w-2 h-2 rounded-full bg-primary/80" />
+          <span aria-hidden className="block flex-1 max-w-[3rem] h-px bg-primary/40" />
+          <p className="font-mono text-xs uppercase tracking-[0.2em] text-muted">
+            河南大学 · 网络工程 · 2024 级
+          </p>
+        </div>
 
         <h1
           className="serif text-5xl sm:text-6xl md:text-7xl font-semibold leading-[1.05] tracking-tight text-foreground mb-8 animate-fade-in-up"
@@ -52,12 +63,8 @@ export function HeroSection() {
         >
           <span className="font-mono uppercase tracking-wider">现在专注</span>
           <span className="flex-1 h-px bg-border" />
-          <span className="flex flex-wrap gap-3 font-medium text-muted">
-            <span>Java 并发</span>
-            <span>·</span>
-            <span>Go 服务端</span>
-            <span>·</span>
-            <span>网络安全</span>
+          <span className="serif italic text-muted text-sm">
+            Java 并发 · Go 服务端 · 网络安全
           </span>
         </div>
       </div>

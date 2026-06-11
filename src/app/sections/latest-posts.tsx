@@ -31,7 +31,7 @@ export function LatestPosts() {
               最近书写
             </p>
             <h2 className="serif text-3xl sm:text-4xl font-semibold text-foreground">
-              新文章
+              新近的几页
             </h2>
           </div>
           <Link

@@ -9,17 +9,75 @@ interface PostCardProps {
   variant?: "default" | "featured" | "compact"
 }
 
-export function PostCard({ post, variant = "default" }: PostCardProps) {
-  // Derive the cover gradient from the first tag, so each card looks distinct
-  // without needing a hand-authored cover image.
+/**
+ * Render a parchment "cover" panel.
+ *
+ * No raw cover image? We compose a paper surface with an ink-wash bloom
+ * tinted by the post's primary tag (constrained to our warm palette via
+ * tagColor), and a giant italic serif monogram of the first character.
+ * The effect should read like "an embossed page", not "a coloured tile".
+ */
+function CoverPanel({
+  post,
+  monogramSize,
+}: {
+  post: PostSummary
+  monogramSize: "lg" | "xl"
+}) {
   const primaryTag = post.tags[0]
-  const tagHue = primaryTag ? tagColor(primaryTag) : "hsl(28 65% 52%)"
-  const coverStyle: React.CSSProperties = post.cover
-    ? { backgroundImage: `url(${post.cover})`, backgroundSize: "cover", backgroundPosition: "center" }
-    : {
-        background: `linear-gradient(135deg, ${tagHue} 0%, var(--accent-light) 100%)`,
-      }
+  const ink = primaryTag ? tagColor(primaryTag) : "hsl(28 52% 40%)"
 
+  // Hand-authored cover takes precedence and bypasses the parchment treatment.
+  if (post.cover) {
+    return (
+      <div className="cover-zoom absolute inset-0">
+        <div
+          className="absolute inset-0"
+          style={{
+            backgroundImage: `url(${post.cover})`,
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+          }}
+        />
+      </div>
+    )
+  }
+
+  const monogramClass =
+    monogramSize === "xl"
+      ? "text-[10rem] sm:text-[12rem]"
+      : "text-[7rem] sm:text-[8rem]"
+
+  return (
+    <>
+      <div className="cover-zoom absolute inset-0 parchment">
+        <div
+          className="ink-wash absolute inset-0 cover-drift"
+          style={{ ["--ink" as never]: ink } as React.CSSProperties}
+        />
+      </div>
+      <span
+        aria-hidden
+        className={`absolute inset-0 flex items-center justify-center serif italic font-light leading-none select-none pointer-events-none ${monogramClass}`}
+        style={{ color: ink, opacity: 0.35 }}
+      >
+        {post.title.slice(0, 1)}
+      </span>
+      {/* hand-stamped corner mark */}
+      {primaryTag && (
+        <span
+          aria-hidden
+          className="absolute bottom-3 right-3 font-mono text-[10px] uppercase tracking-[0.22em] pointer-events-none"
+          style={{ color: ink, opacity: 0.55 }}
+        >
+          № {primaryTag}
+        </span>
+      )}
+    </>
+  )
+}
+
+export function PostCard({ post, variant = "default" }: PostCardProps) {
   if (variant === "compact") {
     return (
       <Link
@@ -45,13 +103,8 @@ export function PostCard({ post, variant = "default" }: PostCardProps) {
         <article className="card overflow-hidden">
           <div className="grid md:grid-cols-2 gap-0">
             <div className="aspect-[16/10] md:aspect-auto md:min-h-[260px] relative overflow-hidden">
-              <div className="cover-zoom absolute inset-0" style={coverStyle}>
-                <div className="cover-drift absolute inset-0" />
-              </div>
-              <span className="absolute inset-0 flex items-center justify-center serif text-7xl font-bold text-white/30 select-none pointer-events-none">
-                {post.title.slice(0, 1)}
-              </span>
-              <div className="absolute inset-0 bg-gradient-to-tr from-black/20 via-transparent to-transparent pointer-events-none" />
+              <CoverPanel post={post} monogramSize="xl" />
+              <div className="absolute inset-0 bg-gradient-to-tr from-black/5 via-transparent to-transparent pointer-events-none" />
             </div>
             <div className="p-6 sm:p-8 flex flex-col">
               <div className="flex items-center gap-2 text-xs text-muted-light mb-3">
@@ -81,13 +134,8 @@ export function PostCard({ post, variant = "default" }: PostCardProps) {
     <Link href={`/blog/${post.slug}`} className="group block h-full">
       <article className="card h-full overflow-hidden flex flex-col">
         <div className="aspect-[16/9] relative overflow-hidden">
-          <div className="cover-zoom absolute inset-0" style={coverStyle}>
-            <div className="cover-drift absolute inset-0" />
-          </div>
-          <span className="absolute inset-0 flex items-center justify-center serif text-5xl font-bold text-white/30 select-none pointer-events-none">
-            {post.title.slice(0, 1)}
-          </span>
-          <div className="absolute inset-0 bg-gradient-to-tr from-black/15 via-transparent to-transparent pointer-events-none" />
+          <CoverPanel post={post} monogramSize="lg" />
+          <div className="absolute inset-0 bg-gradient-to-tr from-black/5 via-transparent to-transparent pointer-events-none" />
         </div>
         <div className="p-5 flex flex-col flex-1">
           <div className="flex items-center gap-2 text-xs text-muted-light mb-2">
