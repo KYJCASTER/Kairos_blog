@@ -58,16 +58,26 @@ export function TableOfContents({ headings }: TableOfContentsProps) {
               <a
                 href={`#${h.id}`}
                 className={cn(
-                  "block py-1 -ml-px border-l-2 transition-colors",
+                  "group/toc relative block py-1 -ml-px border-l-2",
+                  "transition-[color,border-color,padding] duration-500 ease-[cubic-bezier(0.32,0.72,0,1)]",
                   active
                     ? "border-primary text-primary font-medium"
-                    : "border-transparent text-muted hover:text-foreground"
+                    : "border-transparent text-muted hover:text-foreground hover:border-border-strong"
                 )}
                 style={{
                   paddingLeft: `${(h.level - 2) * 0.75 + 0.875}rem`,
                   fontSize: h.level >= 3 ? "0.8125rem" : undefined,
                 }}
               >
+                {/* Active dot slides in from the left rail. */}
+                <span
+                  aria-hidden
+                  className={cn(
+                    "absolute -left-[5px] top-1/2 -translate-y-1/2 w-2 h-2 rounded-full bg-primary",
+                    "transition-all duration-500 ease-[cubic-bezier(0.34,1.36,0.64,1)]",
+                    active ? "scale-100 opacity-100" : "scale-0 opacity-0"
+                  )}
+                />
                 {h.text}
               </a>
             </li>

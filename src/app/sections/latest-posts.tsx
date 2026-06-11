@@ -2,6 +2,7 @@ import Link from "next/link"
 import { ArrowRight } from "lucide-react"
 import { getPublishedPosts } from "@/lib/posts"
 import { PostCard } from "@/components/post-card"
+import { Reveal } from "@/components/reveal"
 
 export function LatestPosts() {
   const posts = getPublishedPosts()
@@ -24,7 +25,7 @@ export function LatestPosts() {
   return (
     <section className="py-20 px-5 sm:px-6">
       <div className="max-w-5xl mx-auto">
-        <header className="flex items-end justify-between mb-10 gap-4">
+        <Reveal className="flex items-end justify-between mb-10 gap-4">
           <div>
             <p className="font-mono text-xs uppercase tracking-[0.2em] text-muted mb-2">
               最近书写
@@ -35,19 +36,25 @@ export function LatestPosts() {
           </div>
           <Link
             href="/blog"
-            className="hidden sm:inline-flex items-center gap-1.5 text-sm font-medium text-muted hover:text-primary transition-colors group"
+            className="hidden sm:inline-flex items-center gap-1.5 text-sm font-medium text-muted hover:text-primary transition-colors duration-300 group"
           >
             全部 {posts.length} 篇
-            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300 ease-[cubic-bezier(0.32,0.72,0,1)]" />
           </Link>
-        </header>
+        </Reveal>
 
-        {featured && <PostCard post={featured} variant="featured" />}
+        {featured && (
+          <Reveal delay={80}>
+            <PostCard post={featured} variant="featured" />
+          </Reveal>
+        )}
 
         {grid.length > 0 && (
           <div className="grid sm:grid-cols-2 gap-6 mt-6">
-            {grid.map((p) => (
-              <PostCard key={p.id} post={p} />
+            {grid.map((p, i) => (
+              <Reveal key={p.id} delay={160 + i * 90}>
+                <PostCard post={p} />
+              </Reveal>
             ))}
           </div>
         )}

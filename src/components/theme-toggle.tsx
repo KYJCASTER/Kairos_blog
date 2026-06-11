@@ -24,16 +24,33 @@ export function ThemeToggle() {
   return (
     <button
       onClick={() => setTheme(isDark ? "light" : "dark")}
-      className="p-2.5 rounded-md text-muted hover:text-foreground hover:bg-surface transition-colors"
+      className="relative p-2.5 rounded-md text-muted hover:text-foreground hover:bg-surface transition-colors duration-300"
       aria-label={isDark ? "切换到亮色模式" : "切换到暗色模式"}
     >
-      {!hydrated ? (
-        <span className="w-[18px] h-[18px] block" />
-      ) : isDark ? (
-        <Sun className="w-[18px] h-[18px]" />
-      ) : (
-        <Moon className="w-[18px] h-[18px]" />
-      )}
+      {/* Both icons share the same cell — cross-fade + slight rotation
+          gives a small but human flip moment instead of a hard swap. */}
+      <span className="relative block w-[18px] h-[18px]">
+        <Sun
+          aria-hidden
+          className={[
+            "absolute inset-0 w-[18px] h-[18px]",
+            "transition-all duration-500 ease-[cubic-bezier(0.34,1.36,0.64,1)]",
+            hydrated && isDark
+              ? "opacity-100 rotate-0 scale-100"
+              : "opacity-0 -rotate-90 scale-75",
+          ].join(" ")}
+        />
+        <Moon
+          aria-hidden
+          className={[
+            "absolute inset-0 w-[18px] h-[18px]",
+            "transition-all duration-500 ease-[cubic-bezier(0.34,1.36,0.64,1)]",
+            hydrated && !isDark
+              ? "opacity-100 rotate-0 scale-100"
+              : "opacity-0 rotate-90 scale-75",
+          ].join(" ")}
+        />
+      </span>
     </button>
   )
 }

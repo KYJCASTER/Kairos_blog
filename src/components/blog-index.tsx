@@ -5,6 +5,7 @@ import { useSearchParams, useRouter } from "next/navigation"
 import Link from "next/link"
 import Fuse from "fuse.js"
 import { Search, X, ArrowUpRight, Calendar } from "lucide-react"
+import { Reveal } from "@/components/reveal"
 
 export interface SearchablePost {
   slug: string
@@ -221,31 +222,33 @@ export function BlogIndex({ posts, allTags }: BlogIndexProps) {
 function YearList({ posts }: { posts: SearchablePost[] }) {
   return (
     <ul className="divide-y hairline">
-      {posts.map((post) => (
+      {posts.map((post, i) => (
         <li key={post.slug}>
-          <Link
-            href={`/blog/${post.slug}`}
-            className="group grid sm:grid-cols-[120px_1fr_auto] gap-2 sm:gap-8 py-7 items-baseline"
-          >
-            <time className="font-mono text-xs text-muted-light tabular-nums flex items-center gap-1.5">
-              <Calendar className="w-3.5 h-3.5" />
-              {post.date.slice(5).replace("-", " / ")}
-            </time>
-            <div className="min-w-0">
-              <h3 className="serif text-xl sm:text-2xl font-semibold text-foreground group-hover:text-primary transition-colors leading-snug">
-                {post.title}
-              </h3>
-              <p className="text-sm text-muted mt-2 line-clamp-2">{post.excerpt}</p>
-              {post.tags.length > 0 && (
-                <div className="flex flex-wrap gap-1.5 mt-3">
-                  {post.tags.map((t) => (
-                    <span key={t} className="tag-chip">{t}</span>
-                  ))}
-                </div>
-              )}
-            </div>
-            <ArrowUpRight className="hidden sm:block w-5 h-5 text-muted-light group-hover:text-primary group-hover:-translate-y-1 group-hover:translate-x-1 transition-all" />
-          </Link>
+          <Reveal delay={Math.min(i, 6) * 70}>
+            <Link
+              href={`/blog/${post.slug}`}
+              className="group grid sm:grid-cols-[120px_1fr_auto] gap-2 sm:gap-8 py-7 items-baseline"
+            >
+              <time className="font-mono text-xs text-muted-light tabular-nums flex items-center gap-1.5">
+                <Calendar className="w-3.5 h-3.5" />
+                {post.date.slice(5).replace("-", " / ")}
+              </time>
+              <div className="min-w-0">
+                <h3 className="serif text-xl sm:text-2xl font-semibold text-foreground group-hover:text-primary transition-colors duration-300 leading-snug">
+                  {post.title}
+                </h3>
+                <p className="text-sm text-muted mt-2 line-clamp-2">{post.excerpt}</p>
+                {post.tags.length > 0 && (
+                  <div className="flex flex-wrap gap-1.5 mt-3">
+                    {post.tags.map((t) => (
+                      <span key={t} className="tag-chip">{t}</span>
+                    ))}
+                  </div>
+                )}
+              </div>
+              <ArrowUpRight className="hidden sm:block w-5 h-5 text-muted-light group-hover:text-primary group-hover:-translate-y-1 group-hover:translate-x-1 transition-all duration-500 ease-[cubic-bezier(0.34,1.36,0.64,1)]" />
+            </Link>
+          </Reveal>
         </li>
       ))}
     </ul>
