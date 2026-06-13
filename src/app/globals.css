@@ -1004,6 +1004,14 @@ html .shiki, html .shiki span { color: var(--shiki-light); background-color: tra
   100% { transform: scale(1)     rotate(0deg); }
 }
 
+/* Frontispiece scroll hint — a softly bobbing chevron beneath the
+   "folio I" line, suggesting there's more below. Loops gently so it
+   never demands attention; reduced-motion users get it stilled. */
+@keyframes scroll-hint {
+  0%, 100% { transform: translateY(0);   opacity: 0.4; }
+  50%      { transform: translateY(4px); opacity: 0.8; }
+}
+
 /* Cover panel — monogram + corner stamp behave like an ink stamp:
    resting state is a faint impression; on group hover the stamp gets
    "pressed in" — slightly darker and rotated by a degree or two, like
