@@ -1,3 +1,10 @@
+> **📦 ARCHIVED — 2025-04 改版实施计划。**
+> 此计划描述的是已废弃的 "美漫风格 + 后端动态博客" 方案，当前博客已重构为
+> "羊皮卷美学 + 静态导出 + 纯客户端搜索"。保留仅供回溯历史决策；
+> 不要据此实现任何新功能，也不要把它当作新任务的起点。
+
+---
+
 # Kairos 博客重构实施计划
 
 > **For Claude:** REQUIRED SUB-SKILL: Use superpowers:executing-plans to implement this plan task-by-task.

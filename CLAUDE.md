@@ -43,21 +43,26 @@ on push to `master`/`main` and uploads `./dist` to GitHub Pages.
 All host-name / author / domain references live in `src/lib/site.ts`. Don't hard-code.
 
 ### Content pipeline
-- `src/lib/posts.ts` — gray-matter reader over `content/posts/*.md`, memoized after
-  first call. Frontmatter fields: `title`, `slug`, `excerpt` (auto-derived if absent),
-  `date` (YYYY-MM-DD), `tags`, `cover` (optional), `published`.
-- `src/lib/markdown.ts` — `Marked` + **Shiki** dual-theme syntax highlighter
-  (`github-light` / `github-dark`). Renders run inside server components, so the
-  shiki tokenizer cost is paid once at build time. Heading IDs are injected here
-  so the in-page TOC and `#anchor` links work.
+- `src/lib/posts.ts` — gray-matter reader over `content/posts/*.md(x)`,
+  memoized after first call. Frontmatter fields: `title`, `slug`, `excerpt`
+  (auto-derived if absent), `date` (YYYY-MM-DD), `updated` (optional, for
+  `dateModified`), `tags`, `cover` (optional), `published`.
+- `src/lib/markdown.ts` — `next-mdx-remote/rsc` + **Shiki** dual-theme syntax
+  highlighter (`github-light` / `github-dark`). Renders run inside server
+  components, so the shiki tokenizer cost is paid once at build time. Heading
+  IDs are injected here so the in-page TOC and `#anchor` links work. Both `.md`
+  and `.mdx` posts go through the same pipeline.
 - `src/lib/reading-time.ts` — CJK-aware reading-time. **Do not** count words with
   `split(/\s+/)` — Chinese has no spaces; use `computeReadingStats()` instead.
 
 ### Client-side search
-The site has no server, so search runs entirely in the browser. `BlogIndex`
-(`src/components/blog-index.tsx`) ships a small Fuse.js index built from
-`getSearchIndex()` — bodies are truncated to ~2KB per post to keep the bundle small.
-Don't re-introduce a server-side `searchParams` filter — it can't work under static
+The site has no server, so search runs entirely in the browser. The search
+corpus is built at `prebuild` time into `public/search-index.json` (see
+`scripts/build-search-index.mjs`) and lazy-fetched + Fuse.js dynamic-imported
+the first time the user focuses the search input or arrives with `?search=…`.
+`BlogIndex` (`src/components/blog-index.tsx`) renders the year-grouped list
+immediately from a lightweight props payload (no body content). Don't
+re-introduce a server-side `searchParams` filter — it can't work under static
 export and will silently no-op.
 
 ### Two designs no longer coexist

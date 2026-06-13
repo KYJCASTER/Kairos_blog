@@ -11,9 +11,9 @@
 - **Next.js 16** + **React 19**（App Router，`output: 'export'` 静态导出）
 - **TypeScript 5**
 - **Tailwind CSS 4**
-- 内容：Markdown + gray-matter
+- 内容：Markdown / MDX + gray-matter（`next-mdx-remote/rsc` 渲染）
 - 代码高亮：**Shiki**（dual-theme，构建期完成）
-- 站内搜索：**Fuse.js**（纯客户端）
+- 站内搜索：**Fuse.js**（构建期生成 `public/search-index.json`，聚焦时懒加载）
 
 部署在 **GitHub Pages**，base path 为 `/Kairos_blog`。
 
@@ -54,21 +54,28 @@ src/
 ├── app/
 │   ├── layout.tsx              # 全局布局 + 字体注入
 │   ├── page.tsx                # 首页
+│   ├── sections/               # 首页各区块（Hero / LatestPosts / AboutPreview）
 │   ├── blog/page.tsx           # 文章列表 + 客户端搜索
-│   ├── blog/[slug]/page.tsx    # 文章正文 + TOC + 进度条 + 上下篇
+│   ├── blog/[slug]/page.tsx    # 文章正文 + TOC + 进度条 + 上下篇 + 相关
 │   ├── tags/page.tsx           # 标签云
+│   ├── tags/[slug]/page.tsx    # 单标签归档
 │   ├── about/page.tsx          # 关于
 │   ├── sitemap.ts              # 自动生成 sitemap.xml
 │   ├── robots.ts               # 自动生成 robots.txt
-│   ├── rss.xml/route.ts        # RSS feed
+│   ├── rss.xml/route.ts        # RSS feed（含全文 content:encoded）
+│   ├── error.tsx               # 运行时错误页
+│   ├── not-found.tsx           # 404
 │   └── globals.css             # 设计系统
-├── components/                 # 复用 UI
+├── components/
+│   ├── mdx/                    # MDX 作者面向组件（Callout / Aside / Figure）
+│   └── ...                     # 其他复用 UI
 └── lib/
     ├── site.ts                 # 站点元信息（域名、作者等）
     ├── posts.ts                # 读 content/posts
-    ├── markdown.ts             # Shiki + Marked
+    ├── markdown.ts             # Shiki + next-mdx-remote/rsc
     └── reading-time.ts         # CJK 友好的字数与阅读时长
-content/posts/                  # 文章 Markdown
+content/posts/                  # 文章 Markdown / MDX
+scripts/build-search-index.mjs  # prebuild 期生成搜索语料
 ```
 
 ## 设计

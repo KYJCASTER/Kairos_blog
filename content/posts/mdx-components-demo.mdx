@@ -1,0 +1,44 @@
+---
+title: "MDX 组件演示"
+slug: "mdx-components-demo"
+excerpt: "保留作 MDX 组件参考。展示 Callout / Aside 等 MDX 组件在文章里的样子。"
+date: "2026-06-12"
+tags: ["MDX", "参考"]
+published: false
+---
+
+# MDX 组件演示
+
+> **这是一篇未发布的参考页面**，作用是给"MDX 写法"留一个活的样例。
+> 想在新文章里用 `<Callout>` 或 `<Aside>` 的时候，回来抄这里的格式。
+
+<Callout type="tip" title="写在最前面">
+这篇文章用上了 **MDX 组件** —— 你看到的这个色块就是从 `.mdx` 直接写出来的。
+</Callout>
+
+## Callout 的几种风格
+
+<Callout type="info">
+`type="info"` —— 中性提示，给读者补一段背景。
+</Callout>
+
+<Callout type="tip" title="一个小贴士">
+`type="tip"` —— 提醒可以"试试这样做"。
+</Callout>
+
+<Callout type="warning" title="注意事项">
+`type="warning"` —— 提醒读者别踩坑。
+</Callout>
+
+## Aside —— 题外话
+
+<Aside label="题外话">
+"输出倒逼输入" 这句话被讲到烂了，但只有真的写过几篇之后才会意识到 —— 它说的不是"为了写文章去学"，而是"试着写下来才发现自己其实没学会"。
+</Aside>
+
+## 写作要点
+
+1. 纯 Markdown 仍然完全兼容，MDX 是按需引入的能力
+2. `Callout` 支持 `info` / `tip` / `warning` / `error` 几种 `type`
+3. `Figure` 用于带 caption 的图片
+4. 别忘了把 `published` 改为 `true` 再上线
