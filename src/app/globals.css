@@ -995,6 +995,15 @@ html .shiki, html .shiki span { color: var(--shiki-light); background-color: tra
   to { stroke-dashoffset: 0; }
 }
 
+/* Wax-seal "press" — a brief deepen-and-rebound on click. The seal
+   tilts a hair, drops in scale, then settles back. Used by the
+   frontispiece <WaxSeal /> when clicked. */
+@keyframes seal-press {
+  0%   { transform: scale(1)     rotate(0deg); }
+  35%  { transform: scale(0.945) rotate(-2deg); }
+  100% { transform: scale(1)     rotate(0deg); }
+}
+
 /* Cover panel — monogram + corner stamp behave like an ink stamp:
    resting state is a faint impression; on group hover the stamp gets
    "pressed in" — slightly darker and rotated by a degree or two, like

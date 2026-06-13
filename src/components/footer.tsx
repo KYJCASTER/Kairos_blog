@@ -20,6 +20,13 @@ export function Footer() {
           {/* Secondary navigation — quiet links to the smaller pages. */}
           <nav aria-label="次级导航" className="flex flex-wrap items-center justify-center gap-x-4 gap-y-1 mt-1">
             <Link
+              href="/frontispiece"
+              className="font-mono text-[11px] uppercase tracking-[0.2em] text-muted-light hover:text-foreground transition-colors"
+            >
+              扉页
+            </Link>
+            <span aria-hidden className="text-border-strong">·</span>
+            <Link
               href="/archive"
               className="font-mono text-[11px] uppercase tracking-[0.2em] text-muted-light hover:text-foreground transition-colors"
             >
