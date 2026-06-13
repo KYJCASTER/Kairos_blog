@@ -10,8 +10,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const seriesList = getAllSeries()
 
   const staticEntries: MetadataRoute.Sitemap = [
-    { url: `${site.url}/`,           lastModified: new Date(), changeFrequency: "weekly",  priority: 1 },
-    { url: `${site.url}/blog`,       lastModified: new Date(), changeFrequency: "weekly",  priority: 0.9 },
+    { url: `${site.url}/`,             lastModified: new Date(), changeFrequency: "weekly",  priority: 1 },
+    { url: `${site.url}/frontispiece`,  lastModified: new Date(), changeFrequency: "monthly", priority: 0.7 },
+    { url: `${site.url}/blog`,         lastModified: new Date(), changeFrequency: "weekly",  priority: 0.9 },
     { url: `${site.url}/archive`,    lastModified: new Date(), changeFrequency: "weekly",  priority: 0.6 },
     { url: `${site.url}/series`,     lastModified: new Date(), changeFrequency: "monthly", priority: 0.6 },
     { url: `${site.url}/tags`,       lastModified: new Date(), changeFrequency: "monthly", priority: 0.6 },
