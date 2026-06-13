@@ -69,6 +69,15 @@ export function ArrowUpRightIcon(props: SVGProps<SVGSVGElement>) {
   )
 }
 
+export function ArrowUpIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg {...lucideProps} {...props}>
+      <path d="M12 19V5" />
+      <path d="m5 12 7-7 7 7" />
+    </svg>
+  )
+}
+
 export function CheckIcon(props: SVGProps<SVGSVGElement>) {
   return (
     <svg {...lucideProps} {...props}>

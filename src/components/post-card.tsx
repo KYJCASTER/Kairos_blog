@@ -52,14 +52,14 @@ function CoverPanel({
     <>
       <div className="cover-zoom absolute inset-0 parchment">
         <div
-          className="ink-wash absolute inset-0 cover-drift"
+          className="ink-wash absolute inset-0 cover-drift transition-opacity duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:opacity-40"
           style={{ ["--ink" as never]: ink } as React.CSSProperties}
         />
       </div>
       <span
         aria-hidden
-        className={`absolute inset-0 flex items-center justify-center serif italic font-light leading-none select-none pointer-events-none ${monogramClass}`}
-        style={{ color: ink, opacity: 0.35 }}
+        className={`monogram absolute inset-0 flex items-center justify-center serif italic font-light leading-none select-none pointer-events-none ${monogramClass}`}
+        style={{ color: ink }}
       >
         {post.title.slice(0, 1)}
       </span>
@@ -67,8 +67,8 @@ function CoverPanel({
       {primaryTag && (
         <span
           aria-hidden
-          className="absolute bottom-3 right-3 font-mono text-[10px] uppercase tracking-[0.22em] pointer-events-none"
-          style={{ color: ink, opacity: 0.55 }}
+          className="stamp-mark absolute bottom-3 right-3 font-mono text-[10px] uppercase tracking-[0.22em] pointer-events-none"
+          style={{ color: ink }}
         >
           № {primaryTag}
         </span>

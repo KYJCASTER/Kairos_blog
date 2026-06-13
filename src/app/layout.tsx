@@ -4,6 +4,7 @@ import "./globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
 import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
+import { BackToTop } from "@/components/back-to-top"
 import { WebsiteJsonLd } from "@/components/json-ld"
 import { site } from "@/lib/site"
 
@@ -95,6 +96,7 @@ export default function RootLayout({
             {children}
           </main>
           <Footer />
+          <BackToTop />
         </ThemeProvider>
         <WebsiteJsonLd />
       </body>

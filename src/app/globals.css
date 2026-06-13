@@ -383,6 +383,26 @@ body > * { position: relative; z-index: 1; }
   font-size: 0.875rem;
   line-height: 1.7;
   tab-size: 2;
+  /* Soft horizontal fade at both edges — when code overflows and the user
+     scrolls, characters approach the edge and dissolve under the fade
+     instead of clipping abruptly against the rounded border. The fade
+     width matches the padding, so for short non-overflowing snippets it
+     sits entirely on the inert padding region and never dims real text. */
+  --fade: 1.25rem;
+  mask-image: linear-gradient(
+    to right,
+    transparent 0,
+    #000 var(--fade),
+    #000 calc(100% - var(--fade)),
+    transparent 100%
+  );
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0,
+    #000 var(--fade),
+    #000 calc(100% - var(--fade)),
+    transparent 100%
+  );
 }
 .code-block pre code { background: transparent !important; padding: 0; }
 
@@ -791,6 +811,37 @@ html .shiki, html .shiki span { color: var(--shiki-light); background-color: tra
 }
 .group:hover .cover-zoom { transform: scale(1.04); }
 
+/* Hand-drawn underline swash beneath the hero accent word.
+   We draw the path in JS-free CSS so it runs on first paint without
+   waiting for hydration. */
+@keyframes swash-draw {
+  to { stroke-dashoffset: 0; }
+}
+
+/* Cover panel — monogram + corner stamp behave like an ink stamp:
+   resting state is a faint impression; on group hover the stamp gets
+   "pressed in" — slightly darker and rotated by a degree or two, like
+   a hand has just released the press. The transition is long enough
+   that it never reads as a hover bounce. */
+.monogram {
+  opacity: 0.35;
+  transition:
+    opacity 700ms var(--ease-soft),
+    transform 700ms var(--ease-soft);
+  will-change: transform, opacity;
+}
+.group:hover .monogram {
+  opacity: 0.6;
+  transform: rotate(-1.5deg);
+}
+.stamp-mark {
+  opacity: 0.55;
+  transition: opacity 500ms var(--ease-soft);
+}
+.group:hover .stamp-mark {
+  opacity: 0.9;
+}
+
 /* Underlay shimmer for the cover gradient, slow and barely there. */
 @keyframes cover-drift {
   0%   { transform: translate3d(0, 0, 0); }
@@ -811,4 +862,5 @@ html .shiki, html .shiki span { color: var(--shiki-light); background-color: tra
   .card:hover { transform: none; }
   .reveal { opacity: 1; transform: none; }
   .cover-zoom, .group:hover .cover-zoom { transform: none; }
+  .group:hover .monogram { transform: none; }
 }

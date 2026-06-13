@@ -33,7 +33,35 @@ export function HeroSection() {
         >
           代码之外，
           <br />
-          仍是<span className="italic text-primary">语言</span>。
+          仍是
+          <span className="relative inline-block italic text-primary">
+            语言
+            {/* Hand-drawn swash underline — SVG path with a wobble that
+                feels like a fountain-pen flourish. Animates the stroke in
+                after the headline lands. */}
+            <svg
+              aria-hidden
+              viewBox="0 0 200 24"
+              preserveAspectRatio="none"
+              className="absolute left-[-4%] right-[-4%] -bottom-2 sm:-bottom-3 w-[108%] h-[0.45em] pointer-events-none"
+            >
+              <path
+                d="M2 16 C 30 6, 60 22, 96 12 S 160 4, 198 14"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2.4"
+                strokeLinecap="round"
+                opacity="0.55"
+                style={{
+                  strokeDasharray: 260,
+                  strokeDashoffset: 260,
+                  animation:
+                    "swash-draw 1.1s 0.55s var(--ease-out) forwards",
+                }}
+              />
+            </svg>
+          </span>
+          。
         </h1>
 
         <p
