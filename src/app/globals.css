@@ -76,40 +76,50 @@
 }
 
 .dark {
-  --background: #14110D;
-  --surface: #1B1813;
-  --surface-hover: #221E18;
-  --card: #1E1A14;
-  --card-hover: #25201A;
+  /* Surfaces — lifted from near-black to "reading lamp at night". The old
+     #14110D + saturated orange/gold combo registered as luxury display case;
+     bumping luminance ~6 points and pulling accent saturation back makes the
+     same warmth read as "library lit by a single bulb" instead. */
+  --background: #1C1915;
+  --surface: #252119;
+  --surface-hover: #2C281F;
+  --card: #26221C;
+  --card-hover: #2C2823;
 
-  --foreground: #ECE6DC;
+  /* Cream foreground — slightly desaturated so it doesn't gleam like
+     premium-stationery-ad paper against the warmer surfaces. */
+  --foreground: #DDD7CB;
   --muted: #9C9588;
-  --muted-light: #6B655C;
-  --border: rgba(236, 230, 220, 0.08);
-  --border-strong: rgba(236, 230, 220, 0.16);
+  --muted-light: #7A746A;
+  --border: rgba(221, 215, 203, 0.09);
+  --border-strong: rgba(221, 215, 203, 0.18);
 
-  --primary: #FB923C;
-  --primary-light: #FDBA74;
-  --primary-dark: #EA580C;
-  --primary-50: rgba(251, 146, 60, 0.10);
-  --primary-100: rgba(251, 146, 60, 0.18);
+  /* Primary — was Tailwind orange-400 (#FB923C) at full chroma, which on
+     near-black reads as neon. Pulled toward aged-terracotta. */
+  --primary: #E89968;
+  --primary-light: #F2B58E;
+  --primary-dark: #C57140;
+  --primary-50: rgba(232, 153, 104, 0.10);
+  --primary-100: rgba(232, 153, 104, 0.18);
 
-  --accent: #FBBF24;
-  --accent-light: #FCD34D;
+  /* Accent — was bright marigold (#FBBF24); the single biggest "bling"
+     offender. Pulled to aged brass. */
+  --accent: #C9A368;
+  --accent-light: #D9B780;
 
-  --success: #4ADE80;
-  --error: #F87171;
-  --warning: #FBBF24;
-  --info: #60A5FA;
+  --success: #6FB87E;
+  --error: #E68080;
+  --warning: #D9A85A;
+  --info: #6E9DD9;
 
-  --code-bg: #0F0D0A;
-  --code-border: rgba(236, 230, 220, 0.08);
-  --code-toolbar-bg: rgba(236, 230, 220, 0.04);
+  --code-bg: #17140F;
+  --code-border: rgba(221, 215, 203, 0.08);
+  --code-toolbar-bg: rgba(221, 215, 203, 0.04);
 
   --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
   --shadow-md: 0 4px 14px rgba(0, 0, 0, 0.5);
   --shadow-lg: 0 18px 40px -12px rgba(0, 0, 0, 0.6);
-  --shadow-glow: 0 0 32px rgba(251, 146, 60, 0.15);
+  --shadow-glow: 0 0 32px rgba(232, 153, 104, 0.10);
 }
 
 /* ============================================
@@ -198,22 +208,22 @@ body::before {
   background-image:
     repeating-linear-gradient(
       0deg,
-      rgba(200, 170, 130, 0.018) 0px,
-      rgba(200, 170, 130, 0.018) 1px,
+      rgba(200, 170, 130, 0.012) 0px,
+      rgba(200, 170, 130, 0.012) 1px,
       transparent 1px,
       transparent 3px
     ),
     repeating-linear-gradient(
       92deg,
-      rgba(200, 170, 130, 0.020) 0px,
-      rgba(200, 170, 130, 0.020) 1px,
+      rgba(200, 170, 130, 0.014) 0px,
+      rgba(200, 170, 130, 0.014) 1px,
       transparent 1px,
       transparent 4px
     ),
     radial-gradient(
       ellipse at center,
       transparent 55%,
-      rgba(0, 0, 0, 0.35) 100%
+      rgba(0, 0, 0, 0.28) 100%
     );
 }
 /* Make sure all real content sits above the texture layer. */
