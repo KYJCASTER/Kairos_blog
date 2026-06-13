@@ -11,6 +11,8 @@ export interface Post {
   excerpt: string
   content: string
   date: string
+  /** Optional revision date. Falls back to `date` for `dateModified` JSON-LD. */
+  updated?: string
   tags: string[]
   cover?: string
   published: boolean
@@ -22,13 +24,14 @@ export interface PostSummary {
   title: string
   excerpt: string
   date: string
+  updated?: string
   tags: string[]
   cover?: string
 }
 
 const toSummary = (p: Post): PostSummary => ({
   id: p.id, slug: p.slug, title: p.title, excerpt: p.excerpt,
-  date: p.date, tags: p.tags, cover: p.cover,
+  date: p.date, updated: p.updated, tags: p.tags, cover: p.cover,
 })
 
 /** Generate a short excerpt from the body when frontmatter omits it. */
@@ -44,6 +47,58 @@ function deriveExcerpt(body: string, max = 120): string {
 }
 
 let postsCache: Post[] | null = null
+
+// Allowed frontmatter keys. Anything outside this list is a typo (e.g.
+// `tag:` instead of `tags:`) — we throw at build time rather than silently
+// dropping the value.
+const ALLOWED_FRONTMATTER_KEYS = new Set([
+  "title", "slug", "excerpt", "date", "updated", "tags", "cover", "published",
+])
+
+const ISO_DATE = /^\d{4}-\d{2}-\d{2}/
+
+function validateFrontmatter(fileName: string, data: Record<string, unknown>): void {
+  for (const key of Object.keys(data)) {
+    if (!ALLOWED_FRONTMATTER_KEYS.has(key)) {
+      throw new Error(
+        `[posts] ${fileName}: unknown frontmatter key "${key}". ` +
+          `Allowed: ${Array.from(ALLOWED_FRONTMATTER_KEYS).join(", ")}.`,
+      )
+    }
+  }
+
+  if (data.title !== undefined && typeof data.title !== "string") {
+    throw new Error(`[posts] ${fileName}: \`title\` must be a string`)
+  }
+  if (data.slug !== undefined && typeof data.slug !== "string") {
+    throw new Error(`[posts] ${fileName}: \`slug\` must be a string`)
+  }
+  if (data.excerpt !== undefined && typeof data.excerpt !== "string") {
+    throw new Error(`[posts] ${fileName}: \`excerpt\` must be a string`)
+  }
+  if (data.cover !== undefined && typeof data.cover !== "string") {
+    throw new Error(`[posts] ${fileName}: \`cover\` must be a string`)
+  }
+  if (data.published !== undefined && typeof data.published !== "boolean") {
+    throw new Error(`[posts] ${fileName}: \`published\` must be true or false`)
+  }
+  for (const k of ["date", "updated"] as const) {
+    const v = data[k]
+    if (v === undefined) continue
+    if (typeof v !== "string" || !ISO_DATE.test(v)) {
+      throw new Error(
+        `[posts] ${fileName}: \`${k}\` must be a "YYYY-MM-DD" string (got ${JSON.stringify(v)})`,
+      )
+    }
+  }
+  if (data.tags !== undefined) {
+    if (!Array.isArray(data.tags) || !data.tags.every((t) => typeof t === "string")) {
+      throw new Error(
+        `[posts] ${fileName}: \`tags\` must be an array of strings, e.g. tags: ["Java", "笔记"]`,
+      )
+    }
+  }
+}
 
 export function getAllPosts(): Post[] {
   if (postsCache) return postsCache
@@ -61,15 +116,24 @@ export function getAllPosts(): Post[] {
       const fileContents = fs.readFileSync(fullPath, "utf8")
       const { data, content } = matter(fileContents)
 
+      validateFrontmatter(fileName, data)
+
       return {
         id,
-        slug: data.slug || id,
-        title: data.title || "Untitled",
-        excerpt: data.excerpt || deriveExcerpt(content),
+        slug: typeof data.slug === "string" ? data.slug : id,
+        title: typeof data.title === "string" ? data.title : "Untitled",
+        excerpt:
+          typeof data.excerpt === "string" && data.excerpt
+            ? data.excerpt
+            : deriveExcerpt(content),
         content,
-        date: data.date || new Date().toISOString().split("T")[0],
-        tags: Array.isArray(data.tags) ? data.tags : [],
-        cover: data.cover,
+        date:
+          typeof data.date === "string"
+            ? data.date
+            : new Date().toISOString().split("T")[0],
+        updated: typeof data.updated === "string" ? data.updated : undefined,
+        tags: Array.isArray(data.tags) ? (data.tags as string[]) : [],
+        cover: typeof data.cover === "string" ? data.cover : undefined,
         published: data.published !== false,
       }
     })
@@ -153,7 +217,67 @@ export function getAdjacentPosts(slug: string): {
   }
 }
 
-/** Index used by the client-side search (no server in static-export mode). */
+/** Posts whose tags overlap most with the given post (excluding itself). */
+export function getRelatedPosts(slug: string, limit = 3): PostSummary[] {
+  const target = getPostBySlug(slug)
+  if (!target || target.tags.length === 0) return []
+  const targetTags = new Set(target.tags)
+
+  const scored = getPublishedPosts()
+    .filter((p) => p.slug !== slug)
+    .map((p) => {
+      const overlap = p.tags.filter((t) => targetTags.has(t)).length
+      // tf-idf-ish: normalize by sqrt of other-side tag count so a post
+      // with three tags doesn't crowd out a more focused match.
+      const score = overlap === 0 ? 0 : overlap / Math.sqrt(p.tags.length || 1)
+      return { post: p, score }
+    })
+    .filter((x) => x.score > 0)
+    .sort((a, b) => (b.score === a.score ? (a.post.date < b.post.date ? 1 : -1) : b.score - a.score))
+    .slice(0, limit)
+
+  return scored.map((x) => toSummary(x.post))
+}
+
+/** Look up posts that carry a given tag (matched by its slug). */
+export function getPostsByTagSlug(slug: string): { tag: TagInfo; posts: PostSummary[] } | null {
+  const tag = getAllTags().find((t) => t.slug === slug)
+  if (!tag) return null
+  const posts = getPublishedPosts()
+    .filter((p) => p.tags.includes(tag.name))
+    .map(toSummary)
+  return { tag, posts }
+}
+
+/**
+ * Lightweight list used for the /blog index page render. No body content —
+ * the search corpus lives in `public/search-index.json` and is fetched
+ * client-side only when the user actually opens search.
+ */
+export interface PostListItem {
+  slug: string
+  title: string
+  excerpt: string
+  tags: string[]
+  date: string
+}
+
+export function getPostList(): PostListItem[] {
+  return getPublishedPosts().map((p) => ({
+    slug: p.slug,
+    title: p.title,
+    excerpt: p.excerpt,
+    tags: p.tags,
+    date: p.date,
+  }))
+}
+
+/**
+ * Index used by the build-time search-corpus generator
+ * (`scripts/build-search-index.mjs`). NOT called at runtime — a stale module
+ * reference would silently re-bloat the page bundle. Kept here so the shape
+ * stays close to `Post` for any future server-side consumer.
+ */
 export interface SearchEntry {
   slug: string
   title: string
@@ -169,7 +293,11 @@ export function getSearchIndex(): SearchEntry[] {
     excerpt: p.excerpt,
     tags: p.tags,
     date: p.date,
-    // truncate so the index stays small enough to ship to the browser
-    body: p.content.replace(/```[\s\S]*?```/g, " ").slice(0, 2000),
+    body: p.content
+      .replace(/```[\s\S]*?```/g, " ")
+      .replace(/[`#*_>~|]/g, " ")
+      .replace(/\s+/g, " ")
+      .trim()
+      .slice(0, 600),
   }))
 }

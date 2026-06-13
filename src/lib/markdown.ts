@@ -6,18 +6,23 @@ import { compileMDX } from "next-mdx-remote/rsc"
 import { createHighlighter, type Highlighter } from "shiki"
 import { visit } from "unist-util-visit"
 import remarkGfm from "remark-gfm"
+import rehypeExternalLinks from "rehype-external-links"
 import type { Root, Element, Text, ElementContent } from "hast"
 import type { ReactElement } from "react"
 
 import { mdxComponents } from "@/components/mdx"
 
+// Languages registered with Shiki at build time. Audit of content/posts
+// shows we only currently fence bash / java / yaml, but registering the
+// common-author set below keeps new posts working without touching this
+// file. Anything outside this list falls back to plain "text".
 const SHIKI_LANGS = [
   "javascript", "typescript", "tsx", "jsx",
-  "json", "html", "css", "scss", "markdown",
+  "json", "html", "css", "markdown",
   "java", "go", "python", "rust", "c", "cpp",
-  "csharp", "shell", "bash", "powershell",
-  "yaml", "toml", "sql", "dockerfile", "ini",
-  "diff", "vue", "svelte", "kotlin", "swift",
+  "shell", "bash",
+  "yaml", "sql", "dockerfile",
+  "diff",
 ] as const
 
 type Lang = (typeof SHIKI_LANGS)[number] | "text"
@@ -131,6 +136,22 @@ function rehypeHeadings() {
 }
 
 /**
+ * Rehype plugin: ensure every <img> in the rendered article has lazy-loading
+ * and async-decoding hints. Author-supplied attributes win.
+ */
+function rehypeImgAttrs() {
+  return (tree: Root) => {
+    visit(tree, "element", (node: Element) => {
+      if (node.tagName !== "img") return
+      const props = node.properties ?? {}
+      if (props.loading === undefined) props.loading = "lazy"
+      if (props.decoding === undefined) props.decoding = "async"
+      node.properties = props
+    })
+  }
+}
+
+/**
  * Compile an MDX source string into a React element ready to render.
  * Accepts both `.md` and `.mdx` content — plain markdown is a valid subset
  * of MDX, and 99% of existing `.md` posts will compile unchanged.
@@ -153,7 +174,16 @@ export async function renderMDX(source: string, postTitle?: string): Promise<Rea
     options: {
       mdxOptions: {
         remarkPlugins: [remarkGfm],
-        rehypePlugins: [rehypeHeadings, [rehypeShiki, highlighter]],
+        rehypePlugins: [
+          rehypeHeadings,
+          rehypeImgAttrs,
+          [rehypeShiki, highlighter],
+          // External links open in new tabs with rel=noopener noreferrer.
+          [
+            rehypeExternalLinks,
+            { target: "_blank", rel: ["noopener", "noreferrer"] },
+          ],
+        ],
       },
       // We do our own frontmatter parsing in lib/posts.ts — but the post body
       // never includes the YAML block at this point, so this is moot.

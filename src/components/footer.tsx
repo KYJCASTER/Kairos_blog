@@ -1,3 +1,4 @@
+import Link from "next/link"
 import { site } from "@/lib/site"
 import { GitHubIcon, RssIcon } from "./icons"
 
@@ -26,13 +27,13 @@ export function Footer() {
             >
               <GitHubIcon className="w-[18px] h-[18px]" />
             </a>
-            <a
+            <Link
               href="/rss.xml"
               className="p-2 rounded-md text-muted hover:text-foreground hover:bg-surface transition-colors"
               aria-label="RSS"
             >
               <RssIcon className="w-[18px] h-[18px]" />
-            </a>
+            </Link>
           </div>
         </div>
       </div>

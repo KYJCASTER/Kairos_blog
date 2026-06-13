@@ -11,7 +11,7 @@ const inter = Inter({
   subsets: ["latin"],
   display: "swap",
   variable: "--font-sans",
-  weight: ["400", "500", "600", "700", "800"],
+  weight: ["400", "500", "600", "700"],
 })
 
 const fraunces = Fraunces({
@@ -27,7 +27,7 @@ const mono = JetBrains_Mono({
   subsets: ["latin"],
   display: "swap",
   variable: "--font-mono",
-  weight: ["400", "500", "600"],
+  weight: ["400", "500"],
 })
 
 export const metadata: Metadata = {
@@ -46,15 +46,27 @@ export const metadata: Metadata = {
     siteName: site.name,
     title: site.title,
     description: site.description,
+    images: [
+      {
+        url: "/og-default.png",
+        width: 1200,
+        height: 630,
+        alt: site.name,
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: site.title,
     description: site.description,
+    images: ["/og-default.png"],
   },
   alternates: {
     canonical: "/",
-    types: { "application/rss+xml": "/rss.xml" },
+    // metadata.alternates does NOT auto-prefix basePath, so the URL must be absolute
+    // (or hand-prefixed). Without this, the <link rel="alternate"> in <head> would
+    // point at /rss.xml under the bare domain and 404 on GitHub Pages.
+    types: { "application/rss+xml": `${site.url}/rss.xml` },
   },
   icons: { icon: "/favicon.ico" },
 }

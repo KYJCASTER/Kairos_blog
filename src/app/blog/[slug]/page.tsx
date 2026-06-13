@@ -3,14 +3,14 @@ import Link from "next/link"
 import { notFound } from "next/navigation"
 import { ArrowLeft, ArrowRight } from "lucide-react"
 
-import { getPublishedPosts, getPostBySlug, getAdjacentPosts } from "@/lib/posts"
+import { getPublishedPosts, getPostBySlug, getAdjacentPosts, getRelatedPosts, tagSlug } from "@/lib/posts"
 import { renderMDX, extractHeadings } from "@/lib/markdown"
 import { computeReadingStats } from "@/lib/reading-time"
 import { formatDate } from "@/lib/utils"
 import { TableOfContents } from "@/components/table-of-contents"
 import { ReadingProgress } from "@/components/reading-progress"
 import { CodeCopyButtons } from "@/components/code-copy-buttons"
-import { ArticleJsonLd } from "@/components/json-ld"
+import { ArticleJsonLd, BreadcrumbJsonLd } from "@/components/json-ld"
 import { site } from "@/lib/site"
 
 interface PageProps {
@@ -26,6 +26,19 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const post = getPostBySlug(slug)
   if (!post) return { title: "未找到" }
 
+  // Resolve cover → absolute OG URL. site.url already contains basePath; if
+  // the cover is bare-rooted (`/foo.png`) we just append it.
+  const ogImage = (() => {
+    if (!post.cover) return undefined
+    if (/^https?:\/\//i.test(post.cover)) return post.cover
+    const stripped = post.cover.startsWith(site.basePath)
+      ? post.cover.slice(site.basePath.length)
+      : post.cover
+    return `${site.url}${stripped.startsWith("/") ? stripped : `/${stripped}`}`
+  })()
+
+  const images = ogImage ? [{ url: ogImage, width: 1200, height: 630, alt: post.title }] : undefined
+
   return {
     title: post.title,
     description: post.excerpt,
@@ -35,14 +48,17 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       title: post.title,
       description: post.excerpt,
       publishedTime: post.date,
+      modifiedTime: post.updated || post.date,
       authors: [site.author],
       tags: post.tags,
       url: `${site.url}/blog/${post.slug}`,
+      ...(images ? { images } : {}),
     },
     twitter: {
       card: "summary_large_image",
       title: post.title,
       description: post.excerpt,
+      ...(ogImage ? { images: [ogImage] } : {}),
     },
     alternates: { canonical: `/blog/${post.slug}` },
   }
@@ -53,10 +69,11 @@ export default async function PostPage({ params }: PageProps) {
   const post = getPostBySlug(slug)
   if (!post) notFound()
 
-  const [content, headings, { prev, next }, stats] = [
+  const [content, headings, { prev, next }, related, stats] = [
     await renderMDX(post.content, post.title),
     extractHeadings(post.content, post.title),
     getAdjacentPosts(post.slug),
+    getRelatedPosts(post.slug, 3),
     computeReadingStats(post.content),
   ]
 
@@ -64,7 +81,8 @@ export default async function PostPage({ params }: PageProps) {
     <>
       <ReadingProgress targetSelector="#article-body" />
       <CodeCopyButtons />
-      <ArticleJsonLd post={post} />
+      <ArticleJsonLd post={post} wordCount={stats.totalWords} />
+      <BreadcrumbJsonLd post={post} />
 
       <article className="pt-28 pb-20 px-5 sm:px-6">
         {/* Back link */}
@@ -84,6 +102,14 @@ export default async function PostPage({ params }: PageProps) {
             <time dateTime={post.date} className="tabular-nums">
               {formatDate(post.date)}
             </time>
+            {post.updated && post.updated !== post.date && (
+              <>
+                <span className="mx-3 text-border-strong">/</span>
+                <time dateTime={post.updated} className="tabular-nums">
+                  更新 {formatDate(post.updated)}
+                </time>
+              </>
+            )}
             <span className="mx-3 text-border-strong">/</span>
             <span>{stats.minutes} 分钟</span>
             <span className="mx-3 text-border-strong">/</span>
@@ -107,7 +133,7 @@ export default async function PostPage({ params }: PageProps) {
                 {post.tags.map((tag) => (
                   <Link
                     key={tag}
-                    href={`/blog?tag=${encodeURIComponent(tag)}`}
+                    href={`/tags/${tagSlug(tag)}`}
                     className="tag-chip"
                   >
                     {tag}
@@ -120,13 +146,48 @@ export default async function PostPage({ params }: PageProps) {
 
         {/* Body + sticky TOC */}
         <div className="grid lg:grid-cols-[1fr_220px] gap-12 max-w-5xl mx-auto">
-          <div id="article-body" className="prose max-w-none min-w-0">
-            {content}
+          <div className="min-w-0">
+            <TableOfContents headings={headings} placement="mobile" />
+            <div id="article-body" className="prose max-w-none">
+              {content}
+            </div>
           </div>
           <aside>
-            <TableOfContents headings={headings} />
+            <TableOfContents headings={headings} placement="desktop" />
           </aside>
         </div>
+
+        {/* Related reading (tag-overlap-ranked) */}
+        {related.length > 0 && (
+          <section
+            aria-labelledby="related-heading"
+            className="max-w-3xl mx-auto mt-20 pt-10 border-t hairline"
+          >
+            <h2
+              id="related-heading"
+              className="font-mono text-[11px] uppercase tracking-[0.22em] text-muted-light mb-6"
+            >
+              相关阅读
+            </h2>
+            <ul className="grid sm:grid-cols-2 gap-4">
+              {related.map((p) => (
+                <li key={p.slug}>
+                  <Link href={`/blog/${p.slug}`} className="card p-5 block group h-full">
+                    <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted-light mb-2 tabular-nums">
+                      {p.date}
+                    </p>
+                    <p className="serif font-semibold text-foreground group-hover:text-primary transition-colors leading-snug">
+                      {p.title}
+                    </p>
+                    {p.excerpt && (
+                      <p className="text-sm text-muted mt-2 line-clamp-2">{p.excerpt}</p>
+                    )}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </section>
+        )}
 
         {/* Prev / next nav */}
         {(prev || next) && (

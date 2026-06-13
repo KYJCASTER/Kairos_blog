@@ -1,7 +1,7 @@
 "use client"
 
 import { useTheme } from "next-themes"
-import { Sun, Moon } from "lucide-react"
+import { SunIcon, MoonIcon } from "@/components/icons"
 import { useSyncExternalStore } from "react"
 
 // `useSyncExternalStore` with empty subscribe gives us a stable
@@ -30,7 +30,7 @@ export function ThemeToggle() {
       {/* Both icons share the same cell — cross-fade + slight rotation
           gives a small but human flip moment instead of a hard swap. */}
       <span className="relative block w-[18px] h-[18px]">
-        <Sun
+        <SunIcon
           aria-hidden
           className={[
             "absolute inset-0 w-[18px] h-[18px]",
@@ -40,7 +40,7 @@ export function ThemeToggle() {
               : "opacity-0 -rotate-90 scale-75",
           ].join(" ")}
         />
-        <Moon
+        <MoonIcon
           aria-hidden
           className={[
             "absolute inset-0 w-[18px] h-[18px]",

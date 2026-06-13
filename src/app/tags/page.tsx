@@ -31,7 +31,7 @@ export default function TagsPage() {
             {tags.map((tag) => (
               <li key={tag.name}>
                 <Link
-                  href={`/blog?tag=${encodeURIComponent(tag.name)}`}
+                  href={`/tags/${tag.slug}`}
                   className="group flex items-baseline gap-4 py-4 border-b hairline"
                   style={{ ["--ink" as never]: tag.color } as React.CSSProperties}
                 >

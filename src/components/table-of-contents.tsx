@@ -6,13 +6,19 @@ import type { Heading } from "@/lib/markdown"
 
 interface TableOfContentsProps {
   headings: Heading[]
+  /**
+   * Where this instance is rendered. Each placement only renders its own
+   * markup so the post page can put the mobile drawer above the article body
+   * and the desktop rail in a sticky aside.
+   */
+  placement?: "mobile" | "desktop"
 }
 
 /**
- * Sticky right-rail TOC. Tracks the most-recently-passed heading using
- * IntersectionObserver to highlight the active section. Hidden < lg.
+ * Sticky right-rail / mobile drawer TOC. Tracks the most-recently-passed
+ * heading using IntersectionObserver to highlight the active section.
  */
-export function TableOfContents({ headings }: TableOfContentsProps) {
+export function TableOfContents({ headings, placement = "desktop" }: TableOfContentsProps) {
   const [activeId, setActiveId] = useState<string>("")
 
   useEffect(() => {
@@ -42,6 +48,22 @@ export function TableOfContents({ headings }: TableOfContentsProps) {
 
   if (!headings.length) return null
 
+  if (placement === "mobile") {
+    return (
+      <details className="lg:hidden mb-8 rounded-xl border hairline bg-card/40 px-5 py-3 group">
+        <summary className="cursor-pointer flex items-center justify-between font-mono text-[11px] uppercase tracking-[0.2em] text-muted">
+          <span>本页目录 · {headings.length}</span>
+          <span aria-hidden className="text-muted-light transition-transform duration-300 group-open:rotate-180">
+            ▾
+          </span>
+        </summary>
+        <div className="mt-4">
+          <TocList headings={headings} activeId={activeId} variant="mobile" />
+        </div>
+      </details>
+    )
+  }
+
   return (
     <nav
       aria-label="目录"
@@ -50,26 +72,41 @@ export function TableOfContents({ headings }: TableOfContentsProps) {
       <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted-light mb-3">
         本页目录
       </p>
-      <ul className="space-y-1.5 text-sm border-l hairline">
-        {headings.map((h, i) => {
-          const active = activeId === h.id
-          return (
-            <li key={`${h.id}-${i}`}>
-              <a
-                href={`#${h.id}`}
-                className={cn(
-                  "group/toc relative block py-1 -ml-px border-l-2",
-                  "transition-[color,border-color,padding] duration-500 ease-[cubic-bezier(0.32,0.72,0,1)]",
-                  active
-                    ? "border-primary text-primary font-medium"
-                    : "border-transparent text-muted hover:text-foreground hover:border-border-strong"
-                )}
-                style={{
-                  paddingLeft: `${(h.level - 2) * 0.75 + 0.875}rem`,
-                  fontSize: h.level >= 3 ? "0.8125rem" : undefined,
-                }}
-              >
-                {/* Active dot slides in from the left rail. */}
+      <TocList headings={headings} activeId={activeId} variant="desktop" />
+    </nav>
+  )
+}
+
+function TocList({
+  headings,
+  activeId,
+  variant,
+}: {
+  headings: Heading[]
+  activeId: string
+  variant: "mobile" | "desktop"
+}) {
+  return (
+    <ul className="space-y-1.5 text-sm border-l hairline">
+      {headings.map((h, i) => {
+        const active = activeId === h.id
+        return (
+          <li key={`${h.id}-${i}`}>
+            <a
+              href={`#${h.id}`}
+              className={cn(
+                "group/toc relative block py-1 -ml-px border-l-2",
+                "transition-[color,border-color,padding] duration-500 ease-[cubic-bezier(0.32,0.72,0,1)]",
+                active
+                  ? "border-primary text-primary font-medium"
+                  : "border-transparent text-muted hover:text-foreground hover:border-border-strong"
+              )}
+              style={{
+                paddingLeft: `${(h.level - 2) * 0.75 + 0.875}rem`,
+                fontSize: h.level >= 3 ? "0.8125rem" : undefined,
+              }}
+            >
+              {variant === "desktop" && (
                 <span
                   aria-hidden
                   className={cn(
@@ -78,12 +115,12 @@ export function TableOfContents({ headings }: TableOfContentsProps) {
                     active ? "scale-100 opacity-100" : "scale-0 opacity-0"
                   )}
                 />
-                {h.text}
-              </a>
-            </li>
-          )
-        })}
-      </ul>
-    </nav>
+              )}
+              {h.text}
+            </a>
+          </li>
+        )
+      })}
+    </ul>
   )
 }

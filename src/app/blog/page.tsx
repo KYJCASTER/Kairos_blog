@@ -1,6 +1,6 @@
 import type { Metadata } from "next"
 import { Suspense } from "react"
-import { getSearchIndex, getAllTags } from "@/lib/posts"
+import { getPostList, getAllTags } from "@/lib/posts"
 import { BlogIndex } from "@/components/blog-index"
 
 export const metadata: Metadata = {
@@ -9,7 +9,10 @@ export const metadata: Metadata = {
 }
 
 export default function BlogPage() {
-  const posts = getSearchIndex()
+  // No body content here — the search corpus is built into
+  // public/search-index.json and lazy-fetched on first focus of the search
+  // input. Keeps the initial /blog HTML payload small.
+  const posts = getPostList()
   const tags = getAllTags()
   return (
     // Suspense boundary required because BlogIndex calls useSearchParams().

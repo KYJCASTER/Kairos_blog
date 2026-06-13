@@ -23,7 +23,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   }))
 
   const tagEntries: MetadataRoute.Sitemap = tags.map((t) => ({
-    url: `${site.url}/blog?tag=${encodeURIComponent(t.name)}`,
+    url: `${site.url}/tags/${t.slug}/`,
     lastModified: new Date(),
     changeFrequency: "monthly",
     priority: 0.5,
