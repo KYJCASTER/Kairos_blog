@@ -17,6 +17,30 @@ export function Footer() {
             © {year} &nbsp;·&nbsp; {site.name} &nbsp;·&nbsp; 河南 · 开封
           </p>
 
+          {/* Secondary navigation — quiet links to the smaller pages. */}
+          <nav aria-label="次级导航" className="flex flex-wrap items-center justify-center gap-x-4 gap-y-1 mt-1">
+            <Link
+              href="/archive"
+              className="font-mono text-[11px] uppercase tracking-[0.2em] text-muted-light hover:text-foreground transition-colors"
+            >
+              档案
+            </Link>
+            <span aria-hidden className="text-border-strong">·</span>
+            <Link
+              href="/series"
+              className="font-mono text-[11px] uppercase tracking-[0.2em] text-muted-light hover:text-foreground transition-colors"
+            >
+              系列
+            </Link>
+            <span aria-hidden className="text-border-strong">·</span>
+            <Link
+              href="/curriculum"
+              className="font-mono text-[11px] uppercase tracking-[0.2em] text-muted-light hover:text-foreground transition-colors"
+            >
+              学习足迹
+            </Link>
+          </nav>
+
           <div className="flex items-center gap-1 mt-2">
             <a
               href={site.github}

@@ -4,6 +4,7 @@ slug: "java-learning-notes"
 excerpt: "详细总结 Java 中引用类型相等判断、for-each 循环、浮点数精度问题以及 switch 表达式的使用技巧和最佳实践。"
 date: "2026-03-12"
 tags: ["编程", "Java"]
+series: "Java 学习笔记"
 published: true
 ---
 

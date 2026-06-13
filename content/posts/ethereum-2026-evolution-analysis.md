@@ -4,6 +4,7 @@ slug: "ethereum-2026-evolution-analysis"
 excerpt: "从 2015 创世到 2026 中期的完整脉络：The Merge、Dencun Blob、L2 围绕 Rollup 重新洗牌、Restaking 的嵌套风险，再到下半年 Glamsterdam / Hegotá 升级与 zkEVM 在 L1 级整合的远景路线图。"
 date: "2026-06-12"
 tags: ["金融", "区块链"]
+series: "加密研报 2026"
 published: true
 ---
 

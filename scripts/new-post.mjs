@@ -62,6 +62,7 @@ slug: "${slug}"
 date: "${date}"
 tags: [${tags.map((t) => `"${t}"`).join(", ")}]
 excerpt: ""
+# series: 系列名（可选；同名值会被聚合到 /series/<slug>，从早到晚顺序排列）
 published: false
 ---
 

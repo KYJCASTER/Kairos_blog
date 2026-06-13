@@ -51,7 +51,7 @@ if (!fs.existsSync(postsDir)) {
 // Allowed frontmatter keys — must match src/lib/posts.ts. Throwing here on
 // `prebuild` surfaces typo'd keys (e.g. `tag:` vs `tags:`) before next build.
 const ALLOWED_FRONTMATTER_KEYS = new Set([
-  "title", "slug", "excerpt", "date", "updated", "tags", "cover", "published",
+  "title", "slug", "excerpt", "date", "updated", "tags", "cover", "series", "published",
 ])
 const ISO_DATE = /^\d{4}-\d{2}-\d{2}/
 

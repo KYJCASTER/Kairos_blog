@@ -4,6 +4,7 @@ slug: "why-i-switched-from-java-to-go"
 excerpt: "三个不太理性但都真实的理由：一只名叫 Gopher 的吉祥物、写代码时大脑明显更清晰的体感，以及一个真的拿到 Go 实习的学长。"
 date: "2026-06-10"
 tags: ["随笔", "Go", "Java"]
+series: "Java 学习笔记"
 published: true
 ---
 
