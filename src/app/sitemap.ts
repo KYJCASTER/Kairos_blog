@@ -1,5 +1,5 @@
 import type { MetadataRoute } from "next"
-import { getPublishedPosts, getAllTags } from "@/lib/posts"
+import { getPublishedPosts, getAllTags, getAllSeries } from "@/lib/posts"
 import { site } from "@/lib/site"
 
 export const dynamic = "force-static"
@@ -7,12 +7,16 @@ export const dynamic = "force-static"
 export default function sitemap(): MetadataRoute.Sitemap {
   const posts = getPublishedPosts()
   const tags = getAllTags()
+  const seriesList = getAllSeries()
 
   const staticEntries: MetadataRoute.Sitemap = [
-    { url: `${site.url}/`,      lastModified: new Date(), changeFrequency: "weekly", priority: 1 },
-    { url: `${site.url}/blog`,  lastModified: new Date(), changeFrequency: "weekly", priority: 0.9 },
-    { url: `${site.url}/tags`,  lastModified: new Date(), changeFrequency: "monthly", priority: 0.6 },
-    { url: `${site.url}/about`, lastModified: new Date(), changeFrequency: "yearly",  priority: 0.4 },
+    { url: `${site.url}/`,           lastModified: new Date(), changeFrequency: "weekly",  priority: 1 },
+    { url: `${site.url}/blog`,       lastModified: new Date(), changeFrequency: "weekly",  priority: 0.9 },
+    { url: `${site.url}/archive`,    lastModified: new Date(), changeFrequency: "weekly",  priority: 0.6 },
+    { url: `${site.url}/series`,     lastModified: new Date(), changeFrequency: "monthly", priority: 0.6 },
+    { url: `${site.url}/tags`,       lastModified: new Date(), changeFrequency: "monthly", priority: 0.6 },
+    { url: `${site.url}/curriculum`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.5 },
+    { url: `${site.url}/about`,      lastModified: new Date(), changeFrequency: "yearly",  priority: 0.4 },
   ]
 
   const postEntries: MetadataRoute.Sitemap = posts.map((p) => ({
@@ -29,5 +33,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.5,
   }))
 
-  return [...staticEntries, ...postEntries, ...tagEntries]
+  const seriesEntries: MetadataRoute.Sitemap = seriesList.map((s) => ({
+    url: `${site.url}/series/${s.slug}/`,
+    lastModified: new Date(s.endDate),
+    changeFrequency: "monthly",
+    priority: 0.6,
+  }))
+
+  return [...staticEntries, ...postEntries, ...tagEntries, ...seriesEntries]
 }

@@ -15,6 +15,8 @@ export interface Post {
   updated?: string
   tags: string[]
   cover?: string
+  /** Series name. Posts sharing the same value are grouped under /series/<slug>. */
+  series?: string
   published: boolean
 }
 
@@ -27,11 +29,13 @@ export interface PostSummary {
   updated?: string
   tags: string[]
   cover?: string
+  series?: string
 }
 
 const toSummary = (p: Post): PostSummary => ({
   id: p.id, slug: p.slug, title: p.title, excerpt: p.excerpt,
   date: p.date, updated: p.updated, tags: p.tags, cover: p.cover,
+  series: p.series,
 })
 
 /** Generate a short excerpt from the body when frontmatter omits it. */
@@ -51,8 +55,13 @@ let postsCache: Post[] | null = null
 // Allowed frontmatter keys. Anything outside this list is a typo (e.g.
 // `tag:` instead of `tags:`) — we throw at build time rather than silently
 // dropping the value.
+//
+// IMPORTANT: this list is mirrored in scripts/build-search-index.mjs
+// (which runs at `prebuild` time, before next sees the project). Keep both
+// in sync — adding a key here without updating that file means a typo'd
+// frontmatter value will pass `prebuild` and only fail at build.
 const ALLOWED_FRONTMATTER_KEYS = new Set([
-  "title", "slug", "excerpt", "date", "updated", "tags", "cover", "published",
+  "title", "slug", "excerpt", "date", "updated", "tags", "cover", "series", "published",
 ])
 
 const ISO_DATE = /^\d{4}-\d{2}-\d{2}/
@@ -78,6 +87,9 @@ function validateFrontmatter(fileName: string, data: Record<string, unknown>): v
   }
   if (data.cover !== undefined && typeof data.cover !== "string") {
     throw new Error(`[posts] ${fileName}: \`cover\` must be a string`)
+  }
+  if (data.series !== undefined && (typeof data.series !== "string" || data.series.trim() === "")) {
+    throw new Error(`[posts] ${fileName}: \`series\` must be a non-empty string when set`)
   }
   if (data.published !== undefined && typeof data.published !== "boolean") {
     throw new Error(`[posts] ${fileName}: \`published\` must be true or false`)
@@ -134,6 +146,7 @@ export function getAllPosts(): Post[] {
         updated: typeof data.updated === "string" ? data.updated : undefined,
         tags: Array.isArray(data.tags) ? (data.tags as string[]) : [],
         cover: typeof data.cover === "string" ? data.cover : undefined,
+        series: typeof data.series === "string" ? data.series : undefined,
         published: data.published !== false,
       }
     })
@@ -185,8 +198,12 @@ export function tagColor(name: string): string {
   return TAG_PALETTE[hashIndex(name, TAG_PALETTE.length)]
 }
 
-export const tagSlug = (name: string) =>
+/** Stable URL-safe slug shared by tags and series. */
+const slugify = (name: string) =>
   encodeURIComponent(name.toLowerCase().replace(/\s+/g, "-"))
+
+export const tagSlug = slugify
+export const seriesSlug = slugify
 
 export function getAllTags(): TagInfo[] {
   const counts: Record<string, number> = {}
@@ -247,6 +264,87 @@ export function getPostsByTagSlug(slug: string): { tag: TagInfo; posts: PostSumm
     .filter((p) => p.tags.includes(tag.name))
     .map(toSummary)
   return { tag, posts }
+}
+
+// ────────────────────────────────────────────────────────────────────────
+// Series — multi-part articles grouped by `series:` frontmatter.
+// Series are read-from-the-start by design, so series-internal listings
+// are sorted ASCENDING (oldest → newest), opposite of the global index.
+// ────────────────────────────────────────────────────────────────────────
+
+export interface SeriesInfo {
+  name: string
+  slug: string
+  count: number
+  /** ASCENDING by date — series are read in publish order. */
+  posts: PostSummary[]
+  /** Convenience accessors for the series index page. */
+  startDate: string
+  endDate: string
+  latest: PostSummary
+}
+
+function buildSeriesInfo(name: string, posts: Post[]): SeriesInfo {
+  // posts arrive in DESC (the cache order). Sort ASC for series reading.
+  const ascending = [...posts].sort((a, b) => (a.date < b.date ? -1 : 1)).map(toSummary)
+  return {
+    name,
+    slug: seriesSlug(name),
+    count: ascending.length,
+    posts: ascending,
+    startDate: ascending[0].date,
+    endDate: ascending[ascending.length - 1].date,
+    latest: ascending[ascending.length - 1],
+  }
+}
+
+export function getAllSeries(): SeriesInfo[] {
+  const buckets = new Map<string, Post[]>()
+  for (const p of getPublishedPosts()) {
+    if (!p.series) continue
+    const arr = buckets.get(p.series) ?? []
+    arr.push(p)
+    buckets.set(p.series, arr)
+  }
+  return Array.from(buckets.entries())
+    .map(([name, posts]) => buildSeriesInfo(name, posts))
+    // List page: most-recently-updated series first.
+    .sort((a, b) => (a.endDate < b.endDate ? 1 : -1))
+}
+
+export function getSeriesBySlug(slug: string): SeriesInfo | null {
+  return getAllSeries().find((s) => s.slug === slug) ?? null
+}
+
+/**
+ * Series context for a single post.
+ *   - `index`: 0-based position in the series (0..count-1)
+ *   - `prev` : earlier post in the series (by date) or null
+ *   - `next` : later post in the series (by date) or null
+ *
+ * Note "prev/next" here is semantic to the series reader: prev = earlier,
+ * next = later. This is the OPPOSITE of `getAdjacentPosts` (where prev =
+ * newer in the global feed). Keep the asymmetry — both meanings are
+ * correct in their own context.
+ */
+export function getSeriesContext(postSlug: string): {
+  series: SeriesInfo
+  index: number
+  prev: PostSummary | null
+  next: PostSummary | null
+} | null {
+  const post = getPostBySlug(postSlug)
+  if (!post || !post.series) return null
+  const series = getSeriesBySlug(seriesSlug(post.series))
+  if (!series) return null
+  const index = series.posts.findIndex((p) => p.slug === postSlug)
+  if (index === -1) return null
+  return {
+    series,
+    index,
+    prev: index > 0 ? series.posts[index - 1] : null,
+    next: index < series.posts.length - 1 ? series.posts[index + 1] : null,
+  }
 }
 
 /**

@@ -4,6 +4,7 @@ slug: "bitcoin-2026-mid-year-analysis"
 excerpt: "从 2009 创世到 2026 年中期 60K 关口的全景复盘——四次减半、ETF 资金潮汐、矿工算力向 AI 大迁徙、GENIUS / CLARITY / MiCA 三地监管收网，以及 BitVM Rollup 给比特币带来的智能合约时代。"
 date: "2026-06-12"
 tags: ["金融", "区块链"]
+series: "加密研报 2026"
 published: true
 ---
 

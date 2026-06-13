@@ -3,7 +3,7 @@ import Link from "next/link"
 import { notFound } from "next/navigation"
 import { ArrowLeft, ArrowRight } from "lucide-react"
 
-import { getPublishedPosts, getPostBySlug, getAdjacentPosts, getRelatedPosts, tagSlug } from "@/lib/posts"
+import { getPublishedPosts, getPostBySlug, getAdjacentPosts, getRelatedPosts, getSeriesContext, tagSlug } from "@/lib/posts"
 import { renderMDX, extractHeadings } from "@/lib/markdown"
 import { computeReadingStats } from "@/lib/reading-time"
 import { formatDate } from "@/lib/utils"
@@ -11,6 +11,9 @@ import { TableOfContents } from "@/components/table-of-contents"
 import { ReadingProgress } from "@/components/reading-progress"
 import { CodeCopyButtons } from "@/components/code-copy-buttons"
 import { ArticleJsonLd, BreadcrumbJsonLd } from "@/components/json-ld"
+import { CoverPanel } from "@/components/post-card"
+import { Comments } from "@/components/comments"
+import { SeriesBanner } from "@/components/series-banner"
 import { site } from "@/lib/site"
 
 interface PageProps {
@@ -69,12 +72,13 @@ export default async function PostPage({ params }: PageProps) {
   const post = getPostBySlug(slug)
   if (!post) notFound()
 
-  const [content, headings, { prev, next }, related, stats] = [
+  const [content, headings, { prev, next }, related, stats, seriesContext] = [
     await renderMDX(post.content, post.title),
     extractHeadings(post.content, post.title),
     getAdjacentPosts(post.slug),
     getRelatedPosts(post.slug, 3),
     computeReadingStats(post.content),
+    getSeriesContext(post.slug),
   ]
 
   return (
@@ -96,52 +100,70 @@ export default async function PostPage({ params }: PageProps) {
           </Link>
         </div>
 
+        {seriesContext && (
+          <SeriesBanner
+            series={seriesContext.series}
+            index={seriesContext.index}
+            prev={seriesContext.prev}
+            next={seriesContext.next}
+          />
+        )}
+
         {/* Header */}
-        <header className="max-w-3xl mx-auto mb-12 text-center">
-          <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-muted-light mb-5">
-            <time dateTime={post.date} className="tabular-nums">
-              {formatDate(post.date)}
-            </time>
-            {post.updated && post.updated !== post.date && (
-              <>
-                <span className="mx-3 text-border-strong">/</span>
-                <time dateTime={post.updated} className="tabular-nums">
-                  更新 {formatDate(post.updated)}
+        <header className="max-w-5xl mx-auto mb-14">
+          <div className="grid lg:grid-cols-[minmax(0,1fr)_320px] gap-8 lg:gap-12 items-center">
+            <div className="text-center lg:text-left">
+              <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-muted-light mb-5">
+                <time dateTime={post.date} className="tabular-nums">
+                  {formatDate(post.date)}
                 </time>
-              </>
-            )}
-            <span className="mx-3 text-border-strong">/</span>
-            <span>{stats.minutes} 分钟</span>
-            <span className="mx-3 text-border-strong">/</span>
-            <span>{stats.totalWords.toLocaleString()} 字</span>
-          </p>
+                {post.updated && post.updated !== post.date && (
+                  <>
+                    <span className="mx-3 text-border-strong">/</span>
+                    <time dateTime={post.updated} className="tabular-nums">
+                      更新 {formatDate(post.updated)}
+                    </time>
+                  </>
+                )}
+                <span className="mx-3 text-border-strong">/</span>
+                <span>{stats.minutes} 分钟</span>
+                <span className="mx-3 text-border-strong">/</span>
+                <span>{stats.totalWords.toLocaleString()} 字</span>
+              </p>
 
-          <h1 className="serif text-4xl sm:text-5xl font-semibold tracking-tight leading-[1.12] text-foreground mb-6">
-            {post.title}
-          </h1>
+              <h1 className="serif text-4xl sm:text-5xl lg:text-6xl font-semibold tracking-tight leading-[1.08] text-foreground mb-6">
+                {post.title}
+              </h1>
 
-          {post.excerpt && (
-            <p className="serif italic text-lg text-muted leading-relaxed max-w-2xl mx-auto">
-              {post.excerpt}
-            </p>
-          )}
+              {post.excerpt && (
+                <p className="serif italic text-lg text-muted leading-relaxed max-w-2xl mx-auto lg:mx-0">
+                  {post.excerpt}
+                </p>
+              )}
 
-          {post.tags.length > 0 && (
-            <>
-              <span aria-hidden className="block w-10 h-px bg-border-strong/50 mx-auto mt-8 mb-5" />
-              <div className="flex flex-wrap justify-center gap-2">
-                {post.tags.map((tag) => (
-                  <Link
-                    key={tag}
-                    href={`/tags/${tagSlug(tag)}`}
-                    className="tag-chip"
-                  >
-                    {tag}
-                  </Link>
-                ))}
-              </div>
-            </>
-          )}
+              {post.tags.length > 0 && (
+                <>
+                  <span aria-hidden className="block w-10 h-px bg-border-strong/50 mx-auto lg:mx-0 mt-8 mb-5" />
+                  <div className="flex flex-wrap justify-center lg:justify-start gap-2">
+                    {post.tags.map((tag) => (
+                      <Link
+                        key={tag}
+                        href={`/tags/${tagSlug(tag)}`}
+                        className="tag-chip"
+                      >
+                        {tag}
+                      </Link>
+                    ))}
+                  </div>
+                </>
+              )}
+            </div>
+
+            <div className="cover-frame group relative hidden sm:block max-w-sm mx-auto lg:mx-0 w-full aspect-[4/5] overflow-hidden">
+              <CoverPanel post={post} monogramSize="xl" />
+              <div className="absolute inset-0 bg-gradient-to-tr from-black/5 via-transparent to-primary/10 pointer-events-none" />
+            </div>
+          </div>
         </header>
 
         {/* Body + sticky TOC */}
@@ -227,6 +249,8 @@ export default async function PostPage({ params }: PageProps) {
             )}
           </nav>
         )}
+
+        <Comments />
       </article>
     </>
   )

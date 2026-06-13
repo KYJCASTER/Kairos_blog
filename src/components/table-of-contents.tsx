@@ -111,7 +111,7 @@ function TocList({
                   aria-hidden
                   className={cn(
                     "absolute -left-[5px] top-1/2 -translate-y-1/2 w-2 h-2 rounded-full bg-primary",
-                    "transition-all duration-500 ease-[cubic-bezier(0.34,1.36,0.64,1)]",
+                    "transition-all duration-500 ease-[cubic-bezier(0.32,0.72,0,1)]",
                     active ? "scale-100 opacity-100" : "scale-0 opacity-0"
                   )}
                 />

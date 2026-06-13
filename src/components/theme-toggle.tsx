@@ -34,7 +34,7 @@ export function ThemeToggle() {
           aria-hidden
           className={[
             "absolute inset-0 w-[18px] h-[18px]",
-            "transition-all duration-500 ease-[cubic-bezier(0.34,1.36,0.64,1)]",
+            "transition-all duration-500 ease-[cubic-bezier(0.32,0.72,0,1)]",
             hydrated && isDark
               ? "opacity-100 rotate-0 scale-100"
               : "opacity-0 -rotate-90 scale-75",
@@ -44,7 +44,7 @@ export function ThemeToggle() {
           aria-hidden
           className={[
             "absolute inset-0 w-[18px] h-[18px]",
-            "transition-all duration-500 ease-[cubic-bezier(0.34,1.36,0.64,1)]",
+            "transition-all duration-500 ease-[cubic-bezier(0.32,0.72,0,1)]",
             hydrated && !isDark
               ? "opacity-100 rotate-0 scale-100"
               : "opacity-0 rotate-90 scale-75",

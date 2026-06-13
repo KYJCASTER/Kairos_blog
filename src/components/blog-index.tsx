@@ -2,11 +2,12 @@
 
 import { useEffect, useMemo, useState, useRef, useDeferredValue, useCallback } from "react"
 import { useSearchParams, useRouter } from "next/navigation"
-import Link from "next/link"
 import type { IFuseOptions } from "fuse.js"
-import { Reveal } from "@/components/reveal"
-import { SearchIcon, XIcon, ArrowUpRightIcon } from "@/components/icons"
+
+import { SearchIcon, XIcon } from "@/components/icons"
+import { PostArchiveList } from "@/components/post-archive-list"
 import { site } from "@/lib/site"
+import Link from "next/link"
 
 // Lightweight item rendered in the year-grouped list. No body content —
 // the search corpus is fetched on demand from public/search-index.json.
@@ -164,6 +165,10 @@ export function BlogIndex({ posts, allTags }: BlogIndexProps) {
   }, [filtered])
 
   const hasFilter = Boolean(query || activeTag)
+  const clearFilters = () => {
+    setQuery("")
+    setActiveTag(null)
+  }
 
   return (
     <main className="min-h-screen pt-28 pb-20">
@@ -174,8 +179,17 @@ export function BlogIndex({ posts, allTags }: BlogIndexProps) {
             文章 · {posts.length} 篇
           </p>
           <h1 className="serif text-4xl sm:text-5xl font-semibold text-foreground tracking-tight">
-            所有书写
+            所有文章
           </h1>
+          <p className="text-sm text-muted mt-4">
+            想看更紧凑的全列表？
+            <Link
+              href="/archive"
+              className="ml-1 text-foreground hover:text-primary underline-offset-4 hover:underline transition-colors"
+            >
+              翻档案 →
+            </Link>
+          </p>
         </div>
       </section>
 
@@ -245,31 +259,52 @@ export function BlogIndex({ posts, allTags }: BlogIndexProps) {
           >
             {hasFilter ? `${filtered.length} 篇匹配` : `共 ${posts.length} 篇文章`}
           </p>
+          {hasFilter && (
+            <div className="filter-summary mb-8">
+              <div>
+                <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-muted-light mb-1">
+                  筛选中 · {filtered.length} / {posts.length} 篇
+                </p>
+                <div className="flex flex-wrap gap-2">
+                  {query && <span className="tag-chip tag-chip-static">关键词：{query}</span>}
+                  {activeTag && <span className="tag-chip tag-chip-static">标签：{activeTag}</span>}
+                </div>
+              </div>
+              <button onClick={clearFilters} className="btn-secondary shrink-0">
+                清除筛选
+              </button>
+            </div>
+          )}
+
           {filtered.length === 0 ? (
             <div className="card p-12 text-center">
               <p className="serif text-xl text-muted mb-2">没有匹配的文章</p>
               <p className="text-sm text-muted-light">
                 试试换个关键词，或者{" "}
-                <button
-                  onClick={() => {
-                    setQuery("")
-                    setActiveTag(null)
-                  }}
-                  className="text-primary hover:underline"
-                >
+                <button onClick={clearFilters} className="text-primary hover:underline">
                   清除筛选
                 </button>
               </p>
             </div>
           ) : (
-            // When the user has typed/filtered, year grouping just feels noisy.
             <div className="space-y-12">
               {hasFilter ? (
-                <YearList posts={filtered} />
+                <section>
+                  <div className="flex items-baseline gap-4 mb-4">
+                    <h2 className="serif text-3xl font-semibold text-muted-light tabular-nums">
+                      Results
+                    </h2>
+                    <span className="text-xs text-muted-light font-mono">
+                      {filtered.length} 篇
+                    </span>
+                    <span className="flex-1 h-px bg-border" />
+                  </div>
+                  <PostArchiveList posts={filtered} />
+                </section>
               ) : (
                 groupedByYear.map(([year, items]) => (
-                  <div key={year}>
-                    <div className="flex items-baseline gap-4 mb-2">
+                  <section key={year}>
+                    <div className="flex items-baseline gap-4 mb-4">
                       <h2 className="serif text-3xl font-semibold text-muted-light tabular-nums">
                         {year}
                       </h2>
@@ -278,8 +313,8 @@ export function BlogIndex({ posts, allTags }: BlogIndexProps) {
                       </span>
                       <span className="flex-1 h-px bg-border" />
                     </div>
-                    <YearList posts={items} />
-                  </div>
+                    <PostArchiveList posts={items} />
+                  </section>
                 ))
               )}
             </div>
@@ -287,40 +322,5 @@ export function BlogIndex({ posts, allTags }: BlogIndexProps) {
         </div>
       </section>
     </main>
-  )
-}
-
-function YearList({ posts }: { posts: ListItem[] }) {
-  return (
-    <ul className="divide-y hairline">
-      {posts.map((post, i) => (
-        <li key={post.slug}>
-          <Reveal delay={Math.min(i, 6) * 70}>
-            <Link
-              href={`/blog/${post.slug}`}
-              className="group grid sm:grid-cols-[120px_1fr_auto] gap-2 sm:gap-8 py-7 items-baseline"
-            >
-              <time className="font-mono text-[11px] text-muted-light tabular-nums tracking-wider uppercase">
-                {post.date.slice(5).replace("-", " / ")}
-              </time>
-              <div className="min-w-0">
-                <h3 className="serif text-xl sm:text-2xl font-semibold text-foreground group-hover:text-primary transition-colors duration-300 leading-snug">
-                  {post.title}
-                </h3>
-                <p className="text-sm text-muted mt-2 line-clamp-2">{post.excerpt}</p>
-                {post.tags.length > 0 && (
-                  <div className="flex flex-wrap gap-1.5 mt-3">
-                    {post.tags.map((t) => (
-                      <span key={t} className="tag-chip">{t}</span>
-                    ))}
-                  </div>
-                )}
-              </div>
-              <ArrowUpRightIcon className="hidden sm:block w-5 h-5 text-muted-light group-hover:text-primary group-hover:-translate-y-1 group-hover:translate-x-1 transition-all duration-500 ease-[cubic-bezier(0.34,1.36,0.64,1)]" />
-            </Link>
-          </Reveal>
-        </li>
-      ))}
-    </ul>
   )
 }

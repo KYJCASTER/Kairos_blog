@@ -57,8 +57,8 @@ export function BackToTop() {
         "border hairline-strong shadow-[var(--shadow-md)]",
         "flex items-center justify-center",
         "transition-[opacity,transform,background,color] duration-500 ease-[cubic-bezier(0.32,0.72,0,1)]",
-        "hover:bg-foreground hover:text-background hover:scale-[1.06]",
-        "active:scale-95",
+        "hover:bg-foreground hover:text-background hover:scale-[1.025]",
+        "active:scale-[0.985]",
         shown
           ? "opacity-100 translate-y-0 pointer-events-auto"
           : "opacity-0 translate-y-3 pointer-events-none",

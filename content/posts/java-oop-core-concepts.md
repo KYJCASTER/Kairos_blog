@@ -4,6 +4,7 @@ slug: "java-oop-core-concepts"
 excerpt: "深入理解 Java 面向对象编程的核心概念：多态与覆写的关系、抽象类的权限修饰符、以及 Java 8 引入的 default 方法。"
 date: "2026-03-20"
 tags: ["编程", "Java"]
+series: "Java 学习笔记"
 published: true
 ---
 

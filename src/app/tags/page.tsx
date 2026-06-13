@@ -27,30 +27,22 @@ export default function TagsPage() {
             <p className="serif text-xl text-muted">暂无标签</p>
           </div>
         ) : (
-          <ul className="grid sm:grid-cols-2 lg:grid-cols-3 gap-x-10 gap-y-2">
+          <ul className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {tags.map((tag) => (
               <li key={tag.name}>
                 <Link
                   href={`/tags/${tag.slug}`}
-                  className="group flex items-baseline gap-4 py-4 border-b hairline"
+                  className="tag-card group"
                   style={{ ["--ink" as never]: tag.color } as React.CSSProperties}
                 >
-                  {/* italic-serif "#" reads like a margin mark on a page */}
-                  <span
-                    aria-hidden
-                    className="serif italic text-3xl leading-none font-light shrink-0 transition-colors duration-300"
-                    style={{ color: "var(--ink)", opacity: 0.7 }}
-                  >
-                    #
+                  <span aria-hidden className="tag-card-mark serif italic">#</span>
+                  <span className="font-mono text-[11px] uppercase tracking-[0.2em] text-muted-light">
+                    {tag.count.toString().padStart(2, "0")} 篇文章
                   </span>
-                  <div className="flex-1 min-w-0 flex items-baseline justify-between gap-3">
-                    <span className="serif text-lg font-medium text-foreground group-hover:text-primary transition-colors duration-300 truncate">
-                      {tag.name}
-                    </span>
-                    <span className="font-mono text-xs text-muted-light tabular-nums shrink-0">
-                      {tag.count.toString().padStart(2, "0")}
-                    </span>
-                  </div>
+                  <span className="serif text-2xl font-semibold text-foreground group-hover:text-primary transition-colors duration-300 mt-5">
+                    {tag.name}
+                  </span>
+                  <span className="mt-6 h-px w-16 bg-[var(--ink)] opacity-50 transition-all duration-500 group-hover:w-24" />
                 </Link>
               </li>
             ))}

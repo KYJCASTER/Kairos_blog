@@ -11,6 +11,7 @@ import { site } from "@/lib/site"
 const navItems = [
   { href: "/", label: "首页" },
   { href: "/blog", label: "文章" },
+  { href: "/series", label: "系列" },
   { href: "/tags", label: "标签" },
   { href: "/about", label: "关于" },
 ] as const
@@ -46,7 +47,7 @@ export function Navbar() {
             className="flex items-center gap-2.5 group shrink-0"
             aria-label={`${site.name} 首页`}
           >
-            <span className="w-8 h-8 rounded-md bg-foreground text-background flex items-center justify-center font-serif italic font-bold text-base transition-all duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:bg-primary group-hover:scale-[1.06]">
+            <span className="w-8 h-8 rounded-md bg-foreground text-background flex items-center justify-center font-serif italic font-bold text-base transition-all duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:bg-primary group-hover:scale-[1.025]">
               K
             </span>
             <span className="hidden sm:inline serif text-lg font-semibold text-foreground transition-colors duration-300 group-hover:text-primary">
@@ -79,7 +80,7 @@ export function Navbar() {
                         aria-hidden
                         className={cn(
                           "pointer-events-none absolute left-3 right-3 -bottom-0.5 h-0.5 rounded-full bg-primary origin-center",
-                          "transition-transform duration-500 ease-[cubic-bezier(0.34,1.36,0.64,1)]",
+                          "transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)]",
                           active
                             ? "scale-x-100"
                             : "scale-x-0 group-hover/nav:scale-x-50 group-hover/nav:opacity-40"
