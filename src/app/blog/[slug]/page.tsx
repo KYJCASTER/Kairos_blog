@@ -9,7 +9,10 @@ import { computeReadingStats } from "@/lib/reading-time"
 import { formatDate } from "@/lib/utils"
 import { TableOfContents } from "@/components/table-of-contents"
 import { ReadingProgress } from "@/components/reading-progress"
+import { ReadingPercent } from "@/components/reading-percent"
 import { CodeCopyButtons } from "@/components/code-copy-buttons"
+import { HeadingAnchors } from "@/components/heading-anchors"
+import { ArticleShortcuts } from "@/components/article-shortcuts"
 import { ArticleJsonLd, BreadcrumbJsonLd } from "@/components/json-ld"
 import { CoverPanel } from "@/components/post-card"
 import { Comments } from "@/components/comments"
@@ -84,7 +87,10 @@ export default async function PostPage({ params }: PageProps) {
   return (
     <>
       <ReadingProgress targetSelector="#article-body" />
+      <ReadingPercent targetSelector="#article-body" />
       <CodeCopyButtons />
+      <HeadingAnchors />
+      <ArticleShortcuts />
       <ArticleJsonLd post={post} wordCount={stats.totalWords} />
       <BreadcrumbJsonLd post={post} />
 
@@ -166,11 +172,13 @@ export default async function PostPage({ params }: PageProps) {
           </div>
         </header>
 
-        {/* Body + sticky TOC */}
-        <div className="grid lg:grid-cols-[1fr_220px] gap-12 max-w-5xl mx-auto">
+        {/* Body + sticky TOC. Body track is bounded by .prose's 68ch measure
+            (see globals.css), so on wide viewports the visual column stays
+            comfortably narrow even though the grid track has slack. */}
+        <div className="grid lg:grid-cols-[minmax(0,1fr)_220px] gap-12 max-w-5xl mx-auto">
           <div className="min-w-0">
             <TableOfContents headings={headings} placement="mobile" />
-            <div id="article-body" className="prose max-w-none">
+            <div id="article-body" className="prose">
               {content}
             </div>
           </div>

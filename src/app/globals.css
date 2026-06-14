@@ -623,6 +623,29 @@ html .shiki, html .shiki span { color: var(--shiki-light); background-color: tra
   font-size: 1.0625rem;
   line-height: 1.78;
   color: var(--foreground);
+  /* Long-form readability: short measure (~32 CJK glyphs / ~70 latin chars),
+     graceful wrapping for the last line, and overflow protection for any
+     stray super-long URL or code identifier. The `max-width` only kicks in
+     when the parent grid track is wider than 68ch — under tablet/mobile the
+     parent track wins, which is what we want. */
+  max-width: 68ch;
+  text-wrap: pretty;
+  hanging-punctuation: allow-end;
+  word-break: normal;
+  overflow-wrap: anywhere;
+}
+/* Headings get balanced wrapping so the last line never carries a single
+   character or English word alone. */
+.prose h1, .prose h2, .prose h3, .prose h4 {
+  text-wrap: balance;
+}
+/* CJK metrics: in zh-CN context use proportional alternate widths so
+   half-width punctuation sits tight against glyphs; the latin paragraphs
+   inside this scope still render with their own kerning since `palt`
+   only affects the CJK code points. */
+:lang(zh) .prose,
+:lang(zh-CN) .prose {
+  font-feature-settings: "palt", "ss01", "cv11";
 }
 
 .prose h1, .prose h2, .prose h3, .prose h4 {
@@ -686,21 +709,53 @@ html .shiki, html .shiki span { color: var(--shiki-light); background-color: tra
 .prose li { margin: 0.4em 0; }
 .prose li::marker { color: var(--primary); }
 
-/* Heading anchor (appears on hover, hidden on narrow viewports) */
+/* Heading anchor button is injected at runtime by <HeadingAnchors /> as a
+   `.heading-anchor` element placed at the end of each h2/h3/h4. CSS handles
+   layout + hover affordance; the button itself owns its own focus styles. */
 .prose h2, .prose h3, .prose h4 { position: relative; }
-@media (min-width: 1024px) {
-  .prose h2::before, .prose h3::before, .prose h4::before {
-    content: "#";
-    position: absolute;
-    left: -1.1em;
-    color: var(--muted-light);
-    font-weight: 400;
-    opacity: 0;
-    transition: opacity var(--t-fast);
-  }
-  .prose h2:hover::before,
-  .prose h3:hover::before,
-  .prose h4:hover::before { opacity: 1; }
+.heading-anchor {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.4em;
+  height: 1.4em;
+  margin-left: 0.4em;
+  vertical-align: 0.05em;
+  color: var(--muted-light);
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: var(--radius-sm);
+  font-family: var(--font-mono);
+  font-size: 0.7em;
+  font-weight: 500;
+  line-height: 1;
+  cursor: pointer;
+  /* On touch / narrow viewports the anchor stays softly visible — readers
+     can't hover, so hiding it completely would mean "no way to grab a
+     deep link from a phone". Desktop fades it in on heading hover. */
+  opacity: 0.35;
+  transition:
+    opacity var(--t-base),
+    color var(--t-base),
+    background var(--t-base),
+    border-color var(--t-base);
+}
+.heading-anchor:hover {
+  color: var(--primary);
+  background: var(--primary-50);
+  border-color: var(--border);
+  opacity: 1;
+}
+.heading-anchor[data-copied="true"] {
+  color: var(--success);
+  opacity: 1;
+}
+@media (hover: hover) and (pointer: fine) {
+  .heading-anchor { opacity: 0; }
+  .prose h2:hover .heading-anchor,
+  .prose h3:hover .heading-anchor,
+  .prose h4:hover .heading-anchor,
+  .heading-anchor:focus-visible { opacity: 0.85; }
 }
 
 /* ============================================
@@ -840,6 +895,139 @@ html .shiki, html .shiki span { color: var(--shiki-light); background-color: tra
   transform: scaleX(var(--progress, 0));
   z-index: 60;
   transition: transform 60ms linear;
+  /* A breath of warmth so the bar reads against the warm sand background
+     without needing a higher chroma. */
+  box-shadow: 0 1px 2px color-mix(in oklab, var(--primary) 22%, transparent);
+}
+
+/* Tiny mono percentage indicator that lives in the top-right of the
+   viewport on article pages only. Sits below the navbar's z-50, above
+   ordinary content. */
+.reading-percent {
+  position: fixed;
+  top: 1.25rem;
+  right: 1.25rem;
+  z-index: 55;
+  padding: 0.2rem 0.55rem;
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  font-variant-numeric: tabular-nums;
+  color: var(--muted-light);
+  background: color-mix(in oklab, var(--card) 78%, transparent);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  pointer-events: none;
+  opacity: 0;
+  transform: translateY(-4px);
+  transition: opacity 320ms var(--ease-soft), transform 320ms var(--ease-soft);
+}
+.reading-percent[data-shown="true"] {
+  opacity: 1;
+  transform: translateY(0);
+}
+@media (max-width: 767px) {
+  /* On phones we already show the bar — the number competes with the
+     navbar hamburger area, so hide it. */
+  .reading-percent { display: none; }
+}
+
+/* ============================================
+   TOC — chapter progress map
+   Each `<li data-chapter>` owns a CSS variable `--chapter-progress`
+   (0 → 1) updated by the TOC component on scroll. The fill is drawn
+   on the left rail with a hard-stop linear gradient so the painted
+   length matches the variable exactly.
+   ============================================ */
+
+.toc-rail { position: relative; }
+.toc-chapter {
+  position: relative;
+  /* Left rail: 2px wide, runs through the chapter row. */
+  border-left: 2px solid transparent;
+  background:
+    linear-gradient(
+      to bottom,
+      var(--primary) 0,
+      var(--primary) calc(var(--chapter-progress, 0) * 100%),
+      transparent calc(var(--chapter-progress, 0) * 100%),
+      transparent 100%
+    ) left center / 2px 100% no-repeat,
+    linear-gradient(
+      to bottom,
+      color-mix(in oklab, var(--border-strong) 60%, transparent) 0,
+      color-mix(in oklab, var(--border-strong) 60%, transparent) 100%
+    ) left center / 2px 100% no-repeat;
+  transition: background-size 140ms linear;
+}
+.toc-chapter[data-state="done"] {
+  background:
+    linear-gradient(to bottom,
+      color-mix(in oklab, var(--primary) 70%, var(--border-strong)) 0,
+      color-mix(in oklab, var(--primary) 70%, var(--border-strong)) 100%)
+    left center / 2px 100% no-repeat;
+}
+.toc-chapter-link {
+  display: block;
+  padding: 0.4rem 0 0.4rem 0.875rem;
+  color: var(--muted);
+  font-size: 0.8125rem;
+  line-height: 1.4;
+  transition: color var(--t-fast);
+}
+.toc-chapter-link:hover { color: var(--foreground); }
+.toc-chapter[data-state="active"] .toc-chapter-link {
+  color: var(--primary);
+  font-weight: 500;
+}
+.toc-chapter[data-state="done"] .toc-chapter-link {
+  color: var(--muted);
+}
+/* Sub-headings (h3/h4): a discreet horizontal tick + small label that
+   only deepens when the parent chapter is active. */
+.toc-sub {
+  list-style: none;
+  margin: 0 0 0.25rem;
+  padding: 0 0 0 1.4rem;
+  border-left: 1px dashed transparent;
+}
+.toc-chapter[data-state="active"] .toc-sub {
+  border-left-color: color-mix(in oklab, var(--primary) 40%, transparent);
+}
+.toc-sub-link {
+  display: block;
+  padding: 0.2rem 0;
+  color: var(--muted-light);
+  font-size: 0.75rem;
+  line-height: 1.35;
+  transition: color var(--t-fast);
+}
+.toc-sub-link:hover { color: var(--foreground); }
+.toc-sub-link[data-active="true"] {
+  color: var(--primary);
+}
+.toc-sub-link[data-level="4"] { padding-left: 0.75rem; }
+
+/* Mobile drawer overall progress bar */
+.toc-overall-bar {
+  display: block;
+  width: 100%;
+  height: 2px;
+  margin-top: 0.6rem;
+  background: color-mix(in oklab, var(--border-strong) 50%, transparent);
+  border-radius: 999px;
+  overflow: hidden;
+}
+.toc-overall-bar > i {
+  display: block;
+  height: 100%;
+  background: linear-gradient(90deg, var(--primary), var(--accent-light));
+  transform-origin: 0 50%;
+  transform: scaleX(var(--overall, 0));
+  transition: transform 120ms linear;
 }
 
 /* ============================================

@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "node scripts/build-search-index.mjs && next dev",
     "prebuild": "node scripts/build-search-index.mjs",
-    "build": "next build",
+    "build": "cross-env NODE_ENV=production next build",
     "start": "next start",
     "lint": "eslint",
     "typecheck": "tsc --noEmit",
@@ -33,6 +33,7 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "cross-env": "^10.1.0",
     "eslint": "^9",
     "eslint-config-next": "16.2.2",
     "tailwindcss": "^4",
