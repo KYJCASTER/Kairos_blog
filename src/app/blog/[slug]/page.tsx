@@ -4,7 +4,7 @@ import { notFound } from "next/navigation"
 import { ArrowLeft, ArrowRight } from "lucide-react"
 
 import { getPublishedPosts, getPostBySlug, getAdjacentPosts, getRelatedPosts, getSeriesContext, tagSlug } from "@/lib/posts"
-import { renderMDX, renderPlainMarkdown, extractHeadings, PLAIN_MARKDOWN_SLUGS } from "@/lib/markdown"
+import { renderMDX, extractHeadings } from "@/lib/markdown"
 import { computeReadingStats } from "@/lib/reading-time"
 import { formatDate } from "@/lib/utils"
 import { TableOfContents } from "@/components/table-of-contents"
@@ -75,10 +75,8 @@ export default async function PostPage({ params }: PageProps) {
   const post = getPostBySlug(slug)
   if (!post) notFound()
 
-  const usePlainMarkdown = PLAIN_MARKDOWN_SLUGS.has(post.slug)
-  const [renderedMdx, plainHtml, headings, { prev, next }, related, stats, seriesContext] = [
-    usePlainMarkdown ? null : await renderMDX(post.content, post.title),
-    usePlainMarkdown ? await renderPlainMarkdown(post.content, post.title) : null,
+  const [content, headings, { prev, next }, related, stats, seriesContext] = [
+    await renderMDX(post.content, post.title),
     extractHeadings(post.content, post.title),
     getAdjacentPosts(post.slug),
     getRelatedPosts(post.slug, 3),
@@ -181,11 +179,7 @@ export default async function PostPage({ params }: PageProps) {
           <div className="min-w-0">
             <TableOfContents headings={headings} placement="mobile" />
             <div id="article-body" className="prose">
-              {plainHtml !== null ? (
-                <div dangerouslySetInnerHTML={{ __html: plainHtml }} />
-              ) : (
-                renderedMdx
-              )}
+              {content}
             </div>
           </div>
           <aside>
