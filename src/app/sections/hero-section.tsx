@@ -86,11 +86,11 @@ export function HeroSection() {
         </div>
 
         <div
-          className="mt-16 flex items-center gap-6 text-xs text-muted-light animate-fade-in-up"
+          className="mt-20 flex flex-wrap items-center gap-x-3 gap-y-1.5 text-xs text-muted-light animate-fade-in-up"
           style={{ animationDelay: "0.24s" }}
         >
           <span className="font-mono uppercase tracking-wider">现在专注</span>
-          <span className="flex-1 h-px bg-border" />
+          <span aria-hidden className="text-border-strong">/</span>
           <span className="serif italic text-muted text-sm">
             Java 并发 · Go 服务端 · 网络安全
           </span>
