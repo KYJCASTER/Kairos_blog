@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useEffect, useMemo, useRef, useState } from "react"
 import { cn } from "@/lib/utils"
 import type { Heading } from "@/lib/markdown"
 
@@ -15,27 +15,66 @@ interface TableOfContentsProps {
 }
 
 /**
- * Sticky right-rail / mobile drawer TOC. Tracks the most-recently-passed
- * heading using IntersectionObserver to highlight the active section.
+ * Group flat headings into h2 chapters with their h3/h4 children. h3+ before
+ * the first h2 falls under a synthetic "preamble" entry that uses the first
+ * h3 as its anchor. In practice articles always lead with h2, so this branch
+ * almost never fires; we keep it just to never lose a heading.
+ */
+interface Chapter {
+  /** h2 heading (or first child if no h2 came first). */
+  head: Heading
+  /** child h3/h4 headings until the next h2. */
+  children: Heading[]
+}
+
+function groupChapters(headings: Heading[]): Chapter[] {
+  const out: Chapter[] = []
+  let cur: Chapter | null = null
+  for (const h of headings) {
+    if (h.level === 2) {
+      cur = { head: h, children: [] }
+      out.push(cur)
+    } else if (cur) {
+      cur.children.push(h)
+    } else {
+      // Stray h3/h4 before any h2 — treat the first one as a chapter head.
+      cur = { head: h, children: [] }
+      out.push(cur)
+    }
+  }
+  return out
+}
+
+/**
+ * Sticky right-rail (desktop) / collapsible drawer (mobile) TOC that doubles
+ * as a chapter progress map. Each chapter row paints its own per-chapter fill
+ * driven by `--chapter-progress` so readers can see *where in chapter 4* they
+ * are, not just "chapter 4 is active".
+ *
+ * Active-state detection uses IntersectionObserver against headings; the
+ * scroll-bound numerical progress is rAF-throttled and only writes to the
+ * chapter currently being read (others are pinned to 0 or 1 by data-state).
  */
 export function TableOfContents({ headings, placement = "desktop" }: TableOfContentsProps) {
+  const chapters = useMemo(() => groupChapters(headings), [headings])
   const [activeId, setActiveId] = useState<string>("")
+  const [overall, setOverall] = useState(0) // 0..1, fraction of chapters passed
+  const railRef = useRef<HTMLDivElement | null>(null)
+  const linkRefs = useRef<Map<string, HTMLAnchorElement>>(new Map())
+  const chapterRefs = useRef<Map<string, HTMLLIElement>>(new Map())
 
+  // Track active heading via IntersectionObserver. Same trigger zone as the
+  // previous version — the top third of the viewport feels right for "what
+  // section am I reading now?".
   useEffect(() => {
     if (!headings.length) return
     const observer = new IntersectionObserver(
       (entries) => {
-        // Pick the heading closest to the top that is currently visible.
         const visible = entries
           .filter((e) => e.isIntersecting)
-          .sort(
-            (a, b) =>
-              a.boundingClientRect.top - b.boundingClientRect.top
-          )
+          .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top)
         if (visible[0]) setActiveId(visible[0].target.id)
       },
-      // Trigger zone is the top third of the viewport — feels right
-      // for "what section am I reading now?"
       { rootMargin: "-80px 0px -70% 0px", threshold: [0, 1] }
     )
 
@@ -46,20 +85,157 @@ export function TableOfContents({ headings, placement = "desktop" }: TableOfCont
     return () => observer.disconnect()
   }, [headings])
 
+  // Compute per-chapter progress + overall. We don't keep these in React state
+  // (would re-render on every scroll frame); instead we mutate CSS variables
+  // directly. The active chapter id IS in state because it drives data-state.
+  useEffect(() => {
+    if (!chapters.length) return
+    let raf = 0
+
+    const update = () => {
+      raf = 0
+      const viewportTop = 96 // matches scroll-margin-top: 6rem
+      // Pull the live position of every chapter head + its end (= next head's
+      // top, or the article body's bottom). We refetch every frame because the
+      // user might be loading images / expanding details elements.
+      const article = document.getElementById("article-body")
+      const articleBottom = article
+        ? article.getBoundingClientRect().bottom + window.scrollY
+        : Infinity
+
+      const positions = chapters.map((c) => {
+        const el = document.getElementById(c.head.id)
+        return el ? el.getBoundingClientRect().top + window.scrollY : 0
+      })
+
+      let passed = 0
+      for (let i = 0; i < chapters.length; i++) {
+        const start = positions[i]
+        const end = i + 1 < chapters.length ? positions[i + 1] : articleBottom
+        const node = chapterRefs.current.get(chapters[i].head.id)
+        if (!node) continue
+        const scrollY = window.scrollY + viewportTop
+        if (scrollY <= start) {
+          node.style.setProperty("--chapter-progress", "0")
+          node.dataset.state = i === 0 && scrollY > start - 200 ? "active" : "upcoming"
+        } else if (scrollY >= end) {
+          node.style.setProperty("--chapter-progress", "1")
+          node.dataset.state = "done"
+          passed++
+        } else {
+          const span = Math.max(1, end - start)
+          const ratio = Math.min(1, Math.max(0, (scrollY - start) / span))
+          node.style.setProperty("--chapter-progress", ratio.toFixed(4))
+          node.dataset.state = "active"
+          passed += ratio
+        }
+      }
+      setOverall(chapters.length ? passed / chapters.length : 0)
+    }
+
+    const onScroll = () => {
+      if (raf) return
+      raf = requestAnimationFrame(update)
+    }
+    update()
+    window.addEventListener("scroll", onScroll, { passive: true })
+    window.addEventListener("resize", onScroll)
+    return () => {
+      window.removeEventListener("scroll", onScroll)
+      window.removeEventListener("resize", onScroll)
+      if (raf) cancelAnimationFrame(raf)
+    }
+  }, [chapters])
+
+  // When the active chapter changes, scroll the desktop rail so its row sits
+  // roughly in the middle of the visible TOC area. Long articles otherwise
+  // leave the active row offscreen — defeats the point of a TOC. Only fires
+  // on the desktop placement (mobile is a collapsible details element).
+  useEffect(() => {
+    if (placement !== "desktop" || !activeId) return
+    const link = linkRefs.current.get(activeId)
+    const rail = railRef.current
+    if (!link || !rail) return
+    const linkRect = link.getBoundingClientRect()
+    const railRect = rail.getBoundingClientRect()
+    if (linkRect.top < railRect.top + 32 || linkRect.bottom > railRect.bottom - 32) {
+      const target =
+        link.offsetTop - rail.clientHeight / 2 + link.clientHeight / 2
+      rail.scrollTo({
+        top: Math.max(0, target),
+        behavior: prefersReducedMotion() ? "auto" : "smooth",
+      })
+    }
+  }, [activeId, placement])
+
   if (!headings.length) return null
+
+  const list = (
+    <ol ref={railRef as never} className="toc-rail space-y-0 list-none m-0 p-0 overflow-y-auto scrollbars-thin max-h-[calc(100vh-9rem)]">
+      {chapters.map((c) => {
+        const isActive = c.head.id === activeId
+        const subActive = c.children.some((s) => s.id === activeId)
+        return (
+          <li
+            key={c.head.id}
+            ref={(el) => {
+              if (el) chapterRefs.current.set(c.head.id, el)
+            }}
+            className="toc-chapter"
+            data-state={isActive || subActive ? "active" : "upcoming"}
+            style={{ ["--chapter-progress" as never]: 0 } as React.CSSProperties}
+          >
+            <a
+              ref={(el) => {
+                if (el) linkRefs.current.set(c.head.id, el)
+              }}
+              href={`#${c.head.id}`}
+              className="toc-chapter-link"
+            >
+              {c.head.text}
+            </a>
+            {c.children.length > 0 && (isActive || subActive) && (
+              <ul className="toc-sub">
+                {c.children.map((s) => (
+                  <li key={s.id}>
+                    <a
+                      ref={(el) => {
+                        if (el) linkRefs.current.set(s.id, el)
+                      }}
+                      href={`#${s.id}`}
+                      className="toc-sub-link"
+                      data-level={String(s.level)}
+                      data-active={s.id === activeId ? "true" : "false"}
+                    >
+                      {s.text}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </li>
+        )
+      })}
+    </ol>
+  )
 
   if (placement === "mobile") {
     return (
       <details className="lg:hidden mb-8 rounded-xl border hairline bg-card/40 px-5 py-3 group">
         <summary className="cursor-pointer flex items-center justify-between font-mono text-[11px] uppercase tracking-[0.2em] text-muted">
-          <span>本页目录 · {headings.length}</span>
+          <span>本页目录 · {chapters.length}</span>
           <span aria-hidden className="text-muted-light transition-transform duration-300 group-open:rotate-180">
             ▾
           </span>
         </summary>
-        <div className="mt-4">
-          <TocList headings={headings} activeId={activeId} variant="mobile" />
-        </div>
+        <span
+          className="toc-overall-bar"
+          aria-hidden
+          style={{ ["--overall" as never]: overall.toFixed(4) } as React.CSSProperties}
+        >
+          <i />
+        </span>
+        <div className="mt-4">{list}</div>
       </details>
     )
   }
@@ -67,60 +243,20 @@ export function TableOfContents({ headings, placement = "desktop" }: TableOfCont
   return (
     <nav
       aria-label="目录"
-      className="hidden lg:block sticky top-28 max-h-[calc(100vh-9rem)] overflow-y-auto scrollbars-thin"
+      className={cn(
+        "hidden lg:block sticky top-28 pr-2"
+      )}
     >
-      <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted-light mb-3">
-        本页目录
+      <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted-light mb-3 flex items-center justify-between">
+        <span>本页目录</span>
+        <span className="tabular-nums">{Math.round(overall * 100)}%</span>
       </p>
-      <TocList headings={headings} activeId={activeId} variant="desktop" />
+      {list}
     </nav>
   )
 }
 
-function TocList({
-  headings,
-  activeId,
-  variant,
-}: {
-  headings: Heading[]
-  activeId: string
-  variant: "mobile" | "desktop"
-}) {
-  return (
-    <ul className="space-y-1.5 text-sm border-l hairline">
-      {headings.map((h, i) => {
-        const active = activeId === h.id
-        return (
-          <li key={`${h.id}-${i}`}>
-            <a
-              href={`#${h.id}`}
-              className={cn(
-                "group/toc relative block py-1 -ml-px border-l-2",
-                "transition-[color,border-color,padding] duration-500 ease-[cubic-bezier(0.32,0.72,0,1)]",
-                active
-                  ? "border-primary text-primary font-medium"
-                  : "border-transparent text-muted hover:text-foreground hover:border-border-strong"
-              )}
-              style={{
-                paddingLeft: `${(h.level - 2) * 0.75 + 0.875}rem`,
-                fontSize: h.level >= 3 ? "0.8125rem" : undefined,
-              }}
-            >
-              {variant === "desktop" && (
-                <span
-                  aria-hidden
-                  className={cn(
-                    "absolute -left-[5px] top-1/2 -translate-y-1/2 w-2 h-2 rounded-full bg-primary",
-                    "transition-all duration-500 ease-[cubic-bezier(0.32,0.72,0,1)]",
-                    active ? "scale-100 opacity-100" : "scale-0 opacity-0"
-                  )}
-                />
-              )}
-              {h.text}
-            </a>
-          </li>
-        )
-      })}
-    </ul>
-  )
+function prefersReducedMotion() {
+  if (typeof window === "undefined") return false
+  return window.matchMedia?.("(prefers-reduced-motion: reduce)").matches ?? false
 }
