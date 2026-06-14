@@ -3,6 +3,10 @@
 // shiki tokenizer cost is paid once at build time.
 
 import { compileMDX } from "next-mdx-remote/rsc"
+import { unified } from "unified"
+import remarkParse from "remark-parse"
+import remarkRehype from "remark-rehype"
+import rehypeStringify from "rehype-stringify"
 import { createHighlighter, type Highlighter } from "shiki"
 import { visit } from "unist-util-visit"
 import remarkGfm from "remark-gfm"
@@ -11,6 +15,17 @@ import type { Root, Element, Text, ElementContent } from "hast"
 import type { ReactElement } from "react"
 
 import { mdxComponents } from "@/components/mdx"
+
+/**
+ * Slugs that should bypass the MDX pipeline and be rendered as plain markdown.
+ * Use this only when the post body legitimately contains literal `<` / `{`
+ * sequences (e.g. archived raw C++/C source, math-y prose) that MDX would
+ * otherwise try to parse as JSX/expressions. The visual output and TOC
+ * behaviour are otherwise identical to renderMDX().
+ */
+export const PLAIN_MARKDOWN_SLUGS: ReadonlySet<string> = new Set([
+  "gin-framework-notes",
+])
 
 // Languages registered with Shiki at build time. Audit of content/posts
 // shows we only currently fence bash / java / yaml, but registering the
@@ -192,6 +207,39 @@ export async function renderMDX(source: string, postTitle?: string): Promise<Rea
   })
 
   return content
+}
+
+/**
+ * Plain-markdown rendering path. Used for posts whose body contains literal
+ * `<` / `{` sequences that MDX (correctly) refuses to parse as text — see
+ * PLAIN_MARKDOWN_SLUGS above. Output is a sanitised-by-construction HTML
+ * string that the page renders via `dangerouslySetInnerHTML`. Keep the rehype
+ * plugin set in lockstep with renderMDX() so TOC anchors, image hints, code
+ * highlighting, and external-link safety are identical.
+ */
+export async function renderPlainMarkdown(source: string, postTitle?: string): Promise<string> {
+  const highlighter = await getHighlighter()
+
+  let body = source
+  if (postTitle) {
+    body = body.replace(/^#\s+(.+?)\s*$/m, (full, t: string) => {
+      const norm = (s: string) => s.replace(/\s+/g, "").trim()
+      return norm(t) === norm(postTitle) ? "" : full
+    })
+  }
+
+  const file = await unified()
+    .use(remarkParse)
+    .use(remarkGfm)
+    .use(remarkRehype, { allowDangerousHtml: false })
+    .use(rehypeHeadings)
+    .use(rehypeImgAttrs)
+    .use(rehypeShiki, highlighter)
+    .use(rehypeExternalLinks, { target: "_blank", rel: ["noopener", "noreferrer"] })
+    .use(rehypeStringify, { allowDangerousHtml: false })
+    .process(body)
+
+  return String(file)
 }
 
 export interface Heading {
