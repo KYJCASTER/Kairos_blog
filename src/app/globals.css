@@ -627,24 +627,24 @@ html .shiki, html .shiki span { color: var(--shiki-light); background-color: tra
      graceful wrapping for the last line, and overflow protection for any
      stray super-long URL or code identifier. The `max-width` only kicks in
      when the parent grid track is wider than 68ch — under tablet/mobile the
-     parent track wins, which is what we want. */
+     parent track wins, which is what we want. `break-word` (not `anywhere`)
+     because we only want to break long URLs / identifiers when nothing else
+     fits, never inside ordinary English words mid-paragraph. */
   max-width: 68ch;
   text-wrap: pretty;
   hanging-punctuation: allow-end;
   word-break: normal;
-  overflow-wrap: anywhere;
+  overflow-wrap: break-word;
 }
 /* Headings get balanced wrapping so the last line never carries a single
    character or English word alone. */
 .prose h1, .prose h2, .prose h3, .prose h4 {
   text-wrap: balance;
 }
-/* CJK metrics: in zh-CN context use proportional alternate widths so
-   half-width punctuation sits tight against glyphs; the latin paragraphs
-   inside this scope still render with their own kerning since `palt`
-   only affects the CJK code points. */
-:lang(zh) .prose,
-:lang(zh-CN) .prose {
+/* CJK metrics: in zh context use proportional alternate widths so half-width
+   punctuation sits tight against glyphs. `:lang(zh)` already matches zh-CN
+   per spec, so we don't need a separate selector. */
+:lang(zh) .prose {
   font-feature-settings: "palt", "ss01", "cv11";
 }
 

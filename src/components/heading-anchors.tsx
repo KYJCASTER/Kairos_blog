@@ -31,19 +31,24 @@ export function HeadingAnchors() {
       const onClick = async (ev: MouseEvent) => {
         ev.preventDefault()
         const url = `${window.location.origin}${window.location.pathname}#${h.id}`
-        try {
-          await navigator.clipboard.writeText(url)
+        const flashCopied = () => {
           btn.dataset.copied = "true"
           btn.textContent = "✓"
           window.setTimeout(() => {
             btn.dataset.copied = "false"
             btn.textContent = "#"
           }, 1400)
+        }
+        try {
+          await navigator.clipboard.writeText(url)
+          flashCopied()
         } catch {
           // Some browsers refuse without HTTPS / focus — fall back to
           // updating the URL hash so the reader can copy from the address
-          // bar manually.
+          // bar manually. Still flash the indicator so they get *some*
+          // feedback that the click was received.
           window.history.replaceState(null, "", `#${h.id}`)
+          flashCopied()
         }
       }
       btn.addEventListener("click", onClick)

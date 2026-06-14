@@ -40,9 +40,17 @@ export function ReadingPercent({ targetSelector }: { targetSelector: string }) {
     update()
     window.addEventListener("scroll", onScroll, { passive: true })
     window.addEventListener("resize", onScroll)
+    // Lazy-loaded images / collapsed details elements grow the article body
+    // after first paint; recompute progress when that happens.
+    let ro: ResizeObserver | null = null
+    if (typeof ResizeObserver !== "undefined") {
+      ro = new ResizeObserver(() => onScroll())
+      ro.observe(el)
+    }
     return () => {
       window.removeEventListener("scroll", onScroll)
       window.removeEventListener("resize", onScroll)
+      ro?.disconnect()
     }
   }, [targetSelector])
 
