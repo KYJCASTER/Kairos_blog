@@ -68,7 +68,11 @@ export function ArticleShortcuts() {
         const chapters = getChapters()
         if (!chapters.length) return
         const cursor = findCursor(chapters)
-        const next = chapters[Math.min(chapters.length - 1, cursor + 1)]
+        // No chapter ahead — let `j` quietly do nothing rather than slamming
+        // back to the current chapter top (which is what Math.min(cursor, last)
+        // would do).
+        if (cursor + 1 >= chapters.length) return
+        const next = chapters[cursor + 1]
         if (next) scrollToHeading(next)
         return
       }
@@ -79,14 +83,21 @@ export function ArticleShortcuts() {
         const chapters = getChapters()
         if (!chapters.length) return
         const cursor = findCursor(chapters)
-        // If we're already inside chapter N (cursor = N), `k` should jump to
-        // the *start* of chapter N first, then to N-1 on subsequent presses.
-        const here = cursor >= 0 ? chapters[cursor] : null
+        // Three cases:
+        //   cursor === -1  → reader is above the first chapter (in the title
+        //                    block). `k` should do nothing rather than push
+        //                    them down into chapter 1.
+        //   inside chap N  → first press jumps to the *start* of chap N, then
+        //                    subsequent presses go N-1, N-2 …
+        //   exactly at N   → jump to chap N-1.
+        if (cursor < 0) return
+        const here = chapters[cursor]
         if (here && here.getBoundingClientRect().top < -8) {
           scrollToHeading(here)
           return
         }
-        const prev = chapters[Math.max(0, cursor - 1)]
+        if (cursor === 0) return
+        const prev = chapters[cursor - 1]
         if (prev) scrollToHeading(prev)
         return
       }

@@ -140,9 +140,19 @@ export function TableOfContents({ headings, placement = "desktop" }: TableOfCont
     update()
     window.addEventListener("scroll", onScroll, { passive: true })
     window.addEventListener("resize", onScroll)
+    // Article body height grows as lazy <img>s load — recompute when it does.
+    // ResizeObserver beats listening to `window.load` because images can finish
+    // long after the load event has fired (lazy / fetchpriority='low' images).
+    let ro: ResizeObserver | null = null
+    const article = document.getElementById("article-body")
+    if (article && typeof ResizeObserver !== "undefined") {
+      ro = new ResizeObserver(() => onScroll())
+      ro.observe(article)
+    }
     return () => {
       window.removeEventListener("scroll", onScroll)
       window.removeEventListener("resize", onScroll)
+      ro?.disconnect()
       if (raf) cancelAnimationFrame(raf)
     }
   }, [chapters])
@@ -179,15 +189,25 @@ export function TableOfContents({ headings, placement = "desktop" }: TableOfCont
           <li
             key={c.head.id}
             ref={(el) => {
+              // Keep the chapterRefs map in sync with the live DOM. React calls
+              // the ref with `null` on unmount; without removing entries here
+              // the map would accumulate forever during HMR / heading changes.
               if (el) chapterRefs.current.set(c.head.id, el)
+              else chapterRefs.current.delete(c.head.id)
             }}
             className="toc-chapter"
-            data-state={isActive || subActive ? "active" : "upcoming"}
+            // NB: data-state is OWNED by the scroll handler in useEffect above.
+            // Don't drive it from React state — the two would race and the
+            // already-read chapters would flash back to "upcoming" on every
+            // active-id change. React only owns the auxiliary data-has-active
+            // flag below, which controls sub-list expansion.
+            data-has-active={isActive || subActive ? "true" : "false"}
             style={{ ["--chapter-progress" as never]: 0 } as React.CSSProperties}
           >
             <a
               ref={(el) => {
                 if (el) linkRefs.current.set(c.head.id, el)
+                else linkRefs.current.delete(c.head.id)
               }}
               href={`#${c.head.id}`}
               className="toc-chapter-link"
@@ -201,6 +221,7 @@ export function TableOfContents({ headings, placement = "desktop" }: TableOfCont
                     <a
                       ref={(el) => {
                         if (el) linkRefs.current.set(s.id, el)
+                        else linkRefs.current.delete(s.id)
                       }}
                       href={`#${s.id}`}
                       className="toc-sub-link"
