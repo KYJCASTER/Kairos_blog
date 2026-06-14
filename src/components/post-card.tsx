@@ -223,7 +223,7 @@ export function PostCard({ post, variant = "default" }: PostCardProps) {
       <Link href={`/blog/${post.slug}`} className="group block">
         <article className="card overflow-hidden">
           <div className="grid md:grid-cols-2 gap-0">
-            <div className="aspect-[16/10] md:aspect-auto md:min-h-[260px] relative overflow-hidden">
+            <div className="aspect-[3/2] md:aspect-auto md:min-h-[260px] relative overflow-hidden">
               <CoverPanel post={post} monogramSize="xl" />
               <div className="absolute inset-0 bg-gradient-to-tr from-black/5 via-transparent to-transparent pointer-events-none" />
             </div>
@@ -261,21 +261,20 @@ export function PostCard({ post, variant = "default" }: PostCardProps) {
         <div className="p-5 flex flex-col flex-1">
           <div className="flex items-center gap-2 text-xs text-muted-light mb-2">
             <span className="font-mono tabular-nums">{formatDate(post.date)}</span>
-            {post.tags[0] && <span className="divider-dot">{post.tags[0]}</span>}
           </div>
           <h3 className="serif text-lg font-semibold leading-snug mb-2 text-foreground group-hover:text-primary transition-colors duration-300 line-clamp-2">
             {post.title}
           </h3>
-          <p className="text-sm text-muted line-clamp-2 mb-3 flex-1">
+          <p className="text-sm text-muted line-clamp-2 mb-4 flex-1">
             {post.excerpt}
           </p>
-          <div className="flex items-center justify-between text-xs text-muted-light mt-auto pt-3 border-t hairline">
+          <div className="flex items-center justify-between mt-auto">
             <div className="flex flex-wrap gap-1.5">
               {post.tags.slice(0, 2).map((t) => (
-                <span key={t} className="tag-chip">{t}</span>
+                <span key={t} className="tag-chip tag-chip-static">{t}</span>
               ))}
             </div>
-            <ArrowUpRight className="w-4 h-4 group-hover:text-primary group-hover:-translate-y-0.5 group-hover:translate-x-0.5 transition-all duration-300 ease-[cubic-bezier(0.32,0.72,0,1)]" />
+            <ArrowUpRight className="w-4 h-4 text-muted-light group-hover:text-primary group-hover:-translate-y-0.5 group-hover:translate-x-0.5 transition-all duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] shrink-0" />
           </div>
         </div>
       </article>

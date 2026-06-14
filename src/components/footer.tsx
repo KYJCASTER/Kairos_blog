@@ -5,7 +5,7 @@ import { GitHubIcon, RssIcon } from "./icons"
 export function Footer() {
   const year = new Date().getFullYear()
   return (
-    <footer className="mt-24 border-t hairline">
+    <footer className="mt-16 sm:mt-24 border-t hairline">
       <div className="max-w-5xl mx-auto px-5 sm:px-6 py-12">
         {/* Centred bookplate-style colophon */}
         <div className="flex flex-col items-center text-center gap-4">
@@ -18,28 +18,25 @@ export function Footer() {
           </p>
 
           {/* Secondary navigation — quiet links to the smaller pages. */}
-          <nav aria-label="次级导航" className="flex flex-wrap items-center justify-center gap-x-4 gap-y-1 mt-1">
+          <nav aria-label="次级导航" className="flex flex-wrap items-center justify-center gap-x-5 gap-y-1.5 mt-1">
             <Link
               href="/frontispiece"
               className="font-mono text-[11px] uppercase tracking-[0.2em] text-muted-light hover:text-foreground transition-colors"
             >
               扉页
             </Link>
-            <span aria-hidden className="text-border-strong">·</span>
             <Link
               href="/archive"
               className="font-mono text-[11px] uppercase tracking-[0.2em] text-muted-light hover:text-foreground transition-colors"
             >
               档案
             </Link>
-            <span aria-hidden className="text-border-strong">·</span>
             <Link
               href="/series"
               className="font-mono text-[11px] uppercase tracking-[0.2em] text-muted-light hover:text-foreground transition-colors"
             >
               系列
             </Link>
-            <span aria-hidden className="text-border-strong">·</span>
             <Link
               href="/curriculum"
               className="font-mono text-[11px] uppercase tracking-[0.2em] text-muted-light hover:text-foreground transition-colors"

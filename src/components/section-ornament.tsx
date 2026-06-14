@@ -52,7 +52,9 @@ export function SectionOrnament({
       )}
     >
       <span className="block h-px w-16 sm:w-20 bg-border-strong/40" />
-      <span className="text-muted-light text-[0.6rem] tracking-[0.4em]">◇</span>
+      <svg width="7" height="7" viewBox="0 0 8 8" fill="none" className="text-muted-light">
+        <path d="M4 0.5 L7.5 4 L4 7.5 L0.5 4 Z" fill="currentColor" />
+      </svg>
       <span className="block h-px w-16 sm:w-20 bg-border-strong/40" />
     </div>
   )

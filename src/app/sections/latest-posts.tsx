@@ -36,7 +36,7 @@ export function LatestPosts() {
           </div>
           <Link
             href="/blog"
-            className="hidden sm:inline-flex items-center gap-1.5 text-sm font-medium text-muted hover:text-primary transition-colors duration-300 group"
+            className="hidden sm:inline-flex items-center gap-1.5 text-sm font-medium text-foreground/80 hover:text-primary transition-colors duration-300 group"
           >
             全部 {posts.length} 篇
             <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300 ease-[cubic-bezier(0.32,0.72,0,1)]" />
