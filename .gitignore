@@ -10,6 +10,9 @@
 /out/
 /dist/
 
+# local-only screenshot / scratch dumps
+/.tmp-shots/
+
 # misc
 .DS_Store
 *.pem
