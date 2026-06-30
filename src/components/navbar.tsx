@@ -3,6 +3,7 @@
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { useEffect, useState } from "react"
+import { Menu, X } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { ThemeToggle } from "./theme-toggle"
 import { GitHubIcon } from "./icons"
@@ -19,6 +20,7 @@ const navItems = [
 export function Navbar() {
   const pathname = usePathname()
   const [scrolled, setScrolled] = useState(false)
+  const [menuOpen, setMenuOpen] = useState(false)
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 12)
@@ -36,7 +38,6 @@ export function Navbar() {
           ? "bg-background/75 backdrop-blur-xl border-b hairline shadow-[0_1px_0_0_rgba(0,0,0,0.02)]"
           : "bg-transparent border-b border-transparent"
       )}
-      role="navigation"
       aria-label="主导航"
     >
       <div className="max-w-5xl mx-auto px-5 sm:px-6">
@@ -55,8 +56,8 @@ export function Navbar() {
             </span>
           </Link>
 
-          {/* Center nav (hidden on small screens, becomes scrollable row) */}
-          <div className="flex-1 flex items-center justify-center">
+          {/* Center nav — hidden below md; replaced by the drawer there. */}
+          <div className="hidden md:flex flex-1 items-center justify-center">
             <ul className="flex items-center gap-1 text-sm">
               {navItems.map((item) => {
                 const active =
@@ -95,6 +96,16 @@ export function Navbar() {
 
           {/* Right side */}
           <div className="flex items-center gap-1 shrink-0">
+            <button
+              type="button"
+              onClick={() => setMenuOpen((v) => !v)}
+              aria-label={menuOpen ? "关闭菜单" : "打开菜单"}
+              aria-expanded={menuOpen}
+              aria-controls="mobile-nav"
+              className="md:hidden p-2.5 rounded-md text-muted hover:text-foreground hover:bg-surface transition-colors duration-300"
+            >
+              {menuOpen ? <X className="w-[18px] h-[18px]" /> : <Menu className="w-[18px] h-[18px]" />}
+            </button>
             <ThemeToggle />
             <a
               href={site.github}
@@ -107,6 +118,52 @@ export function Navbar() {
             </a>
           </div>
         </div>
+      </div>
+
+      {/* Mobile drawer */}
+      <div
+        id="mobile-nav"
+        className={cn(
+          "md:hidden overflow-hidden border-b hairline bg-background/95 backdrop-blur-xl",
+          "transition-[max-height,opacity] duration-500 ease-[cubic-bezier(0.32,0.72,0,1)]",
+          menuOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0 pointer-events-none"
+        )}
+      >
+        <ul className="max-w-5xl mx-auto px-5 sm:px-6 py-3 flex flex-col gap-1 text-sm">
+          {navItems.map((item) => {
+            const active =
+              pathname === item.href ||
+              (item.href !== "/" && pathname?.startsWith(`${item.href}/`))
+            return (
+              <li key={item.href}>
+                <Link
+                  href={item.href}
+                  onClick={() => setMenuOpen(false)}
+                  aria-current={active ? "page" : undefined}
+                  className={cn(
+                    "block px-3 py-2.5 rounded-md font-medium transition-colors duration-300",
+                    active
+                      ? "text-foreground bg-surface"
+                      : "text-muted hover:text-foreground hover:bg-surface"
+                  )}
+                >
+                  {item.label}
+                </Link>
+              </li>
+            )
+          })}
+          <li>
+            <a
+              href={site.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => setMenuOpen(false)}
+              className="flex items-center gap-2 px-3 py-2.5 rounded-md font-medium text-muted hover:text-foreground hover:bg-surface transition-colors duration-300"
+            >
+              <GitHubIcon className="w-[18px] h-[18px]" /> GitHub
+            </a>
+          </li>
+        </ul>
       </div>
     </nav>
   )
