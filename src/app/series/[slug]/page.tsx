@@ -34,7 +34,7 @@ export default async function SeriesDetailPage({ params }: PageProps) {
   if (!series) notFound()
 
   return (
-    <main className="min-h-screen pt-28 pb-20 px-5 sm:px-6">
+    <div className="min-h-screen pt-28 pb-20 px-5 sm:px-6">
       <div className="max-w-5xl mx-auto">
         <header className="mb-14">
           <Link
@@ -70,6 +70,6 @@ export default async function SeriesDetailPage({ params }: PageProps) {
           <PostArchiveList posts={series.posts} variant="series" />
         </section>
       </div>
-    </main>
+    </div>
   )
 }
