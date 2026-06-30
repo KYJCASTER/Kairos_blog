@@ -15,7 +15,7 @@ export default function SeriesIndexPage() {
   const seriesList = getAllSeries()
 
   return (
-    <main className="min-h-screen pt-28 pb-20 px-5 sm:px-6">
+    <div className="min-h-screen pt-28 pb-20 px-5 sm:px-6">
       <div className="max-w-5xl mx-auto">
         <header className="mb-14">
           <p className="font-mono text-xs uppercase tracking-[0.2em] text-muted mb-3">
@@ -71,6 +71,6 @@ export default function SeriesIndexPage() {
           </ul>
         )}
       </div>
-    </main>
+    </div>
   )
 }

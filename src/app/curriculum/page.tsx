@@ -246,7 +246,7 @@ export default function CurriculumPage() {
   const lastUpdated = new Date().toISOString().slice(0, 10)
 
   return (
-    <main className="min-h-screen pt-28 pb-20 px-5 sm:px-6">
+    <div className="min-h-screen pt-28 pb-20 px-5 sm:px-6">
       {/* Hero */}
       <section className="max-w-3xl mx-auto mb-16">
         <p className="font-mono text-xs uppercase tracking-[0.2em] text-muted mb-3">
@@ -346,6 +346,6 @@ export default function CurriculumPage() {
       </section>
 
       <p className="sr-only">本页内容由 {site.author} 维护。</p>
-    </main>
+    </div>
   )
 }

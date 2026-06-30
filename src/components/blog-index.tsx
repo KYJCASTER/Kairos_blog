@@ -171,7 +171,7 @@ export function BlogIndex({ posts, allTags }: BlogIndexProps) {
   }
 
   return (
-    <main className="min-h-screen pt-28 pb-20">
+    <div className="min-h-screen pt-28 pb-20">
       {/* Header */}
       <section className="px-5 sm:px-6 mb-12">
         <div className="max-w-5xl mx-auto">
@@ -276,7 +276,12 @@ export function BlogIndex({ posts, allTags }: BlogIndexProps) {
             </div>
           )}
 
-          {filtered.length === 0 ? (
+          {filtered.length === 0 && query.trim() && (searchLoading || !fuse) ? (
+            <div className="card p-12 text-center" aria-live="polite">
+              <p className="serif text-xl text-muted mb-2">正在搜索…</p>
+              <p className="text-sm text-muted-light">正在准备全文搜索索引</p>
+            </div>
+          ) : filtered.length === 0 ? (
             <div className="card p-12 text-center">
               <p className="serif text-xl text-muted mb-2">没有匹配的文章</p>
               <p className="text-sm text-muted-light">
@@ -321,6 +326,6 @@ export function BlogIndex({ posts, allTags }: BlogIndexProps) {
           )}
         </div>
       </section>
-    </main>
+    </div>
   )
 }

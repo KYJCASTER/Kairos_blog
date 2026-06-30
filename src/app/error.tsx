@@ -19,7 +19,7 @@ export default function ErrorPage({ error, reset }: ErrorPageProps) {
   }, [error])
 
   return (
-    <main className="min-h-[calc(100vh-12rem)] flex items-center justify-center px-5 sm:px-6 pt-28 pb-20">
+    <div className="min-h-[calc(100vh-12rem)] flex items-center justify-center px-5 sm:px-6 pt-28 pb-20">
       <div className="text-center max-w-md">
         <p className="font-mono text-xs uppercase tracking-[0.2em] text-muted mb-4">
           Something went wrong
@@ -46,6 +46,6 @@ export default function ErrorPage({ error, reset }: ErrorPageProps) {
           </p>
         )}
       </div>
-    </main>
+    </div>
   )
 }
