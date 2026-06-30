@@ -1,25 +1,13 @@
 // Server-rendered JSON-LD for individual blog posts. Improves the rich-result
 // surface in Google / Bing and gives social cards a structured fallback.
 
-import { site } from "@/lib/site"
+import { site, absUrl, resolveImage } from "@/lib/site"
 import type { Post } from "@/lib/posts"
 
 interface ArticleJsonLdProps {
   post: Post
   /** Word count from computeReadingStats — passed in to avoid recomputing. */
   wordCount?: number
-}
-
-/** Resolve a cover or default OG image to an absolute URL. */
-function resolveImage(cover?: string): string {
-  if (!cover) return `${site.url}/og-default.png`
-  if (/^https?:\/\//i.test(cover)) return cover
-  // basePath-prefixed paths and bare /paths both work — site.url already
-  // includes the basePath, so strip a leading basePath if duplicated.
-  const stripped = cover.startsWith(site.basePath)
-    ? cover.slice(site.basePath.length)
-    : cover
-  return `${site.url}${stripped.startsWith("/") ? stripped : `/${stripped}`}`
 }
 
 export function ArticleJsonLd({ post, wordCount }: ArticleJsonLdProps) {
@@ -44,7 +32,7 @@ export function ArticleJsonLd({ post, wordCount }: ArticleJsonLdProps) {
     },
     mainEntityOfPage: {
       "@type": "WebPage",
-      "@id": `${site.url}/blog/${post.slug}`,
+      "@id": absUrl(`/blog/${post.slug}`),
     },
     keywords: post.tags.join(", "),
     inLanguage: site.language,
@@ -72,19 +60,19 @@ export function BreadcrumbJsonLd({ post }: { post: Post }) {
         "@type": "ListItem",
         position: 1,
         name: "首页",
-        item: `${site.url}/`,
+        item: absUrl("/"),
       },
       {
         "@type": "ListItem",
         position: 2,
         name: "文章",
-        item: `${site.url}/blog/`,
+        item: absUrl("/blog"),
       },
       {
         "@type": "ListItem",
         position: 3,
         name: post.title,
-        item: `${site.url}/blog/${post.slug}`,
+        item: absUrl(`/blog/${post.slug}`),
       },
     ],
   }

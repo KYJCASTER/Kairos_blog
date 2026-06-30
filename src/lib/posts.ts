@@ -369,33 +369,3 @@ export function getPostList(): PostListItem[] {
     date: p.date,
   }))
 }
-
-/**
- * Index used by the build-time search-corpus generator
- * (`scripts/build-search-index.mjs`). NOT called at runtime — a stale module
- * reference would silently re-bloat the page bundle. Kept here so the shape
- * stays close to `Post` for any future server-side consumer.
- */
-export interface SearchEntry {
-  slug: string
-  title: string
-  excerpt: string
-  tags: string[]
-  date: string
-  body: string
-}
-export function getSearchIndex(): SearchEntry[] {
-  return getPublishedPosts().map((p) => ({
-    slug: p.slug,
-    title: p.title,
-    excerpt: p.excerpt,
-    tags: p.tags,
-    date: p.date,
-    body: p.content
-      .replace(/```[\s\S]*?```/g, " ")
-      .replace(/[`#*_>~|]/g, " ")
-      .replace(/\s+/g, " ")
-      .trim()
-      .slice(0, 600),
-  }))
-}
