@@ -1,0 +1,18 @@
+# The repo standard is LF. CI and the GitHub Pages deploy run on Linux, and a
+# Windows/WSL checkout previously flipped the whole tree to CRLF, producing a
+# ~18k-line phantom diff. Force every text file to LF on checkout everywhere so
+# that never happens again.
+* text=auto eol=lf
+
+# Binary assets: never normalize EOLs or attempt text diffs.
+*.png   binary
+*.jpg   binary
+*.jpeg  binary
+*.gif   binary
+*.webp  binary
+*.ico   binary
+*.woff  binary
+*.woff2 binary
+*.ttf   binary
+*.otf   binary
+*.pdf   binary
