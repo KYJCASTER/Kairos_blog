@@ -9,6 +9,7 @@
 import fs from "node:fs"
 import path from "node:path"
 import matter from "gray-matter"
+import { deriveExcerpt, validateFrontmatter } from "../src/lib/post-utils.mjs"
 
 const root = process.cwd()
 const postsDir = path.join(root, "content/posts")
@@ -18,17 +19,6 @@ const outFile = path.join(root, "public/search-index.json")
 // punctuation, collapse whitespace, then take the first BODY_CHARS chars.
 // 600 chars of CJK is plenty of fuzzy-match surface area for one post.
 const BODY_CHARS = 600
-
-function deriveExcerpt(body, max = 120) {
-  const text = body
-    .replace(/```[\s\S]*?```/g, " ")
-    .replace(/!?\[[^\]]*]\([^)]*\)/g, " ")
-    .replace(/[`#*_>~|]/g, " ")
-    .replace(/<[^>]+>/g, " ")
-    .replace(/\s+/g, " ")
-    .trim()
-  return text.length > max ? text.slice(0, max) + "…" : text
-}
 
 function bodySnippet(content) {
   return content
@@ -46,40 +36,6 @@ if (!fs.existsSync(postsDir)) {
   fs.writeFileSync(outFile, "[]\n")
   console.log("[search-index] no posts dir, wrote empty index")
   process.exit(0)
-}
-
-// Allowed frontmatter keys — must match src/lib/posts.ts. Throwing here on
-// `prebuild` surfaces typo'd keys (e.g. `tag:` vs `tags:`) before next build.
-const ALLOWED_FRONTMATTER_KEYS = new Set([
-  "title", "slug", "excerpt", "date", "updated", "tags", "cover", "series", "published",
-])
-const ISO_DATE = /^\d{4}-\d{2}-\d{2}/
-
-function validateFrontmatter(fileName, data) {
-  for (const key of Object.keys(data)) {
-    if (!ALLOWED_FRONTMATTER_KEYS.has(key)) {
-      throw new Error(
-        `[posts] ${fileName}: unknown frontmatter key "${key}". ` +
-          `Allowed: ${Array.from(ALLOWED_FRONTMATTER_KEYS).join(", ")}.`,
-      )
-    }
-  }
-  for (const k of ["date", "updated"]) {
-    const v = data[k]
-    if (v === undefined) continue
-    if (typeof v !== "string" || !ISO_DATE.test(v)) {
-      throw new Error(
-        `[posts] ${fileName}: \`${k}\` must be a "YYYY-MM-DD" string (got ${JSON.stringify(v)})`,
-      )
-    }
-  }
-  if (data.tags !== undefined) {
-    if (!Array.isArray(data.tags) || !data.tags.every((t) => typeof t === "string")) {
-      throw new Error(
-        `[posts] ${fileName}: \`tags\` must be an array of strings, e.g. tags: ["Java", "笔记"]`,
-      )
-    }
-  }
 }
 
 const fileNames = fs

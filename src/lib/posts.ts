@@ -1,6 +1,7 @@
 import fs from "fs"
 import path from "path"
 import matter from "gray-matter"
+import { deriveExcerpt, validateFrontmatter } from "./post-utils.mjs"
 
 const postsDirectory = path.join(process.cwd(), "content/posts")
 
@@ -38,79 +39,7 @@ const toSummary = (p: Post): PostSummary => ({
   series: p.series,
 })
 
-/** Generate a short excerpt from the body when frontmatter omits it. */
-function deriveExcerpt(body: string, max = 120): string {
-  const text = body
-    .replace(/```[\s\S]*?```/g, " ")
-    .replace(/!?\[[^\]]*]\([^)]*\)/g, " ")
-    .replace(/[`#*_>~|]/g, " ")
-    .replace(/<[^>]+>/g, " ")
-    .replace(/\s+/g, " ")
-    .trim()
-  return text.length > max ? text.slice(0, max) + "…" : text
-}
-
 let postsCache: Post[] | null = null
-
-// Allowed frontmatter keys. Anything outside this list is a typo (e.g.
-// `tag:` instead of `tags:`) — we throw at build time rather than silently
-// dropping the value.
-//
-// IMPORTANT: this list is mirrored in scripts/build-search-index.mjs
-// (which runs at `prebuild` time, before next sees the project). Keep both
-// in sync — adding a key here without updating that file means a typo'd
-// frontmatter value will pass `prebuild` and only fail at build.
-const ALLOWED_FRONTMATTER_KEYS = new Set([
-  "title", "slug", "excerpt", "date", "updated", "tags", "cover", "series", "published",
-])
-
-const ISO_DATE = /^\d{4}-\d{2}-\d{2}/
-
-function validateFrontmatter(fileName: string, data: Record<string, unknown>): void {
-  for (const key of Object.keys(data)) {
-    if (!ALLOWED_FRONTMATTER_KEYS.has(key)) {
-      throw new Error(
-        `[posts] ${fileName}: unknown frontmatter key "${key}". ` +
-          `Allowed: ${Array.from(ALLOWED_FRONTMATTER_KEYS).join(", ")}.`,
-      )
-    }
-  }
-
-  if (data.title !== undefined && typeof data.title !== "string") {
-    throw new Error(`[posts] ${fileName}: \`title\` must be a string`)
-  }
-  if (data.slug !== undefined && typeof data.slug !== "string") {
-    throw new Error(`[posts] ${fileName}: \`slug\` must be a string`)
-  }
-  if (data.excerpt !== undefined && typeof data.excerpt !== "string") {
-    throw new Error(`[posts] ${fileName}: \`excerpt\` must be a string`)
-  }
-  if (data.cover !== undefined && typeof data.cover !== "string") {
-    throw new Error(`[posts] ${fileName}: \`cover\` must be a string`)
-  }
-  if (data.series !== undefined && (typeof data.series !== "string" || data.series.trim() === "")) {
-    throw new Error(`[posts] ${fileName}: \`series\` must be a non-empty string when set`)
-  }
-  if (data.published !== undefined && typeof data.published !== "boolean") {
-    throw new Error(`[posts] ${fileName}: \`published\` must be true or false`)
-  }
-  for (const k of ["date", "updated"] as const) {
-    const v = data[k]
-    if (v === undefined) continue
-    if (typeof v !== "string" || !ISO_DATE.test(v)) {
-      throw new Error(
-        `[posts] ${fileName}: \`${k}\` must be a "YYYY-MM-DD" string (got ${JSON.stringify(v)})`,
-      )
-    }
-  }
-  if (data.tags !== undefined) {
-    if (!Array.isArray(data.tags) || !data.tags.every((t) => typeof t === "string")) {
-      throw new Error(
-        `[posts] ${fileName}: \`tags\` must be an array of strings, e.g. tags: ["Java", "笔记"]`,
-      )
-    }
-  }
-}
 
 export function getAllPosts(): Post[] {
   if (postsCache) return postsCache
@@ -198,9 +127,38 @@ export function tagColor(name: string): string {
   return TAG_PALETTE[hashIndex(name, TAG_PALETTE.length)]
 }
 
-/** Stable URL-safe slug shared by tags and series. */
-const slugify = (name: string) =>
-  encodeURIComponent(name.toLowerCase().replace(/\s+/g, "-"))
+/**
+ * Stable URL slug shared by tags and series.
+ *
+ * - CJK characters are kept readable in the URL (no percent-encoding).
+ * - Spaces become hyphens.
+ * - Dangerous URL characters (? # & = + % / \) are replaced with hyphens.
+ * - Other non-URL-safe characters are also replaced with hyphens.
+ * - Multiple consecutive separators are collapsed and trimmed.
+ */
+function slugify(name: string): string {
+  // Ranges that cover the common CJK scripts so tags stay readable.
+  const cjkRanges =
+    "\\u4e00-\\u9fff" + // CJK Unified Ideographs
+    "\\u3400-\\u4dbf" + // CJK Unified Ideographs Extension A
+    "\\uf900-\\ufaff" + // CJK Compatibility Ideographs
+    "\\u3040-\\u309f" + // Hiragana
+    "\\u30a0-\\u30ff" + // Katakana
+    "\\uac00-\\ud7af" + // Hangul Syllables
+    "\\u1100-\\u11ff" + // Hangul Jamo
+    "\\u3100-\\u312f"   // Bopomofo
+
+  const keep = new RegExp(`[^a-z0-9\\-_.~${cjkRanges}]+`, "gu")
+
+  return name
+    .toLowerCase()
+    .trim()
+    .replace(/\s+/g, "-")
+    .replace(/[?#&=+%/\\]/g, "-")
+    .replace(keep, "-")
+    .replace(/-+/g, "-")
+    .replace(/^-|-$/g, "")
+}
 
 export const tagSlug = slugify
 export const seriesSlug = slugify
