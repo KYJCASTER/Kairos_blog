@@ -11,8 +11,8 @@ export const metadata: Metadata = {
 
 export default function FrontispiecePage() {
   return (
-    <main>
+    <div>
       <Frontispiece mode="page" />
-    </main>
+    </div>
   )
 }

@@ -5,11 +5,13 @@ import { ArrowLeft, Home, Search } from "lucide-react"
 export const metadata: Metadata = {
   title: "走丢了 · 404",
   description: "找不到这个页面。",
+  // A 404 must never be indexed, and must not inherit the layout's canonical "/".
+  robots: { index: false, follow: true },
 }
 
 export default function NotFound() {
   return (
-    <main className="min-h-[calc(100vh-12rem)] flex items-center justify-center px-5 sm:px-6 pt-28 pb-20">
+    <div className="min-h-[calc(100vh-12rem)] flex items-center justify-center px-5 sm:px-6 pt-28 pb-20">
       <div className="text-center max-w-md">
         <p className="font-mono text-xs uppercase tracking-[0.2em] text-muted mb-4">
           404 · Not Found
@@ -43,6 +45,6 @@ export default function NotFound() {
           </Link>
         </div>
       </div>
-    </main>
+    </div>
   )
 }

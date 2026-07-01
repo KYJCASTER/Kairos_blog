@@ -6,6 +6,7 @@ import { BlogIndex } from "@/components/blog-index"
 export const metadata: Metadata = {
   title: "文章",
   description: "所有发布的技术文章，支持按标题、标签、正文搜索。",
+  alternates: { canonical: "/blog" },
 }
 
 export default function BlogPage() {
@@ -24,7 +25,7 @@ export default function BlogPage() {
 
 function BlogIndexFallback() {
   return (
-    <main className="min-h-screen pt-28 pb-20 px-5 sm:px-6">
+    <div className="min-h-screen pt-28 pb-20 px-5 sm:px-6">
       <div className="max-w-5xl mx-auto">
         <p className="font-mono text-xs uppercase tracking-[0.2em] text-muted mb-3">
           文章
@@ -39,6 +40,6 @@ function BlogIndexFallback() {
           ))}
         </div>
       </div>
-    </main>
+    </div>
   )
 }

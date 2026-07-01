@@ -17,7 +17,7 @@ import { ArticleJsonLd, BreadcrumbJsonLd } from "@/components/json-ld"
 import { CoverPanel } from "@/components/post-card"
 import { Comments } from "@/components/comments"
 import { SeriesBanner } from "@/components/series-banner"
-import { site } from "@/lib/site"
+import { site, resolveImage, rssAlternates } from "@/lib/site"
 
 interface PageProps {
   params: Promise<{ slug: string }>
@@ -32,18 +32,10 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const post = getPostBySlug(slug)
   if (!post) return { title: "未找到" }
 
-  // Resolve cover → absolute OG URL. site.url already contains basePath; if
-  // the cover is bare-rooted (`/foo.png`) we just append it.
-  const ogImage = (() => {
-    if (!post.cover) return undefined
-    if (/^https?:\/\//i.test(post.cover)) return post.cover
-    const stripped = post.cover.startsWith(site.basePath)
-      ? post.cover.slice(site.basePath.length)
-      : post.cover
-    return `${site.url}${stripped.startsWith("/") ? stripped : `/${stripped}`}`
-  })()
-
-  const images = ogImage ? [{ url: ogImage, width: 1200, height: 630, alt: post.title }] : undefined
+  // Resolve cover → absolute OG URL, falling back to the default OG image so
+  // every article still renders a social card. Shared helper lives in site.ts.
+  const ogImage = resolveImage(post.cover)
+  const images = [{ url: ogImage, width: 1200, height: 630, alt: post.title }]
 
   return {
     title: post.title,
@@ -58,15 +50,15 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       authors: [site.author],
       tags: post.tags,
       url: `${site.url}/blog/${post.slug}`,
-      ...(images ? { images } : {}),
+      images,
     },
     twitter: {
       card: "summary_large_image",
       title: post.title,
       description: post.excerpt,
-      ...(ogImage ? { images: [ogImage] } : {}),
+      images: [ogImage],
     },
-    alternates: { canonical: `/blog/${post.slug}` },
+    alternates: { canonical: `/blog/${post.slug}`, types: rssAlternates },
   }
 }
 

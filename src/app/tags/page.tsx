@@ -5,13 +5,14 @@ import { getAllTags } from "@/lib/posts"
 export const metadata: Metadata = {
   title: "标签",
   description: "按主题浏览所有文章。",
+  alternates: { canonical: "/tags" },
 }
 
 export default function TagsPage() {
   const tags = getAllTags()
 
   return (
-    <main className="min-h-screen pt-28 pb-20 px-5 sm:px-6">
+    <div className="min-h-screen pt-28 pb-20 px-5 sm:px-6">
       <div className="max-w-5xl mx-auto">
         <header className="mb-14">
           <p className="font-mono text-xs uppercase tracking-[0.2em] text-muted mb-3">
@@ -33,7 +34,7 @@ export default function TagsPage() {
                 <Link
                   href={`/tags/${tag.slug}`}
                   className="tag-card group"
-                  style={{ ["--ink" as never]: tag.color } as React.CSSProperties}
+                  style={{ "--ink": tag.color }}
                 >
                   <span aria-hidden className="tag-card-mark serif italic">#</span>
                   <span className="font-mono text-[11px] uppercase tracking-[0.2em] text-muted-light">
@@ -49,6 +50,6 @@ export default function TagsPage() {
           </ul>
         )}
       </div>
-    </main>
+    </div>
   )
 }

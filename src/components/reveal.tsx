@@ -32,10 +32,11 @@ const useHydrated = () =>
 export function Reveal({
   children,
   delay = 0,
-  as: Tag = "div",
+  as,
   className,
   once = true,
 }: RevealProps) {
+  const Tag = (as ?? "div") as React.ElementType
   const ref = useRef<HTMLElement | null>(null)
   const armed = useHydrated()
   const [visible, setVisible] = useState(false)
@@ -71,7 +72,7 @@ export function Reveal({
 
   return (
     <Tag
-      ref={ref as never}
+      ref={ref}
       className={cn(armed && "reveal", className)}
       data-reveal={visible ? "in" : undefined}
     >

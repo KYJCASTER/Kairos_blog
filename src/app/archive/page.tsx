@@ -49,7 +49,7 @@ export default function ArchivePage() {
   const years = Array.from(byYear.keys())
 
   return (
-    <main className="min-h-screen pt-28 pb-20 px-5 sm:px-6">
+    <div className="min-h-screen pt-28 pb-20 px-5 sm:px-6">
       <div className="max-w-3xl mx-auto">
         {/* Hero */}
         <header className="mb-14">
@@ -118,6 +118,6 @@ export default function ArchivePage() {
           </Link>
         </div>
       </div>
-    </main>
+    </div>
   )
 }

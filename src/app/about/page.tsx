@@ -7,6 +7,7 @@ import { site } from "@/lib/site"
 export const metadata: Metadata = {
   title: "关于",
   description: `关于 ${site.author} —— 河南大学网络工程专业学生、本站作者。`,
+  alternates: { canonical: "/about" },
 }
 
 /** Technologies grouped by familiarity, so the page reads as a CV note
@@ -53,7 +54,7 @@ const interests = [
 
 export default function AboutPage() {
   return (
-    <main className="min-h-screen pt-28 pb-20 px-5 sm:px-6">
+    <div className="min-h-screen pt-28 pb-20 px-5 sm:px-6">
       {/* Hero */}
       <section className="max-w-3xl mx-auto mb-20">
         <div className="flex flex-col sm:flex-row items-start gap-8">
@@ -256,6 +257,6 @@ export default function AboutPage() {
           </Link>
         </div>
       </section>
-    </main>
+    </div>
   )
 }

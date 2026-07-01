@@ -6,7 +6,7 @@ import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
 import { BackToTop } from "@/components/back-to-top"
 import { WebsiteJsonLd } from "@/components/json-ld"
-import { site } from "@/lib/site"
+import { site, rssAlternates } from "@/lib/site"
 
 const inter = Inter({
   subsets: ["latin"],
@@ -64,12 +64,15 @@ export const metadata: Metadata = {
   },
   alternates: {
     canonical: "/",
-    // metadata.alternates does NOT auto-prefix basePath, so the URL must be absolute
-    // (or hand-prefixed). Without this, the <link rel="alternate"> in <head> would
-    // point at /rss.xml under the bare domain and 404 on GitHub Pages.
-    types: { "application/rss+xml": `${site.url}/rss.xml` },
+    // metadata.alternates does NOT auto-prefix basePath, so the URL must be
+    // absolute. Shared with article pages via rssAlternates so feed discovery
+    // never drifts. Without it the <link rel="alternate"> would point at
+    // /rss.xml on the bare domain and 404 on GitHub Pages.
+    types: rssAlternates,
   },
-  icons: { icon: "/favicon.ico" },
+  // Favicon comes from the file-convention `src/app/favicon.ico`, which Next
+  // serves under the basePath. A manual `icons: "/favicon.ico"` here would
+  // resolve against the bare domain root and 404 on GitHub Pages.
 }
 
 export default function RootLayout({

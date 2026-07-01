@@ -59,7 +59,7 @@ export function TableOfContents({ headings, placement = "desktop" }: TableOfCont
   const chapters = useMemo(() => groupChapters(headings), [headings])
   const [activeId, setActiveId] = useState<string>("")
   const [overall, setOverall] = useState(0) // 0..1, fraction of chapters passed
-  const railRef = useRef<HTMLDivElement | null>(null)
+  const railRef = useRef<HTMLOListElement | null>(null)
   const linkRefs = useRef<Map<string, HTMLAnchorElement>>(new Map())
   const chapterRefs = useRef<Map<string, HTMLLIElement>>(new Map())
 
@@ -181,7 +181,7 @@ export function TableOfContents({ headings, placement = "desktop" }: TableOfCont
   if (!headings.length) return null
 
   const list = (
-    <ol ref={railRef as never} className="toc-rail space-y-0 list-none m-0 p-0 overflow-y-auto scrollbars-thin max-h-[calc(100vh-9rem)]">
+    <ol ref={railRef} className="toc-rail space-y-0 list-none m-0 p-0 overflow-y-auto scrollbars-thin max-h-[calc(100vh-9rem)]">
       {chapters.map((c) => {
         const isActive = c.head.id === activeId
         const subActive = c.children.some((s) => s.id === activeId)
@@ -202,7 +202,7 @@ export function TableOfContents({ headings, placement = "desktop" }: TableOfCont
             // active-id change. React only owns the auxiliary data-has-active
             // flag below, which controls sub-list expansion.
             data-has-active={isActive || subActive ? "true" : "false"}
-            style={{ ["--chapter-progress" as never]: 0 } as React.CSSProperties}
+            style={{ "--chapter-progress": 0 }}
           >
             <a
               ref={(el) => {
@@ -252,7 +252,7 @@ export function TableOfContents({ headings, placement = "desktop" }: TableOfCont
         <span
           className="toc-overall-bar"
           aria-hidden
-          style={{ ["--overall" as never]: overall.toFixed(4) } as React.CSSProperties}
+          style={{ "--overall": overall.toFixed(4) }}
         >
           <i />
         </span>
