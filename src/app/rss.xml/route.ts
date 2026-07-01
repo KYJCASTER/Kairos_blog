@@ -12,6 +12,7 @@ import { unified } from "unified"
 import remarkParse from "remark-parse"
 import remarkGfm from "remark-gfm"
 import remarkRehype from "remark-rehype"
+import rehypeSanitize from "rehype-sanitize"
 import rehypeStringify from "rehype-stringify"
 
 import { getPublishedPosts } from "@/lib/posts"
@@ -28,11 +29,14 @@ const xmlEscape = (s: string) =>
 const cdata = (s: string) => `<![CDATA[${s.replace(/\]\]>/g, "]]]]><![CDATA[>")}]]>`
 
 // Single shared processor — instantiation isn't free, and these all run
-// sequentially during build.
+// sequentially during build. allowDangerousHtml keeps raw MDX tags in the
+// rehype tree, then rehype-sanitize strips anything dangerous before the HTML
+// is embedded in the feed.
 const processor = unified()
   .use(remarkParse)
   .use(remarkGfm)
   .use(remarkRehype, { allowDangerousHtml: true })
+  .use(rehypeSanitize)
   .use(rehypeStringify, { allowDangerousHtml: true })
 
 async function markdownToHtml(md: string): Promise<string> {
