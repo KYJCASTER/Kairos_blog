@@ -168,11 +168,11 @@ export function CoverPanel({
       <div className="cover-zoom absolute inset-0 parchment">
         <div
           className="ink-wash absolute inset-0 cover-drift transition-opacity duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:opacity-40"
-          style={{ ["--ink" as never]: ink } as React.CSSProperties}
+          style={{ "--ink": ink }}
         />
         <div
           className="cover-art absolute inset-0 transition-opacity duration-700 group-hover:opacity-90"
-          style={{ ["--ink" as never]: ink } as React.CSSProperties}
+          style={{ "--ink": ink }}
         >
           <CoverArtwork variant={variant} />
         </div>

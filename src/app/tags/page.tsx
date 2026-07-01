@@ -34,7 +34,7 @@ export default function TagsPage() {
                 <Link
                   href={`/tags/${tag.slug}`}
                   className="tag-card group"
-                  style={{ ["--ink" as never]: tag.color } as React.CSSProperties}
+                  style={{ "--ink": tag.color }}
                 >
                   <span aria-hidden className="tag-card-mark serif italic">#</span>
                   <span className="font-mono text-[11px] uppercase tracking-[0.2em] text-muted-light">

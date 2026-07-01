@@ -43,7 +43,7 @@ export function ReadingProgress({ targetSelector }: { targetSelector: string }) 
   return (
     <div
       className="reading-progress"
-      style={{ ["--progress" as never]: progress } as React.CSSProperties}
+      style={{ "--progress": progress }}
       aria-hidden="true"
     />
   )
