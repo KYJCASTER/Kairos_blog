@@ -2,6 +2,7 @@ import Link from "next/link"
 import { ArrowUpRight } from "lucide-react"
 
 import { tagColor, type PostSummary } from "@/lib/posts"
+import { PointerParallax } from "@/components/pointer-parallax"
 import { site } from "@/lib/site"
 import { formatDate } from "@/lib/utils"
 
@@ -223,8 +224,10 @@ export function PostCard({ post, variant = "default" }: PostCardProps) {
       <Link href={`/blog/${post.slug}`} className="group block">
         <article className="card overflow-hidden">
           <div className="grid md:grid-cols-2 gap-0">
-            <div className="aspect-[3/2] md:aspect-auto md:min-h-[260px] relative overflow-hidden">
-              <CoverPanel post={post} monogramSize="xl" />
+            <div className="aspect-[3/2] md:aspect-auto md:min-h-[260px] relative overflow-hidden sheen">
+              <PointerParallax className="absolute inset-0">
+                <CoverPanel post={post} monogramSize="xl" />
+              </PointerParallax>
               <div className="absolute inset-0 bg-gradient-to-tr from-black/5 via-transparent to-transparent pointer-events-none" />
             </div>
             <div className="p-6 sm:p-8 flex flex-col">

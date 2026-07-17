@@ -99,13 +99,11 @@ export function BlogIndex({ posts, allTags }: BlogIndexProps) {
     if (query.trim()) ensureSearchLoaded()
   }, [query, ensureSearchLoaded])
 
-  // ⌘K / Ctrl-K to focus, Esc to clear.
+  // Esc clears the query. (⌘K / Ctrl-K now opens the site-wide search
+  // palette — see <SearchPalette /> — so this page only handles its own
+  // input's Escape.)
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
-      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") {
-        e.preventDefault()
-        inputRef.current?.focus()
-      }
       if (e.key === "Escape" && document.activeElement === inputRef.current) {
         setQuery("")
         inputRef.current?.blur()
@@ -218,9 +216,14 @@ export function BlogIndex({ posts, allTags }: BlogIndexProps) {
                 <XIcon className="w-3.5 h-3.5" />
               </button>
             ) : (
-              <kbd className="hidden sm:inline-flex absolute right-3 top-1/2 -translate-y-1/2 text-[10px] font-mono text-muted-light border hairline rounded px-1.5 py-0.5">
+              <button
+                type="button"
+                onClick={() => window.dispatchEvent(new CustomEvent("kairos:open-search"))}
+                aria-label="打开全站搜索（⌘K）"
+                className="kbd hidden sm:inline-flex absolute right-3 top-1/2 -translate-y-1/2"
+              >
                 ⌘K
-              </kbd>
+              </button>
             )}
           </div>
 

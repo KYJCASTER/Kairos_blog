@@ -6,7 +6,7 @@ import { useEffect, useState } from "react"
 import { Menu, X } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { ThemeToggle } from "./theme-toggle"
-import { GitHubIcon } from "./icons"
+import { GitHubIcon, SearchIcon } from "./icons"
 import { site } from "@/lib/site"
 
 const navItems = [
@@ -41,7 +41,12 @@ export function Navbar() {
       aria-label="主导航"
     >
       <div className="max-w-5xl mx-auto px-5 sm:px-6">
-        <div className="h-16 flex items-center justify-between gap-6">
+        <div
+          className={cn(
+            "flex items-center justify-between gap-6 transition-[height] duration-500 ease-[cubic-bezier(0.32,0.72,0,1)]",
+            scrolled ? "h-14" : "h-16",
+          )}
+        >
           {/* Brand */}
           <Link
             href="/"
@@ -96,6 +101,16 @@ export function Navbar() {
 
           {/* Right side */}
           <div className="flex items-center gap-1 shrink-0">
+            <button
+              type="button"
+              onClick={() => window.dispatchEvent(new CustomEvent("kairos:open-search"))}
+              aria-label="打开搜索（⌘K）"
+              className="inline-flex items-center gap-2 rounded-full border hairline px-2.5 py-1.5 text-muted hover:text-foreground hover:border-border-strong transition-colors duration-300"
+            >
+              <SearchIcon className="w-3.5 h-3.5" />
+              <span className="hidden lg:inline text-xs leading-none">搜索</span>
+              <kbd className="kbd hidden lg:inline-flex">⌘K</kbd>
+            </button>
             <button
               type="button"
               onClick={() => setMenuOpen((v) => !v)}

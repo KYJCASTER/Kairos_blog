@@ -3,6 +3,7 @@ import Link from "next/link"
 import { ArrowRight, BookOpen, GraduationCap, Wrench, Compass } from "lucide-react"
 
 import { SectionOrnament } from "@/components/section-ornament"
+import { Reveal } from "@/components/reveal"
 import { site } from "@/lib/site"
 
 export const metadata: Metadata = {
@@ -272,7 +273,7 @@ export default function CurriculumPage() {
         {groups.map((group, gi) => {
           const Icon = group.icon
           return (
-            <section key={group.eyebrow}>
+            <Reveal as="section" key={group.eyebrow} delay={gi * 80}>
               <div className="flex items-center gap-3 mb-4">
                 <span className="w-9 h-9 rounded-full bg-surface border hairline inline-flex items-center justify-center text-primary">
                   <Icon className="w-4 h-4" />
@@ -318,14 +319,14 @@ export default function CurriculumPage() {
               </ol>
 
               {gi < groups.length - 1 && <SectionOrnament variant="rule" />}
-            </section>
+            </Reveal>
           )
         })}
       </div>
 
       {/* Colophon */}
       <SectionOrnament variant="diamond" />
-      <section className="max-w-3xl mx-auto text-center">
+      <Reveal as="section" className="max-w-3xl mx-auto text-center" delay={320}>
         <p className="serif italic text-sm text-muted leading-relaxed">
           一格一格慢慢钉。如果你也在学这些，欢迎到《
           <Link href="/about" className="text-foreground hover:text-primary transition-colors">
@@ -343,7 +344,7 @@ export default function CurriculumPage() {
             <ArrowRight className="w-4 h-4" />
           </Link>
         </div>
-      </section>
+      </Reveal>
 
       <p className="sr-only">本页内容由 {site.author} 维护。</p>
     </div>

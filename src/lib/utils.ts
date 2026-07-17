@@ -5,6 +5,25 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
 
+/** Roman numerals up to 3999 — sufficient for years and post counts. */
+export function toRoman(n: number): string {
+  if (n <= 0) return ""
+  const map: [number, string][] = [
+    [1000, "M"], [900, "CM"], [500, "D"], [400, "CD"],
+    [100, "C"], [90, "XC"], [50, "L"], [40, "XL"],
+    [10, "X"], [9, "IX"], [5, "V"], [4, "IV"], [1, "I"],
+  ]
+  let result = ""
+  let rem = n
+  for (const [v, s] of map) {
+    while (rem >= v) {
+      result += s
+      rem -= v
+    }
+  }
+  return result
+}
+
 /**
  * Format an ISO date in zh-CN long form ("2025年4月5日") or short form ("04 / 05").
  * Uses fixed UTC parsing so the output doesn't shift across the user's timezone.

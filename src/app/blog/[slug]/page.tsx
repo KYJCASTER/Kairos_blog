@@ -6,7 +6,7 @@ import { ArrowLeft, ArrowRight } from "lucide-react"
 import { getPublishedPosts, getPostBySlug, getAdjacentPosts, getRelatedPosts, getSeriesContext, tagSlug } from "@/lib/posts"
 import { renderMDX, extractHeadings } from "@/lib/markdown"
 import { computeReadingStats } from "@/lib/reading-time"
-import { formatDate } from "@/lib/utils"
+import { formatDate, toRoman } from "@/lib/utils"
 import { TableOfContents } from "@/components/table-of-contents"
 import { ReadingProgress } from "@/components/reading-progress"
 import { ReadingPercent } from "@/components/reading-percent"
@@ -17,6 +17,8 @@ import { ArticleJsonLd, BreadcrumbJsonLd } from "@/components/json-ld"
 import { CoverPanel } from "@/components/post-card"
 import { Comments } from "@/components/comments"
 import { SeriesBanner } from "@/components/series-banner"
+import { PointerParallax } from "@/components/pointer-parallax"
+import { Reveal } from "@/components/reveal"
 import { site, resolveImage, rssAlternates } from "@/lib/site"
 
 interface PageProps {
@@ -76,6 +78,11 @@ export default async function PostPage({ params }: PageProps) {
     getSeriesContext(post.slug),
   ]
 
+  // Folio number — the post's position in the whole corpus, oldest = I.
+  // Posts are date-desc, so the folio is (total − index).
+  const allPosts = getPublishedPosts()
+  const folio = allPosts.length - allPosts.findIndex((p) => p.slug === post.slug)
+
   return (
     <>
       <ReadingProgress targetSelector="#article-body" />
@@ -112,6 +119,8 @@ export default async function PostPage({ params }: PageProps) {
           <div className="grid lg:grid-cols-[minmax(0,1fr)_320px] gap-8 lg:gap-12 items-center">
             <div className="text-center lg:text-left">
               <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-muted-light mb-5">
+                <span className="text-primary/70">№ {toRoman(folio)}</span>
+                <span className="mx-3 text-border-strong">/</span>
                 <time dateTime={post.date} className="tabular-nums">
                   {formatDate(post.date)}
                 </time>
@@ -129,7 +138,7 @@ export default async function PostPage({ params }: PageProps) {
                 <span>{stats.totalWords.toLocaleString()} 字</span>
               </p>
 
-              <h1 className="serif text-4xl sm:text-5xl lg:text-6xl font-semibold tracking-tight leading-[1.08] text-foreground mb-6">
+              <h1 className="serif-display text-4xl sm:text-5xl lg:text-6xl font-semibold tracking-tight leading-[1.08] text-foreground mb-6">
                 {post.title}
               </h1>
 
@@ -157,8 +166,10 @@ export default async function PostPage({ params }: PageProps) {
               )}
             </div>
 
-            <div className="cover-frame group relative hidden sm:block max-w-sm mx-auto lg:mx-0 w-full aspect-[4/5] overflow-hidden">
-              <CoverPanel post={post} monogramSize="xl" />
+            <div className="cover-frame group relative hidden sm:block max-w-sm mx-auto lg:mx-0 w-full aspect-[4/5] overflow-hidden sheen">
+              <PointerParallax className="absolute inset-0" strength={6}>
+                <CoverPanel post={post} monogramSize="xl" />
+              </PointerParallax>
               <div className="absolute inset-0 bg-gradient-to-tr from-black/5 via-transparent to-primary/10 pointer-events-none" />
             </div>
           </div>
@@ -192,20 +203,20 @@ export default async function PostPage({ params }: PageProps) {
               相关阅读
             </h2>
             <ul className="grid sm:grid-cols-2 gap-4">
-              {related.map((p) => (
-                <li key={p.slug}>
+              {related.map((p, i) => (
+                <Reveal as="li" key={p.slug} delay={i * 90}>
                   <Link href={`/blog/${p.slug}`} className="card p-5 block group h-full">
                     <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted-light mb-2 tabular-nums">
                       {p.date}
                     </p>
                     <p className="serif font-semibold text-foreground group-hover:text-primary transition-colors leading-snug">
-                      {p.title}
+                      <span className="link-draw">{p.title}</span>
                     </p>
                     {p.excerpt && (
                       <p className="text-sm text-muted mt-2 line-clamp-2">{p.excerpt}</p>
                     )}
                   </Link>
-                </li>
+                </Reveal>
               ))}
             </ul>
           </section>
@@ -218,32 +229,36 @@ export default async function PostPage({ params }: PageProps) {
             className="max-w-3xl mx-auto mt-20 pt-10 border-t hairline grid sm:grid-cols-2 gap-4"
           >
             {prev ? (
-              <Link
-                href={`/blog/${prev.slug}`}
-                className="card p-5 group sm:text-left"
-              >
-                <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-muted-light mb-2 flex items-center gap-1.5">
-                  <ArrowLeft className="w-3 h-3" /> 更新
-                </p>
-                <p className="serif font-semibold text-foreground group-hover:text-primary transition-colors leading-snug">
-                  {prev.title}
-                </p>
-              </Link>
+              <Reveal delay={0}>
+                <Link
+                  href={`/blog/${prev.slug}`}
+                  className="card p-5 group sm:text-left block h-full"
+                >
+                  <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-muted-light mb-2 flex items-center gap-1.5">
+                    <ArrowLeft className="w-3 h-3" /> 更新
+                  </p>
+                  <p className="serif font-semibold text-foreground group-hover:text-primary transition-colors leading-snug">
+                    <span className="link-draw">{prev.title}</span>
+                  </p>
+                </Link>
+              </Reveal>
             ) : (
               <span />
             )}
             {next ? (
-              <Link
-                href={`/blog/${next.slug}`}
-                className="card p-5 group text-right"
-              >
-                <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-muted-light mb-2 flex items-center justify-end gap-1.5">
-                  更旧 <ArrowRight className="w-3 h-3" />
-                </p>
-                <p className="serif font-semibold text-foreground group-hover:text-primary transition-colors leading-snug">
-                  {next.title}
-                </p>
-              </Link>
+              <Reveal delay={90}>
+                <Link
+                  href={`/blog/${next.slug}`}
+                  className="card p-5 group text-right block h-full"
+                >
+                  <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-muted-light mb-2 flex items-center justify-end gap-1.5">
+                    更旧 <ArrowRight className="w-3 h-3" />
+                  </p>
+                  <p className="serif font-semibold text-foreground group-hover:text-primary transition-colors leading-snug">
+                    <span className="link-draw">{next.title}</span>
+                  </p>
+                </Link>
+              </Reveal>
             ) : (
               <span />
             )}
