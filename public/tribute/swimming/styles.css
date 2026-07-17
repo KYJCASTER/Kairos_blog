@@ -400,7 +400,11 @@ em { font-style: italic; }
 
 /* ---------- PULL QUOTE ---------- */
 
-.pullquote { text-align: center; padding: 130px 64px; max-width: 1100px; margin: 0 auto; overflow: hidden; }
+/* Full-bleed tonal band like every other section — the constraint lives on
+   the blockquote (26ch), not the section, so the water-deep background runs
+   edge to edge and keeps the "surface → abyss" band rhythm unbroken.
+   position:relative anchors the porthole ring to the section itself. */
+.pullquote { position: relative; text-align: center; padding: 130px 64px; overflow: hidden; }
 .porthole-ring {
   width: 220px; height: 220px; border-radius: 50%;
   border: 6px solid rgba(240,233,210,0.28);
