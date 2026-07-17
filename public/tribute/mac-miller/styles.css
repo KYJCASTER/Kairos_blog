@@ -1158,6 +1158,24 @@ body::after {
   margin-top: 40px;
 }
 
+.swimming__more {
+  margin-top: 44px;
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.12em;
+}
+.swimming__more a {
+  color: rgba(240,233,210,0.85);
+  text-decoration: none;
+  border-bottom: 1px dashed rgba(240,233,210,0.35);
+  padding-bottom: 2px;
+  transition: color 0.2s, border-color 0.2s;
+}
+.swimming__more a:hover {
+  color: var(--orange);
+  border-color: var(--orange);
+}
+
 /* ---------- SIDE B / NOTES ---------- */
 .sideb {
   padding: 110px 64px;

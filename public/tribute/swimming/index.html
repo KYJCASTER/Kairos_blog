@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Swimming — Mac Miller 全专详细解析（2018）</title>
+<meta name="description" content="逐曲拆解 Mac Miller 2018 年专辑《Swimming》：分手与被捕后的三十五天、Jon Brion 参与的十座录音室、封面里那扇通向蓝天的柜中窗，以及贯穿全专的"下沉"与"游泳"悖论。" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..900,0..100;1,9..144,300..900,0..100&family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&family=Caveat:wght@400..700&family=JetBrains+Mono:wght@300;500&family=Noto+Serif+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<!-- ATMOSPHERE -->
+<div class="grain" aria-hidden="true"></div>
+<div class="vignette" aria-hidden="true"></div>
+<div class="bubbles" id="bubbles" aria-hidden="true"></div>
+
+<!-- SCROLL PROGRESS -->
+<div class="scroll-progress" aria-hidden="true"><span id="scrollBar"></span></div>
+
+<!-- INK CURSOR -->
+<div class="ink-cursor" aria-hidden="true">
+  <span class="ink-cursor__dot"></span>
+  <span class="ink-cursor__ring"></span>
+</div>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav__brand">
+    <span class="nav__mark">SWIM.</span>
+    <span class="nav__sub">全专详细解析 · 第 02 期</span>
+  </div>
+  <ul class="nav__links">
+    <li><a href="#intro">引言</a></li>
+    <li><a href="#background">背景</a></li>
+    <li><a href="#making">制作</a></li>
+    <li><a href="#cover">封面</a></li>
+    <li><a href="#sound">声音</a></li>
+    <li><a href="#tracks">曲目</a></li>
+    <li><a href="#themes">主题</a></li>
+    <li><a href="#reception">回响</a></li>
+    <li><a href="#after">此后</a></li>
+  </ul>
+  <div class="nav__time"><span id="diveClock">00:00</span> · 已入水</div>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="hero__meta hero__meta--left">
+    <span class="kicker">第 02 期 — 全专详细解析</span>
+    <span class="kicker">录制于 2016 — 2018，十座城市的录音室</span>
+  </div>
+  <div class="hero__meta hero__meta--right">
+    <span class="kicker">距离他离开，只剩 35 天</span>
+    <span class="kicker">"我曾下沉，现在我在游。"</span>
+  </div>
+
+  <h1 class="hero__title" aria-label="Swimming">
+    <span class="hero__name">
+      <span class="letter">S</span><span class="letter">W</span><span class="letter">I</span><span class="letter">M</span><span class="letter">M</span><span class="letter">I</span><span class="letter">N</span><span class="letter">G</span>
+    </span>
+    <span class="hero__alias">Mac Miller 第五张录音室专辑 <em>· 2018</em></span>
+  </h1>
+
+  <div class="hero__dates">
+    <span>2016 · 制作开始</span>
+    <span class="hero__bridge">十座城市，两年</span>
+    <span>2018 · 08 · 03 发行</span>
+  </div>
+
+  <div class="hero__abstract">
+    <p>
+      十三首歌，五十八分钟，官方挂名的 feature 是<em>零</em>个。这是他从悬崖边写回来的一封信——
+      不辩解、不甩锅，只谈一件事：一个人要怎么在没人看着的时候，一天一天把自己拼回去。
+    </p>
+    <p class="hero__signoff">— 慢慢往下滑，水不深。</p>
+  </div>
+
+  <div class="hero__corner hero__corner--tl">№ 02</div>
+  <div class="hero__corner hero__corner--tr">58:39</div>
+  <div class="hero__corner hero__corner--bl">归档：解析</div>
+  <div class="hero__corner hero__corner--br">↓ 继续阅读</div>
+</header>
+
+<!-- DIVIDER: WAVE -->
+<div class="divider" aria-hidden="true">
+  <svg viewBox="0 0 240 24" preserveAspectRatio="xMidYMid meet">
+    <path d="M0 12 Q20 2 40 12 T80 12 T120 12 T160 12 T200 12 T240 12" fill="none" stroke="currentColor" stroke-width="1.1"/>
+  </svg>
+</div>
+
+<!-- 0 · INTRO -->
+<section class="chapter tone-surface" id="intro">
+  <div class="chapter__header">
+    <span class="chapter__num">楔&nbsp;子</span>
+    <h2 class="chapter__title">两种读法，<em>谁也没压过谁</em>。</h2>
+    <span class="chapter__sub">在讲这张专辑之前，先讲清楚它的名字到底什么意思。</span>
+  </div>
+
+  <div class="chapter__body two-col">
+    <article class="prose">
+      <p class="dropcap">
+        <span class="drop">S</span>wimming 有两种读法：一种是"正在往前游"，一种是"正在不被淹死"。这张专辑最狡猾的地方，就是它从头到尾都不肯替你选一个——两种读法同时成立，谁也没有压过谁。
+      </p>
+      <p>
+        2018 年 8 月 3 日，这是 Malcolm James McCormick 生前发布的最后一张专辑。距离他在洛杉矶家中去世，只剩 35 天。这句话我犹豫要不要写在最前面，因为整张专辑里，他其实完全没打算把自己写成一个"悲剧收尾"的主角——他在这十三首歌里争取的，是完全相反的东西：一个人怎么在没有人看着的时候，一天一天地把自己拼回去。
+      </p>
+      <p>
+        这篇不是<a href="../mac-miller/">那封情书</a>的续集，是它的附录：把镜头从"整个 Mac Miller"拉近到"这一张专辑"，一首一首地看清楚，他到底是怎么从水底，游回水面的。
+      </p>
+    </article>
+
+    <aside class="margin">
+      <div class="cover-frame">
+        <div class="cover-frame__photo">
+          <img src="https://is1-ssl.mzstatic.com/image/thumb/Music124/v4/e3/38/b5/e338b529-da3f-b4b9-b8f9-1fae428e7a23/093624905899.jpg/1200x1200bb.jpg" alt="Swimming 专辑封面（2018）——用作纪念与评论" loading="lazy">
+        </div>
+        <span class="cover-frame__seam" aria-hidden="true"></span>
+        <span class="cover-frame__vent" aria-hidden="true"></span>
+      </div>
+      <p class="handwritten">封面里没有泳池，没有水花——只有一扇柜中窗，望着一片蓝天。</p>
+
+      <div class="factbox">
+        <h4>专辑信息</h4>
+        <dl>
+          <div><dt>发行日期</dt><dd>2018 年 8 月 3 日</dd></div>
+          <div><dt>厂牌</dt><dd>REMember Music / Warner Bros.</dd></div>
+          <div><dt>曲目</dt><dd>13 首 · 58:39</dd></div>
+          <div><dt>Billboard 200</dt><dd>首周 #3 → 身后回升至 #6</dd></div>
+          <div><dt>认证</dt><dd>美国 RIAA 2× 白金</dd></div>
+          <div><dt>格莱美</dt><dd>第 61 届最佳说唱专辑提名</dd></div>
+        </dl>
+      </div>
+    </aside>
+  </div>
+</section>
+
+<!-- 1 · BACKGROUND -->
+<section class="chapter tone-deep" id="background" data-chapter="01">
+  <div class="chapter__header">
+    <span class="chapter__num">第&nbsp;一&nbsp;章</span>
+    <h2 class="chapter__title">悬崖边的<em>三十五天</em>。</h2>
+    <span class="chapter__sub">分手、车祸、和一张其实两年前就已经开始录的专辑。</span>
+  </div>
+
+  <p class="lede">
+    2018 年的春天，对他来说称得上是从高处坠落的教科书案例——可这张专辑，其实早就已经在半路上了。
+  </p>
+
+  <div class="chapter__body two-col">
+    <article class="prose">
+      <p>
+        2018 年 5 月，他和交往两年的 Ariana Grande 分手，两人的关系此前一直被摆在聚光灯下滚动播出。同一个月，他驾驶的 G-Wagon 在圣费尔南多谷撞上电线杆，酒后驾驶，好在没有人受伤——但新闻和乐迷的评论区没有放过这次意外，一部分声音甚至把车祸归咎到刚刚和他分手的 Ariana 身上。她后来在社交媒体上罕见地正面回应，大意是：她不该为另一个成年人的自我照顾负责。这是一句放在 2018 年夏天看很刺耳、放在专辑标题里看又几乎像是被提前写好的话。
+      </p>
+      <p>
+        《Swimming》就在这样的十一周之后发行。但这张专辑并不是一次仓促的"公关急救"：它的录制其实从 2016 年就已经开始，跨越了洛杉矶、纽约、圣地亚哥、匹兹堡、檀香山、达拉斯、西雅图十座城市的录音室。真正被这场车祸改变的，只是这张专辑发行时外界看待它的角度——本来是一张关于"如何持续地照顾自己"的专辑，一夜之间被读成了"他还好吗"的公开问询。
+      </p>
+      <p>
+        他自己没有把这一段处理成甩锅或者辩解。他在采访里反复说的，只是想学会怎么对付自己那点脾气、那点瘾——不是甩给某个人，是自己一件一件地拆。这也是《Self Care》那支后来被谈论最多的 MV 想讲的事：责任在自己手上，逃生的方法，也在自己手上。
+      </p>
+    </article>
+
+    <aside class="margin">
+      <div class="factbox">
+        <h4>时间线</h4>
+        <dl>
+          <div><dt>2018.05</dt><dd>与 Ariana Grande 分手</dd></div>
+          <div><dt>2018.05</dt><dd>圣费尔南多谷，酒驾车祸</dd></div>
+          <div><dt>2018.08.03</dt><dd>《Swimming》发行</dd></div>
+          <div><dt>距离他离开</dt><dd>仅剩 35 天</dd></div>
+        </dl>
+      </div>
+      <p class="handwritten">从车祸那天，到专辑发行，只隔了十一周。</p>
+    </aside>
+  </div>
+</section>
+
+<!-- PULL QUOTE 1 -->
+<section class="pullquote tone-deep">
+  <span class="porthole-ring" aria-hidden="true"></span>
+  <span class="pullquote__mark">"</span>
+  <blockquote>
+    我不想要纯粹的快乐，也不想要纯粹的悲伤。<br>
+    我不想要三分之一这个、三分之二那个——我只想把它们都拥有，然后好好地活。
+  </blockquote>
+  <cite>— 关于《Self Care》，访谈，2018 年</cite>
+</section>
+
+<!-- 2 · MAKING OF -->
+<section class="chapter tone-mid" id="making" data-chapter="02">
+  <div class="chapter__header">
+    <span class="chapter__num">第&nbsp;二&nbsp;章</span>
+    <h2 class="chapter__title">十座城市，<em>零个挂名</em>。</h2>
+    <span class="chapter__sub">Jon Brion、一支会呼吸的活乐队，以及一份不署名的客串名单。</span>
+  </div>
+
+  <div class="chapter__body two-col">
+    <article class="prose">
+      <p>
+        这张专辑真正的合作核心，是制作人 Jon Brion——那位常年游走在电影配乐和 Fiona Apple、Kanye West 制作名单里的怪才。有 Brion 在，《Swimming》的编制从"取样 + 鼓机"往一支会呼吸的活乐队偏移：风琴、电颤琴、原声吉他，一堆在说唱专辑里很少被正经对待的乐器，第一次被摆到了正中间。
+      </p>
+      <p>
+        最有意思的一点，是这张专辑的客串名单：官方标注的 featuring 是<em>零</em>。可实际参与录音的名字却排得很长——Thundercat 弹了贝斯，John Mayer 弹了吉他，Snoop Dogg、Syd、Dâm-Funk 都在里面唱了几句，连 Dev Hynes（Blood Orange）和 J. Cole 都以制作人身份出现在制作名单里。在一张 2018 年的主流说唱专辑里，不挂一个"feat."几乎是一种姿态——比起攒一张群星拼盘，他更想要的是，这些人只是安静地把活儿干好，不署名。
+      </p>
+    </article>
+
+    <aside class="margin">
+      <div class="factbox">
+        <h4>录音地点</h4>
+        <p class="studio-list">
+          Ameraycan（北好莱坞）· The Ble Compound · Conway（好莱坞）· Dubway（纽约）·
+          Estudios del Sur（圣地亚哥）· ID Labs（匹兹堡）· Island Sound（檀香山）·
+          Legacy（达拉斯）· Room 719（伯班克）· Studio X（西雅图）
+        </p>
+      </div>
+      <div class="factbox">
+        <h4>不挂名的乐手</h4>
+        <dl>
+          <div><dt>Thundercat</dt><dd>贝斯</dd></div>
+          <div><dt>John Mayer</dt><dd>吉他</dd></div>
+          <div><dt>Jon Brion</dt><dd>风琴 · 电颤琴 · 制作</dd></div>
+          <div><dt>Dev Hynes</dt><dd>制作</dd></div>
+          <div><dt>J. Cole</dt><dd>制作</dd></div>
+          <div><dt>Snoop / Syd / Dâm-Funk</dt><dd>和声</dd></div>
+        </dl>
+      </div>
+    </aside>
+  </div>
+</section>
+
+<!-- 3 · COVER CONCEPT -->
+<section class="cover-concept tone-abyss" id="cover" data-chapter="03">
+  <div class="cover-concept__bg" aria-hidden="true"></div>
+  <div class="cover-concept__inner">
+    <span class="chapter__num">第&nbsp;三&nbsp;章</span>
+    <h2 class="chapter__title">封面与片名的<em>悖论</em>。</h2>
+
+    <div class="cover-concept__grid">
+      <p class="cover-concept__text">
+        官方封面只有几个元素：一块空白到近乎苍白的白色背景，Mac Miller 穿着一身灰色西装，打着领带，赤着脚，盘腿坐在一个像更衣室储物柜一样的窄小空间里——柜子内壁开了一扇窗，窗外是一片蓝天。没有游泳池，没有水花，专辑标题里那个"游泳"的意象，封面上其实一点都看不见。
+        <br><br>
+        这恰恰是它聪明的地方。柜子的形状暧昧地介于"更衣室"和"棺材"之间——你可以把它读成刚洗完澡准备下水的更衣间，也可以读成一具立起来的棺木，内壁那扇窗，是留给死者的最后一点天光。同一张图，同时装着"即将下水"和"已经下葬"两种可能——恰好对应了标题本身的悖论：swimming 既是正在往前游的主动动作，又是正在拼命不被淹死的求生反应。
+        <br><br>
+        这个视觉悖论，在主打 MV《Self Care》里被直接演成了一整个故事。导演 Christian Weber 让他在一具真的棺材里躺着开场——一边说唱一边抽烟，还用小刀在棺材内壁刻下拉丁文 "memento mori"（记住，你终有一死），整段戏是在向《杀死比尔2》里那场活埋戏致敬。棺材后来被泥土灌满，又被水灌满，他最终砸穿棺盖，从土里刨出自己，一路"游"到地面上，伴随几场爆炸，把自己炸飞到空中。整支 MV 没有一句台词能比副歌那句更直白——
+      </p>
+
+      <div class="cover-concept__frame">
+        <span class="porthole-ring porthole-ring--big" aria-hidden="true"></span>
+      </div>
+    </div>
+
+    <p class="swimming__sign">
+      "I was drownin', but now I'm swimmin'."<br>
+      <span>我曾下沉，但现在，我正在游。</span>
+    </p>
+  </div>
+</section>
+
+<!-- 4 · SOUND -->
+<section class="chapter tone-rise" id="sound" data-chapter="04">
+  <div class="chapter__header">
+    <span class="chapter__num">第&nbsp;四&nbsp;章</span>
+    <h2 class="chapter__title">爵士与放克，<em>换掉了说唱的骨架</em>。</h2>
+    <span class="chapter__sub">一张披着说唱外衣的灵魂乐唱片。</span>
+  </div>
+
+  <div class="chapter__body">
+    <article class="prose prose--wide">
+      <p>
+        这张专辑最容易被忽略的成就，是它几乎把"说唱专辑"惯用的骨架整个换掉了。没有太多咬字凶狠的 flow 竞速，底下托着的是萨克斯、小号、电颤琴、原声吉他和一根异常灵活的贝斯线——《What's the Use?》里那根线是 Thundercat 弹的，松弛、跳跃，几乎带感官上的滑腻感；《Ladders》整首曲子的重心几乎让位给铜管，像是在说唱专辑里硬塞进了一段爵士俱乐部现场；Jon Brion 的电颤琴和风琴，在《Come Back to Earth》《2009》这些相对安静的段落里，负责把整张专辑的情绪往"教堂 + 爵士俱乐部"的方向拉。
+      </p>
+    </article>
+
+    <div class="sample-list">
+      <div class="sample"><span class="sample__from">Hurt Feelings</span><span class="sample__arrow">←</span><span class="sample__to">O'Donel Levy《Nigerian Knight》</span></div>
+      <div class="sample"><span class="sample__from">Self Care</span><span class="sample__arrow">←</span><span class="sample__to">Erykah Badu《On &amp; On》</span></div>
+      <div class="sample"><span class="sample__from">Perfecto</span><span class="sample__arrow">←</span><span class="sample__to">Trevor Dandy《Is There Any Love》</span></div>
+      <div class="sample"><span class="sample__from">2009</span><span class="sample__arrow">←</span><span class="sample__to">Chanté Moore</span></div>
+      <div class="sample"><span class="sample__from">Jet Fuel</span><span class="sample__arrow">←</span><span class="sample__to">Cutty Ranks《The Stopper》</span></div>
+    </div>
+    <p class="sample-note">这些来源全部指向 70 年代前后的灵魂乐和放克——他把这张说唱专辑，做成了一张骨子里其实是灵魂乐唱片的东西。</p>
+  </div>
+</section>
+
+<!-- 5 · TRACK BY TRACK -->
+<section class="tracks-section tone-canvas" id="tracks" data-chapter="05">
+  <div class="chapter__header">
+    <span class="chapter__num">第&nbsp;五&nbsp;章</span>
+    <h2 class="chapter__title">逐曲解析，<em>十三首，一次不落</em>。</h2>
+    <span class="chapter__sub">时长与制作信息已核实；没有确凿来源的细节，不瞎编。</span>
+  </div>
+
+  <ol class="tracks">
+    <li class="track-entry">
+      <div class="track-entry__head">
+        <span class="track-entry__num">01</span>
+        <span class="track-entry__title">Come Back to Earth</span>
+        <span class="track-entry__wave" data-wave></span>
+        <span class="track-entry__time">2:41</span>
+      </div>
+      <p class="track-entry__credit">Jon Brion &amp; Mac Miller 联合制作 · Jeff Gitelman：贝斯 / 吉他</p>
+      <p class="track-entry__body">开场曲。整张专辑最安静的一首，几乎是脱口而出的自白，没有鼓点撑腰，只有钢琴和一句一句摊开的独白。"这个世界是平的"——开场白就已经把整张专辑的姿态定下来了：不辩解，不着急，先把话说清楚。</p>
+    </li>
+
+    <li class="track-entry">
+      <div class="track-entry__head">
+        <span class="track-entry__num">02</span>
+        <span class="track-entry__title">Hurt Feelings</span>
+        <span class="track-entry__wave" data-wave></span>
+        <span class="track-entry__time">4:00</span>
+      </div>
+      <p class="track-entry__credit">J. Cole &amp; Dev Hynes 联合制作 · 采样 O'Donel Levy《Nigerian Knight》</p>
+      <p class="track-entry__body">鼓点比前一首硬朗不少，情绪却拧着来——一边用漫不经心的语气开玩笑，一边把"我心里不太行"这句话原样说出来。幽默在这里从来不是掩饰，是唯一还敢用的语气。</p>
+    </li>
+
+    <li class="track-entry">
+      <div class="track-entry__head">
+        <span class="track-entry__num">03</span>
+        <span class="track-entry__title">What's the Use?</span>
+        <span class="track-entry__wave" data-wave></span>
+        <span class="track-entry__time">4:48</span>
+      </div>
+      <p class="track-entry__credit">Thundercat：贝斯 · Snoop Dogg / Syd / Dâm-Funk：和声</p>
+      <p class="track-entry__body">全专最松弛、最有舞池感的一首，底下那根贝斯线滑得几乎不像话。歌词是在自嘲式地盘点自己的坏毛病，可编曲偏偏松快得让人想跳舞——这种"内容"和"氛围"的错位，恰好是整张专辑最迷人的地方。</p>
+    </li>
+
+    <li class="track-entry">
+      <div class="track-entry__head">
+        <span class="track-entry__num">04</span>
+        <span class="track-entry__title">Perfecto</span>
+        <span class="track-entry__wave" data-wave></span>
+        <span class="track-entry__time">3:41</span>
+      </div>
+      <p class="track-entry__credit">Tee-WaTT 制作 · 采样 Trevor Dandy《Is There Any Love》</p>
+      <p class="track-entry__body">放在专辑正中偏前的位置，像一次深呼吸——歌名直接就是"完美"，可歌里唱的却是允许自己不完美。短，不炫技，像一句写给自己看的便签。</p>
+    </li>
+
+    <li class="track-entry track-entry--featured">
+      <div class="track-entry__head">
+        <span class="track-entry__num">05</span>
+        <span class="track-entry__title">Self Care</span>
+        <span class="track-entry__wave" data-wave></span>
+        <span class="track-entry__time">5:45</span>
+      </div>
+      <p class="track-entry__credit">DJ Dahi &amp; ID Labs 联合制作 · 采样 Erykah Badu《On &amp; On》 · 全专题眼曲</p>
+      <p class="track-entry__body">整张专辑的重心所在——那句被引用最多的 "I was drownin', but now I'm swimmin'" 就在这首歌里。副歌反复念叨"起来吧，你会没事的"，听起来像安慰别人，其实是他说给自己听的。</p>
+    </li>
+
+    <li class="track-entry">
+      <div class="track-entry__head">
+        <span class="track-entry__num">06</span>
+        <span class="track-entry__title">Wings</span>
+        <span class="track-entry__wave" data-wave></span>
+        <span class="track-entry__time">4:39</span>
+      </div>
+      <p class="track-entry__credit">Alexander Spit 制作</p>
+      <p class="track-entry__body">整首歌都在写"失重"——不是解脱式的轻盈，是那种明知道自己在往下掉，却还要说服自己那感觉像在飞的倔强。</p>
+    </li>
+
+    <li class="track-entry">
+      <div class="track-entry__head">
+        <span class="track-entry__num">07</span>
+        <span class="track-entry__title">Ladders</span>
+        <span class="track-entry__wave" data-wave></span>
+        <span class="track-entry__time">4:48</span>
+      </div>
+      <p class="track-entry__credit">编制以萨克斯、小号为主的现场铜管</p>
+      <p class="track-entry__body">编制里让萨克斯和小号唱了主角。歌名和《Wings》遥相呼应——一个写"往上飞"，一个写"一级一级往上爬"，一个靠翅膀，一个靠笨办法，拼在一起才是完整的故事。</p>
+    </li>
+
+    <li class="track-entry">
+      <div class="track-entry__head">
+        <span class="track-entry__num">08</span>
+        <span class="track-entry__title">Small Worlds</span>
+        <span class="track-entry__wave" data-wave></span>
+        <span class="track-entry__time">4:32</span>
+      </div>
+      <p class="track-entry__credit">John Mayer：吉他（未挂名）</p>
+      <p class="track-entry__body">歌名叫"小世界"，讲的却是走出小世界之后那种孤独的辽阔感——认识的人越来越多，世界越来越大，人却越来越难被真正看见。</p>
+    </li>
+
+    <li class="track-entry">
+      <div class="track-entry__head">
+        <span class="track-entry__num">09</span>
+        <span class="track-entry__title">Conversation, Pt. 1</span>
+        <span class="track-entry__wave" data-wave></span>
+        <span class="track-entry__time">3:30</span>
+      </div>
+      <p class="track-entry__credit">一场没写完的对话</p>
+      <p class="track-entry__body">题目里那个"Pt. 1"从头到尾没能等到"Pt. 2"。回头看，这个悬而未决的编号，比歌词本身更让人心里咯噔一下。</p>
+    </li>
+
+    <li class="track-entry">
+      <div class="track-entry__head">
+        <span class="track-entry__num">10</span>
+        <span class="track-entry__title">Dunno</span>
+        <span class="track-entry__wave" data-wave></span>
+        <span class="track-entry__time">3:57</span>
+      </div>
+      <p class="track-entry__credit">化名 Parson Brown 参与制作 · Jon Brion 追加制作</p>
+      <p class="track-entry__body">全专最恍惚的一首情歌，唱腔里带着自己都说不准的犹疑，像是想说"我不确定，但我愿意试试看"。</p>
+    </li>
+
+    <li class="track-entry">
+      <div class="track-entry__head">
+        <span class="track-entry__num">11</span>
+        <span class="track-entry__title">2009</span>
+        <span class="track-entry__wave" data-wave></span>
+        <span class="track-entry__time">5:47</span>
+      </div>
+      <p class="track-entry__credit">Jon Brion：风琴 / 电颤琴 · 采样 Chanté Moore</p>
+      <p class="track-entry__body">歌名直接指向他还在匹兹堡地下室里录小样、还没被谁知道名字的那一年——十年之后回头看当年的自己，是整张专辑里最不加掩饰的怀旧时刻。</p>
+    </li>
+
+    <li class="track-entry">
+      <div class="track-entry__head">
+        <span class="track-entry__num">12</span>
+        <span class="track-entry__title">Jet Fuel</span>
+        <span class="track-entry__wave" data-wave></span>
+        <span class="track-entry__time">5:45</span>
+      </div>
+      <p class="track-entry__credit">DJ Dahi &amp; ID Labs 制作（登记曲名 "Now Is Only Now"） · 采样 Cutty Ranks《The Stopper》</p>
+      <p class="track-entry__body">这首歌的底鼓最早诞生在 Kendrick Lamar《DAMN.》的录音过程里，经 Steve Lacy 之手辗转落到了这里——全专最躁动不安的一首，像是在为最后一首歌的平静，故意先攒够一点不安分。</p>
+    </li>
+
+    <li class="track-entry">
+      <div class="track-entry__head">
+        <span class="track-entry__num">13</span>
+        <span class="track-entry__title">So It Goes</span>
+        <span class="track-entry__wave" data-wave></span>
+        <span class="track-entry__time">5:13</span>
+      </div>
+      <p class="track-entry__credit">Mac Miller 独立制作 · Jon Brion 追加制作</p>
+      <p class="track-entry__body">低音吉他和一层薄薄的合成器嗡鸣，收尾是一段悠长的钢琴独奏，把整张专辑轻轻放下。多年后回看，"so it goes"这四个字——借自《五号屠场》、意思接近"人生就是这样"的短语——变成了整张专辑最沉重的巧合：它是专辑的最后一首歌，后来也成了乐迷用来悼念他的一句暗语。</p>
+    </li>
+  </ol>
+</section>
+
+<!-- 6 · THEMES -->
+<section class="chapter tone-warm" id="themes" data-chapter="06">
+  <div class="chapter__header">
+    <span class="chapter__num">第&nbsp;六&nbsp;章</span>
+    <h2 class="chapter__title">下沉与游泳，<em>是同一件事</em>。</h2>
+    <span class="chapter__sub">self-care 从来不是放纵，是每天重做一遍的体力活。</span>
+  </div>
+
+  <div class="chapter__body">
+    <article class="prose prose--wide">
+      <p>
+        从头到尾听下来，会发现"下沉"和"游泳"从不是两个互相取代的阶段，而是同一段时间里同时发生的两件事。《Come Back to Earth》里那个"世界是平的"的钝感，《Hurt Feelings》里用玩笑包住的难受，《What's the Use?》里明知故犯的松弛，《Self Care》里那句被念叨了无数遍的"起来吧，你会没事的"——没有一首歌宣布"我已经游过去了"。整张专辑更诚实的姿态是：我还在水里，但至少，我知道该往哪个方向划。
+      </p>
+      <p>
+        这也是为什么"self care"这个词，在这张专辑里从来不是放纵或者逃避的同义词。前面那句他自己说过的话值得再想一遍——不要纯粹的快乐，也不要纯粹的悲伤，把两者都装进同一个容器里，然后好好地活下去。这句话比任何乐评都更准确地解释了《Swimming》为什么听起来又轻又重：轻，是因为编曲松弛、几乎懒洋洋；重，是因为歌词里那点自我修复，从来不是一次性的顿悟，是需要每天重新做一遍的体力活。
+      </p>
+    </article>
+  </div>
+</section>
+
+<!-- 7 · RECEPTION -->
+<section class="reception tone-warm" id="reception" data-chapter="07">
+  <div class="chapter__header">
+    <span class="chapter__num">第&nbsp;七&nbsp;章</span>
+    <h2 class="chapter__title">评论与<em>回响</em>。</h2>
+    <span class="chapter__sub">一份正面但不算轰动的成绩单——直到他离开之后，一切都变了重量。</span>
+  </div>
+
+  <div class="chapter__body">
+    <div class="scores">
+      <div class="score"><span class="score__num">78</span><span class="score__label">Metacritic</span></div>
+      <div class="score"><span class="score__num">7.5</span><span class="score__label">Pitchfork</span></div>
+      <div class="score"><span class="score__num">3.5</span><span class="score__label">AllMusic</span></div>
+      <div class="score"><span class="score__num">3.5</span><span class="score__label">Rolling Stone</span></div>
+      <div class="score"><span class="score__num">4.0</span><span class="score__label">The Guardian</span></div>
+      <div class="score"><span class="score__num">4.0</span><span class="score__label">NME</span></div>
+    </div>
+
+    <article class="prose prose--wide">
+      <p>
+        专业乐评整体正面：Metacritic 综合分 78/100，Pitchfork 给到 7.5/10，评价里那句"wistful soul and warm funk"（怅惘的灵魂乐与温暖的放克）基本概括了这张专辑的质地。
+      </p>
+      <p>
+        商业成绩上，《Swimming》在 Billboard 200 首周排名第 3，首周单位数 6.6 万（其中纯销量 3 万张）——是他生前连续第五张进入榜单前五的专辑。他去世后，专辑销量回升，一度重新爬到第 6 名。到 2021 年 2 月，美国唱片工业协会（RIAA）把它认证为 2× 白金——这是他生前唯一、也是第一张拿到白金认证的专辑，可惜他没能亲眼看到这个数字。
+      </p>
+      <p>
+        2019 年 2 月，《Swimming》拿到他生前唯一一次格莱美提名——第 61 届最佳说唱专辑，同一组入围的还有 Cardi B 的《Invasion of Privacy》、Nipsey Hussle 的《Victory Lap》、Pusha-T 的《Daytona》和 Travis Scott 的《Astroworld》，称得上近几年最难打的一届。最终拿奖的是 Cardi B——她也凭这张专辑成为第一位单飞拿下"最佳说唱专辑"的女性歌手。Mac 没能等到颁奖礼那一天亲耳听到结果，但那年的入围名单本身，已经足够说明 2018 年的说唱乐坛有多拥挤、多用力。
+      </p>
+    </article>
+  </div>
+</section>
+
+<!-- 8 · AFTER -->
+<section class="after tone-dusk" id="after" data-chapter="08">
+  <div class="after__inner">
+    <span class="chapter__num">第&nbsp;八&nbsp;章</span>
+    <h2 class="after__title">然后是 — <em>circles</em>。</h2>
+
+    <p class="after__lede">
+      《Swimming》本来应该只是一个开始。制作人 Jon Brion 后来证实，他和 Mac 当时其实在同时做两张互为镜像的专辑——一张叫《Swimming》，另一张叫《Circles》，合起来的概念叫 "Swimming in Circles"：一进一退，一伸一收，拼在一起才是一个完整的圆。《Circles》最终在 2020 年 1 月由 Brion 独自完成收尾，作为身后遗作发行。
+    </p>
+
+    <p class="after__close">
+      这一段我在<a href="../mac-miller/">那封情书</a>里写得更完整——如果你还没看过，可以点进去补一下。这里只想强调一件事：《Swimming》从来都不是一张写给"结局"的专辑，它写的是"下一步"。只是那个"下一步"，后来没有机会被走完。
+    </p>
+  </div>
+</section>
+
+<!-- OUTRO -->
+<section class="outro">
+  <div class="outro__inner">
+    <p class="outro__text">
+      写完这篇，我又把整张专辑倒着听了一遍，从《So It Goes》那段钢琴独奏，一路听回《Come Back to Earth》开场那句"这个世界是平的"。三十五天——从这张专辑发行，到他离开，只有三十五天。可这张专辑本身，一点也不像是在倒计时里做出来的东西。它更像是一个人认认真真地打算，把接下来的很多年都过好。
+    </p>
+    <p class="outro__quote">"我曾在水里下沉，可现在，我正在游泳。"</p>
+    <p class="outro__text">
+      这句词我在那封情书里引用过一次，这次，我想把它还给它真正的位置：这不是一句悲伤的注脚，是一句进行时的宣言。如果这篇解析让你想重新点开这张专辑听一遍——那就是这篇文章能做到的最好的事。
+    </p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="foot">
+  <div class="foot__col">
+    <h5>关于这页</h5>
+    <p>沿用《致 Mac Miller》专题页的排版语言，配色改成了这张专辑自己的深水蓝绿。这是一份非商业的乐迷解析，封面图来自 Apple Music 公开 CDN，仅作纪念与评论用途；如果版权方介意，告诉我，立刻撤下。</p>
+  </div>
+  <div class="foot__col">
+    <h5>延伸阅读</h5>
+    <ul>
+      <li><a href="../mac-miller/">致 Mac Miller 的一封情书 ↗</a></li>
+      <li><a href="#tracks">回到逐曲解析 ↑</a></li>
+      <li><a href="#intro">回到开头 ↑</a></li>
+    </ul>
+  </div>
+  <div class="foot__col">
+    <h5>支持</h5>
+    <p><em>Mac Miller Circles Fund</em> 持续资助来自欠发达社区的青少年音乐人。</p>
+    <a href="https://www.macmillerfund.com/" target="_blank" rel="noopener noreferrer" class="link">macmillerfund.com &nbsp;↗</a>
+  </div>
+  <div class="foot__col foot__col--mark">
+    <span class="foot__bigmark">SWIM.</span>
+    <span class="foot__years">2018</span>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
