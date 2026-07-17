@@ -3,6 +3,7 @@ import Link from "next/link"
 import { notFound } from "next/navigation"
 import { getAllTags, getPostsByTagSlug } from "@/lib/posts"
 import { PostArchiveList } from "@/components/post-archive-list"
+import { Reveal } from "@/components/reveal"
 
 interface PageProps {
   params: Promise<{ slug: string }>
@@ -46,6 +47,7 @@ export default async function TagPage({ params }: PageProps) {
   return (
     <div className="min-h-screen pt-28 pb-20 px-5 sm:px-6">
       <div className="max-w-5xl mx-auto">
+        <Reveal>
         <header className="tag-hero mb-14" style={{ "--ink": tag.color }}>
           <div>
             <Link
@@ -66,6 +68,7 @@ export default async function TagPage({ params }: PageProps) {
           </div>
           <span aria-hidden className="tag-hero-mark serif italic">#</span>
         </header>
+        </Reveal>
 
         <div className="space-y-12">
           {Array.from(byYear.entries()).map(([year, items]) => (

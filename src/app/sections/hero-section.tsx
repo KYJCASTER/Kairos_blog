@@ -5,10 +5,11 @@ import { site } from "@/lib/site"
 export function HeroSection() {
   return (
     <section className="relative pt-36 sm:pt-44 pb-24 px-5 sm:px-6 overflow-hidden">
-      {/* Soft parchment vignettes — warm corner washes, no hard color blobs */}
+      {/* Soft parchment vignettes — warm corner washes that drift almost
+          imperceptibly, like lamplight breathing across the desk */}
       <div
         aria-hidden
-        className="absolute inset-0 pointer-events-none"
+        className="absolute inset-0 pointer-events-none cover-drift"
         style={{
           backgroundImage:
             "radial-gradient(ellipse 60% 50% at 100% 0%, rgba(194, 65, 12, 0.06), transparent 60%), " +
@@ -16,6 +17,16 @@ export function HeroSection() {
         }}
       />
       <div className="noise" />
+
+      {/* Oversized watermark glyph — the hero's key word 言 (speech/language)
+          set in the display serif, ghosted into the paper at the right
+          margin. Only where the viewport has room for marginalia. */}
+      <span
+        aria-hidden
+        className="serif-display italic pointer-events-none select-none absolute right-[3%] top-1/2 -translate-y-1/2 text-[21rem] leading-none text-primary/[0.05] hidden lg:block"
+      >
+        言
+      </span>
 
       <div className="relative max-w-3xl mx-auto">
         {/* Wax-seal style hairline mark above the kicker */}
@@ -28,7 +39,7 @@ export function HeroSection() {
         </div>
 
         <h1
-          className="serif text-5xl sm:text-6xl md:text-7xl font-semibold leading-[1.05] tracking-tight text-foreground mb-8 animate-fade-in-up"
+          className="serif-display text-5xl sm:text-6xl md:text-7xl font-semibold leading-[1.05] tracking-tight text-foreground mb-8 animate-fade-in-up"
           style={{ animationDelay: "0.06s" }}
         >
           代码之外，

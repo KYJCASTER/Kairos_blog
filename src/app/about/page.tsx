@@ -2,6 +2,7 @@ import type { Metadata } from "next"
 import Link from "next/link"
 import { Mail, MapPin, ArrowRight, Music, Trophy } from "lucide-react"
 import { GitHubIcon } from "@/components/icons"
+import { Reveal } from "@/components/reveal"
 import { site } from "@/lib/site"
 
 export const metadata: Metadata = {
@@ -56,7 +57,7 @@ export default function AboutPage() {
   return (
     <div className="min-h-screen pt-28 pb-20 px-5 sm:px-6">
       {/* Hero */}
-      <section className="max-w-3xl mx-auto mb-20">
+      <Reveal as="section" className="max-w-3xl mx-auto mb-20">
         <div className="flex flex-col sm:flex-row items-start gap-8">
           <div className="relative w-28 h-28 sm:w-32 sm:h-32 shrink-0">
             <div className="absolute -inset-3 rounded-full bg-gradient-to-br from-primary/14 via-accent/10 to-transparent blur-2xl" />
@@ -98,10 +99,10 @@ export default function AboutPage() {
             </div>
           </div>
         </div>
-      </section>
+      </Reveal>
 
       {/* Stack */}
-      <section className="max-w-3xl mx-auto mb-20">
+      <Reveal as="section" className="max-w-3xl mx-auto mb-20" delay={90}>
         <p className="font-mono text-xs uppercase tracking-[0.2em] text-muted mb-3">
           技术栈
         </p>
@@ -139,10 +140,10 @@ export default function AboutPage() {
             <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
           </Link>
         </div>
-      </section>
+      </Reveal>
 
       {/* Interests */}
-      <section className="max-w-3xl mx-auto mb-20">
+      <Reveal as="section" className="max-w-3xl mx-auto mb-20" delay={180}>
         <p className="font-mono text-xs uppercase tracking-[0.2em] text-muted mb-3">
           平时也会
         </p>
@@ -177,10 +178,10 @@ export default function AboutPage() {
             )
           })}
         </div>
-      </section>
+      </Reveal>
 
       {/* Timeline */}
-      <section className="max-w-3xl mx-auto mb-20">
+      <Reveal as="section" className="max-w-3xl mx-auto mb-20" delay={270}>
         <p className="font-mono text-xs uppercase tracking-[0.2em] text-muted mb-3">
           时间线
         </p>
@@ -205,10 +206,10 @@ export default function AboutPage() {
             </li>
           ))}
         </ol>
-      </section>
+      </Reveal>
 
       {/* Contact */}
-      <section className="max-w-3xl mx-auto">
+      <Reveal as="section" className="max-w-3xl mx-auto" delay={360}>
         <div className="card p-8 sm:p-10">
           <p className="font-mono text-xs uppercase tracking-[0.2em] text-muted mb-3">
             联系
@@ -256,7 +257,7 @@ export default function AboutPage() {
             <ArrowRight className="w-4 h-4" />
           </Link>
         </div>
-      </section>
+      </Reveal>
     </div>
   )
 }

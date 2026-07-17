@@ -1,10 +1,11 @@
 import type { Metadata } from "next"
-import { Inter, Fraunces, JetBrains_Mono } from "next/font/google"
+import { Inter, Fraunces, JetBrains_Mono, Noto_Serif_SC } from "next/font/google"
 import "./globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
 import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
 import { BackToTop } from "@/components/back-to-top"
+import { SearchPalette } from "@/components/search-palette"
 import { WebsiteJsonLd } from "@/components/json-ld"
 import { site, rssAlternates } from "@/lib/site"
 
@@ -18,10 +19,20 @@ const inter = Inter({
 const fraunces = Fraunces({
   subsets: ["latin"],
   display: "swap",
-  variable: "--font-serif",
+  variable: "--font-fraunces",
   // Variable font — weight stays "variable" so the axes config is allowed.
+  // SOFT/WONK add the nib-and-ink character the display headings lean on.
   style: ["normal", "italic"],
-  axes: ["opsz"],
+  axes: ["opsz", "SOFT", "WONK"],
+})
+
+// CJK display serif — pairs with Fraunces for Chinese headings/quotes.
+// Variable weight; CJK subsets load on demand via unicode-range (only
+// latin is preloaded), so the per-page cost stays small.
+const notoSerif = Noto_Serif_SC({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-noto-serif",
 })
 
 const mono = JetBrains_Mono({
@@ -82,7 +93,7 @@ export default function RootLayout({
     <html
       lang={site.language}
       suppressHydrationWarning
-      className={`${inter.variable} ${fraunces.variable} ${mono.variable}`}
+      className={`${inter.variable} ${fraunces.variable} ${notoSerif.variable} ${mono.variable}`}
     >
       <body className="min-h-screen flex flex-col bg-background text-foreground">
         <ThemeProvider
@@ -100,6 +111,7 @@ export default function RootLayout({
           </main>
           <Footer />
           <BackToTop />
+          <SearchPalette />
         </ThemeProvider>
         <WebsiteJsonLd />
       </body>

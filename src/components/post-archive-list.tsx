@@ -47,7 +47,7 @@ export function PostArchiveList({ posts, variant = "archive" }: PostArchiveListP
               )}
               <div className="min-w-0">
                 <h3 className="serif text-xl sm:text-2xl font-semibold text-foreground group-hover:text-primary transition-colors duration-700 leading-snug">
-                  {post.title}
+                  <span className="link-draw">{post.title}</span>
                 </h3>
                 <p className="text-sm text-muted mt-2 line-clamp-2 leading-relaxed">
                   {post.excerpt}

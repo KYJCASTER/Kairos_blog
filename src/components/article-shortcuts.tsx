@@ -1,15 +1,15 @@
 "use client"
 
-import { useEffect } from "react"
+import { useEffect, useRef, useState } from "react"
 
 /**
  * Article-scoped keyboard shortcuts for power readers:
  *
- *   j / ↓ next h2 chapter
- *   k / ↑ previous h2 chapter
- *   g g  scroll to top
- *   G    scroll to bottom
- *   t    toggle the mobile TOC drawer / focus the desktop TOC
+ *   j / k  next / previous h2 chapter
+ *   g g    scroll to top
+ *   G      scroll to bottom
+ *   t      toggle the mobile TOC drawer / focus the desktop TOC
+ *   ?      this help card
  *
  * The shortcuts are captured on `keydown` against window. We bail when the
  * user is typing in an input/textarea/contenteditable, when a modifier is
@@ -19,7 +19,26 @@ import { useEffect } from "react"
  * Mounted only inside the article page so the shortcuts don't leak into the
  * rest of the site.
  */
+
+const SHORTCUTS: { keys: string[]; label: string }[] = [
+  { keys: ["j", "k"], label: "下一章 / 上一章" },
+  { keys: ["g", "g"], label: "回到卷首" },
+  { keys: ["G"], label: "跳至卷末" },
+  { keys: ["t"], label: "目录抽屉 / 聚焦目录" },
+  { keys: ["⌘K"], label: "全站搜索" },
+  { keys: ["?"], label: "这张卡片" },
+]
+
 export function ArticleShortcuts() {
+  const [helpOpen, setHelpOpen] = useState(false)
+  // Mirror for the keydown closure — the listener is bound once, so it
+  // can't read fresh state directly.
+  const helpOpenRef = useRef(false)
+  const setHelp = (v: boolean) => {
+    helpOpenRef.current = v
+    setHelpOpen(v)
+  }
+
   useEffect(() => {
     let lastG = 0
     const reduced =
@@ -57,9 +76,26 @@ export function ArticleShortcuts() {
 
     const onKeyDown = (e: KeyboardEvent) => {
       if (e.ctrlKey || e.metaKey || e.altKey) return
-      if (isTypingTarget(e.target)) return
 
       const k = e.key
+
+      // While the help card is open it owns the keyboard: only Esc / ?
+      // act (both close it), everything else is swallowed.
+      if (helpOpenRef.current) {
+        if (k === "Escape" || k === "?") {
+          e.preventDefault()
+          setHelp(false)
+        }
+        return
+      }
+
+      if (isTypingTarget(e.target)) return
+
+      if (k === "?") {
+        e.preventDefault()
+        setHelp(true)
+        return
+      }
 
       if (k === "j" || k === "ArrowDown") {
         // Plain ArrowDown is a normal browser scroll; only hijack `j`.
@@ -143,5 +179,45 @@ export function ArticleShortcuts() {
     return () => window.removeEventListener("keydown", onKeyDown)
   }, [])
 
-  return null
+  if (!helpOpen) return null
+
+  return (
+    <div
+      className="fixed inset-0 z-[80] flex items-center justify-center px-4"
+      role="dialog"
+      aria-modal="true"
+      aria-label="阅读快捷键"
+    >
+      <div
+        aria-hidden
+        className="absolute inset-0 bg-background/70 backdrop-blur-sm animate-[backdrop-fade_200ms_var(--ease-soft)]"
+        onClick={() => setHelp(false)}
+      />
+      <div className="relative w-full max-w-xs bg-card border hairline-strong rounded-xl shadow-lg p-5 animate-[palette-in_240ms_var(--ease-out)]">
+        <div className="flex items-center justify-between mb-4">
+          <p className="font-mono text-[10px] uppercase tracking-[0.24em] text-muted-light">
+            阅读快捷键
+          </p>
+          <kbd className="kbd">esc</kbd>
+        </div>
+        <ul className="space-y-2.5">
+          {SHORTCUTS.map((s) => (
+            <li key={s.label} className="flex items-center gap-3">
+              <span className="inline-flex items-center gap-1 shrink-0">
+                {s.keys.map((k, i) => (
+                  <kbd key={i} className="kbd">
+                    {k}
+                  </kbd>
+                ))}
+              </span>
+              <span className="text-sm text-muted">{s.label}</span>
+            </li>
+          ))}
+        </ul>
+        <p className="mt-4 pt-3 border-t hairline font-mono text-[10px] uppercase tracking-[0.2em] text-muted-light">
+          Lector Clavis · Reader&apos;s Keys
+        </p>
+      </div>
+    </div>
+  )
 }

@@ -3,6 +3,7 @@ import Link from "next/link"
 import { Layers } from "lucide-react"
 
 import { getAllSeries } from "@/lib/posts"
+import { Reveal } from "@/components/reveal"
 import { site } from "@/lib/site"
 
 export const metadata: Metadata = {
@@ -17,6 +18,7 @@ export default function SeriesIndexPage() {
   return (
     <div className="min-h-screen pt-28 pb-20 px-5 sm:px-6">
       <div className="max-w-5xl mx-auto">
+        <Reveal>
         <header className="mb-14">
           <p className="font-mono text-xs uppercase tracking-[0.2em] text-muted mb-3">
             系列 · {seriesList.length} 个
@@ -29,6 +31,7 @@ export default function SeriesIndexPage() {
             就像翻一本只取出某一章的小册子。
           </p>
         </header>
+        </Reveal>
 
         {seriesList.length === 0 ? (
           <div className="card p-12 text-center">
@@ -39,8 +42,8 @@ export default function SeriesIndexPage() {
           </div>
         ) : (
           <ul className="grid sm:grid-cols-2 gap-4">
-            {seriesList.map((s) => (
-              <li key={s.slug}>
+            {seriesList.map((s, i) => (
+              <Reveal as="li" key={s.slug} delay={Math.min(i * 80, 400)}>
                 <Link
                   href={`/series/${s.slug}`}
                   className="card p-6 sm:p-7 block group h-full"
@@ -66,7 +69,7 @@ export default function SeriesIndexPage() {
                     最新一篇：{s.latest.title}
                   </p>
                 </Link>
-              </li>
+              </Reveal>
             ))}
           </ul>
         )}

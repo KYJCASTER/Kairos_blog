@@ -4,6 +4,7 @@ import { notFound } from "next/navigation"
 
 import { getAllSeries, getSeriesBySlug } from "@/lib/posts"
 import { PostArchiveList } from "@/components/post-archive-list"
+import { Reveal } from "@/components/reveal"
 
 interface PageProps {
   params: Promise<{ slug: string }>
@@ -36,6 +37,7 @@ export default async function SeriesDetailPage({ params }: PageProps) {
   return (
     <div className="min-h-screen pt-28 pb-20 px-5 sm:px-6">
       <div className="max-w-5xl mx-auto">
+        <Reveal>
         <header className="mb-14">
           <Link
             href="/series"
@@ -59,6 +61,7 @@ export default async function SeriesDetailPage({ params }: PageProps) {
             按发布时间从早到晚排列。建议从第一篇读起——后面的文章默认你已经读过前面的。
           </p>
         </header>
+        </Reveal>
 
         <section>
           <div className="flex items-baseline gap-4 mb-4">

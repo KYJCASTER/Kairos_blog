@@ -4,25 +4,7 @@ import { getPublishedPosts, getAllSeries } from "@/lib/posts"
 import { computeReadingStats } from "@/lib/reading-time"
 import { WaxSeal } from "@/components/wax-seal"
 import { site } from "@/lib/site"
-
-// Roman numerals up to 3999 — sufficient for years and post counts.
-function toRoman(n: number): string {
-  if (n <= 0) return ""
-  const map: [number, string][] = [
-    [1000, "M"], [900, "CM"], [500, "D"], [400, "CD"],
-    [100, "C"], [90, "XC"], [50, "L"], [40, "XL"],
-    [10, "X"], [9, "IX"], [5, "V"], [4, "IV"], [1, "I"],
-  ]
-  let result = ""
-  let rem = n
-  for (const [v, s] of map) {
-    while (rem >= v) {
-      result += s
-      rem -= v
-    }
-  }
-  return result
-}
+import { toRoman } from "@/lib/utils"
 
 const MONTH_LATIN = [
   "Ianuarius", "Februarius", "Martius", "Aprilis", "Maius", "Iunius",
@@ -159,7 +141,7 @@ export function Frontispiece({ mode }: { mode: "page" | "intro" }) {
             className="text-center animate-fade-in-up"
             style={{ animationDelay: "0.34s" }}
           >
-            <p className="serif italic text-2xl sm:text-3xl text-foreground tracking-tight leading-snug">
+            <p className="serif-display italic text-2xl sm:text-3xl text-foreground tracking-tight leading-snug">
               Verba volant,
               <br className="sm:hidden" />
               <span className="sm:ml-2">scripta manent.</span>

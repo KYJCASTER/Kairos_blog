@@ -36,7 +36,7 @@ export function ArchiveLedger({ posts }: ArchiveLedgerProps) {
               {p.date.slice(5)}
             </time>
             <h3 className="serif text-base sm:text-lg text-foreground group-hover:text-primary transition-colors leading-snug min-w-0">
-              {p.title}
+              <span className="link-draw">{p.title}</span>
             </h3>
             {p.tags.length > 0 && (
               <span className="flex flex-wrap gap-1 sm:gap-1.5 sm:justify-end">

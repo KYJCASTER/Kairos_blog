@@ -5,6 +5,7 @@ import { getPublishedPosts } from "@/lib/posts"
 import { computeReadingStats } from "@/lib/reading-time"
 import { ArchiveLedger, type ArchiveLedgerItem } from "@/components/archive-ledger"
 import { SectionOrnament } from "@/components/section-ornament"
+import { Reveal } from "@/components/reveal"
 import { site } from "@/lib/site"
 
 export const metadata: Metadata = {
@@ -52,6 +53,7 @@ export default function ArchivePage() {
     <div className="min-h-screen pt-28 pb-20 px-5 sm:px-6">
       <div className="max-w-3xl mx-auto">
         {/* Hero */}
+        <Reveal>
         <header className="mb-14">
           <p className="font-mono text-xs uppercase tracking-[0.2em] text-muted mb-3">
             Archive
@@ -67,6 +69,7 @@ export default function ArchivePage() {
             共 {posts.length} 篇 · 跨越 {years.length} 年 · 总计 {totalWords.toLocaleString()} 字
           </p>
         </header>
+        </Reveal>
 
         <SectionOrnament variant="diamond" />
 
@@ -76,14 +79,14 @@ export default function ArchivePage() {
           </div>
         ) : (
           <div className="space-y-16">
-            {years.map((year) => {
+            {years.map((year, yi) => {
               const monthMap = byYear.get(year)!
               const yearTotal = Array.from(monthMap.values()).reduce(
                 (acc, arr) => acc + arr.length,
                 0,
               )
               return (
-                <section key={year}>
+                <Reveal as="section" key={year} delay={Math.min(yi * 80, 320)}>
                   <div className="flex items-baseline gap-4 mb-6">
                     <h2 className="serif text-5xl font-semibold text-muted-light tabular-nums leading-none">
                       {year}
@@ -104,7 +107,7 @@ export default function ArchivePage() {
                       </div>
                     ))}
                   </div>
-                </section>
+                </Reveal>
               )
             })}
           </div>
@@ -112,11 +115,11 @@ export default function ArchivePage() {
 
         <SectionOrnament variant="rule" />
 
-        <div className="text-center">
+        <Reveal className="text-center">
           <Link href="/blog" className="btn-secondary">
             回到文章列表
           </Link>
-        </div>
+        </Reveal>
       </div>
     </div>
   )
