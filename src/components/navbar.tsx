@@ -32,7 +32,7 @@ export function Navbar() {
   return (
     <nav
       className={cn(
-        "fixed inset-x-0 top-0 z-50",
+        "fixed inset-x-0 top-0 z-50 print:hidden",
         "transition-[background,backdrop-filter,border-color,box-shadow] duration-500 ease-[cubic-bezier(0.32,0.72,0,1)]",
         scrolled
           ? "bg-background/75 backdrop-blur-xl border-b hairline shadow-[0_1px_0_0_rgba(0,0,0,0.02)]"

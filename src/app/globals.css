@@ -236,10 +236,13 @@ body::before {
     );
 }
 /* Paper grain — true fractal noise (feTurbulence) on top of the fiber
-   streaks above. Light theme multiplies grey grain into the sheet like
-   recycled stock; dark theme inverts to white specks and screens them,
-   like dust catching lamplight. Greyscaled in-filter so no chroma noise
-   ever leaks into the palette. */
+   streaks above. Light theme shows grey grain sunk into the sheet like
+   recycled stock; dark theme inverts to pale specks, like dust catching
+   lamplight. Greyscaled in-filter so no chroma noise ever leaks into the
+   palette. Plain alpha compositing only: a blend mode here would force
+   the browser to re-blend this fixed full-viewport layer against the
+   page on every scrolled frame. At ~3% opacity the visual difference is
+   nil and scrolling stays on the compositor fast path. */
 body::after {
   content: "";
   position: fixed;
@@ -248,12 +251,10 @@ body::after {
   z-index: 0;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   background-size: 160px 160px;
-  opacity: 0.032;
-  mix-blend-mode: multiply;
+  opacity: 0.028;
 }
 .dark body::after {
-  opacity: 0.045;
-  mix-blend-mode: screen;
+  opacity: 0.04;
   filter: invert(1);
 }
 /* Stacking: body forms an isolated stacking context; both texture layers
@@ -709,6 +710,20 @@ html .shiki, html .shiki span { color: var(--shiki-light); background-color: tra
   padding-bottom: 0.35em;
   border-bottom: 1px solid var(--border);
 }
+/* Accent tick riding the h2 hairline — picks up the article's reading
+   theme through var(--primary). Scroll-driven browsers draw it in as the
+   heading enters the viewport (see the flourishes section); elsewhere it
+   simply sits there, fully drawn. */
+.prose h2::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -1px;
+  width: 2.75rem;
+  height: 2px;
+  border-radius: 999px;
+  background: color-mix(in oklab, var(--primary) 82%, transparent);
+}
 .prose h3 {
   font-size: 1.25rem;
   margin: 1.85em 0 0.65em;
@@ -796,7 +811,17 @@ html .shiki, html .shiki span { color: var(--shiki-light); background-color: tra
   letter-spacing: 0.35em;
   color: var(--muted-light);
 }
-.prose table { font-size: 0.9375rem; }
+/* Wide tables (comparison matrices in the crypto/market posts) scroll
+   inside their own box instead of stretching the page sideways on
+   phones — same treatment GitHub gives markdown tables. `width:
+   max-content` keeps narrow tables at their natural width. */
+.prose table {
+  font-size: 0.9375rem;
+  display: block;
+  width: max-content;
+  max-width: 100%;
+  overflow-x: auto;
+}
 .prose th { background: var(--surface); font-weight: 600; }
 .prose ul { list-style: disc; padding-left: 1.4em; }
 .prose ol { list-style: decimal; padding-left: 1.4em; }
@@ -925,7 +950,13 @@ html .shiki, html .shiki span { color: var(--shiki-light); background-color: tra
   box-shadow: var(--shadow-md);
   margin: 0;
 }
-.figure[data-width="wide"] { margin-left: -2rem; margin-right: -2rem; }
+/* Wide figures only bleed past the text column where the layout has
+   slack — on phones the article's 1.25rem gutter is narrower than the
+   2rem bleed, so unconditional negative margins would push the image
+   past the viewport and hand the whole page a horizontal scrollbar. */
+@media (min-width: 48rem) {
+  .figure[data-width="wide"] { margin-left: -2rem; margin-right: -2rem; }
+}
 .figure[data-width="bleed"] img { border-radius: 0; }
 .figure figcaption {
   margin-top: 0.85em;
@@ -974,6 +1005,242 @@ html .shiki, html .shiki span { color: var(--shiki-light); background-color: tra
     padding: 0.25em 0 0.25em 1.1em;
     font-size: 0.875rem;
   }
+}
+
+/* ============================================
+   Reading themes — per-topic article accents
+   Resolved at build time from tags/series (src/lib/article-theme.ts)
+   into a `data-theme` attribute on the article page wrapper. Each theme
+   re-points the accent custom properties, so links, blockquotes, tag
+   chips, the TOC rail and the progress bar all re-tint through normal
+   inheritance — no component opts in. Hues are picked in the same
+   low-chroma register as the base palette so switching topics feels
+   like a different ink, not a different site. "essay" is the default
+   terracotta and needs no block here.
+   ============================================ */
+
+/* --- engineering: 编程 / Go / Java — steel ink-blue --- */
+[data-theme="engineering"] {
+  --primary: #3D5A80;
+  --primary-light: #557CA6;
+  --primary-dark: #2C4361;
+  --primary-50: #EFF3F8;
+  --primary-100: #DBE5F0;
+  --accent: #47707E;
+  --accent-light: #6B95A4;
+}
+.dark [data-theme="engineering"] {
+  --primary: #8FB0D4;
+  --primary-light: #ACC8E4;
+  --primary-dark: #6A8CB0;
+  --primary-50: rgba(143, 176, 212, 0.10);
+  --primary-100: rgba(143, 176, 212, 0.18);
+  --accent: #86ABB8;
+  --accent-light: #A3C4D0;
+}
+
+/* --- security: 网络安全 / DNS — pine green --- */
+[data-theme="security"] {
+  --primary: #2F6B4F;
+  --primary-light: #3F8A67;
+  --primary-dark: #235240;
+  --primary-50: #EEF5F1;
+  --primary-100: #D9EAE0;
+  --accent: #6B7F3E;
+  --accent-light: #8A9E55;
+}
+.dark [data-theme="security"] {
+  --primary: #82BC9C;
+  --primary-light: #A0D2B7;
+  --primary-dark: #619579;
+  --primary-50: rgba(130, 188, 156, 0.10);
+  --primary-100: rgba(130, 188, 156, 0.18);
+  --accent: #A8B87A;
+  --accent-light: #C2CF96;
+}
+
+/* --- market: 金融 / 区块链研报 — ledger bronze --- */
+[data-theme="market"] {
+  --primary: #8A6116;
+  --primary-light: #A87B25;
+  --primary-dark: #6A4A10;
+  --primary-50: #F8F3E6;
+  --primary-100: #EFE3C6;
+  --accent: #35635C;
+  --accent-light: #4A7F76;
+}
+.dark [data-theme="market"] {
+  --primary: #CDA75E;
+  --primary-light: #DFBE7D;
+  --primary-dark: #A88643;
+  --primary-50: rgba(205, 167, 94, 0.10);
+  --primary-100: rgba(205, 167, 94, 0.18);
+  --accent: #7FA89F;
+  --accent-light: #9BC0B7;
+}
+
+/* --- music: 音乐 / 专辑解析 — plum --- */
+[data-theme="music"] {
+  --primary: #7A3E68;
+  --primary-light: #97527F;
+  --primary-dark: #5B2E4D;
+  --primary-50: #F7EEF4;
+  --primary-100: #EDDCE7;
+  --accent: #4E5382;
+  --accent-light: #6A70A3;
+}
+.dark [data-theme="music"] {
+  --primary: #CB8FB4;
+  --primary-light: #DDACC9;
+  --primary-dark: #A76E92;
+  --primary-50: rgba(203, 143, 180, 0.10);
+  --primary-100: rgba(203, 143, 180, 0.18);
+  --accent: #9298C4;
+  --accent-light: #AFB4D8;
+}
+
+/* Typographic voice per theme.
+   Technical topics drop the woodblock initial — reference material starts
+   mid-sentence too often for a drop cap to earn its keep — and each theme
+   signs its section breaks with its own glyph. */
+[data-theme="engineering"] .prose > p:first-child::first-letter,
+[data-theme="security"] .prose > p:first-child::first-letter,
+[data-theme="market"] .prose > p:first-child::first-letter {
+  float: none;
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  line-height: inherit;
+  color: inherit;
+  padding: 0;
+}
+[data-theme="engineering"] .prose hr::before {
+  content: "/* \00b7\00b7\00b7 */";
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  letter-spacing: 0.12em;
+}
+[data-theme="security"] .prose hr::before {
+  content: "\203b";
+  letter-spacing: 0;
+}
+[data-theme="market"] .prose hr::before {
+  content: "\00a7";
+  letter-spacing: 0;
+}
+[data-theme="music"] .prose hr::before {
+  content: "\266a \266a \266a";
+  letter-spacing: 0.1em;
+}
+
+/* Research reports lean on tables — align every digit column. */
+[data-theme="market"] .prose table { font-variant-numeric: tabular-nums; }
+[data-theme="market"] .prose th { background: var(--primary-50); }
+
+/* Album write-ups quote lyrics — give blockquotes a pull-quote voice. */
+[data-theme="music"] .prose blockquote {
+  font-size: 1.15em;
+  font-style: italic;
+}
+
+/* Themed articles let a whisper of the accent into the code block frame,
+   so even scrolled deep into a listing you can tell whose ink this is. */
+[data-theme="engineering"] .code-block,
+[data-theme="security"] .code-block,
+[data-theme="market"] .code-block,
+[data-theme="music"] .code-block {
+  --code-border: color-mix(in oklab, var(--primary) 22%, var(--border));
+}
+
+/* --- Theme rule — the article header's signature ornament ---
+   One element, same slot and scale in every theme (cohesion); each theme
+   redraws its texture and micro-motion (variety). Replaces the plain
+   hairline between excerpt and tags on article pages. */
+.theme-rule {
+  position: relative;
+  display: block;
+  width: 3rem;
+  height: 2px;
+}
+/* Default (essay): a quiet hairline that draws itself in. */
+.theme-rule::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: color-mix(in oklab, var(--border-strong) 70%, transparent);
+  transform-origin: left center;
+  animation: tick-draw 0.9s 0.45s var(--ease-out) both;
+}
+/* engineering: dashed rule + a mono caret blinking at the end of the line. */
+[data-theme="engineering"] .theme-rule::before {
+  background: repeating-linear-gradient(
+    90deg,
+    color-mix(in oklab, var(--primary) 80%, transparent) 0 6px,
+    transparent 6px 11px
+  );
+}
+[data-theme="engineering"] .theme-rule::after {
+  content: "";
+  position: absolute;
+  left: calc(100% + 0.5rem);
+  top: -0.3rem;
+  width: 0.42rem;
+  height: 0.78rem;
+  background: var(--primary);
+  animation: caret-blink 1.3s steps(1) 1.4s infinite;
+}
+/* security: hairline sealed with a reference mark turning into place. */
+[data-theme="security"] .theme-rule::before {
+  background: color-mix(in oklab, var(--primary) 55%, var(--border-strong));
+}
+[data-theme="security"] .theme-rule::after {
+  content: "\203b";
+  position: absolute;
+  left: calc(100% + 0.45rem);
+  top: 50%;
+  translate: 0 -50%;
+  font-size: 0.8rem;
+  line-height: 1;
+  color: var(--primary);
+  animation: mark-turn 0.7s 1s var(--ease-back) both;
+}
+/* market: a ledger's double rule — heavy over light, like a totals row. */
+[data-theme="market"] .theme-rule {
+  height: 5px;
+}
+[data-theme="market"] .theme-rule::before {
+  background: none;
+  border-top: 2px solid color-mix(in oklab, var(--primary) 75%, transparent);
+  border-bottom: 1px solid var(--border-strong);
+}
+/* music: the hairline plays out into a few notes. */
+[data-theme="music"] .theme-rule::before {
+  background: color-mix(in oklab, var(--primary) 50%, var(--border-strong));
+}
+[data-theme="music"] .theme-rule::after {
+  content: "\266a \266a";
+  position: absolute;
+  left: calc(100% + 0.5rem);
+  top: 50%;
+  translate: 0 -50%;
+  font-size: 0.72rem;
+  line-height: 1;
+  letter-spacing: 0.18em;
+  color: var(--primary);
+  animation: fadeInUp 0.9s 1.1s var(--ease-out) both;
+}
+
+@keyframes tick-draw {
+  from { transform: scaleX(0); }
+  to   { transform: scaleX(1); }
+}
+@keyframes caret-blink {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0; }
+}
+@keyframes mark-turn {
+  from { opacity: 0; rotate: -80deg; }
+  to   { opacity: 1; rotate: 0deg; }
 }
 
 /* ============================================
@@ -1344,6 +1611,52 @@ a:hover .link-draw,
   to   { opacity: 1; }
 }
 
+/* Article header entrance — the masthead settles line by line:
+   folio meta, then title, excerpt, rule, tags. Pure CSS on server HTML,
+   so it runs before hydration; `both` fill keeps content visible after.
+   Cadence reuses fadeInUp + ease-out — the same walk the frontispiece
+   and Reveal use, so every page "arrives" with one gait. */
+.article-enter > * {
+  animation: fadeInUp 0.7s var(--ease-out) both;
+}
+.article-enter > *:nth-child(2) { animation-delay: 0.09s; }
+.article-enter > *:nth-child(3) { animation-delay: 0.18s; }
+.article-enter > *:nth-child(4) { animation-delay: 0.27s; }
+.article-enter > *:nth-child(n + 5) { animation-delay: 0.36s; }
+
+/* Scroll-driven flourishes — CSS view() timelines, no JS, no observers.
+   Progressive: browsers without scroll timelines (or readers who prefer
+   reduced motion) get the fully-drawn static state, never a blank. */
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    /* Body images surface as they enter — a gentler cousin of Reveal,
+       driven by scroll position instead of a one-shot trigger. */
+    .prose :is(p > img, .figure) {
+      animation: flourish-rise both;
+      animation-timeline: view();
+      animation-range: entry 5% entry 55%;
+    }
+    /* The h2 accent tick draws itself as the heading scrolls in. */
+    .prose h2::after {
+      transform-origin: left center;
+      animation: tick-draw both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 45%;
+    }
+    /* Ledger rows (/archive) surface line by line as the page scrolls —
+       the CSS-only counterpart of the Reveal stagger used on JS lists. */
+    .flow-rise > li {
+      animation: flourish-rise both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 35%;
+    }
+  }
+}
+@keyframes flourish-rise {
+  from { opacity: 0.2; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
 /* Reveal (toggled by IntersectionObserver in <Reveal />).
    Starts a touch lower/dimmer than fadeInUp so it reads as
    "appearing into the layout" rather than "loading in". */
@@ -1424,6 +1737,59 @@ a:hover .link-draw,
 }
 .cover-drift {
   animation: cover-drift 18s ease-in-out infinite;
+}
+
+/* ============================================
+   Print — the article, and only the article
+   Site chrome (navbar/footer/TOC/comments/…) carries Tailwind's
+   `print:hidden`; this block handles the pieces utilities can't
+   reach: pseudo-element textures, injected runtime UI, and prose
+   metrics tuned for paper.
+   ============================================ */
+
+@media print {
+  /* Paper already has texture. */
+  body::before, body::after { display: none; }
+
+  /* Runtime-injected / fixed-position UI. */
+  .reading-progress,
+  .reading-percent,
+  .heading-anchor,
+  .copy-mount { display: none !important; }
+
+  /* Let the text column use the full sheet. */
+  .prose {
+    max-width: none;
+    font-size: 10.5pt;
+    line-height: 1.6;
+  }
+
+  /* Code: wrap instead of clipping — an overflow scrollbar prints as
+     truncated text. The edge fade mask goes for the same reason. */
+  .code-block pre {
+    mask-image: none;
+    -webkit-mask-image: none;
+    white-space: pre-wrap;
+    word-break: break-word;
+    padding-top: 1.25rem;
+  }
+  .code-block::before { display: none; }
+
+  /* Keep self-contained blocks on one page where possible. */
+  .code-block, .prose blockquote, .figure, .callout { break-inside: avoid; }
+  .prose h2, .prose h3, .prose h4 { break-after: avoid; }
+
+  /* External links spell out their destination — a printed page can't
+     be clicked. Internal/anchor links stay clean. */
+  .prose a[href^="http"]::after {
+    content: " 〔" attr(href) "〕";
+    font-size: 0.8em;
+    color: var(--muted);
+    word-break: break-all;
+  }
+
+  /* Anything still waiting on an IntersectionObserver prints as-is. */
+  .reveal { opacity: 1 !important; transform: none !important; }
 }
 
 @media (prefers-reduced-motion: reduce) {

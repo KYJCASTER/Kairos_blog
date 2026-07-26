@@ -22,7 +22,7 @@ interface ArchiveLedgerProps {
  */
 export function ArchiveLedger({ posts }: ArchiveLedgerProps) {
   return (
-    <ul className="divide-y hairline">
+    <ul className="divide-y hairline flow-rise">
       {posts.map((p) => (
         <li key={p.slug}>
           <Link
