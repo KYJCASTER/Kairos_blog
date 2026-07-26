@@ -63,7 +63,7 @@ export function BackToTop() {
       aria-hidden={!shown}
       tabIndex={shown ? 0 : -1}
       className={cn(
-        "fixed z-40 bottom-6 right-6 sm:bottom-8 sm:right-8",
+        "fixed z-40 bottom-6 right-6 sm:bottom-8 sm:right-8 print:hidden",
         "w-11 h-11 rounded-full",
         "bg-card/85 backdrop-blur-md text-foreground",
         "border hairline-strong shadow-[var(--shadow-md)]",

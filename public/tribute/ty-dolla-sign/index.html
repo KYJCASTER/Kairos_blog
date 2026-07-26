@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Ty Dolla $ign — 歌手介绍：那个你听过一百次的声音</title>
+<meta name="description" content="Ty Dolla $ign 歌手介绍页：南中央洛杉矶出身、放克乐手之子、为哥哥而做的《Free TC》、十年代客串之王的养成、¥$ 与《Carnival》，以及 2025 年回归个人身份的《TYCOON》。" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..900,0..100;1,9..144,300..900,0..100&family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&family=Caveat:wght@400..700&family=JetBrains+Mono:wght@300;500&family=Noto+Serif+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<!-- ATMOSPHERE -->
+<div class="grain" aria-hidden="true"></div>
+<div class="sky" aria-hidden="true">
+  <span class="sky__sun"></span>
+  <svg class="sky__palms" viewBox="0 0 1440 180" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
+    <path d="M0 180 L1440 180 L1440 168 C1360 164 1280 170 1180 166 C1080 162 980 170 860 167 C740 164 620 171 500 168 C380 165 260 171 140 168 C90 166 40 169 0 167 Z" fill="currentColor" opacity="0.9"/>
+    <g opacity="0.85">
+      <path d="M180 170 C178 130 176 96 172 70 C186 84 197 100 203 118 C201 96 195 74 184 56 C200 64 212 78 220 94 C216 72 206 52 190 38 C208 42 224 52 235 66 C226 44 210 28 188 20 C210 16 230 22 246 34 C230 14 206 4 180 6 C154 4 130 14 114 34 C130 22 150 16 172 20 C150 28 134 44 125 66 C136 52 152 42 170 38 C154 52 144 72 140 94 C148 78 160 64 176 56 C165 74 159 96 157 118 C163 100 174 84 188 70 C184 96 182 130 180 170 Z" fill="currentColor"/>
+      <path d="M1230 172 C1229 140 1227 112 1224 90 C1235 101 1244 114 1249 128 C1247 110 1242 93 1233 79 C1246 85 1256 96 1262 109 C1259 91 1251 75 1238 64 C1252 67 1265 75 1274 86 C1267 68 1254 55 1236 49 C1254 46 1270 51 1283 61 C1270 45 1251 37 1230 39 C1209 37 1190 45 1177 61 C1190 51 1206 46 1224 49 C1206 55 1193 68 1186 86 C1195 75 1208 67 1222 64 C1209 75 1201 91 1198 109 C1204 96 1214 85 1227 79 C1218 93 1213 110 1211 128 C1216 114 1225 101 1236 90 C1233 112 1231 140 1230 172 Z" fill="currentColor"/>
+    </g>
+  </svg>
+</div>
+
+<!-- SCROLL PROGRESS -->
+<div class="scroll-progress" aria-hidden="true"><span id="scrollBar"></span></div>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav__brand">
+    <span class="nav__mark">TY$.</span>
+    <span class="nav__sub">歌手介绍 · 第 03 期</span>
+  </div>
+  <ul class="nav__links">
+    <li><a href="#intro">引言</a></li>
+    <li><a href="#roots">出身</a></li>
+    <li><a href="#rise">成名路</a></li>
+    <li><a href="#freetc">Free TC</a></li>
+    <li><a href="#features">客串之王</a></li>
+    <li><a href="#sound">声音</a></li>
+    <li><a href="#shelf">唱片架</a></li>
+    <li><a href="#tycoon">TYCOON</a></li>
+    <li><a href="#outro">结语</a></li>
+  </ul>
+  <div class="nav__time">洛杉矶此刻 · <span id="laClock">--:--</span></div>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="hero__meta hero__meta--left">
+    <span class="kicker">第 03 期 — 歌手介绍</span>
+    <span class="kicker">South Central, Los Angeles · b. 1985.4.13</span>
+  </div>
+  <div class="hero__meta hero__meta--right">
+    <span class="kicker">先是乐手，然后才是歌手</span>
+    <span class="kicker">「Dolla&nbsp;$ign!」</span>
+  </div>
+
+  <h1 class="hero__title">
+    <span class="hero__line">TY</span>
+    <span class="hero__line">DOLLA <em class="hero__dollar">$</em>IGN</span>
+  </h1>
+
+  <p class="hero__tag">Tyrone William Griffin Jr. — 那个你听过一百次、却未必叫得出名字的声音。</p>
+
+  <!-- Four bass strings — E A D G. Hover to rattle, click to pluck. -->
+  <div class="strings" id="strings" aria-hidden="true">
+    <span class="string" data-note="E"></span>
+    <span class="string" data-note="A"></span>
+    <span class="string" data-note="D"></span>
+    <span class="string" data-note="G"></span>
+    <span class="strings__hint">← 这是四根贝斯弦，点一下</span>
+  </div>
+
+  <a class="hero__cta" href="#intro">往下走，进洛杉矶的黄昏 ↓</a>
+</header>
+
+<!-- I. INTRO -->
+<section class="chapter" id="intro">
+  <div class="chapter__header">
+    <span class="chapter__no">I</span>
+    <h2 class="chapter__title">你一定听过他，即使你不知道他是谁</h2>
+  </div>
+  <div class="chapter__body">
+    <p class="lede">
+      做一个实验：翻出 2014 到 2020 年之间任何一张欧美流行/说唱歌单，从头放。用不了几首，你就会撞见一把特别的嗓音——微哑、慵懒、带着教堂和声的底子，出现在副歌或者第二段主歌，把整首歌的旋律线突然抬亮半档。署名栏里，它通常跟在「feat.」后面。
+    </p>
+    <p class="prose">
+      Fifth Harmony 的《Work from Home》里有他，Post Malone 的《Psycho》里有他，《自杀小队》原声带《Sucker for Pain》里有他，Kanye West 的《Real Friends》、Khalid 的《OTW》里都有他。他客串过的热单多到什么程度？多到他 2020 年干脆把个人专辑命名为——<strong>《Featuring Ty Dolla $ign》</strong>。这不是自嘲，是自觉：他清楚自己在这个时代流行乐里扮演的角色，并且把这个角色做成了一门手艺。
+    </p>
+    <p class="prose">
+      但「客串之王」只是他最显眼的标签，不是最准确的那个。往里看一层：他是南中央洛杉矶长大的放克乐手之子，先学会贝斯再学会唱歌；他的首张录音室专辑是为狱中的哥哥而做的请愿书；他在 R&amp;B、说唱、流行、电子之间来去自如到让「流派」这个词失去意义。这一页想介绍的，是标签底下那个完整的人。
+    </p>
+    <blockquote class="pullquote">
+      <p>「我首先是个音乐人（musician）。唱歌，只是我最后学会的那件乐器。」</p>
+      <cite>— 他在多次访谈里反复表达的意思</cite>
+    </blockquote>
+  </div>
+</section>
+
+<!-- II. ROOTS -->
+<section class="chapter" id="roots">
+  <div class="chapter__header">
+    <span class="chapter__no">II</span>
+    <h2 class="chapter__title">出身：放克乐手的儿子，教堂里的低音</h2>
+  </div>
+  <div class="chapter__body">
+    <p class="prose">
+      Tyrone William Griffin Jr.，1985 年 4 月 13 日生于洛杉矶，在南中央（South Central）长大。这个出身自带两条线索：一条是街区的——南中央是西海岸说唱的心脏地带，帮派、警灯与街角文化是成长背景的底色；另一条是家里的——他的父亲 Tyrone Griffin Sr. 是放克乐队 <strong>Lakeside</strong> 的乐手，就是唱《Fantastic Voyage》的那支乐队。
+    </p>
+    <p class="prose">
+      于是他的童年是在乐器堆里泡大的：贝斯、吉他、键盘、鼓——他不是「会一点」，而是每样都能真上手干活的那种会。贝斯是他的母语。后来你在他歌里听到的那种「旋律永远踩在低音在走的位置上」的听感，不是制作人给的，是从小按在指板上长出来的。
+    </p>
+    <p class="prose">
+      另一半血统来自教堂。福音音乐的和声传统——三度、五度往上垒，人声当风琴用——成了他日后最识别度最高的武器：他喜欢把自己的声音一层层叠起来，垒成一支一个人的唱诗班。你以为那是和声效果器，其实那是童年。
+    </p>
+    <aside class="margin">
+      <span class="margin__label">注</span>
+      <p>Lakeside 隶属七十至八十年代 Solar Records 旗下的放克军团。父亲那一辈的舞台养分——律动优先、现场感、乐手思维——几乎原封不动地传给了儿子，只是换了一个时代的音色。</p>
+    </aside>
+  </div>
+</section>
+
+<!-- III. RISE -->
+<section class="chapter" id="rise">
+  <div class="chapter__header">
+    <span class="chapter__no">III</span>
+    <h2 class="chapter__title">成名路：从街角合成器到《Or Nah》</h2>
+  </div>
+  <div class="chapter__body">
+    <p class="prose">
+      他的名字第一次大范围出现在人们耳朵里，是 2010 年：同乡 YG 的《Toot It and Boot It》。那首歌的旋律钩子出自他手，他也在里面开了嗓。这是一次典型的「西海岸式出道」——不是选秀，不是厂牌造星，而是街区内部的化学反应先炸出一首本地热单，再由热单把人抬出去。
+    </p>
+    <p class="prose">
+      接下来他用一套《Beach House》系列混音带把「Ty Dolla $ign」做成了一种风格的名字：西海岸的松弛、R&amp;B 的旋律密度、说唱的语感，三样东西装进同一首歌。2014 年初的《Beach House EP》是引爆点——《Paranoid》和《Or Nah》先后冲上电台和排行榜，后者的翻唱与二创在当年的社交网络上几乎无处不在。主流唱片工业正式记下了这个名字。
+    </p>
+    <div class="timeline">
+      <div class="timeline__item"><span class="timeline__year">1985</span><p>生于洛杉矶南中央</p></div>
+      <div class="timeline__item"><span class="timeline__year">2010</span><p>《Toot It and Boot It》（与 YG）打开局面</p></div>
+      <div class="timeline__item"><span class="timeline__year">2012–13</span><p>《Beach House》混音带系列成型</p></div>
+      <div class="timeline__item"><span class="timeline__year">2014</span><p>《Beach House EP》：《Paranoid》《Or Nah》出圈</p></div>
+      <div class="timeline__item"><span class="timeline__year">2015</span><p>首张录音室专辑《Free TC》</p></div>
+      <div class="timeline__item"><span class="timeline__year">2017</span><p>《Beach House 3》：《Love U Better》</p></div>
+      <div class="timeline__item"><span class="timeline__year">2018</span><p>与 Jeremih 的双人专辑《MihTy》</p></div>
+      <div class="timeline__item"><span class="timeline__year">2020</span><p>《Featuring Ty Dolla $ign》</p></div>
+      <div class="timeline__item"><span class="timeline__year">2024</span><p>¥$（与 Ye）：《Vultures 1 &amp; 2》，《Carnival》登顶 Hot 100</p></div>
+      <div class="timeline__item"><span class="timeline__year">2025</span><p>《TYCOON》：五年来第一张个人专辑</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- IV. FREE TC -->
+<section class="chapter chapter--freetc" id="freetc">
+  <div class="chapter__header">
+    <span class="chapter__no">IV</span>
+    <h2 class="chapter__title">《Free TC》：一张写给哥哥的请愿书</h2>
+  </div>
+  <div class="chapter__body">
+    <p class="lede">
+      如果只允许用一张专辑理解 Ty Dolla $ign 这个人，选 2015 年的首专《Free TC》。专辑名不是修辞——TC 是他的哥哥 Gabriel「Big&nbsp;TC」Griffin，因一桩他始终坚称自己无辜的谋杀案被判终身监禁。「Free TC」，字面意思：放了 TC。
+    </p>
+    <p class="prose">
+      这张专辑因此成了一件罕见的东西：一张派对声量的西海岸 R&amp;B 唱片，内核却是一份家庭档案。哥哥的歌声从监狱的电话线里传出来，被收进专辑；专辑的部分收益被拿去支付法律费用。最放松的律动和最沉重的现实叠在同一张唱片上——这种「甜面悲心」的双层结构，从此成了理解他所有作品的钥匙。
+    </p>
+    <blockquote class="pullquote pullquote--gold">
+      <p>他把家里最疼的那件事，做成了自己最好的一张唱片。</p>
+    </blockquote>
+    <p class="prose">
+      也是从《Free TC》开始，乐评人不再把他当「唱钩子的」，而开始把他当一个有完整表达的专辑艺术家看。派对是他的表层语言，家庭、信仰、亏欠与守护才是他反复回去的主题。
+    </p>
+  </div>
+</section>
+
+<!-- V. FEATURES -->
+<section class="chapter" id="features">
+  <div class="chapter__header">
+    <span class="chapter__no">V</span>
+    <h2 class="chapter__title">客串之王的养成</h2>
+  </div>
+  <div class="chapter__body">
+    <p class="prose">
+      2010 年代的欧美流行乐有一条隐形的行规：歌不够亮，找 Ty 补一段。他成了整个行业的「旋律外援」——不抢歌，不越位，进来把副歌抬高半档，然后把光让回给主唱。下面这几首，你大概率至少听过一半：
+    </p>
+    <div class="feature-grid">
+      <article class="feature-card">
+        <h3>Work from Home</h3>
+        <p class="feature-card__by">Fifth Harmony · 2016</p>
+        <p>女团流行里的一段沙哑衬色，全球电台年度洗脑单曲之一。</p>
+      </article>
+      <article class="feature-card">
+        <h3>Psycho</h3>
+        <p class="feature-card__by">Post Malone · 2018</p>
+        <p>Hot 100 冠军单曲，他的第二段主歌松弛得像顺手写的。</p>
+      </article>
+      <article class="feature-card">
+        <h3>Sucker for Pain</h3>
+        <p class="feature-card__by">《自杀小队》原声 · 2016</p>
+        <p>说唱 × 摇滚的大杂烩里，他负责把桥段缝合在一起。</p>
+      </article>
+      <article class="feature-card">
+        <h3>Real Friends</h3>
+        <p class="feature-card__by">Kanye West · 2016</p>
+        <p>《The Life of Pablo》最冷的一首歌里，最暖的那几句和声。</p>
+      </article>
+      <article class="feature-card">
+        <h3>OTW</h3>
+        <p class="feature-card__by">Khalid（与 6lack）· 2018</p>
+        <p>新生代 R&amp;B 的夜车氛围，由他压住整段低音走向。</p>
+      </article>
+      <article class="feature-card">
+        <h3>Ego Death</h3>
+        <p class="feature-card__by">Ty 自己的歌 · 2020</p>
+        <p>反向操作：他当东道主，请来 Kanye、FKA twigs 和 Skrillex。</p>
+      </article>
+    </div>
+    <p class="prose">
+      2020 年的《Featuring Ty Dolla $ign》把这个身份做成了概念专辑：既然全世界都在「feat.」我，那这张专辑就叫这个名字——每首歌都有客人，主人反而是那个永远的客人。《Ego Death》《By Yourself》都出自这张。行业里最谦逊的位置，被他做成了最有辨识度的王座。
+    </p>
+    <aside class="margin">
+      <span class="margin__label">注脚</span>
+      <p>2024 年他以 ¥$ 组合名义与 Ye 合作《Vultures 1 &amp; 2》，《Carnival》成了他职业生涯第一支 Hot 100 冠军「主唱位」单曲——也让他站在了舆论漩涡的边上。合作的音乐成绩与合作对象的争议，是两件都真实存在的事，这页不替谁抹平。</p>
+    </aside>
+  </div>
+</section>
+
+<!-- VI. SOUND -->
+<section class="chapter" id="sound">
+  <div class="chapter__header">
+    <span class="chapter__no">VI</span>
+    <h2 class="chapter__title">声音解剖：四根弦</h2>
+  </div>
+  <div class="chapter__body">
+    <p class="prose">像他手里的贝斯一样，他的声音风格也可以拆成四根弦：</p>
+    <div class="anatomy">
+      <div class="anatomy__row">
+        <span class="anatomy__note">E</span>
+        <div>
+          <h3>低音思维</h3>
+          <p>旋律永远写在律动上。他的钩子不「飘」，每一句都踩着低音走向落地——这是贝斯手写歌和歌手写歌最根本的区别。</p>
+        </div>
+      </div>
+      <div class="anatomy__row">
+        <span class="anatomy__note">A</span>
+        <div>
+          <h3>一个人的唱诗班</h3>
+          <p>福音出身的和声堆叠：主音之上三度、五度层层往上垒，人声当管风琴用。识别他的最快方式不是听主唱，是听背景里那团「教堂感」。</p>
+        </div>
+      </div>
+      <div class="anatomy__row">
+        <span class="anatomy__note">D</span>
+        <div>
+          <h3>钩子工艺</h3>
+          <p>他写副歌像做木工：短句、口语、旋律落差控制在一听就能跟唱的范围。所以行业缺钩子时第一个电话打给他。</p>
+        </div>
+      </div>
+      <div class="anatomy__row">
+        <span class="anatomy__note">G</span>
+        <div>
+          <h3>流派横跳</h3>
+          <p>R&amp;B 打底，说唱语感，流行结构，电子音色——和 Skrillex 合作与和 Jeremih 合作对他是同一件事。流派对他只是音色选择，不是身份。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VII. SHELF -->
+<section class="chapter" id="shelf">
+  <div class="chapter__header">
+    <span class="chapter__no">VII</span>
+    <h2 class="chapter__title">唱片架</h2>
+  </div>
+  <div class="chapter__body">
+    <div class="shelf">
+      <article class="shelf__item">
+        <span class="shelf__year">2014</span>
+        <h3>Beach House EP</h3>
+        <p>《Paranoid》《Or Nah》所在。风格定型之作：海边的松弛，街区的语感。</p>
+      </article>
+      <article class="shelf__item shelf__item--key">
+        <span class="shelf__year">2015</span>
+        <h3>Free TC</h3>
+        <p>首张录音室专辑，写给狱中哥哥。派对声量，家书内核。入门首选。</p>
+      </article>
+      <article class="shelf__item">
+        <span class="shelf__year">2016</span>
+        <h3>Campaign</h3>
+        <p>大选年的混音带，街区视角的「竞选」，与 Future 的同名单曲。</p>
+      </article>
+      <article class="shelf__item">
+        <span class="shelf__year">2017</span>
+        <h3>Beach House 3</h3>
+        <p>系列正传收官，《Love U Better》领衔，制作全面升级。</p>
+      </article>
+      <article class="shelf__item">
+        <span class="shelf__year">2018</span>
+        <h3>MihTy <em>（与 Jeremih）</em></h3>
+        <p>两把最丝滑的 R&amp;B 嗓音合体，一张给深夜车厢的专辑。</p>
+      </article>
+      <article class="shelf__item shelf__item--key">
+        <span class="shelf__year">2020</span>
+        <h3>Featuring Ty Dolla $ign</h3>
+        <p>客串之王的概念自白：每首都有客，主人是永远的客人。《Ego Death》《By Yourself》。</p>
+      </article>
+      <article class="shelf__item">
+        <span class="shelf__year">2024</span>
+        <h3>Vultures 1 &amp; 2 <em>（¥$，与 Ye）</em></h3>
+        <p>争议与热度齐飞的组合企划，《Carnival》登顶 Hot 100。</p>
+      </article>
+      <article class="shelf__item shelf__item--key">
+        <span class="shelf__year">2025</span>
+        <h3>TYCOON</h3>
+        <p>五年来首张个人专辑。答案在下一章。</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- VIII. TYCOON -->
+<section class="chapter chapter--tycoon" id="tycoon">
+  <div class="chapter__header">
+    <span class="chapter__no">VIII</span>
+    <h2 class="chapter__title">TYCOON：回到自己名下</h2>
+  </div>
+  <div class="chapter__body">
+    <p class="prose">
+      2025 年 10 月 17 日，《TYCOON》由 Atlantic 发行——距离上一张个人专辑整整五年。十五首歌、四十一分钟，先行单曲《All In》《Smile Body Pretty Face》《Show Me Love》一路铺到发行日。名单上照旧站满朋友，但这一次，署名栏最前面的名字是他自己的。
+    </p>
+    <div class="stat-strip">
+      <div class="stat"><span class="stat__num">2025.10.17</span><span class="stat__label">发行日</span></div>
+      <div class="stat"><span class="stat__num">15</span><span class="stat__label">曲目</span></div>
+      <div class="stat"><span class="stat__num">41&nbsp;min</span><span class="stat__label">时长</span></div>
+      <div class="stat"><span class="stat__num">5&nbsp;年</span><span class="stat__label">距上张个人专辑</span></div>
+    </div>
+    <blockquote class="pullquote">
+      <p>「Tycoon 是老板的意思。这个词来自日语的『大君』——伟大的主上。在你的手艺里做到最好，就是这个意思。」</p>
+      <cite>— Ty Dolla $ign 谈专辑名</cite>
+    </blockquote>
+    <p class="prose">
+      听感上，《TYCOON》像一次全景回放：放克的底、教堂的和声、俱乐部的动能、以及《HARDER》里毫不掩饰的电子基因——四根弦一根不少。四十岁的 Ty 不再需要证明自己能让别人的歌更好听，这张专辑只回答一个问题：当他不给任何人帮腔的时候，他自己听起来是什么样。
+    </p>
+  </div>
+</section>
+
+<!-- IX. OUTRO -->
+<section class="outro" id="outro">
+  <div class="outro__inner">
+    <p class="outro__text">
+      写 Mac Miller 的时候，我写的是一个把自己唱进水里的人。写 Ty Dolla $ign，写的几乎是相反的物种：一个永远踩在律动上、永远在场、永远「好用」的人——好用到人们差点忘了问他自己是谁。可是把他的十五年铺开看：为哥哥做的专辑、给整个行业当外援的十年、四十岁才第一次真正回到自己名下的《TYCOON》——
+    </p>
+    <p class="outro__quote">这个最擅长站在「feat.」后面的人，其实一直在唱同一件事：把身边的人抬起来。</p>
+    <p class="outro__text">
+      如果这一页让你想去把《Free TC》从头听一遍——记得开到《Miracle/Wherever》别跳过，电话线里那把声音，就是这整页文字的起点。
+    </p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="foot">
+  <div class="foot__col">
+    <h5>关于这页</h5>
+    <p>沿用本站音乐专题页的排版语言，配色换成了洛杉矶的黄昏——靛紫的夜从琥珀色的地平线上压下来。这是一份非商业的乐迷介绍页，仅作欣赏与评论用途；如有不妥，告诉我，立刻撤下。</p>
+  </div>
+  <div class="foot__col">
+    <h5>同系列</h5>
+    <ul>
+      <li><a href="../mac-miller/">致 Mac Miller 的一封情书 ↗</a></li>
+      <li><a href="../swimming/">Swimming 全专详细解析 ↗</a></li>
+      <li><a href="/Kairos_blog/blog/ty-dolla-sign-profile/">回到博客文章 ↗</a></li>
+    </ul>
+  </div>
+  <div class="foot__col">
+    <h5>入门三步</h5>
+    <p>先听《Or Nah》知道他为什么红；再听《Free TC》知道他是谁；最后听《TYCOON》知道他现在在哪。</p>
+  </div>
+  <div class="foot__col foot__col--mark">
+    <span class="foot__bigmark">TY$.</span>
+    <span class="foot__years">since 1985</span>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

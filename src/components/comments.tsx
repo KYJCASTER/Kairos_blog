@@ -39,6 +39,18 @@ function CommentsInner() {
   const [mounted, setMounted] = useState(false)
   const { resolvedTheme } = useTheme()
 
+  // Warm up the giscus origin as soon as the component exists — the DNS +
+  // TLS handshake happens during idle reading time, so when the reader
+  // scrolls into range the iframe only pays for the request itself.
+  useEffect(() => {
+    if (document.querySelector(`link[rel="preconnect"][href="${GISCUS_ORIGIN}"]`)) return
+    const link = document.createElement("link")
+    link.rel = "preconnect"
+    link.href = GISCUS_ORIGIN
+    link.crossOrigin = "anonymous"
+    document.head.appendChild(link)
+  }, [])
+
   // Lazy mount once the container is within ~300px of the viewport.
   useEffect(() => {
     if (mounted) return
@@ -106,7 +118,7 @@ function CommentsInner() {
   return (
     <section
       aria-labelledby="comments-heading"
-      className="max-w-3xl mx-auto mt-20 pt-10 border-t hairline"
+      className="max-w-3xl mx-auto mt-20 pt-10 border-t hairline print:hidden"
     >
       <h2
         id="comments-heading"

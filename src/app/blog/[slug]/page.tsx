@@ -20,6 +20,7 @@ import { SeriesBanner } from "@/components/series-banner"
 import { PointerParallax } from "@/components/pointer-parallax"
 import { Reveal } from "@/components/reveal"
 import { site, resolveImage, rssAlternates } from "@/lib/site"
+import { articleThemeFor } from "@/lib/article-theme"
 
 interface PageProps {
   params: Promise<{ slug: string }>
@@ -83,8 +84,14 @@ export default async function PostPage({ params }: PageProps) {
   const allPosts = getPublishedPosts()
   const folio = allPosts.length - allPosts.findIndex((p) => p.slug === post.slug)
 
+  // Reading theme, resolved from tags/series. `display: contents` keeps the
+  // wrapper out of layout while letting every descendant — including the
+  // fixed-position progress bar and percent chip — inherit the theme's
+  // custom-property overrides from globals.css.
+  const theme = articleThemeFor(post)
+
   return (
-    <>
+    <div className="contents" data-theme={theme}>
       <ReadingProgress targetSelector="#article-body" />
       <ReadingPercent targetSelector="#article-body" />
       <CodeCopyButtons />
@@ -93,9 +100,9 @@ export default async function PostPage({ params }: PageProps) {
       <ArticleJsonLd post={post} wordCount={stats.totalWords} />
       <BreadcrumbJsonLd post={post} />
 
-      <article className="pt-28 pb-20 px-5 sm:px-6">
+      <article className="pt-28 pb-20 px-5 sm:px-6 print:pt-4">
         {/* Back link */}
-        <div className="max-w-3xl mx-auto mb-10">
+        <div className="max-w-3xl mx-auto mb-10 print:hidden">
           <Link
             href="/blog"
             className="inline-flex items-center gap-1.5 text-sm text-muted hover:text-primary transition-colors group"
@@ -117,7 +124,7 @@ export default async function PostPage({ params }: PageProps) {
         {/* Header */}
         <header className="max-w-5xl mx-auto mb-14">
           <div className="grid lg:grid-cols-[minmax(0,1fr)_320px] gap-8 lg:gap-12 items-center">
-            <div className="text-center lg:text-left">
+            <div className="text-center lg:text-left article-enter">
               <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-muted-light mb-5">
                 <span className="text-primary/70">№ {toRoman(folio)}</span>
                 <span className="mx-3 text-border-strong">/</span>
@@ -150,7 +157,7 @@ export default async function PostPage({ params }: PageProps) {
 
               {post.tags.length > 0 && (
                 <>
-                  <span aria-hidden className="block w-10 h-px bg-border-strong/50 mx-auto lg:mx-0 mt-8 mb-5" />
+                  <span aria-hidden className="theme-rule mx-auto lg:mx-0 mt-8 mb-5" />
                   <div className="flex flex-wrap justify-center lg:justify-start gap-2">
                     {post.tags.map((tag) => (
                       <Link
@@ -166,7 +173,10 @@ export default async function PostPage({ params }: PageProps) {
               )}
             </div>
 
-            <div className="cover-frame group relative hidden sm:block max-w-sm mx-auto lg:mx-0 w-full aspect-[4/5] overflow-hidden sheen">
+            <div
+              className="cover-frame group relative hidden sm:block print:hidden max-w-sm mx-auto lg:mx-0 w-full aspect-[4/5] overflow-hidden sheen animate-fade-in-up"
+              style={{ animationDelay: "0.22s" }}
+            >
               <PointerParallax className="absolute inset-0" strength={6}>
                 <CoverPanel post={post} monogramSize="xl" />
               </PointerParallax>
@@ -194,7 +204,7 @@ export default async function PostPage({ params }: PageProps) {
         {related.length > 0 && (
           <section
             aria-labelledby="related-heading"
-            className="max-w-3xl mx-auto mt-20 pt-10 border-t hairline"
+            className="max-w-3xl mx-auto mt-20 pt-10 border-t hairline print:hidden"
           >
             <h2
               id="related-heading"
@@ -226,7 +236,7 @@ export default async function PostPage({ params }: PageProps) {
         {(prev || next) && (
           <nav
             aria-label="文章导航"
-            className="max-w-3xl mx-auto mt-20 pt-10 border-t hairline grid sm:grid-cols-2 gap-4"
+            className="max-w-3xl mx-auto mt-20 pt-10 border-t hairline grid sm:grid-cols-2 gap-4 print:hidden"
           >
             {prev ? (
               <Reveal delay={0}>
@@ -267,6 +277,6 @@ export default async function PostPage({ params }: PageProps) {
 
         <Comments />
       </article>
-    </>
+    </div>
   )
 }

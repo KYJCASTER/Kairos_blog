@@ -5,7 +5,7 @@ import { GitHubIcon, RssIcon } from "./icons"
 export function Footer() {
   const year = new Date().getFullYear()
   return (
-    <footer className="mt-16 sm:mt-24 border-t hairline">
+    <footer className="mt-16 sm:mt-24 border-t hairline print:hidden">
       <div className="max-w-5xl mx-auto px-5 sm:px-6 py-12">
         {/* Centred bookplate-style colophon */}
         <div className="flex flex-col items-center text-center gap-4">

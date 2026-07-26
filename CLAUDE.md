@@ -164,6 +164,17 @@ are filled in, so a fresh fork never shows a broken iframe.
 - The old comic/pop-art primitives (`src/components/ui/comic-*.tsx`) and the old
   `admin/` + `login/` routes were removed. Public pages share the warm-organic
   tokens in `globals.css`; the `font-comic` class is gone.
+- **Per-topic reading themes**: `src/lib/article-theme.ts` maps tags/series to
+  one of five themes (`engineering` / `security` / `market` / `music` /
+  `essay`); the article page wraps everything in a `display: contents` div with
+  `data-theme`, and globals.css swaps the accent custom properties (plus drop
+  cap, hr glyph, the `.theme-rule` header ornament) under that attribute. The
+  first tag wins, so tag order in frontmatter is meaningful. `essay` is the
+  default and has no CSS block.
+- Motion: shared easing tokens (`--ease-soft/out/back`) drive everything.
+  Scroll-linked flourishes use CSS `animation-timeline: view()` behind
+  `@supports` + `prefers-reduced-motion` gates — never JS observers — and must
+  degrade to the fully-drawn static state.
 - `src/lib/utils.ts` exports `cn(...)` (clsx + tailwind-merge) and
   `formatDate(...)`. Use `cn` for conditional class composition.
 

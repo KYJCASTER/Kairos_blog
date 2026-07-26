@@ -242,7 +242,7 @@ export function TableOfContents({ headings, placement = "desktop" }: TableOfCont
 
   if (placement === "mobile") {
     return (
-      <details className="lg:hidden mb-8 rounded-xl border hairline bg-card/40 px-5 py-3 group">
+      <details className="lg:hidden print:hidden mb-8 rounded-xl border hairline bg-card/40 px-5 py-3 group">
         <summary className="cursor-pointer flex items-center justify-between font-mono text-[11px] uppercase tracking-[0.2em] text-muted">
           <span>本页目录 · {chapters.length}</span>
           <span aria-hidden className="text-muted-light transition-transform duration-300 group-open:rotate-180">
@@ -265,7 +265,7 @@ export function TableOfContents({ headings, placement = "desktop" }: TableOfCont
     <nav
       aria-label="目录"
       className={cn(
-        "hidden lg:block sticky top-28 pr-2"
+        "hidden lg:block print:hidden sticky top-28 pr-2"
       )}
     >
       <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted-light mb-3 flex items-center justify-between">
